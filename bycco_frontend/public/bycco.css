@@ -1,0 +1,44 @@
+.markdowncontent ul,
+.markdowncontent ol {
+  display: block;
+  list-style: disc outside none;
+  margin: 1em 0;
+  padding: 0 0 0 40px;
+}
+
+.markdowncontent ol {
+  list-style-type: decimal;
+}
+
+.markdowncontent li {
+  display: list-item;
+}
+
+.markdowncontent ul ul,
+.markdowncontent ol ul {
+  list-style-type: circle;
+  margin-left: 15px;
+}
+
+.markdowncontent ol ol,
+.markdowncontent ul ol {
+  list-style-type: lower-latin;
+  margin-left: 15px;
+}
+
+.makrdowncontent td,
+.makrdowncontent th {
+  padding: 8px;
+  border: 1px solid #ddd;
+}
+
+.markdowncontent table {
+  border-collapse: collapse;
+}
+
+.markdowncontent ul,
+.markdowncontent ol,
+.markdowncontent h2,
+.markdowncontent h3 {
+  margin-bottom: 0.5em;
+}
