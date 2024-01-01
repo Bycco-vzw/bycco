@@ -1,0 +1,28 @@
+# dev tools
+.idea
+.vscode
+.directory
+.code-workspace
+.eslintcache
+.env.*
+.env
+
+# python
+*.pyc
+.mypy_cache
+.env
+.DS_Store
+*.mo
+
+# javascript
+.output
+.data
+.nuxt
+.nitro
+.cache
+dist
+*.css.map
+node_modules
+yarn-error.log
+yarn.lock
+

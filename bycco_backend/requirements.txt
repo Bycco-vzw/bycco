@@ -1,0 +1,4 @@
+fastapi==0.104.1
+libs/reddevil-3.3.0-py3-none-any.whl
+toml==0.10.2
+gunicorn==21.2.0

@@ -21,25 +21,19 @@ export default defineNuxtConfig({
   experimental: {
     payloadExtraction: false,
   },
-  i18n: {
-    defaultLocale: "nl",
-    lazy: true,
-    locales: [
-      { code: "nl", file: "nl.js" },
-      { code: "fr", file: "fr.js" },
-      { code: "de", file: "de.js" },
-      { code: "en", file: "en.js" },
-    ],
-    langDir: "lang/",  
-    strategy: "prefix",
-    vueI18n: './i18n.config.ts',
-  },    
-  modules: ['@nuxtjs/i18n', '@pinia/nuxt'],
+  modules: [
+    '@pinia/nuxt',
+    async (options, nuxt) => {
+      nuxt.hooks.hook('vite:extendConfig',
+        config => config.plugins.push(vuetify())
+      )
+    },
+  ],
   nitro: {
     prerender: {
       crawlLinks: false,
       failOnError: false,
-    },
+    }
   },
   runtimeConfig: {
     public: {

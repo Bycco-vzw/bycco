@@ -3,24 +3,28 @@ import { ref } from 'vue'
 // import TheSidebar from '@/components/TheSidebar.vue'
 // import TheCarousel from '@/components/TheCarousel.vue'
 // import TheFooter from '@/components/TheFooter.vue'
-import TheTopbar from '@/components/TheTopbar.vue'
 const drawer = ref(false)
 </script>
 
 
 <template>
-  <v-app> 
-    <!-- <v-navigation-drawer v-cloak v-model="drawer" app class="bg-blue-grey-darken-1 text white">
+  <v-app>
+    <v-navigation-drawer v-cloak v-model="drawer" app class="bg-blue-grey-darken-1 text white">
       <TheSidebar />
-    </v-navigation-drawer> -->
-    <TheTopbar />
+    </v-navigation-drawer>
+    <v-app-bar color="blue-grey-darken-1">
+      <v-app-bar-nav-icon @click="drawer = !drawer" />
+      <v-app-bar-title>
+        Bycco
+      </v-app-bar-title>
+    </v-app-bar>
     <v-main>
       <slot />
-      <!-- <TheCarousel />>  -->
       <hr />
+      <!-- <TheCarousel />>  -->
     </v-main>
-    <v-footer>The Footer</v-footer>
-    <!-- <TheFooter />        -->
+
+    <!-- <TheFooter /> -->
   </v-app>
 </template>
   
@@ -29,19 +33,24 @@ a {
   text-decoration: none;
   color: black;
 }
-a.copyright { 
+
+a.copyright {
   color: white;
 }
+
 a:link,
 a:hover {
   text-decoration: none;
 }
+
 a:hover {
   font-weight: 700;
 }
+
 footer div {
   margin: auto;
 }
+
 .footer2 {
   margin-bottom: 50px;
 }

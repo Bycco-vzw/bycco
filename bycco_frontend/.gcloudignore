@@ -1,0 +1,27 @@
+# This file specifies files that are *not* uploaded to Google Cloud
+# using gcloud
+
+.gcloudignore
+.git
+.gitignore
+
+# Python pycache:
+__pycache__/
+
+# vue application
+/.nuxt
+/.output
+/components
+/lang
+/layouts
+/node_modules
+/pages
+/plugins
+/public
+/server
+app.vue
+nuxt.config.ts
+package.json
+README.md
+tsconfig.json
+yarn.lock

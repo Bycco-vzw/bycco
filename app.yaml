@@ -1,0 +1,19 @@
+runtime: python311
+
+handlers:
+
+  - url: /(.*\..+)$
+    static_files: bycco_frontend/.output/public/\1
+    upload: bycco_frontend/.output/public/(.*\..+)$
+
+  - url: /
+    static_files: bycco_frontend/.output/public/index.html
+    upload: bycco_frontend/.output/public/index.html
+
+  - url: /([^\.]*)$
+    static_files: bycco_frontend/.output/public/\1/index.html
+    upload: bycco_frontend/.output/public/([^\.]*)/index.html
+
+  - url: /.*
+    static_files: bycco_frontend/.output/public/index.html
+    upload: bycco_frontend/.output/public/index.html
