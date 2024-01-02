@@ -50,3 +50,5 @@ app.add_middleware(
 for route in app.routes:
     if isinstance(route, APIRoute):
         route.operation_id = route.name[4:]
+
+import  bycco.tst_endpoints
