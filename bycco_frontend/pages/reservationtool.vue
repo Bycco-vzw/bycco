@@ -7,9 +7,10 @@ import { trndates } from '@/util/constants'
 const step = ref(1)
 const refintro = ref(null)
 const refresponsible = ref(null)
+const refguests = ref(null)
 
 // data model
-const lodging = ref({})
+const lodging = ref({ guestlist: [] })
 const too_early = computed(() => {
   return new Date() < trndates.lodging_start
 })
@@ -26,6 +27,9 @@ function changeStep(s) {
       break
     case 2:
       refresponsible.value.setup(lodging.value)
+      break
+    case 3:
+      refguests.value.setup(lodging.value)
       break
   }
 }
@@ -46,61 +50,70 @@ function updateLodging(l) {
       {{ t('Reservation for lodging not started yet') }}
     </div>
     <div v-if="!too_early">
-      <v-stepper v-model="step">
-        <v-stepper-header>
-          <v-stepper-item title="Intro" :value="1" />
-        </v-stepper-header>
-        <v-stepper-window direction="vertical" v-show="step == 1">
-          <v-stepper-window-item :value="1">
-            <Lodging-Intro ref="refintro" @change-step="changeStep" />
-          </v-stepper-window-item>
-        </v-stepper-window>
-        <v-stepper-header>
-          <v-stepper-item :title="t('Responsible of the reservation')" :value="2" />
-        </v-stepper-header>
-        <v-stepper-window direction="vertical" v-show="step == 2">
-          <v-stepper-window-item :value="2">
-            <Lodging-Responsible ref="refresponsible" @change-step="changeStep" />
-          </v-stepper-window-item>
-        </v-stepper-window>
-
-
-
-        <!-- <v-stepper-step :complete="step > 2" step="2">
-            {{ $t('Step') }} 2
-          </v-stepper-step>
-          <v-stepper-content step="2">
-            <Lodging-Responsible />
-          </v-stepper-content>
-
-          <v-stepper-step :complete="step > 3" step="2">
-            {{ $t('Step') }} 3
-          </v-stepper-step>
-          <v-stepper-content step="3">
-            <Lodging-Guests />
-          </v-stepper-content>
-
-          <v-stepper-step :complete="step > 4" step="4">
-            {{ $t('Step') }} 4
-          </v-stepper-step>
-          <v-stepper-content step="4">
-            <Lodging-Accomodation />
-          </v-stepper-content>
-
-          <v-stepper-step :complete="step > 5" step="5">
-            {{ $t('Step') }} 5
-          </v-stepper-step>
-          <v-stepper-content step="5">
-            <Lodging-Meals />
-          </v-stepper-content>
-
-          <v-stepper-step :complete="confirmed" step="6">
-            {{ $t('Step') }} 6
-          </v-stepper-step>
-          <v-stepper-content step="6">
-            <Lodging-Confirmation />
-          </v-stepper-content> -->
-      </v-stepper>
+      <v-card class="my-2">
+        <v-card-title class="text-h4 py-2 mb-2 bottomline">
+          <v-chip>1</v-chip>
+          Intro
+        </v-card-title>
+        <v-card-text v-show="step == 1">
+          <Lodging-Intro ref="refintro" @change-step="changeStep" />
+        </v-card-text>
+      </v-card>
+      <v-card class="my-2">
+        <v-card-title class="text-h4 py-2 mb-2 bottomline">
+          <v-chip>2</v-chip>
+          {{ t('Responsible of the reservation') }}
+        </v-card-title>
+        <v-card-text v-show="step == 2">
+          <Lodging-Responsible ref="refresponsible" @change-step="changeStep"
+            @update-lodging="updateLodging" />
+        </v-card-text>
+      </v-card>
+      <v-card class="my-2">
+        <v-card-title class="text-h4 py-2 mb-2 bottomline">
+          <v-chip>3</v-chip>
+          {{ t('Guest list') }}
+        </v-card-title>
+        <v-card-text v-show="step == 3">
+          <Lodging-Guests ref="refguests" @change-step="changeStep" @update-lodging="updateLodging" />
+        </v-card-text>
+      </v-card>
+      <!-- <v-card>
+        <v-card-title>
+          <v-chip>4</v-chip>
+          {{ t('Accodomdation') }}
+        </v-card-title>
+        <v-card-text v-show="step == 4">
+          <Lodging-Accomodation ref="refaccomodation" @change-step="changeStep"
+            @update-lodging="updateLodging" />
+        </v-card-text>
+      </v-card> -->
+      <!-- <v-card>
+        <v-card-title>
+          <v-chip>5</v-chip>
+          {{ t('Meals') }}
+        </v-card-title>
+        <v-card-text v-show="step == 5">
+          <Lodging-Accomodation ref="refmeals" @change-step="changeStep"
+            @update-lodging="updateLodging" />
+        </v-card-text>
+      </v-card> -->
+      <!-- <v-card>
+        <v-card-title>
+          <v-chip>6</v-chip>
+          {{ t('Confirmation') }}
+        </v-card-title>
+        <v-card-text v-show="step == 4">
+          <Lodging-Confirmation ref="refconfirmation" @change-step="changeStep"
+            @update-lodging="updateLodging" />
+        </v-card-text>
+      </v-card> -->
     </div>
   </v-container>
 </template>
+
+<style scoped>
+.bottomline {
+  border-bottom: 1px solid #aaa;
+}
+</style>

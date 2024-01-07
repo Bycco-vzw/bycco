@@ -1,67 +1,74 @@
+<script setup>
+import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { v_required, v_length2 } from '@/composables/validators'
+
+// i18n
+const { t } = useI18n()
+const ts = {
+  intro: 'Select which accomodation you want',
+  extra: 'Normally the reservation is for 6 nights, from 7-Apr until 13-Apr.  You can optionally add 1 night before and/or after.',
+  deviation: 'Specify any special requirements in the remarks field.'
+}
+
+function next() {
+  updateLodging()
+  emit('changeStep', 5)
+}
+
+function prev() {
+  updateLodging()
+  emit('changeStep', 3)
+}
+
+function setup(l) {
+  console.log('setup accomodation', l)
+}
+
+</script>
+
 <template>
   <div>
-    <h2>{{ $t("Accomodation") }}</h2>
+    <h2>{{ t("Accomodation") }}</h2>
     <v-form v-model="formAccomodation">
       <div class="mt-2 mb-2">
-        {{ $t(t.intro) }}
+        {{ t(ts.intro) }}
         <v-radio-group :value="lodging" required :rules="[lodging_validator]" @change="updateLodging">
-          <v-radio
-            v-for="rt in roomtypes"
-            :key="rt"
-            :label="i18n[rt][$i18n.locale]"
-            :value="rt"
-          />
+          <v-radio v-for="rt in roomtypes" :key="rt" :label="i18n[rt][$i18n.locale]" :value="rt" />
         </v-radio-group>
       </div>
       <div class="mt-2 mb-2">
-        {{ $t(t.extra) }}
-        <v-checkbox
-          dense
-          hide-details
-          :value="daybefore"
-          :label="$t('Arrival date') + ': ' + prevday"
-          @change="updateDaybefore"
-        />
-        <v-checkbox
-          dense
-          hide-details
-          :value="dayafter"
-          :label="$t('Departure date') + ': ' + nextday"
-          @change="updateDayafter"
-        />
+        {{ t(ts.extra) }}
+        <v-checkbox dense hide-details :value="daybefore" :label="t('Arrival date') + ': ' + prevday"
+          @change="updateDaybefore" />
+        <v-checkbox dense hide-details :value="dayafter" :label="t('Departure date') + ': ' + nextday"
+          @change="updateDayafter" />
       </div>
       <div class="mt-2 mb-3">
-        {{ $t(t.deviation) }}
+        {{ t(ts.deviation) }}
         <br>
-        <v-textarea
-          :value="remarks"
-          :label="$t('Remarks')"
-          auto-grow
-          @input="updateRemarks($event)"
-        />
+        <v-textarea :value="remarks" :label="t('Remarks')" auto-grow @input="updateRemarks($event)" />
       </div>
       <div class="mt-2">
+        <v-btn color="primary" @click="prev" class="mr-2">
+          {{ t("Back") }}
+        </v-btn>
         <v-btn color="primary" :disabled="!formAccomodation" @click="next">
-          {{ $t("Continue") }}
+          {{ t("Continue") }}
         </v-btn>
-        <v-btn color="primary" @click="prev">
-          {{ $t("Back") }}
-        </v-btn>
+
       </div>
     </v-form>
   </div>
 </template>
 
-<script>
+<!-- <script>
 
-import { mapState } from 'vuex'
-
-const step = 4
 
 export default {
   name: 'LodgingAccomodation',
 
-  data () {
+  data() {
     return {
       formAccomodation: false,
       roomtypes: {},
@@ -75,7 +82,7 @@ export default {
     }
   },
 
-  async fetch () {
+  async fetch() {
     const common = await this.$content('common').fetch()
     this.roomtypes = common.roomtypes
     this.period = common.period
@@ -89,42 +96,42 @@ export default {
       daybefore: state => state.lodging.daybefore,
       remarks: state => state.lodging.remarks
     }),
-    prevday () {
+    prevday() {
       const s = new Date(this.period.startdate)
       return (new Date(s.valueOf() - 86400000)).toLocaleDateString(this.$i18n.locale, { dateStyle: 'medium' })
     },
-    nextday () {
+    nextday() {
       const e = new Date(this.period.enddate)
       return (new Date(e.valueOf() + 86400000)).toLocaleDateString(this.$i18n.locale, { dateStyle: 'medium' })
     }
   },
 
-  mounted () {
+  mounted() {
     console.log('roomtypes', this.roomtypes)
   },
 
   methods: {
-    lodging_validator (v) {
-      return !!v || this.$t('Lodging must be chosen')
+    lodging_validator(v) {
+      return !!v || this.t('Lodging must be chosen')
     },
-    next () {
+    next() {
       this.$store.commit('lodging/updateStep', step + 1)
     },
-    prev () {
+    prev() {
       this.$store.commit('lodging/updateStep', step - 1)
     },
-    updateLodging (e) {
+    updateLodging(e) {
       this.$store.commit('lodging/updateLodging', e)
     },
-    updateDaybefore () {
+    updateDaybefore() {
       this.$store.commit('lodging/updateDaybefore')
     },
-    updateDayafter () {
+    updateDayafter() {
       this.$store.commit('lodging/updateDayafter')
     },
-    updateRemarks (e) {
+    updateRemarks(e) {
       this.$store.commit('lodging/updateRemarks', e)
     }
   }
 }
-</script>
+</script> -->
