@@ -19,6 +19,7 @@ const { t } = useI18n()
 
 function changeStep(s) {
   console.log('receive update step', s)
+  step.value = s
   switch (s) {
     case 1:
       refintro.value.setup(lodging.value)
@@ -39,10 +40,10 @@ function updateLodging(l) {
 <template>
   <v-container fluid>
     <h1 class="my-2">
-      {{ $t('Reservation tool') }}
+      {{ t('Reservation tool') }}
     </h1>
     <div v-if="too_early">
-      {{ $t('Reservation for lodging not started yet') }}
+      {{ t('Reservation for lodging not started yet') }}
     </div>
     <div v-if="!too_early">
       <v-stepper v-model="step">
@@ -51,15 +52,15 @@ function updateLodging(l) {
         </v-stepper-header>
         <v-stepper-window direction="vertical" v-show="step == 1">
           <v-stepper-window-item :value="1">
-            <Lodging-Intro ref="refintro" />
+            <Lodging-Intro ref="refintro" @change-step="changeStep" />
           </v-stepper-window-item>
         </v-stepper-window>
         <v-stepper-header>
-          <v-stepper-item title="Responsible" :value="2" />
+          <v-stepper-item :title="t('Responsible of the reservation')" :value="2" />
         </v-stepper-header>
-        <v-stepper-window direction="vertical" v-show="step == 1">
-          <v-stepper-window-item :value="1">
-            <Lodging-Responsible ref="refresponsible" />
+        <v-stepper-window direction="vertical" v-show="step == 2">
+          <v-stepper-window-item :value="2">
+            <Lodging-Responsible ref="refresponsible" @change-step="changeStep" />
           </v-stepper-window-item>
         </v-stepper-window>
 

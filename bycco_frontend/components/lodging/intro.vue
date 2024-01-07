@@ -2,11 +2,14 @@
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-// communication with manager
+
+
+// communication with main tool page
 const emit = defineEmits(['changeStep'])
 defineExpose({ setup })
 
-// translation strings
+// i18n
+const { t } = useI18n()
 const ts = {
   intro: 'In order to make a reservation you need to provide the following elements:',
   req1: 'the details of the adult responsible for the reservation',
@@ -30,23 +33,23 @@ function setup(l) {
 
 <template>
   <div>
-    <h2>{{ $t("Reservation tool") }}</h2>
+    <h2>Intro</h2>
     <div class="mt-2">
-      {{ $t(ts.intro) }}
+      {{ t(ts.intro) }}
       <ul>
-        <li>{{ $t(ts.req1) }}</li>
-        <li>{{ $t(ts.req2) }}</li>
-        <li>{{ $t(ts.req3) }}</li>
-        <li>{{ $t(ts.req4) }}</li>
-        <li>{{ $t(ts.req5) }}</li>
+        <li>{{ t(ts.req1) }}</li>
+        <li>{{ t(ts.req2) }}</li>
+        <li>{{ t(ts.req3) }}</li>
+        <li>{{ t(ts.req4) }}</li>
+        <li>{{ t(ts.req5) }}</li>
       </ul>
     </div>
     <div class="mt-2">
-      {{ $t(ts.multiple) }}
+      {{ t(ts.multiple) }}
     </div>
     <div class="mt-2">
       <v-btn color="primary" @click="next">
-        {{ $t("Continue") }}
+        {{ t("Continue") }}
       </v-btn>
     </div>
   </div>
