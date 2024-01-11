@@ -78,8 +78,8 @@ function updateLodging(l) {
           <Lodging-Guests ref="refguests" @change-step="changeStep" @update-lodging="updateLodging" />
         </v-card-text>
       </v-card>
-      <!-- <v-card>
-        <v-card-title>
+      <v-card class="my-2">
+        <v-card-title class="text-h4 py-2 mb-2 bottomline">
           <v-chip>4</v-chip>
           {{ t('Accodomdation') }}
         </v-card-title>
@@ -87,7 +87,7 @@ function updateLodging(l) {
           <Lodging-Accomodation ref="refaccomodation" @change-step="changeStep"
             @update-lodging="updateLodging" />
         </v-card-text>
-      </v-card> -->
+      </v-card>
       <!-- <v-card>
         <v-card-title>
           <v-chip>5</v-chip>
