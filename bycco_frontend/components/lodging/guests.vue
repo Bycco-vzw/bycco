@@ -20,12 +20,9 @@ defineExpose({ setup })
 const guestlist = ref([])
 const remarks = ref("")
 const formvalid = ref(false)
-const menu_birth = ref([])
-const renderGuests = ref(true)
 
 
 // methods
-
 
 function deleteGuest(ix) {
   guestlist.value.splice(ix, 1)

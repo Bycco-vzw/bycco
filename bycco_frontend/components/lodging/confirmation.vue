@@ -1,33 +1,70 @@
+<script setup>
+import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+// i18n
+const { t } = useI18n()
+const ts = {
+  overview: 'Overview of the lodging reservation',
+  confirmation: 'Your request for a reservation is confirmed. We will inform you by e-mail about the next steps in the reservation process.',
+  newreservation: 'If you want to make a new reservation, click the button below',
+  noconfirmation: 'Something went wrong during the registration of your reservation.  Check your internet connection. You could try again and/or contact bycco at info@bycco.be .'
+}
+
+// communication with manager
+const emit = defineEmits(['changeStep', 'updateLodging'])
+defineExpose({ setup })
+
+// datamodel
+const lodging = ref({})
+
+
+function prev() {
+  updateLodging()
+  emit('changeStep', 5)
+}
+
+function setup(l) {
+  console.log('setup meals', l)
+  lodging.value = { ...l }
+}
+
+function updateLodging() {
+  emit('updateLodging', lodging.value)
+}
+
+</script>?
+
 <template>
   <div>
-    <h2>{{ $t("Confirmation") }}</h2>
     <div class="mt-2 mb-2">
-      {{ $t(t.overview) }}
+      {{ $t(ts.overview) }}
     </div>
     <h4 class="mt-2">
       Contact details:
     </h4>
     <div>
-      {{ first_name }} {{ last_name }}<br>
-      E-mail: {{ email }}<br>
-      Tel: {{ mobile }}<br>
-      {{ address }}
+      {{ lodging.first_name }} {{ lodging.last_name }}<br>
+      E-mail: {{ lodging.email }}<br>
+      Tel: {{ lodging.mobile }}<br>
+      {{ lodging.address }}
     </div>
     <h4 class="mt-2">
       {{ $t('Guests') }}
     </h4>
-    <div v-for="(g, ix) in guestlist" :key="ix">
+    <div v-for="(g, ix) in lodging.guestlist" :key="ix">
       <span v-if="g.last_name.length">
         {{ ix + 1 }}. {{ g.last_name }} {{ g.first_name }} {{ g.birthdate }}
         {{ g.player ? "player" : "" }}
       </span>
     </div>
-    <div>{{ $t('Accomodation') }}: {{ lodging }}: {{ startdate }} {{ enddate }}</div>
+    <div>{{ $t('Accomodation') }}: {{ lodging.accomodatione }}:
+      {{ startdate }} {{ enddate }}</div>
     <div>
       {{ $t('Meals') }}:
       <span v-show="meals == 'no'">{{ $t('No meals') }}</span>
       <span v-show="meals == 'half'">{{ $t('Half boarding') }}</span>
-      <span v-show="meals == 'full'">{{ $t('Full boarding') }}</span>
+      <!-- <span v-show="meals == 'full'">{{ $t('Full boarding') }}</span> -->
     </div>
     <h4 class="mt-2">
       {{ $t('Remarks') }}
@@ -43,10 +80,10 @@
     </div>
     <div v-if="confirmed && noerror" class="pt-3">
       <v-alert type="success" class="my-4">
-        {{ $t(t.confirmation) }}
+        {{ $t(ts.confirmation) }}
       </v-alert>
       <div class="mt-4">
-        {{ $t(t.newreservation) }}
+        {{ $t(ts.newreservation) }}
       </div>
       <v-btn color="primary" @click="restart">
         {{ $t("New reservation") }}
@@ -56,14 +93,12 @@
       <v-alert type="error">
         {{ $t("Request reservation not confirmed") }}
       </v-alert>
-      <div>{{ $t(t.noconfirmation) }}</div>
+      <div>{{ $t(ts.noconfirmation) }}</div>
     </div>
-    </span>
-  </div>
   </div>
 </template>
 
-<script>
+<!-- <script>
 import { mapState } from 'vuex'
 
 const step = 6
@@ -71,7 +106,7 @@ const step = 6
 export default {
   name: 'LodgingConfirmation',
 
-  data () {
+  data() {
     return {
       confirmed: false,
       noerror: true,
@@ -83,11 +118,6 @@ export default {
         noconfirmation: 'Something went wrong during the registration of your reservation.  Check your internet connection. You could try again and/or contact bycco at info@bycco.be .'
       }
     }
-  },
-
-  async fetch () {
-    const common = await this.$content('common').fetch()
-    this.period = common.period
   },
 
   computed: {
@@ -104,26 +134,26 @@ export default {
       mobile: state => state.lodging.mobile,
       remarks: state => state.lodging.remarks
     }),
-    sdatevalue () {
+    sdatevalue() {
       const d = new Date(this.period.startdate)
       return d.valueOf() - (this.daybefore ? 86400000 : 0)
     },
-    edatevalue () {
+    edatevalue() {
       const d = new Date(this.period.enddate)
       return d.valueOf() + (this.dayafter ? 86400000 : 0)
     },
-    startdate () {
+    startdate() {
       return (new Date(this.sdatevalue)).toLocaleDateString(
         this.$i18n.locale, { dateStyle: 'medium' })
     },
-    enddate () {
+    enddate() {
       return (new Date(this.edatevalue)).toLocaleDateString(
         this.$i18n.locale, { dateStyle: 'medium' })
     }
   },
 
   methods: {
-    confirm () {
+    confirm() {
       console.log('confirm locale:', this.$i18n.locale)
       this.$api.reservation
         .add_reservation({
@@ -150,13 +180,13 @@ export default {
           console.error(data)
         })
     },
-    prev () {
+    prev() {
       this.$store.commit('lodging/updateStep', step - 1)
     },
-    restart () {
+    restart() {
       this.confirmed = false
       this.$store.commit('lodging/restart')
     }
   }
 }
-</script>
+</script> -->

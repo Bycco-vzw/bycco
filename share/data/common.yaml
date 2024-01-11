@@ -4,7 +4,6 @@
 roomtypes:
   - SH
   - DH
-
   - SD
   - AP4
   - AP6
@@ -14,8 +13,8 @@ catering:
   - half
 
 period:
-  startdate: 2023-02-19
-  enddate: 2023-02-25
+  startdate: 2024-04-07
+  enddate: 2024-04-13
 
 i18n:
   ROOM_18:

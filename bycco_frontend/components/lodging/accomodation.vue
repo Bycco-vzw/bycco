@@ -1,15 +1,34 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { parse } from 'yaml'
 import { v_required, v_length2 } from '@/composables/validators'
 
+// api
+const { $backend } = useNuxtApp()
+
 // i18n
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const ts = {
   intro: 'Select which accomodation you want',
   extra: 'Normally the reservation is for 6 nights, from 7-Apr until 13-Apr.  You can optionally add 1 night before and/or after.',
   deviation: 'Specify any special requirements in the remarks field.'
 }
+
+// communication with manager
+const emit = defineEmits(['changeStep', 'updateLodging'])
+defineExpose({ setup })
+
+// datamodel
+const accomodation = ref("")
+const common = ref([])
+const daybefore = ref(false)
+const dayafter = ref(false)
+const formvalid = ref(false)
+const nextday = ref(null)
+const prevday = ref(null)
+const remarks = ref("")
+const roomtypes = ref([])
 
 function next() {
   updateLodging()
@@ -21,117 +40,106 @@ function prev() {
   emit('changeStep', 3)
 }
 
+async function parseYaml(group, name) {
+  try {
+    const yamlcontent = await readBucket(group, name)
+    if (!yamlcontent) {
+      return null
+    }
+    return parse(yamlcontent)
+  }
+  catch (error) {
+    console.error('cannot parse yaml', yamlcontent)
+  }
+}
+
+
+async function processCommon() {
+  common.value = await parseYaml("data", "common.yaml")
+  roomtypes.value = []
+  common.value.roomtypes.forEach((rt) => {
+    roomtypes.value.push({
+      title: common.value.i18n[rt][locale.value],
+      value: rt,
+    })
+  })
+  const sd = new Date(common.value.period.startdate)
+  const ed = new Date(common.value.period.enddate)
+  prevday.value = new Date(sd)
+  prevday.value.setDate(sd.getDate() - 1)
+  nextday.value = new Date(ed)
+  nextday.value.setDate(ed.getDate() + 1)
+  console.log('date', prevday.value, nextday.value)
+}
+
+async function readBucket(group, name) {
+  try {
+    const reply = await $backend('filestore', 'anon_get_file', {
+      group,
+      name,
+    })
+    return reply.data
+  }
+  catch (error) {
+    console.error('failed to fetch file from bucket')
+    return null
+  }
+}
+
+
 function setup(l) {
   console.log('setup accomodation', l)
+  accomodation.value = l.accomodation || '' + ''
+  daybefore.value = !!l.daybefore
+  dayafter.value = !!l.dayafter
+  remarks.value = l.remarks || '' + ''
 }
+
+function updateLodging() {
+  emit('updateLodging', {
+    accomodation: accomodation.value,
+    daybefore: daybefore.value,
+    dayafter: dayafter.value,
+    remarks: remarks.value,
+  })
+}
+
+onMounted(async () => {
+  await processCommon()
+})
 
 </script>
 
 <template>
   <div>
     <h2>{{ t("Accomodation") }}</h2>
-    <v-form v-model="formAccomodation">
+    <v-form v-model="formvalid">
       <div class="mt-2 mb-2">
         {{ t(ts.intro) }}
-        <v-radio-group :value="lodging" required :rules="[lodging_validator]" @change="updateLodging">
-          <v-radio v-for="rt in roomtypes" :key="rt" :label="i18n[rt][$i18n.locale]" :value="rt" />
+        <v-radio-group v-model="accomodation" :rules="[v_required]">
+          <v-radio v-for="rt in roomtypes" :key="rt" :label="rt.title" :value="rt.value" />
         </v-radio-group>
       </div>
       <div class="mt-2 mb-2">
         {{ t(ts.extra) }}
-        <v-checkbox dense hide-details :value="daybefore" :label="t('Arrival date') + ': ' + prevday"
-          @change="updateDaybefore" />
-        <v-checkbox dense hide-details :value="dayafter" :label="t('Departure date') + ': ' + nextday"
-          @change="updateDayafter" />
+        <v-checkbox dense hide-details v-model="daybefore"
+          :label="t('Arrival date') + ': ' + prevday" />
+        <v-checkbox dense hide-details v-model="dayafter"
+          :label="t('Departure date') + ': ' + nextday" />
       </div>
       <div class="mt-2 mb-3">
         {{ t(ts.deviation) }}
         <br>
-        <v-textarea :value="remarks" :label="t('Remarks')" auto-grow @input="updateRemarks($event)" />
+        <v-textarea :value="remarks" :label="t('Remarks')" auto-grow />
       </div>
       <div class="mt-2">
         <v-btn color="primary" @click="prev" class="mr-2">
           {{ t("Back") }}
         </v-btn>
-        <v-btn color="primary" :disabled="!formAccomodation" @click="next">
+        <v-btn color="primary" :disabled="!formvalid" @click="next">
           {{ t("Continue") }}
         </v-btn>
-
       </div>
     </v-form>
   </div>
 </template>
-
-<!-- <script>
-
-
-export default {
-  name: 'LodgingAccomodation',
-
-  data() {
-    return {
-      formAccomodation: false,
-      roomtypes: {},
-      period: {},
-      i18n: {},
-      t: {
-        intro: 'Select which accomodation you want',
-        extra: 'Normally the reservation is for 6 nights, from 19-Feb until 25-Feb.  You can optionally add 1 night before and/or after.',
-        deviation: 'Specify any special requirements in the remarks field.'
-      }
-    }
-  },
-
-  async fetch() {
-    const common = await this.$content('common').fetch()
-    this.roomtypes = common.roomtypes
-    this.period = common.period
-    this.i18n = common.i18n
-  },
-
-  computed: {
-    ...mapState({
-      lodging: state => state.lodging.lodging,
-      dayafter: state => state.lodging.dayafter,
-      daybefore: state => state.lodging.daybefore,
-      remarks: state => state.lodging.remarks
-    }),
-    prevday() {
-      const s = new Date(this.period.startdate)
-      return (new Date(s.valueOf() - 86400000)).toLocaleDateString(this.$i18n.locale, { dateStyle: 'medium' })
-    },
-    nextday() {
-      const e = new Date(this.period.enddate)
-      return (new Date(e.valueOf() + 86400000)).toLocaleDateString(this.$i18n.locale, { dateStyle: 'medium' })
-    }
-  },
-
-  mounted() {
-    console.log('roomtypes', this.roomtypes)
-  },
-
-  methods: {
-    lodging_validator(v) {
-      return !!v || this.t('Lodging must be chosen')
-    },
-    next() {
-      this.$store.commit('lodging/updateStep', step + 1)
-    },
-    prev() {
-      this.$store.commit('lodging/updateStep', step - 1)
-    },
-    updateLodging(e) {
-      this.$store.commit('lodging/updateLodging', e)
-    },
-    updateDaybefore() {
-      this.$store.commit('lodging/updateDaybefore')
-    },
-    updateDayafter() {
-      this.$store.commit('lodging/updateDayafter')
-    },
-    updateRemarks(e) {
-      this.$store.commit('lodging/updateRemarks', e)
-    }
-  }
-}
-</script> -->

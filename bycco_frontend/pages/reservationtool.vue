@@ -88,8 +88,8 @@ function updateLodging(l) {
             @update-lodging="updateLodging" />
         </v-card-text>
       </v-card>
-      <!-- <v-card>
-        <v-card-title>
+      <v-card class="my-2">
+        <v-card-title class="text-h4 py-2 mb-2 bottomline">
           <v-chip>5</v-chip>
           {{ t('Meals') }}
         </v-card-title>
@@ -97,17 +97,17 @@ function updateLodging(l) {
           <Lodging-Accomodation ref="refmeals" @change-step="changeStep"
             @update-lodging="updateLodging" />
         </v-card-text>
-      </v-card> -->
-      <!-- <v-card>
-        <v-card-title>
+      </v-card>
+      <v-card class="my-2">
+        <v-card-title class="text-h4 py-2 mb-2 bottomline">
           <v-chip>6</v-chip>
           {{ t('Confirmation') }}
         </v-card-title>
-        <v-card-text v-show="step == 4">
+        <v-card-text v-show="step == 6">
           <Lodging-Confirmation ref="refconfirmation" @change-step="changeStep"
             @update-lodging="updateLodging" />
         </v-card-text>
-      </v-card> -->
+      </v-card>
     </div>
   </v-container>
 </template>
