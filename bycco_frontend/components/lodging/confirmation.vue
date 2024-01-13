@@ -17,6 +17,8 @@ defineExpose({ setup })
 
 // datamodel
 const lodging = ref({})
+const confirmed = ref(false)
+const noerror = ref(false)
 
 
 function prev() {

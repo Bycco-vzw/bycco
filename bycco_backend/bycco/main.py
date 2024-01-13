@@ -8,7 +8,6 @@ from fastapi import FastAPI
 from fastapi.routing import APIRoute
 from fastapi.middleware.cors import CORSMiddleware
 from reddevil.core import register_app, get_settings
-from reddevil.filestore import api_filestore
 import mimetypes
 
 
@@ -32,7 +31,10 @@ from bycco.settings import ls
 logger.info(ls)
 
 # import api endpoints
+from reddevil.filestore import api_filestore
+from bycco.lodging import api_lodging
 app.include_router(api_filestore.router)
+app.include_router(api_lodging.router)
 logger.info(f"Api layer loaded")
 
 # add CORS middleware for dev only
@@ -44,6 +46,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# fetch the common 
 
 #    Simplify operation IDs so that generated API clients have simpler function
 #    names.

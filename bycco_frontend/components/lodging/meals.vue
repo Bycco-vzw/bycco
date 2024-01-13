@@ -65,7 +65,7 @@ function updateLodging() {
         <v-textarea v-model="remarks" :label="$t('Remarks')" auto-grow />
       </div>
       <div class="mt-2">
-        <v-btn color="primary" @click="prev">
+        <v-btn color="primary" @click="prev" class="mr-2">
           {{ $t("Back") }}
         </v-btn>
         <v-btn color="primary" :disabled="!formvalid" @click="next">

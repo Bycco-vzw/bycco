@@ -1,0 +1,19 @@
+th, td {
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+h1:after {
+    content: ' ';
+    display: block;
+    border: 1px solid #aaa;
+    margin-bottom: 1em;
+}
+
+ul, ol, h2, h3 {
+    margin-bottom: 0.5em;
+}

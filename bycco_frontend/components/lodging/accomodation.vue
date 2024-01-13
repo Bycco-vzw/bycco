@@ -89,10 +89,10 @@ async function readBucket(group, name) {
 
 function setup(l) {
   console.log('setup accomodation', l)
-  accomodation.value = l.accomodation || '' + ''
+  accomodation.value = l.accomodation
   daybefore.value = !!l.daybefore
   dayafter.value = !!l.dayafter
-  remarks.value = l.remarks || '' + ''
+  remarks.value = l.remarks
 }
 
 function updateLodging() {
@@ -104,9 +104,10 @@ function updateLodging() {
   })
 }
 
-onMounted(async () => {
-  await processCommon()
+onMounted(() => {
+  processCommon()
 })
+
 
 </script>
 
@@ -130,7 +131,7 @@ onMounted(async () => {
       <div class="mt-2 mb-3">
         {{ t(ts.deviation) }}
         <br>
-        <v-textarea :value="remarks" :label="t('Remarks')" auto-grow />
+        <v-textarea v-model="remarks" :label="t('Remarks')" auto-grow />
       </div>
       <div class="mt-2">
         <v-btn color="primary" @click="prev" class="mr-2">

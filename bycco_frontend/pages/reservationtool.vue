@@ -31,6 +31,15 @@ function changeStep(s) {
     case 3:
       refguests.value.setup(lodging.value)
       break
+    case 4:
+      refaccomodation.value.setup(lodging.value)
+      break
+    case 5:
+      refmeals.value.setup(lodging.value)
+      break
+    case 6:
+      refconfirmation.value.setup(lodging.value)
+      break
   }
 }
 
@@ -51,7 +60,7 @@ function updateLodging(l) {
     </div>
     <div v-if="!too_early">
       <v-card class="my-2">
-        <v-card-title class="text-h4 py-2 mb-2 bottomline">
+        <v-card-title class="text-h5 py-2 mb-2 bottomline">
           <v-chip>1</v-chip>
           Intro
         </v-card-title>
@@ -60,7 +69,7 @@ function updateLodging(l) {
         </v-card-text>
       </v-card>
       <v-card class="my-2">
-        <v-card-title class="text-h4 py-2 mb-2 bottomline">
+        <v-card-title class="text-h5 py-2 mb-2 bottomline">
           <v-chip>2</v-chip>
           {{ t('Responsible of the reservation') }}
         </v-card-title>
@@ -70,7 +79,7 @@ function updateLodging(l) {
         </v-card-text>
       </v-card>
       <v-card class="my-2">
-        <v-card-title class="text-h4 py-2 mb-2 bottomline">
+        <v-card-title class="text-h5 py-2 mb-2 bottomline">
           <v-chip>3</v-chip>
           {{ t('Guest list') }}
         </v-card-title>
@@ -79,27 +88,26 @@ function updateLodging(l) {
         </v-card-text>
       </v-card>
       <v-card class="my-2">
-        <v-card-title class="text-h4 py-2 mb-2 bottomline">
+        <v-card-title class="text-h5 py-2 mb-2 bottomline">
           <v-chip>4</v-chip>
-          {{ t('Accodomdation') }}
-        </v-card-title>
-        <v-card-text v-show="step == 4">
-          <Lodging-Accomodation ref="refaccomodation" @change-step="changeStep"
-            @update-lodging="updateLodging" />
-        </v-card-text>
-      </v-card>
-      <v-card class="my-2">
-        <v-card-title class="text-h4 py-2 mb-2 bottomline">
-          <v-chip>5</v-chip>
           {{ t('Meals') }}
         </v-card-title>
-        <v-card-text v-show="step == 5">
+        <v-card-text v-show="step == 4">
           <Lodging-Accomodation ref="refmeals" @change-step="changeStep"
             @update-lodging="updateLodging" />
         </v-card-text>
       </v-card>
       <v-card class="my-2">
-        <v-card-title class="text-h4 py-2 mb-2 bottomline">
+        <v-card-title class="text-h5 py-2 mb-2 bottomline">
+          <v-chip>5</v-chip>
+          {{ t('Meals') }}
+        </v-card-title>
+        <v-card-text v-show="step == 5">
+          <Lodging-Meals ref="refmeals" @change-step="changeStep" @update-lodging="updateLodging" />
+        </v-card-text>
+      </v-card>
+      <v-card class="my-2">
+        <v-card-title class="text-h5 py-2 mb-2 bottomline">
           <v-chip>6</v-chip>
           {{ t('Confirmation') }}
         </v-card-title>
