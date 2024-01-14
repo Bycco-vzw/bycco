@@ -5,6 +5,7 @@ import logging
 from fastapi import Depends
 from reddevil.core import get_settings
 from bycco.main import app
+from bycco.core.mail import test_mail
 
 
 logger = logging.getLogger(__name__)
@@ -16,3 +17,7 @@ settings = get_settings()
 def hello():
     return "hello world"
 
+@app.get("/api/testmail", include_in_schema=False)
+def hello():
+    test_mail()
+    return "Mail sent"

@@ -11,10 +11,11 @@ COLORLOG = False
 
 EMAIL = {
     "backend": os.environ.get("EMAIL_BACKEND", "GMAIL"),
-    "sender": "noreply@talistro.com",
-    "bcc": "ruben.kbsb@gmail.com",
-    "gmail_file": os.environ.get("GMAIL_FILE", "chessdevil-gmail.json"),
-    "account": "ruben@chessdevil.net",
+    "sender": "ruben.decrop@bycco.be",
+    "bcc_reservation": "ruben.decrop@gmail.com,floreal@bycco.be",
+    "bcc_enrollment": "ruben.decrop@gmail.com,luc.cornet@bycco.be",
+    # "gmail_file": os.environ.get("GMAIL_FILE", "chessdevil-gmail.json"),
+    "account": "ruben.decrop@bycco.be",
 }
 
 
