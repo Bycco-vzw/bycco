@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 // i18n
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const ts = {
   overview: 'Overview of the lodging reservation',
   confirmation: 'Your request for a reservation is confirmed. We will inform you by e-mail about the next steps in the reservation process.',
@@ -11,14 +11,15 @@ const ts = {
   noconfirmation: 'Something went wrong during the registration of your reservation.  Check your internet connection. You could try again and/or contact bycco at info@bycco.be .'
 }
 
-// communication with manager
+// communication
 const emit = defineEmits(['changeStep', 'updateLodging'])
 defineExpose({ setup })
+const { $backend } = useNuxtApp()
 
 // datamodel
 const lodging = ref({})
 const confirmed = ref(false)
-const noerror = ref(false)
+const noerror = ref(true)
 
 
 function prev() {
@@ -26,8 +27,32 @@ function prev() {
   emit('changeStep', 5)
 }
 
+async function postConfirmation() {
+  try {
+    const reply = await $backend('lodging', 'make_reservation', {
+      lodgingIn: {
+        first_name: lodging.value.first_name,
+        last_name: lodging.value.last_name,
+        email: lodging.value.email,
+        mobile: lodging.value.mobile,
+        address: lodging.value.address,
+        guestlist: lodging.value.guestlist,
+        lodging: lodging.value.accomodation,
+        locale: locale.value,
+        checkindate: lodging.value.checkindate,
+        checkoutdate: lodging.value.checkoutdate,
+        meals: lodging.value.meals,
+        remarks: lodging.value.remarks,
+      }
+    })
+  }
+  catch (error) {
+    console.error('Failed', error)
+  }
+}
+
 function setup(l) {
-  console.log('setup meals', l)
+  console.log('setup confirmation', l)
   lodging.value = { ...l }
 }
 
@@ -60,24 +85,26 @@ function updateLodging() {
         {{ g.player ? "player" : "" }}
       </span>
     </div>
-    <div>{{ $t('Accomodation') }}: {{ lodging.accomodatione }}:
-      {{ startdate }} {{ enddate }}</div>
+    <div>{{ $t('Accomodation') }}: {{ lodging.acc_description }}:
+      {{ Intl.DateTimeFormat(locale.value).format(lodging.checkindate) }}
+      {{ Intl.DateTimeFormat(locale.value).format(lodging.checkoutdate) }}
+    </div>
     <div>
       {{ $t('Meals') }}:
-      <span v-show="meals == 'no'">{{ $t('No meals') }}</span>
-      <span v-show="meals == 'half'">{{ $t('Half boarding') }}</span>
+      <span v-show="lodging.meals == 'no'">{{ $t('No meals') }}</span>
+      <span v-show="lodging.meals == 'half'">{{ $t('Half boarding') }}</span>
       <!-- <span v-show="meals == 'full'">{{ $t('Full boarding') }}</span> -->
     </div>
     <h4 class="mt-2">
       {{ $t('Remarks') }}
     </h4>
-    <div>{{ remarks }}</div>
+    <div>{{ lodging.remarks }}</div>
     <div v-if="!confirmed || !noerror" class="mt-2">
-      <v-btn color="primary" @click="confirm">
-        {{ $t("Confirm") }}
-      </v-btn>
-      <v-btn color="primary" @click="prev">
+      <v-btn color="primary" @click="prev" class="mr-2">
         {{ $t("Back") }}
+      </v-btn>
+      <v-btn color="primary" @click="postConfirmation">
+        {{ $t("Confirm") }}
       </v-btn>
     </div>
     <div v-if="confirmed && noerror" class="pt-3">
@@ -100,95 +127,3 @@ function updateLodging() {
   </div>
 </template>
 
-<!-- <script>
-import { mapState } from 'vuex'
-
-const step = 6
-
-export default {
-  name: 'LodgingConfirmation',
-
-  data() {
-    return {
-      confirmed: false,
-      noerror: true,
-      period: {},
-      t: {
-        overview: 'Overview of the lodging reservation',
-        confirmation: 'Your request for a reservation is confirmed. We will inform you by e-mail about the next steps in the reservation process.',
-        newreservation: 'If you want to make a new reservation, click the button below',
-        noconfirmation: 'Something went wrong during the registration of your reservation.  Check your internet connection. You could try again and/or contact bycco at info@bycco.be .'
-      }
-    }
-  },
-
-  computed: {
-    ...mapState({
-      address: state => state.lodging.address,
-      daybefore: state => state.lodging.daybefore,
-      dayafter: state => state.lodging.dayafter,
-      email: state => state.lodging.email,
-      first_name: state => state.lodging.first_name,
-      guestlist: state => state.lodging.guestlist,
-      last_name: state => state.lodging.last_name,
-      lodging: state => state.lodging.lodging,
-      meals: state => state.lodging.meals,
-      mobile: state => state.lodging.mobile,
-      remarks: state => state.lodging.remarks
-    }),
-    sdatevalue() {
-      const d = new Date(this.period.startdate)
-      return d.valueOf() - (this.daybefore ? 86400000 : 0)
-    },
-    edatevalue() {
-      const d = new Date(this.period.enddate)
-      return d.valueOf() + (this.dayafter ? 86400000 : 0)
-    },
-    startdate() {
-      return (new Date(this.sdatevalue)).toLocaleDateString(
-        this.$i18n.locale, { dateStyle: 'medium' })
-    },
-    enddate() {
-      return (new Date(this.edatevalue)).toLocaleDateString(
-        this.$i18n.locale, { dateStyle: 'medium' })
-    }
-  },
-
-  methods: {
-    confirm() {
-      console.log('confirm locale:', this.$i18n.locale)
-      this.$api.reservation
-        .add_reservation({
-          reservationin: {
-            address: this.address,
-            checkindate: (new Date(this.sdatevalue)).toISOString().slice(0, 10),
-            checkoutdate: (new Date(this.edatevalue)).toISOString().slice(0, 10),
-            email: this.email,
-            first_name: this.first_name,
-            guestlist: this.guestlist.slice(0, -1),
-            last_name: this.last_name,
-            locale: this.$i18n.locale,
-            lodging: this.lodging,
-            mobile: this.mobile,
-            meals: this.meals,
-            remarks: this.remarks
-          }
-        })
-        .then(() => {
-          this.confirmed = true
-          this.noerror = true
-        }, (data) => {
-          this.noerror = false
-          console.error(data)
-        })
-    },
-    prev() {
-      this.$store.commit('lodging/updateStep', step - 1)
-    },
-    restart() {
-      this.confirmed = false
-      this.$store.commit('lodging/restart')
-    }
-  }
-}
-</script> -->

@@ -34,8 +34,8 @@ function prev() {
 
 function setup(l) {
   console.log('setup meals', l)
-  meals.value = l.meals || '' + ''
-  remarks.value = l.remarks || '' + ''
+  meals.value = l.meals ? l.meals + '' : 'half'
+  remarks.value = l.remarks ? l.remarks + '' : ''
 }
 
 function updateLodging() {

@@ -8,14 +8,14 @@ from pydantic import BaseModel, Field
 from reddevil.core import DbBase
 
 class Guest(BaseModel):
-    age_category: str | None
-    birthday: str | None
+    age_category: str | None = None
+    birthdate: str | None
     first_name:str | None
     player:bool | None
     last_name:str | None
-    meals:List[str] | None
-    meals_wishes:str | None
-    lodging:str | None
+    meals:List[str] | None = None
+    meals_wishes:str | None = None
+    lodging:str | None = None
 
 
 class Assignment(BaseModel):
@@ -63,8 +63,8 @@ class Lodging(BaseModel):
     """
 
     address:str | None
-    assignments:List[Assignment] | None
-    bycco_remarks:str | None
+    assignments:List[Assignment] | None = None
+    bycco_remarks:str | None = None
     checkindate:str | None
     checkoutdate:str | None
     email:str | None
@@ -75,13 +75,13 @@ class Lodging(BaseModel):
     last_name:str | None
     locale:str | None
     lodging:str | None
-    logging:List[str] | None
+    logging:List[str] | None = None
     meals:str | None
     mobile:str | None
     number:int | None
     organizers:bool | None
-    payment_id:str | None
-    remarks:str | None
+    payment_id:str | None = None
+    remarks:str | None = None
     _version:int | None
     _documenttype:str | None
     creationtime:datetime | None = Field(alias="_creationtime")
@@ -100,9 +100,7 @@ class LodgingIn(BaseModel):
     lodging:str | None
     meals:str | None
     mobile: str
-    organizers:bool | None
-    remarks:str | None = ""
-
+    organizers:bool | None = None
 
 class LodgingList(BaseModel):
     reservations: List[Any]

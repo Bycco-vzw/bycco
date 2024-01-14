@@ -88,8 +88,9 @@ def test_mail():
 
 
 def sendReservationEmail(ldg: Lodging):
+    logger.info(f"sending reservation email {ldg}")
     tmpl = env.get_template(f"mailreservation_{ldg.locale}.md")
-    context = ldg.model_dump()()
+    context = ldg.model_dump()
     # translate
     context["lodging"] = i18n[context["lodging"]][context["locale"]]
     context["meals"] = i18n[context["meals"]][context["locale"]]

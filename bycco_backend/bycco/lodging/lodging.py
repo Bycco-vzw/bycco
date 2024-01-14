@@ -67,23 +67,22 @@ def calcmeals(cid: date, cod: date, meals: str):
 
 async def make_reservation(d: LodgingIn, bt: BackgroundTasks) -> str:
     rd = d.model_dump()
-    rd["checkindate"] = rd.get("checkindate") or startdate.strftime("%Y-%m-%d")
-    rd["checkoutdate"] = rd.get("checkoutdate") or enddate.strftime("%Y-%m-%d")
+    logger.info(f"rd {rd}")
     rd["locale"] = rd.get("locale") or "nl"
     rd["lodging"] = rd.get("lodging") or settings.DEFAULT_LODGING
     rd["meals"] = rd.get("meals") or settings.DEFAULT_MEALS
     gl = []
     try:
-        cid = date.fromisoformat(rd["checkindate"])
-        cod = date.fromisoformat(rd["checkoutdate"])
+        cid = date.fromisoformat(d.checkindate[:10])
+        cod = date.fromisoformat(d.checkoutdate[:10])
     except ValueError:
         raise RdBadRequest(description="Invalid date format")
     for gd in rd["guestlist"]:
         gd["meals"] = calcmeals(cid, cod, rd["meals"])
         try:
-            bdate = date.fromisoformat(gd["birthday"])
+            bdate = date.fromisoformat(gd["birthdate"])
         except ValueError:
-            raise RdBadRequest(description="Invalid date format")
+            raise RdBadRequest(description="Invalid birthdatedate format")
         age_category = "Adult"
         if bdate > m18y:
             age_category = "-18"
@@ -106,12 +105,13 @@ async def make_reservation(d: LodgingIn, bt: BackgroundTasks) -> str:
         raise RdInternalServerError("Cannot add rsv")
     logger.info(f"Reservation {id} registered for {rd['first_name']} {rd['last_name']} ")
     try:
-        rsv = await get_lodging(id)
+        ldg = await get_lodging(id, {"_model": Lodging})
+        logger.info(f"saved lodging {ldg}")
     except:
-        logger.exception("Cannot get rsv")
+        logger.exception("Cannot get lodging")
         raise RdInternalServerError("Cannot add rsv")
     logger.info("calling sendReservation")
-    bt.add_task(sendReservationEmail, rsv)
+    bt.add_task(sendReservationEmail, ldg)
     return id
 
 

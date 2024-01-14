@@ -8,6 +8,10 @@ const step = ref(1)
 const refintro = ref(null)
 const refresponsible = ref(null)
 const refguests = ref(null)
+const refaccomodation = ref(null)
+const refmeals = ref(null)
+const refconfirmation = ref(null)
+
 
 // data model
 const lodging = ref({ guestlist: [] })
@@ -44,9 +48,9 @@ function changeStep(s) {
 }
 
 function updateLodging(l) {
+  console.log('tool lodging updated', l)
   Object.assign(lodging.value, l)
 }
-
 
 </script>
 
@@ -90,10 +94,10 @@ function updateLodging(l) {
       <v-card class="my-2">
         <v-card-title class="text-h5 py-2 mb-2 bottomline">
           <v-chip>4</v-chip>
-          {{ t('Meals') }}
+          {{ t('Accomodation') }}
         </v-card-title>
         <v-card-text v-show="step == 4">
-          <Lodging-Accomodation ref="refmeals" @change-step="changeStep"
+          <Lodging-Accomodation ref="refaccomodation" @change-step="changeStep"
             @update-lodging="updateLodging" />
         </v-card-text>
       </v-card>

@@ -7,15 +7,24 @@ import logging, logging.config
 from fastapi import FastAPI
 from fastapi.routing import APIRoute
 from fastapi.middleware.cors import CORSMiddleware
-from reddevil.core import register_app, get_settings
+from reddevil.core import register_app, get_settings, connect_mongodb, close_mongodb
+from contextlib import asynccontextmanager
+
 import mimetypes
 
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    connect_mongodb()
+    yield
+    close_mongodb()
 
 # load and register app
 app = FastAPI(
     title="Bycco backend",
     description="backend website bycco.be",
     version="0",
+    lifespan=lifespan,    
 )
 register_app(app, "bycco.settings", "/api")
 

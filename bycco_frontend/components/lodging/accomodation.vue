@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { parse } from 'yaml'
 import { v_required, v_length2 } from '@/composables/validators'
@@ -11,7 +11,7 @@ const { $backend } = useNuxtApp()
 const { t, locale } = useI18n()
 const ts = {
   intro: 'Select which accomodation you want',
-  extra: 'Normally the reservation is for 6 nights, from 7-Apr until 13-Apr.  You can optionally add 1 night before and/or after.',
+  extra: 'Normally the reservation is for 6 nights, from 7/4/2024 until 13/4/2024.  You can optionally add 1 night before and/or after.',
   deviation: 'Specify any special requirements in the remarks field.'
 }
 
@@ -21,12 +21,30 @@ defineExpose({ setup })
 
 // datamodel
 const accomodation = ref("")
-const common = ref([])
+const common = ref(null)
 const daybefore = ref(false)
 const dayafter = ref(false)
 const formvalid = ref(false)
-const nextday = ref(null)
-const prevday = ref(null)
+const startday = computed(() => {
+  if (!common.value) return null
+  return new Date(common.value.period.startdate)
+})
+const startprevday = computed(() => {
+  if (!common.value) return null
+  let sd = new Date(common.value.period.startdate)
+  sd.setDate(sd.getDate() - 1)
+  return sd
+})
+const endday = computed(() => {
+  if (!common.value) return null
+  return new Date(common.value.period.enddate)
+})
+const endnextday = computed(() => {
+  if (!common.value) return null
+  let ed = new Date(common.value.period.enddate)
+  ed.setDate(ed.getDate() + 1)
+  return ed
+})
 const remarks = ref("")
 const roomtypes = ref([])
 
@@ -63,13 +81,6 @@ async function processCommon() {
       value: rt,
     })
   })
-  const sd = new Date(common.value.period.startdate)
-  const ed = new Date(common.value.period.enddate)
-  prevday.value = new Date(sd)
-  prevday.value.setDate(sd.getDate() - 1)
-  nextday.value = new Date(ed)
-  nextday.value.setDate(ed.getDate() + 1)
-  console.log('date', prevday.value, nextday.value)
 }
 
 async function readBucket(group, name) {
@@ -96,11 +107,20 @@ function setup(l) {
 }
 
 function updateLodging() {
+  let description
+  roomtypes.value.forEach((x) => {
+    if (x.value == accomodation.value) {
+      description = x.title
+    }
+  })
   emit('updateLodging', {
     accomodation: accomodation.value,
     daybefore: daybefore.value,
     dayafter: dayafter.value,
     remarks: remarks.value,
+    checkindate: daybefore.value ? startday.value : startprevday.value,
+    checkoutdate: dayafter.value ? endday.value : endnextday.value,
+    acc_description: description
   })
 }
 
@@ -124,9 +144,9 @@ onMounted(() => {
       <div class="mt-2 mb-2">
         {{ t(ts.extra) }}
         <v-checkbox dense hide-details v-model="daybefore"
-          :label="t('Arrival date') + ': ' + prevday" />
+          :label="t('Arrival date') + ': ' + Intl.DateTimeFormat(locale.value).format(startprevday)" />
         <v-checkbox dense hide-details v-model="dayafter"
-          :label="t('Departure date') + ': ' + nextday" />
+          :label="t('Departure date') + ': ' + Intl.DateTimeFormat(locale.value).format(endnextday)" />
       </div>
       <div class="mt-2 mb-3">
         {{ t(ts.deviation) }}

@@ -1,5 +1,6 @@
 import axios from 'axios'
 import filestore from '@/api/filestore'
+import lodging from '@/api/lodging'
 
 axios.defaults.withCredentials = true
 
@@ -54,6 +55,7 @@ axios.interceptors.response.use(
 
 const factories = {
   filestore,
+  lodging,
 }
 
 export default defineNuxtPlugin((nuxtApp) => {
