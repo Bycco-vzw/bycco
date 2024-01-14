@@ -1,8 +1,5 @@
 <script setup>
 import { ref } from 'vue'
-// import TheSidebar from '@/components/TheSidebar.vue'
-// import TheCarousel from '@/components/TheCarousel.vue'
-// import TheFooter from '@/components/TheFooter.vue'
 const drawer = ref(false)
 </script>
 
@@ -24,7 +21,7 @@ const drawer = ref(false)
       <!-- <TheCarousel />>  -->
     </v-main>
 
-    <!-- <TheFooter /> -->
+    <TheFooter />
   </v-app>
 </template>
   

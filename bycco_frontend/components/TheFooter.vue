@@ -19,12 +19,12 @@ const { t } = useI18n()
           <div>{{ t('VAT') }}: BE 0630.723.395</div>
           <div>IBAN: BE33 0017 5924 5146</div>
         </v-col>
-        <v-col class="mt-2">
+        <!-- <v-col class="mt-2">
           <h4 class="mb-2">
             {{ t('Our mission') }}
           </h4>
           <div><a href="/aboutus">{{ t('The team') }}</a></div>
-        </v-col>
+        </v-col> -->
         <v-col class="mt-2">
           <h4 class="mb-2">
             Social media
@@ -40,7 +40,7 @@ const { t } = useI18n()
         <v-col xs12 fluid class="bg-blue-grey-darken-1 text-center text-white py-2 px-1">
           Website by
           <a target="_blank" href="https://www.chessdevil.net" class="copyright">
-            Chessdevil Consulting</a>. &copy; 2021 - 2023. All rights reserved
+            Chessdevil Consulting</a>. &copy; 2021 - 2024. All rights reserved
         </v-col>
       </v-row>
     </v-container>

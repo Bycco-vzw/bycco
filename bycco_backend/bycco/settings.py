@@ -23,6 +23,9 @@ FILESTORE = {
     "bucket": os.environ.get("FILESTORE_BUCKET", "byccowebsiteprod.appspot.com"),
 }
 
+
+GOOGLE_PROJECT_ID = "byccowebsiteprod"
+
 LOG_CONFIG = {
     "version": 1,
     "formatters": {
@@ -68,11 +71,11 @@ LOG_CONFIG = {
 
 SECRETS = {
     "mongodb": {
-        "name": "bycco-mongodb-prod",
+        "name": "bycco-mongodb",
         "manager": "googlejson",
     },
     "gmail": {
-        "name": "bycco-gmail-prod",
+        "name": "bycco-gmail",
         "manager": "googlejson",
     },
 }

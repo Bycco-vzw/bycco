@@ -45,10 +45,20 @@ async function postConfirmation() {
         remarks: lodging.value.remarks,
       }
     })
+    confirmed.value = true
   }
   catch (error) {
     console.error('Failed', error)
+    noerror.value = false
   }
+}
+
+function restart() {
+  confirmed.value = false
+  noerror.value = true
+  emit('updateLodging', { guestlist: [] })
+  emit('changeStep', 1)
+
 }
 
 function setup(l) {
