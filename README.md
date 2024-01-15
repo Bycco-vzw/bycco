@@ -4,7 +4,7 @@
 
 - cd bycco_frontend
 - tarn dev
-- API_URL=<https://www.bycco.be/> yarn generate
+- `API_URL=https://www.bycco.be/ yarn generate`
 
 ## Back End
 

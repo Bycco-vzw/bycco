@@ -38,7 +38,7 @@ function setLocale(l) {
         <v-list-item to="/lodging" :title="t('Lodging') + ' 2024'" />
         <v-list-item to="/catering" :title="t('Catering')" />
         <v-list-item to="/reservation" :title="t('Reservation')" />
-        <!-- <v-list-item to="/reservationtool" :title="t('Reservation tool')" /> -->
+        <v-list-item to="/reservationtool" :title="t('Reservation tool')" />
       </v-list-group>
     </v-list>
 

@@ -5,7 +5,7 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <v-footer class="bg-blue-grey-lighten-1" dark app>
+  <v-footer class="bg-blue-grey-lighten-1" dark app absolute>
     <v-container>
       <v-row class="py-3">
         <v-col class="mt-2">

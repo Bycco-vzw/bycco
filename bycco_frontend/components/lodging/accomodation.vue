@@ -118,8 +118,8 @@ function updateLodging() {
     daybefore: daybefore.value,
     dayafter: dayafter.value,
     remarks: remarks.value,
-    checkindate: daybefore.value ? startday.value : startprevday.value,
-    checkoutdate: dayafter.value ? endday.value : endnextday.value,
+    checkindate: daybefore.value ? startprevday.value : startday.value,
+    checkoutdate: dayafter.value ? endnextday.value : endday.value,
     acc_description: description
   })
 }
