@@ -19,14 +19,16 @@ async def lifespan(app: FastAPI):
     yield
     close_mongodb()
 
+
 # load and register app
 app = FastAPI(
     title="Bycco backend",
     description="backend website bycco.be",
     version="0",
-    lifespan=lifespan,    
+    lifespan=lifespan,
 )
 register_app(app, "bycco.settings", "/api")
+
 
 # get settings
 settings = get_settings()
@@ -39,12 +41,6 @@ from bycco.settings import ls
 
 logger.info(ls)
 
-# import api endpoints
-from reddevil.filestore import api_filestore
-from bycco.lodging import api_lodging
-app.include_router(api_filestore.router)
-app.include_router(api_lodging.router)
-logger.info(f"Api layer loaded")
 
 # add CORS middleware for dev only
 app.add_middleware(
@@ -55,7 +51,19 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# fetch the common 
+
+# import api endpoints
+from reddevil.filestore import api_filestore
+from bycco.lodging import api_lodging
+from bycco.enrollment import api_enrollment
+
+app.include_router(api_enrollment.router)
+app.include_router(api_filestore.router)
+app.include_router(api_lodging.router)
+
+logger.info(f"Api layer loaded")
+
+# fetch the common
 
 #    Simplify operation IDs so that generated API clients have simpler function
 #    names.
@@ -63,4 +71,5 @@ for route in app.routes:
     if isinstance(route, APIRoute):
         route.operation_id = route.name[4:]
 
-import  bycco.tst_endpoints
+# importing test endpoints
+import bycco.tst_endpoints

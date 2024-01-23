@@ -27,6 +27,9 @@ FILESTORE = {
 
 GOOGLE_PROJECT_ID = "byccowebsiteprod"
 
+KBSB_HOST = "https://www.frbe-kbsb-ksb.be"  # without ending slash
+
+
 LOG_CONFIG = {
     "version": 1,
     "formatters": {

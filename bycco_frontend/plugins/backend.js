@@ -1,6 +1,7 @@
 import axios from 'axios'
 import filestore from '@/api/filestore'
 import lodging from '@/api/lodging'
+import enrollment from '@/api/enrollment'
 
 axios.defaults.withCredentials = true
 
@@ -54,6 +55,7 @@ axios.interceptors.response.use(
 )
 
 const factories = {
+  enrollment,
   filestore,
   lodging,
 }
