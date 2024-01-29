@@ -25,10 +25,10 @@ class EnrollmentCategory(str, Enum):
     G20 = "G20"
     ARB = "ARB"
     ORG = "ORG"
-    ADL = "ADL"
-    S50 = "S50"
-    S65 = "S65"
-    EXP = "EXP"
+    OTHER = "OTH"
+    VK2024 = "VK"
+    SEN2024 = "SEN"
+    EXP2024 = "EXP"
 
 
 class Gender(str, Enum):
@@ -47,11 +47,11 @@ class EnrollmentEvent(BaseModel):
     event details
     """
 
-    enddate: str
-    eventtype: str
-    startdate: str
-    title: str
-    options: dict
+    enddate: str | None
+    eventtype: str | None
+    startdate: str | None
+    title: str | None
+    options: dict | None
 
 
 class EnrollmentRepresentative(BaseModel):
@@ -131,8 +131,9 @@ class EnrollmentVkIn(BaseModel):
 
     category: str
     emailplayer: str
-    idbel: str
-    idfide: str
+    idbel: str | None = None
+    idfide: str | None = None
+    idsub: str | None = None
     locale: str
     mobileplayer: str
 
@@ -258,22 +259,16 @@ class EnrollmentUpdate(BaseModel):
     chesstitle: str | None = None
     confirmed: Optional[bool] = None
     custom: str | None = None
-    emailattendant: str | None = None
-    emailparent: str | None = None
     emailplayer: str | None = None
     enabled: Optional[bool] = None
     federation: str | None = None
     first_name: str | None = None
-    fullnameattendant: str | None = None
-    fullnameparent: str | None = None
     gender: str | None = None
     idbel: str | None = None
     idclub: str | None = None
     idfide: str | None = None
     last_name: str | None = None
     locale: str | None = None
-    mobileattendant: str | None = None
-    mobileparent: str | None = None
     mobileplayer: str | None = None
     nationalitybel: str | None = None
     nationalityfide: str | None = None
@@ -284,6 +279,47 @@ class EnrollmentUpdate(BaseModel):
     ratingbel: Optional[int] = None
     ratingfide: Optional[int] = None
     registrationtime: datetime | None = None
+    representative: EnrollmentRepresentative | None = None
+    remarks: str | None = None
+    enrollmentevent: Optional[EnrollmentEvent] = None
+
+
+class Enrollment(BaseModel):
+    """
+    the internal model used everywhere
+    """
+
+    badgemimetype: str | None = None
+    badgeimage: Optional[bytes] = None
+    badgelength: Optional[int] = None
+    birthday: str | None = None
+    birthyear: Optional[int] = None
+    category: Optional[EnrollmentCategory] = None
+    chesstitle: str | None = None
+    confirmed: Optional[bool] = None
+    custom: str | None = None
+    emailplayer: str | None = None
+    enabled: Optional[bool] = None
+    federation: str | None = None
+    first_name: str | None = None
+    gender: str | None = None
+    idbel: str | None = None
+    idclub: str | None = None
+    idfide: str | None = None
+    id: str
+    last_name: str | None = None
+    locale: str | None = None
+    mobileplayer: str | None = None
+    nationalitybel: str | None = None
+    nationalityfide: str | None = None
+    natstatus: str | None = NatStatus.unknown.value
+    payment_id: str | None = None
+    present: datetime | None = None
+    rating: Optional[int] = None
+    ratingbel: Optional[int] = None
+    ratingfide: Optional[int] = None
+    registrationtime: datetime | None = None
+    representative: EnrollmentRepresentative | None = None
     remarks: str | None = None
     enrollmentevent: Optional[EnrollmentEvent] = None
 
@@ -307,7 +343,7 @@ class IdReply(BaseModel):
     subid: str | None = None
 
 
-class DbLodging(DbBase):
-    COLLECTION = "by_enrollment"
+class DbEnrollment(DbBase):
+    COLLECTION = "enrollment"
+    DOCUMENTTYPE = "Enrollment"
     VERSION = 1
-    IDGENERATOR = "uuid"

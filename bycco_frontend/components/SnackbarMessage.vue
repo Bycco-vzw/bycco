@@ -1,15 +1,17 @@
 <script setup>
-import { VSnackbar, VBtn } from 'vuetify/components';
+import { ref } from 'vue'
+
 const errortext = ref("")
 const visible = ref(false)
-function showSnackbar(txt){
+function showSnackbar(txt) {
   errortext.value = txt
   visible.value = true
 }
-function hideSnackbar(){
+function hideSnackbar() {
   visible.value = false
 }
-defineExpose({showSnackbar})
+defineExpose({ showSnackbar }
+)
 </script>
 <template>
   <VSnackbar v-model="visible" timeout="6000">
@@ -17,5 +19,5 @@ defineExpose({showSnackbar})
     <template v-slot:actions>
       <VBtn color="green-lighten-2" variant="text" @click="hideSnackbar" icon="mdi-close" />
     </template>
-  </VSnackbar> 
+  </VSnackbar>
 </template>

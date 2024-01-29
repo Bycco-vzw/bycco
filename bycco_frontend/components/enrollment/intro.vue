@@ -19,23 +19,31 @@ function setup(l) {
 
 </script>
 <template>
-  <div>
-    <h2>Intro</h2>
-    <div class="mt-2">
-      {{ t('enrollvk.intro_intro') }}
-      <ul>
-        <li>{{ t('enrollvk.intro_needbelid') }}</li>
-        <li>{{ t('enrollvk.intro_needfideid') }}</li>
-        <li>{{ t('enrollvk.intro_needphoto') }}</li>
-      </ul>
-    </div>
-    <div class="mt-2">
-      {{ t('enrollvk.intro_noid') }}
-    </div>
-    <div class="mt-2">
-      <v-btn color="primary" @click="next">
-        {{ t("Continue") }}
-      </v-btn>
-    </div>
-  </div>
+  <v-container>
+    <v-row>
+      <h2>Intro</h2>
+    </v-row>
+    <v-row>
+      <div class="mt-2">
+        {{ t('enrollvk.intro_intro') }}
+        <ul>
+          <li>{{ t('enrollvk.intro_needbelid') }}</li>
+          <li>{{ t('enrollvk.intro_needfideid') }}</li>
+          <li>{{ t('enrollvk.intro_needphoto') }}</li>
+        </ul>
+      </div>
+    </v-row>
+    <v-row>
+      <div class="mt-2">
+        {{ t('enrollvk.intro_noid') }}
+      </div>
+    </v-row>
+    <v-row>
+      <div class="mt-2">
+        <v-btn color="primary" @click="next">
+          {{ t("Continue") }}
+        </v-btn>
+      </div>
+    </v-row>
+  </v-container>
 </template>

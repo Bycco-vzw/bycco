@@ -11,16 +11,20 @@ export default defineNuxtConfig({
       ],
     },
   },
+
   build: {
     transpile: ['vuetify'],
   },
+
   css: [
     'vuetify/lib/styles/main.sass',
     '@mdi/font/css/materialdesignicons.min.css',
   ],
+
   experimental: {
     payloadExtraction: false,
   },
+
   modules: [
     '@pinia/nuxt',
     async (options, nuxt) => {
@@ -29,12 +33,14 @@ export default defineNuxtConfig({
       )
     },
   ],
+
   nitro: {
     prerender: {
       crawlLinks: false,
       failOnError: false,
     }
   },
+
   runtimeConfig: {
     public: {
       apiUrl: process.env.API_URL || 'http://localhost:8000/',
@@ -42,11 +48,18 @@ export default defineNuxtConfig({
       repo_branch: 'master',
     },
   },
+
   vite: {
     vue: {
       template: {
         transformAssetUrls
       }
+    }
+  },
+
+  devtools: {
+    timeline: {
+      enabled: true
     }
   }
 })

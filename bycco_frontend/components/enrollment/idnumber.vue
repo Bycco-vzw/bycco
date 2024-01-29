@@ -1,16 +1,24 @@
 <script setup>
+import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import ProgressLoading from '@/components/ProgressLoading.vue'
+import SnackbarMessage from '@/components/SnackbarMessage.vue'
 
 // communication
 const emit = defineEmits(['changeStep', 'updateEnrollment'])
 defineExpose({ setup })
 const { $backend } = useNuxtApp()
 
+//  snackbar and loading widgets
+const refsnackbar = ref(null)
+let showSnackbar
+const refloading = ref(null)
+let showLoading
+
 // i18n
 const { t } = useI18n()
 
 // datamodel member
-const age_ok = ref(true)
 const birthyear = ref(null)
 const first_name = ref("")
 const gender = ref(null)
@@ -32,6 +40,7 @@ const step = 2
 
 async function lookup_bel() {
   let member
+  showLoading(true)
   try {
     const reply = await $backend('enrollment', 'lookup_idbel', {
       idbel: idbel.value
@@ -41,10 +50,13 @@ async function lookup_bel() {
   }
   catch (error) {
     console.error('lookup_bel failed', error)
+    showSnackbar($t('enrollvk.lookup_bel_failed'))
     return
   }
+  finally {
+    showLoading(false)
+  }
   isPlayerFound.value = member.belfound
-  age_ok.value = member.age_ok
   birthyear.value = member.birthyear
   first_name.value = member.first_name
   gender.value = member.gender
@@ -53,7 +65,6 @@ async function lookup_bel() {
   last_name.value = member.last_name
   nationalitybel.value = member.nationalitybel
   nationalityfide.value = member.nationalityfide
-  natstatus.value = member.natstatus
   ratingbel.value = member.ratingbel
   ratingfide.value = member.ratingfide
   if (!isPlayerFound.value) {
@@ -63,6 +74,7 @@ async function lookup_bel() {
 
 async function lookup_fide() {
   let member
+  showLoading(true)
   try {
     const reply = await $backend('enrollment', 'lookup_idfide', {
       idfide: idfide.value
@@ -72,10 +84,13 @@ async function lookup_fide() {
   }
   catch (error) {
     console.error('lookup_fide failed', error)
+    showSnackbar($t('enrollvk.lookup_bel_failed'))
     return
   }
+  finally {
+    showLoading(false)
+  }
   isPlayerFound.value = member.belfound
-  age_ok.value = member.age_ok
   birthyear.value = member.birthyear
   first_name.value = member.first_name
   gender.value = member.gender
@@ -123,51 +138,59 @@ function setup(e) {
 
 function updateEnrollment() {
   emit('updateEnrollment', {
+    birthyear: birthyear.value,
     first_name: first_name.value,
-    last_name: last_name.value,
+    gender: gender.value,
     idbel: idbel.value,
+    idclub: idclub.value,
     idfide: idfide.value,
+    last_name: last_name.value,
+    nationalitybel: nationalitybel.value,
+    nationalityfide: nationalityfide.value,
     ratingbel: ratingbel.value,
     ratingfide: ratingfide.value,
   })
 }
+
+onMounted(() => {
+  showSnackbar = refsnackbar.value.showSnackbar
+  showLoading = refloading.value.showLoading
+})
+
 </script>
 <template>
-  <div>
-
-    <v-container>
-      <v-row class="my-2">
-        <h2>{{ $t('enrollvk.idn_title') }}</h2>
-      </v-row>
-      <v-row class="mt-2">
-        <div>{{ $t('enrollvk.idn_beldescription') }}</div>
-      </v-row>
-      <v-row>
-        <v-col cols="12" md="6">
-          <v-text-field v-model="idbel" :label="$t('enrollvk.idn_idbel')" required />
-        </v-col>
-        <v-col cols="12" md="6">
-          <v-btn color="primary" @click="lookup_bel()">
-            {{ $t('Lookup') }}
-          </v-btn>
-        </v-col>
-      </v-row>
-      <v-row class="mt-2">
-        <div>{{ $t('enrollvk.idn_fidedescription') }}</div>
-      </v-row>
-      <v-row>
-        <v-col cols="12" md="6">
-          <v-text-field v-model="idfide" :label="$t('enrollvk.idn_idfide')" required />
-        </v-col>
-        <v-col cols="12" md="6">
-          <v-btn color="primary" @click="lookup_fide()">
-            {{ $t('Lookup') }}
-          </v-btn>
-        </v-col>
-      </v-row>
-    </v-container>
-
-
+  <v-container>
+    <SnackbarMessage ref="refsnackbar" />
+    <ProgressLoading ref="refloading" />
+    <v-row class="my-2">
+      <h2>{{ $t('enrollvk.idn_title') }}</h2>
+    </v-row>
+    <v-row class="mt-2">
+      <div>{{ $t('enrollvk.idn_beldescription') }}</div>
+    </v-row>
+    <v-row>
+      <v-col cols="12" md="6">
+        <v-text-field v-model="idbel" :label="$t('enrollvk.idn_idbel')" required />
+      </v-col>
+      <v-col cols="12" md="6">
+        <v-btn color="primary" @click="lookup_bel()">
+          {{ $t('Lookup') }}
+        </v-btn>
+      </v-col>
+    </v-row>
+    <v-row class="mt-2">
+      <div>{{ $t('enrollvk.idn_fidedescription') }}</div>
+    </v-row>
+    <v-row>
+      <v-col cols="12" md="6">
+        <v-text-field v-model="idfide" :label="$t('enrollvk.idn_idfide')" required />
+      </v-col>
+      <v-col cols="12" md="6">
+        <v-btn color="primary" @click="lookup_fide()">
+          {{ $t('Lookup') }}
+        </v-btn>
+      </v-col>
+    </v-row>
     <v-alert v-show="errorcode" type="error" class="mt-2" closable>
       <div v-show="errorcode == 'notfound'">
         <div>{{ $t('enrollvk.idn_notfound') }}</div>
@@ -187,13 +210,13 @@ function updateEnrollment() {
         <v-btn class="ml-2" @click="prev" color="primary">
           {{ $t('Back') }}
         </v-btn>
-        <v-btn v-show="isPlayerFound" class="ml-2" color="primary" @click="next">
+        <v-btn :disabled="!isPlayerFound" class="ml-2" color="primary" @click="next">
           {{ $t('Continue') }}
         </v-btn>
-        <v-btn v-show="isPlayerFound" class="ml-2" @click="restart">
+        <v-btn class="ml-2" @click="restart">
           {{ $t('Other player') }}
         </v-btn>
       </div>
     </div>
-  </div>
+  </v-container>
 </template>

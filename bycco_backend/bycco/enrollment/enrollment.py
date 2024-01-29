@@ -5,20 +5,27 @@ import logging
 from typing import cast, Optional, List
 from datetime import date, datetime, timezone, timedelta
 from fastapi import BackgroundTasks
+from fastapi.responses import Response
+from binascii import a2b_base64
 
 from reddevil.core import get_settings, RdBadRequest, RdNotFound
 
 from bycco.enrollment.md_enrollment import (
+    DbEnrollment,
+    Enrollment,
+    EnrollmentIn,
+    EnrollmentUpdate,
     EnrollmentVkIn,
     IdReply,
     NatStatus,
 )
-
+from bycco.core.mail import MailParams, sendemail_enrollment_vk
 from httpx import (
     TransportError,
     DecodingError,
     AsyncClient,
 )
+
 
 logger = logging.getLogger(__name__)
 
@@ -26,9 +33,75 @@ api_lookupbel = "/api/v1/member/anon/member/{id}"
 api_lookupfide = "/api/v1/member/anon/fidemember/{id}"
 api_fideis2belid = "/api/v1/member/anon/fideid2belid/{id}"
 
+# crud operations
 
-async def create_enrollment_vk(enr: EnrollmentVkIn) -> str:
-    pass
+
+async def add_enrollment(edict: dict) -> str:
+    """
+    add an enrollment
+    """
+    id = await DbEnrollment.add(edict)
+    return id
+
+
+async def update_enrollment(id, eu: EnrollmentUpdate, options: dict = {}) -> Enrollment:
+    """
+    update a member
+    """
+    filter = options.copy()
+    filter["_model"] = filter.pop("_model", Enrollment)
+    mo = cast(
+        Enrollment,
+        await DbEnrollment.update(id, eu, filter),
+    )
+    return mo
+
+
+async def create_enrollment_vk(ei: EnrollmentVkIn) -> str:
+    logger.info(f"create an enrollment for VK {ei}")
+
+    if ei.idsub:
+        eu = EnrollmentUpdate(
+            category=ei.category,
+            emailplayer=ei.emailplayer,
+            idbel=ei.idbel,
+            idfide=ei.idfide,
+            locale=ei.locale,
+            mobileplayer=ei.mobileplayer,
+        )
+        enrid = (await update_enrollment(ei.idsub, eu.model_dump(exclude_none=True))).id
+    else:
+        eidict = ei.model_dump()
+        eidict.pop("idsub", None)
+        enrid = await add_enrollment(eidict)
+    meu = EnrollmentUpdate()
+    if ei.idbel:
+        try:
+            pl = await lookup_idbel(ei.idbel)
+            meu.birthyear = pl.birthyear
+            meu.gender = pl.gender
+            meu.first_name = pl.first_name
+            meu.idclub = pl.idclub
+            meu.last_name = pl.last_name
+            meu.nationalitybel = pl.nationalitybel
+            meu.natstatus = pl.natstatus
+            meu.ratingbel = pl.ratingbel
+        except Exception as e:
+            logger.info(f"lookup idbel failed {e}")
+    if ei.idfide:
+        try:
+            pl = await lookup_idfide(ei.idfide)
+            meu.birthyear = pl.birthyear
+            meu.gender = pl.gender
+            meu.first_name = pl.first_name
+            meu.last_name = pl.last_name
+            meu.nationalityfide = pl.nationalityfide
+            meu.natstatus = pl.natstatus
+            meu.ratingfide = pl.ratingfide
+        except Exception as e:
+            logger.info(f"lookup idfide failed {e}")
+    await update_enrollment(enrid, meu.model_dump(exclude_none=True))
+    return enrid
 
 
 async def lookup_idbel(idbel: str) -> IdReply:
@@ -121,3 +194,33 @@ async def lookup_idfide(idfide: str) -> IdReply:
         subid=None,
     )
     return reply
+
+
+async def upload_photo(id: str, photo: str) -> None:
+    try:
+        header, data = photo.split(",")
+        imagedata = a2b_base64(data)
+        su = EnrollmentUpdate(
+            badgemimetype=header.split(":")[1].split(";")[0],
+            badgeimage=imagedata,
+            badgelength=len(cast(str, imagedata)),
+        )
+    except:
+        raise RdBadRequest(description="BadPhotoData")
+    await update_enrollment(id, su.model_dump(exclude_none=True))
+
+
+async def confirm_enrollment_vk(id: str, bt: BackgroundTasks) -> None:
+    su = EnrollmentUpdate(confirmed=True, registrationtime=datetime.now(), enabled=True)
+    enr = await update_enrollment(id, su.model_dump(exclude_none=True))
+    sendemail_enrollment_vk(enr)
+
+
+async def get_photo(id: str):
+    photo = await DbEnrollment.find_single(
+        {
+            "id": id,
+            "_fieldlist": ["badgeimage", "badgemimetype"],
+        }
+    )
+    return Response(content=photo["badgeimage"], media_type=photo["badgemimetype"])

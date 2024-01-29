@@ -50,12 +50,17 @@ function updateEnrollment(l) {
   Object.assign(enrollment.value, l)
 }
 
+function restart() {
+  enrollment.value = {}
+  step.value = 1
+}
+
 </script>
 
 <template>
   <v-container fluid>
     <h1 class="my-2">
-      {{ t('Enrollment tool') }}
+      {{ t('enrollvk.tool') }}
     </h1>
     <div>
       <v-card class="my-2">
@@ -63,8 +68,8 @@ function updateEnrollment(l) {
           <v-chip>1</v-chip>
           Intro
         </v-card-title>
-        <v-card-text v-show="step == 1">
-          <EnrollmentIntro ref="refintro" @change-step="changeStep" />
+        <v-card-text>
+          <EnrollmentIntro v-show="step == 1" ref="refintro" @change-step="changeStep" />
         </v-card-text>
       </v-card>
       <v-card class="my-2">
@@ -72,8 +77,8 @@ function updateEnrollment(l) {
           <v-chip>2</v-chip>
           {{ t('ID number') }}
         </v-card-title>
-        <v-card-text v-show="step == 2">
-          <EnrollmentIdnumber ref="refidnumber" @change-step="changeStep"
+        <v-card-text>
+          <EnrollmentIdnumber v-show="step == 2" ref="refidnumber" @change-step="changeStep"
             @update-enrollment="updateEnrollment" />
         </v-card-text>
       </v-card>
@@ -82,8 +87,8 @@ function updateEnrollment(l) {
           <v-chip>3</v-chip>
           {{ t('Details') }}
         </v-card-title>
-        <v-card-text v-show="step == 3">
-          <EnrollmentDetails ref="refguests" @change-step="changeStep"
+        <v-card-text>
+          <EnrollmentDetails v-show="step == 3" ref="refdetails" @change-step="changeStep"
             @update-enrollment="updateEnrollment" />
         </v-card-text>
       </v-card>
@@ -93,18 +98,18 @@ function updateEnrollment(l) {
           {{ t('Photo') }}
         </v-card-title>
         <v-card-text v-show="step == 4">
-          <EnrollmentPhoto ref="refaccomodation" @change-step="changeStep"
+          <EnrollmentPhoto ref="refphoto" @change-step="changeStep"
             @update-enrollment="updateEnrollment" />
         </v-card-text>
       </v-card>
       <v-card class="my-2">
         <v-card-title class="text-h5 py-2 mb-2 bottomline">
           <v-chip>5</v-chip>
-          {{ t('Meals') }}
+          {{ t('GDPR') }}
         </v-card-title>
-        <v-card-text v-show="step == 5">
-          <EnrollmentGdpr ref="refmeals" @change-step="changeStep"
-            @update-enrollment="updateenrollment" />
+        <v-card-text>
+          <EnrollmentGdpr v-show="step == 5" ref="refgdpr" @change-step="changeStep"
+            @update-enrollment="updateEnrollment" />
         </v-card-text>
       </v-card>
       <v-card class="my-2">
@@ -112,9 +117,9 @@ function updateEnrollment(l) {
           <v-chip>6</v-chip>
           {{ t('Confirmation') }}
         </v-card-title>
-        <v-card-text v-show="step == 6">
-          <EnrollmentConfirmation ref="refconfirmation" @change-step="changeStep"
-            @update-enrollment="updateEnrollment" />
+        <v-card-text>
+          <EnrollmentConfirmation v-show="step == 6" ref="refconfirmation" @change-step="changeStep"
+            @restart="restart" />
         </v-card-text>
       </v-card>
     </div>

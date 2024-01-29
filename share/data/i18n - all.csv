@@ -29,6 +29,26 @@ enroll,SubConf1_old,,Het inschrijvingsgeld bedraagt 35 EUR indien je je voor 15 
 enroll,SubConf2,,Betaal het bedrag op rekening BE33 0017 5924 5146 van Bycco met de volgende gestructureerde mededeling:,,Veuillez payer le montant au compte BE33 0017 5924 5146 avec le message structuré: ,Überweisen Sie den Betrag auf das Konto BE33 0017 5924 5146 von Bycco mit der strukturierten Mitteilung:
 enroll,SubDetail5,,Een van de verplichte velden is ongeldig.,,"Un des champs requis, est invalide.",Eines der erforderlichen Felder ist ungültig.
 enroll,SubDetail6,,We hebben authenticatieproblemen vastgesteld toen er data naar de server werd gestuurd. \nWaarschijnlijk bevind je je achter een firewall die de trafiek blokkeert. Probeer de inschrijving\nopnieuw via een rechtstreeks verbinding met het Internet,,Nous rencontrons des problèmes d’authentification lors de l’envoi des données au serveur. \nProbablement vous êtes derrière un firewall qui bloque le trafic. Réessayez en utilisant une connexion directe à l’Internet.,"Bei dem Senden der Daten an den Server treten Probleme bei der Authentifizierung auf. Wahrscheinlich sind Sie hinter einer Firewall, die den Verkehr blockiert. Versuchen Sie es erneut mit einer direkten Verbindung zum Internet."
+enrollvk,cfm_confirm,,Bevestigen,Confirm,,
+enrollvk,cfm_confirmed,,Jouw inschrijving is bevestigd,Confirm,,
+enrollvk,cfm_new,,Nieuwe inschrijving,New enrollment,,
+enrollvk,cfm_paymentinstructions,,Je zal een aparte email ontvangen met de betaalinstructies,You will receive a separate email with payment instructions,,
+enrollvk,cfm_title,,Bevestiging,Confirmation,,
+enrollvk,det_details,,Gelieve de volgende details te voorzien,Please provide the following details,,
+enrollvk,det_experten,,Gesloten expertentoernooi,Closed experts group,,
+enrollvk,det_expremark,,"Voor de gesloten expertengroep, moet je aangewezen zijn. Als een toegewezen expert moet je toch deze inschrijvingsmodule doorlopen voor je badge","Voor de closed experts group, you have to been assigned.  As a chosen expert, you still have to use this enrollment tool for your badge",,
+enrollvk,det_requiredinfo,,Nodige information,Required information,,
+enrollvk,det_senioren,,Seniorentoernooi (+50),Senior Torunament (+50),,
+enrollvk,det_title,,Details Inschrijving,Details Enrollment,,
+enrollvk,det_tournament,,Selecteer toernooi,Select tournament,,
+enrollvk,gdpr_1,,Je geeft Bycco het recht om jouw persoonlijke data te gebruiken verzameld via dit inschrijvingsformulier.,You authorize Bycco to use you personal data collected in thos enrollment form,,
+enrollvk,gdpr_2,,Bycco zal de data enkel gebruiken binnen het kader van dit toernooi.,Bycco will  use the data for tournament purposes only,,
+enrollvk,gdpr_3,,Bycco gebruikt jouw profielfoto voor een badge en voor de identificatie op de website.,Bycco will use the profile picture for a badge and for identification on the website.,,
+enrollvk,gdpr_4,,In geen geval zal Bycco persoonlijke data aan derden geven,In any case Bycco will not leak any personal information to third parties.,,
+enrollvk,gdpr_5,,Bycco neemt overzichtsfoto's en -video's tijdens het kampioenschap en publiceert deze op de website en op sociale media.,Bycco is taking overview photos/videos of the championships and can publish these photos/videos on its website and on social media,,
+enrollvk,gdpr_6,,"Indien een close-up van een speler genomen wordt, zal Bycco expliciete toestemming vragen om te publiceren.","If Bycco is taking a close-up photos/video of a player, Bycco will explicitly ask permission to publish",,
+enrollvk,gdpr_agree,,genoteerd,noted,,
+enrollvk,gdpr_title,,GDPR Regels,GDPR rules,,
 enrollvk,idn_alreadyregistered,,Deze speler is al geregistreerd.,This player is already registered.,,
 enrollvk,idn_beldescription,,Geef je stamnummer van de KBSB op,Provide your ID number of the Royal Belgian Chess Federation,,
 enrollvk,idn_fidedescription,,Geef je stamnummer van de FIDE op,Provide your ID number of the FIDE,,
@@ -44,6 +64,11 @@ enrollvk,intro_needbelid,,je stamnummer van de KBSB,your ID number from the RBCF
 enrollvk,intro_needfideid,,"of, indien je geen belgisch stamnummer hebt, je FIDE ID","or, if you don't have your Belgian ID number, your FIDE ID number",,
 enrollvk,intro_needphoto,,een recente foto voor je badge,a recent photo for your badge,,
 enrollvk,intro_noid,,"Als je geen enkele ID hebt, moet je je tot je schaakclub wenden","If you have no ID at all, please contact your chess club",,
+enrollvk,pho_crop,,Je gezicht moet centraal staan en minstens de heflt van de foto innnemen,Your face should be centralized and should take at least half of the image,,
+enrollvk,pho_dragbrowse,,Sleep een foto naar hier of klik op browse om een fot te selecteren,Drag here a photo or click browse to select a photo,,
+enrollvk,pho_result,,Het resultaatbeeld,The resulting image,,
+enrollvk,pho_upload,,We hebben een foto nodig voor je badge,We need a photo for your badge,,
+enrollvk,tool,,Inschrijvingsmodule,Enrollment tool,,
 ,{{first_name}} {{last_name}} is an adult at the start of the tournament. For adults we need following information.,1,{{first_name}} {{last_name}} is een volwassene bij het begin van het toernooi.\nVoor volwassenen hebben we de volgende informatie nodig.,{{first_name}} {{last_name}} is an adult at the start of the tournament. For adults we need following information.,"{{first_name}} {{last_name}} est un adulte au début du tournoi. Pour les adultes, il nous faudrait les informations suivantes",{{first_name}} {{last_name}} ist ein Erwachsener zu Beginn des Turniers. Für Erwachsene benötigen wir folgende Informationen
 ,{{first_name}} is a minor at the start of a tournament. For minors we need following information.,1,{{first_name}} is nog minderjarig bij de start van het toernooi. Voor minderjarigen hebben we het volgende nodig.,{{first_name}} is a minor at the start of a tournament. For minors we need following information.,"{{first_name}} {{last_name}} est toujours mineur au début du tournoi. Pour les mineurs, il nous faudrait les informations suivantes.",{{first_name}} {{last_name}} ist zu Beginn des Turniers noch minderjährig. Bei Minderjährige benötigen wir folgende Informationen
 ,A parent is present at site,,Een ouder is ter plaatse.,About Bycco,Un parent sur place pendant le tournoi,Ein Elternteil ist vor Ort
@@ -109,7 +134,7 @@ enrollvk,intro_noid,,"Als je geen enkele ID hebt, moet je je tot je schaakclub w
 ,Federation,,Federation,Federation,Féderation,Föderation
 ,Female,,Vrouwelijk,Female,Féminin,Weiblich
 ,FIDE id,,FIDE id,FIDE id,ID FIDE,FIDE-ID
-,FIDE Nationality,,FIDE Nationaliteit,FIDE Nationality,Nationalité FIDE,FIDE Staatsangehörigkeit
+,FIDE nationality,,FIDE nationaliteit,FIDE nationality,Nationalité FIDE,FIDE Staatsangehörigkeit
 ,FIDE rating,,FIDE rating,FIDE rating,Rating FIDE,FIDE Elo
 ,Files,,Bestanden,Files,Fichiers,Dateien
 ,Filter categories,,Filter categorieën,Filter categories,Trier par catégorie,Filter pro Kategorie
@@ -121,9 +146,10 @@ enrollvk,intro_noid,,"Als je geen enkele ID hebt, moet je je tot je schaakclub w
 ,Full name,,Volledige naam,Full name,Nom complet,Vollständiger Name
 ,Full name parent,,Volledige naam ouder,Full name parent,Nom complet du parent,Vollständiger Name Elternteil
 ,Full name representative,,Volledige naam verantwoordelijke,Full name representative,Nom complet du responsable,Vollständiger Name Vertreter
+,GDPR,,GDPR,GDPR,RGDP,GDPR
 ,Gender,,Geslacht,Gender,Sexe,Geschlecht
 ,Girls,,Meisjes,Girls,Filles,Mädchen
-,GSM number,,GSM nummer,GSM number,Numéro GSM,Handynummer
+,GSM number,,GSM nummer,Mobile number,Numéro GSM,Handynummer
 ,GSM parent,,GSM ouder,GSM parent,Numéro GSM du parent,Handynummer Elternteil
 ,GSM player,,GSM speler,GSM player,Numéro GSM du joueur,Handynummer Spieler
 ,GSM representative,,GSM nummer verantwoordelijke,GSM representative,Numéro GSM du responsable,Handynummer Vertreter
@@ -134,6 +160,7 @@ enrollvk,intro_noid,,"Als je geen enkele ID hebt, moet je je tot je schaakclub w
 ,"However, you can still send en email to info@bycco.be, requesting for an late enrollment.",,U kunt echter nog steeds een e-mail sturen naar info@bycco.be met het verzoek om een laattijdige inschrijving.,"However, you can still send en email to info@bycco.be, requesting for an late enrollment.","Cependant, vous pouvez toujours envoyer un e-mail à info@bycco.be, demandant une inscription tardive.",Sie können jedoch immer noch eine E-Mail an info@bycco.be senden und um eine spätere Anmeldung bitten.
 ,I agree,,Ik ben het eens.,I agree,Je suis d’accord.,Ich stimme zu.
 ,ID Club,,Clubnummer,ID Club,ID cercle,Club-ID
+,ID number,,Stamnummer,ID number,Matricule,ID-Nummer
 ,"If Bycco is taking a close-up photos/video of a player, Bycco will explicitly ask permission to publish.",,"Indien een close-up van een speler genomen wordt, zal Bycco expliciete toestemming vragen om te publiceren.","If Bycco is taking a close-up photos/video of a player, Bycco will explicitly ask permission to publish.","Si Bycco prend une photo / vidéo en mode portrait d’un joueur, Bycco demandera l'approbation explicite pour la publier.",Wenn Bycco eine Nahaufnahme eines Spielers macht wird Bycco ausdrücklich um Erlaubnis zur Veröffentlichung bitten.
 ,"If the reply is positive, an adminstrative cost of 10 Euro will be charged.",,Bij een positief antwoord wordt een administratieve kost van 10 euro aangerekend.,"If the reply is positive, an adminstrative cost of 10 Euro will be charged.","Si la réponse est positive, des frais administratifs de 10 euros seront facturés.",Bei positiver Rückmeldung wird eine Bearbeitungsgebühr von 10 Euro erhoben.
 ,"If you want to make a new reservation, click the button below",,"Wilt u een nieuwe reservering maken, klik dan op onderstaande knop","If you want to make a new reservation, click the button below","Si vous souhaitez effectuer une nouvelle réservation, cliquez sur le bouton ci-dessous","Wenn Sie eine neue Reservierung vornehmen möchten, klicken Sie auf die Schaltfläche unten"
@@ -252,6 +279,7 @@ enrollvk,intro_noid,,"Als je geen enkele ID hebt, moet je je tot je schaakclub w
 ,This player is already registered,,Deze speler is reeds geregistreerd,This player is already registered,Ce joueur est déjà enregistré,Dieser Spieler ist bereits registriert
 ,To,,Naar,To,A,An
 ,To be confirmed,,Te bevestigen,To be confirmed,A confirmer,Zu bestätigen
+,Too short,,Te kort,Too short,Trop court,Zu kurz
 ,Tournament,,Toernooi,Tournament,Tournoi,Turnier
 ,Tournament Results,,Toernooiresultaten,Tournament Results,Résultats du tournoi,Turnierergebnisse
 ,Tournament Rules,,Toernooireglement,Tournament Rules ,Règlement du tournoi,Turnierregeln

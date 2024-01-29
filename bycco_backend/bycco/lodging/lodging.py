@@ -14,13 +14,13 @@ from bycco.lodging.md_lodging import (
     DbLodging,
     Lodging,
     LodgingIn,
-
     # LodgingList,
 )
+
 # from bycco.room import Room
 # from bycco.service.room import update_room
 
-from bycco.core.mail import sendReservationEmail
+from bycco.core.mail import sendemail_reservation
 from bycco.core.counter import DbCounter
 from bycco.core.common import get_common
 from bycco.main import settings
@@ -103,7 +103,9 @@ async def make_reservation(d: LodgingIn, bt: BackgroundTasks) -> str:
     except:
         logger.exception("Cannot add rsv")
         raise RdInternalServerError("Cannot add rsv")
-    logger.info(f"Reservation {id} registered for {rd['first_name']} {rd['last_name']} ")
+    logger.info(
+        f"Reservation {id} registered for {rd['first_name']} {rd['last_name']} "
+    )
     try:
         ldg = await get_lodging(id, {"_model": Lodging})
         logger.info(f"saved lodging {ldg}")
@@ -111,7 +113,7 @@ async def make_reservation(d: LodgingIn, bt: BackgroundTasks) -> str:
         logger.exception("Cannot get lodging")
         raise RdInternalServerError("Cannot add rsv")
     logger.info("calling sendReservation")
-    bt.add_task(sendReservationEmail, ldg)
+    bt.add_task(sendemail_reservation, ldg)
     return id
 
 
@@ -123,7 +125,6 @@ async def get_lodging(id: str, options: dict = {}) -> Lodging:
     filter["id"] = id
     filter["_model"] = filter.pop("_model", Lodging)
     return cast(Lodging, await DbLodging.find_single(filter))
-
 
 
 # async def get_reservations(options: dict = {}) -> ReservationList:

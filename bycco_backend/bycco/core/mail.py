@@ -12,19 +12,17 @@ from io import BytesIO
 from pathlib import Path
 from weasyprint import HTML, CSS
 from reddevil.core import get_settings
-# from bycco.models.md_enrollment import Enrollment
-from bycco.lodging.md_lodging import Lodging
-# from bycco.models.mail import MailParams
+from reddevil.mail.md_mail import MailParams
 
-# from bycco.i18n import locale_msg
+from bycco.enrollment.md_enrollment import Enrollment
+from bycco.lodging.md_lodging import Lodging
 from bycco.core.mailbackend import backends
 from bycco.core.common import get_common
 
 logger = logging.getLogger(__name__)
 settings = get_settings()
 md = Markdown(extras=["tables"])
-env = Environment(loader=FileSystemLoader(settings.TEMPLATES_PATH), 
-                  trim_blocks=True)
+env = Environment(loader=FileSystemLoader(settings.TEMPLATES_PATH), trim_blocks=True)
 common = get_common()
 i18n = common["i18n"]
 
@@ -87,7 +85,24 @@ def test_mail():
         logger.exception("failed")
 
 
-def sendReservationEmail(ldg: Lodging):
+def sendemail_enrollment_vk(enr: Enrollment) -> None:
+    settings = get_settings()
+    emails = [enr.emailplayer]
+    mp = MailParams(
+        subject="VK 2024",
+        sender=settings.EMAIL["sender"],
+        receiver=",".join(emails),
+        template="mailenrollment_vk_{locale}.md",
+        locale=enr.locale,
+        attachments=[],
+        bcc=settings.EMAIL["bcc_enrollment"],
+    )
+    edict = enr.model_dump()
+    edict["category"] = edict["category"].value
+    sendemail_no_attachments(mp, edict, "confirmation enrollment")
+
+
+def sendemail_reservation(ldg: Lodging):
     logger.info(f"sending reservation email {ldg}")
     tmpl = env.get_template(f"mailreservation_{ldg.locale}.md")
     context = ldg.model_dump()
@@ -120,3 +135,27 @@ def sendReservationEmail(ldg: Lodging):
     except Exception:
         logger.exception("failed")
 
+
+def sendemail_no_attachments(mp: MailParams, context: dict, name: str = ""):
+    tmpl = env.get_template(mp.template.format(locale=context["locale"]))
+    markdowntext = tmpl.render(**context)
+    htmltext = f"{markdownstyle} {md.convert(markdowntext)}"
+    try:
+        msg = MIMEMultipart("related")
+        msg["Subject"] = mp.subject
+        msg["From"] = mp.sender
+        msg["To"] = mp.receiver
+        if mp.bcc:
+            msg["Bcc"] = mp.bcc
+        msg.preamble = "This is a multi-part message in MIME format."
+        msgAlternative = MIMEMultipart("alternative")
+        msgText = MIMEText(markdowntext)
+        msgAlternative.attach(msgText)
+        msgText = MIMEText(htmltext, "html")
+        msgAlternative.attach(msgText)
+        msg.attach(msgAlternative)
+        backend = backends[settings.EMAIL["backend"]]()
+        backend.send_message(msg)
+        logger.info(f"email {name} sent to {mp.receiver}")
+    except Exception:
+        logger.exception("failed")

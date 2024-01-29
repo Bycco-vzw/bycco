@@ -13,15 +13,29 @@ from reddevil.core import validate_token
 router = APIRouter(prefix="/api/v1/enrollment")
 
 from bycco.enrollment.enrollment import (
+    confirm_enrollment_vk,
     create_enrollment_vk,
+    get_photo,
     lookup_idbel,
     lookup_idfide,
+    upload_photo,
 )
 from bycco.enrollment.md_enrollment import EnrollmentVkIn, IdReply
 
 logger = logging.getLogger(__name__)
 
 # vk
+
+
+@router.post("/vkconfirm/{id}", status_code=201)
+async def api_confirm_enrollment_vk(id: str, bt: BackgroundTasks):
+    try:
+        await confirm_enrollment_vk(id, bt)
+    except RdException as e:
+        raise HTTPException(status_code=e.status_code, detail=e.description)
+    except:
+        logger.exception("failed api call confirm_enrollment_vk")
+        raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
 @router.post("/vk", response_model=str)
@@ -55,6 +69,28 @@ async def api_lookup_idfide(id: str):
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except:
         logger.exception("failed api call lookup_idfide")
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+
+
+@router.post("/photo/{id}")
+async def api_anon_upload_photo(id: str, body: dict):
+    try:
+        return await upload_photo(id, body["photo"])
+    except RdException as e:
+        raise HTTPException(status_code=e.status_code, detail=e.description)
+    except:
+        logger.exception("failed api call upload_photo")
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+
+
+@router.get("/photo/{id}")
+async def api_anon_get_photo(id: str):
+    try:
+        return await get_photo(id)
+    except RdException as e:
+        raise HTTPException(status_code=e.status_code, detail=e.description)
+    except:
+        logger.exception("failed api call get_photo")
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
