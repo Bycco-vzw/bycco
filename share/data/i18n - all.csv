@@ -37,7 +37,7 @@ enrollvk,cfm_title,,Bevestiging,Confirmation,,
 enrollvk,det_details,,Gelieve de volgende details te voorzien,Please provide the following details,,
 enrollvk,det_experten,,Gesloten expertentoernooi,Closed experts group,,
 enrollvk,det_expremark,,"Voor de gesloten expertengroep, moet je aangewezen zijn. Als een toegewezen expert moet je toch deze inschrijvingsmodule doorlopen voor je badge","Voor de closed experts group, you have to been assigned.  As a chosen expert, you still have to use this enrollment tool for your badge",,
-enrollvk,det_requiredinfo,,Nodige information,Required information,,
+enrollvk,det_requiredinfo,,Nodige informatie,Required information,,
 enrollvk,det_senioren,,Seniorentoernooi (+50),Senior Torunament (+50),,
 enrollvk,det_title,,Details Inschrijving,Details Enrollment,,
 enrollvk,det_tournament,,Selecteer toernooi,Select tournament,,
@@ -65,7 +65,7 @@ enrollvk,intro_needfideid,,"of, indien je geen belgisch stamnummer hebt, je FIDE
 enrollvk,intro_needphoto,,een recente foto voor je badge,a recent photo for your badge,,
 enrollvk,intro_noid,,"Als je geen enkele ID hebt, moet je je tot je schaakclub wenden","If you have no ID at all, please contact your chess club",,
 enrollvk,pho_crop,,Je gezicht moet centraal staan en minstens de heflt van de foto innnemen,Your face should be centralized and should take at least half of the image,,
-enrollvk,pho_dragbrowse,,Sleep een foto naar hier of klik op browse om een fot te selecteren,Drag here a photo or click browse to select a photo,,
+enrollvk,pho_browse,,Upload een foto door op het icoonthe klikken,Upload a photo by clicking on the icon,,
 enrollvk,pho_result,,Het resultaatbeeld,The resulting image,,
 enrollvk,pho_upload,,We hebben een foto nodig voor je badge,We need a photo for your badge,,
 enrollvk,tool,,Inschrijvingsmodule,Enrollment tool,,
@@ -185,6 +185,7 @@ enrollvk,tool,,Inschrijvingsmodule,Enrollment tool,,
 ,last_name is required,,Achternaam is vereist,last_name is required,Le nom de famille est requis,Der Nachname ist erforderlich
 ,Length badge image,,Lengte badgefoto,Length badge image,Longueur de la photo du badge,Länge Badgephoto
 ,Live Games,,Live partijen,Live Games,Parties Live,Live Partien
+,Loading...,,Bezig ...,Loading...,En cours ...,Wird geladen ...
 ,Locale,,Taal,Locale,Langue,Sprache
 ,Lodging,,Verblijf,Lodging,Séjour,Unterkunft
 ,Lodging Allocation,,Toewijzing Verblijf,Lodging Allocation,Attribution séjour,Zuteilung Aufenthalt

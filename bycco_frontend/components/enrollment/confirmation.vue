@@ -4,6 +4,8 @@ import { useI18n } from 'vue-i18n'
 import ProgressLoading from '@/components/ProgressLoading.vue'
 import SnackbarMessage from '@/components/SnackbarMessage.vue'
 
+const runtimeConfig = useRuntimeConfig()
+
 // communication
 const emit = defineEmits(['changeStep', 'restart'])
 defineExpose({ setup })
@@ -26,7 +28,7 @@ const gender = ref(null)
 const idsub = ref("")
 const last_name = ref("")
 const nationalityfide = ref("")
-const photourl = computed(() => `http://localhost:8000/api/v1/enrollment/photo/${idsub.value}`)
+const photourl = computed(() => `${runtimeConfig.public.apiUrl}api/v1/enrollment/photo/${idsub.value}`)
 const isConfirmed = ref(false)
 
 const step = 6

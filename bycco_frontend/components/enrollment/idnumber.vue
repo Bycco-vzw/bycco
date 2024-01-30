@@ -50,7 +50,7 @@ async function lookup_bel() {
   }
   catch (error) {
     console.error('lookup_bel failed', error)
-    showSnackbar($t('enrollvk.lookup_bel_failed'))
+    showSnackbar(t('enrollvk.lookup_bel_failed'))
     return
   }
   finally {
@@ -84,7 +84,7 @@ async function lookup_fide() {
   }
   catch (error) {
     console.error('lookup_fide failed', error)
-    showSnackbar($t('enrollvk.lookup_bel_failed'))
+    showSnackbar(t('enrollvk.lookup_bel_failed'))
     return
   }
   finally {
@@ -163,58 +163,58 @@ onMounted(() => {
     <SnackbarMessage ref="refsnackbar" />
     <ProgressLoading ref="refloading" />
     <v-row class="my-2">
-      <h2>{{ $t('enrollvk.idn_title') }}</h2>
+      <h2>{{ t('enrollvk.idn_title') }}</h2>
     </v-row>
     <v-row class="mt-2">
-      <div>{{ $t('enrollvk.idn_beldescription') }}</div>
+      <div>{{ t('enrollvk.idn_beldescription') }}</div>
     </v-row>
     <v-row>
       <v-col cols="12" md="6">
-        <v-text-field v-model="idbel" :label="$t('enrollvk.idn_idbel')" required />
+        <v-text-field v-model="idbel" :label="t('enrollvk.idn_idbel')" required />
       </v-col>
       <v-col cols="12" md="6">
         <v-btn color="primary" @click="lookup_bel()">
-          {{ $t('Lookup') }}
+          {{ t('Lookup') }}
         </v-btn>
       </v-col>
     </v-row>
     <v-row class="mt-2">
-      <div>{{ $t('enrollvk.idn_fidedescription') }}</div>
+      <div>{{ t('enrollvk.idn_fidedescription') }}</div>
     </v-row>
     <v-row>
       <v-col cols="12" md="6">
-        <v-text-field v-model="idfide" :label="$t('enrollvk.idn_idfide')" required />
+        <v-text-field v-model="idfide" :label="t('enrollvk.idn_idfide')" required />
       </v-col>
       <v-col cols="12" md="6">
         <v-btn color="primary" @click="lookup_fide()">
-          {{ $t('Lookup') }}
+          {{ t('Lookup') }}
         </v-btn>
       </v-col>
     </v-row>
     <v-alert v-show="errorcode" type="error" class="mt-2" closable>
       <div v-show="errorcode == 'notfound'">
-        <div>{{ $t('enrollvk.idn_notfound') }}</div>
+        <div>{{ t('enrollvk.idn_notfound') }}</div>
       </div>
       <div v-show="errorcode == 'alreadyregistered'">
-        {{ $t('enrollvk.idn_alreadyregistered') }}
+        {{ t('enrollvk.idn_alreadyregistered') }}
       </div>
       <div v-show="errorcode == 'unknown'">
-        {{ $t('UnknownError') }}
+        {{ t('UnknownError') }}
       </div>
     </v-alert>
     <div class="mt-4">
       <div v-show="isPlayerFound">
-        {{ $t('enrollvk.idn_playerfound') }} {{ first_name }} {{ last_name }}
+        {{ t('enrollvk.idn_playerfound') }} {{ first_name }} {{ last_name }}
       </div>
       <div class="mt-2">
         <v-btn class="ml-2" @click="prev" color="primary">
-          {{ $t('Back') }}
+          {{ t('Back') }}
         </v-btn>
         <v-btn :disabled="!isPlayerFound" class="ml-2" color="primary" @click="next">
-          {{ $t('Continue') }}
+          {{ t('Continue') }}
         </v-btn>
         <v-btn class="ml-2" @click="restart">
-          {{ $t('Other player') }}
+          {{ t('Other player') }}
         </v-btn>
       </div>
     </div>

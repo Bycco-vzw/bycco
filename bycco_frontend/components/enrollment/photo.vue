@@ -1,9 +1,6 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import vueFilePond from 'vue-filepond'
-import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.esm.js'
-import 'filepond/dist/filepond.min.css'
 import VueCropper from 'vue-cropperjs'
 import 'cropperjs/dist/cropper.css';
 import ProgressLoading from '@/components/ProgressLoading.vue'
@@ -32,9 +29,6 @@ const photosrc = ref(null)
 
 // datamodel the rest
 const step = 4
-
-const FilePond = vueFilePond(FilePondPluginFileValidateType)
-
 async function uploadPhoto() {
   let reply
   showLoading(true)
@@ -54,20 +48,13 @@ async function uploadPhoto() {
   }
 }
 
-function handleFile(err, file) {
-  if (err) {
-    console.error('Nasty', err)
-    showSnackbar('Error reading file')
-    return
-  }
+function handleFile(event) {
   const reader = new FileReader()
-  const self = this
   reader.onload = (event) => {
     photosrc.value.replace(event.target.result)
   }
-  reader.readAsDataURL(file.file)
+  reader.readAsDataURL(event[0])
 }
-
 
 
 function next() {
@@ -84,7 +71,6 @@ function setup(e) {
   last_name.value = e.last_name
   idsub.value = e.idsub
 }
-
 
 
 function tValidator(f) {
@@ -126,11 +112,10 @@ onMounted(() => {
       </v-row>
       <v-row class="my-2">
         <v-col cols="12">
-          <div class="my-2">{{ $t('enrollvk.pho_dragbrowse') }}</div>
+          <div class="my-2">{{ $t('enrollvk.pho_browse') }}</div>
         </v-col>
         <v-col cols="12">
-          <file-pond ref="pond" accepted-file-types="image/jpeg, image/png" :label-idle="labelIdle"
-            class-name="dropbox" @addfile="handleFile" />
+          <v-file-input label="Badge" v-model="photo" @update:modelValue="handleFile" />
         </v-col>
       </v-row>
       <v-row class="my-2">
@@ -164,6 +149,7 @@ onMounted(() => {
 <style>
 .dropbox {
   width: 100%;
+  background-color: aliceblue;
 }
 
 .photosrc {
