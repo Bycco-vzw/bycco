@@ -28,7 +28,6 @@ const headers = [
   { title: 'Request nr', value: 'number' },
   { title: 'Last Name', value: 'last_name' },
   { title: 'First Name', value: 'first_name' },
-  { title: 'Request date', value: '_creationtime' },
   { title: 'Request room', value: 'lodging' },
   { title: '# guests', value: 'guestlist' },
   { title: 'room', value: 'room' },
