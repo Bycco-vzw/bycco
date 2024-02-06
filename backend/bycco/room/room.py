@@ -14,6 +14,7 @@ logger = logging.getLogger(__name__)
 settings = get_settings()
 common = get_common()
 roomtypes = common["roomtypes"]
+mgmtroomtypes = common["mgmtroomtypes"]
 
 
 async def get_room(id: str, options: dict = {}) -> Room:
@@ -61,7 +62,7 @@ async def get_free_rooms(roomtype: str) -> List[RoomItem]:
     """
     get list of free rooms
     """
-    if roomtype not in roomtypes:
+    if roomtype not in mgmtroomtypes:
         logger.error(f"Unknown roomtype {roomtype}")
         raise RdBadRequest()
     rooms = await get_rooms(

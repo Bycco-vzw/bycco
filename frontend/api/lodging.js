@@ -9,8 +9,8 @@ export default {
     return await axios.post(`${prefix}/cmd/make_reservation`, lodgingIn)
   },
   mgmt_assign_room: async function (options) {
-    const { token } = options
-    return await axios.get(`${prefix}/reservation`, {
+    const { token, id, roomnr } = options
+    return await axios.post(`${prefix}/cmd/assignroom/${id}/${roomnr}`, {
       headers: {
         Authorization: "Bearer " + token,
       }
@@ -41,8 +41,8 @@ export default {
     })
   },
   mgmt_get_free_rooms: async function (options) {
-    const { id, token, reservation } = options
-    return await axios.put(`${roomprefix}/`, reservation, {
+    const { token, roomtype } = options
+    return await axios.get(`${roomprefix}/freeroom/${roomtype}`, {
       headers: {
         Authorization: "Bearer " + token,
       }

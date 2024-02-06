@@ -28,4 +28,6 @@ const trndates = {
   // lodging_start: new Date('2024-01-11 20:00'),
 }
 
-export { trndates }
+const roomtypes = []
+
+export { trndates, roomtypes }

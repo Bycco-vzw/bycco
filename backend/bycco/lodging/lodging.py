@@ -148,8 +148,6 @@ async def update_reservation(id: str, rsv: Lodging, options: dict = {}) -> Lodgi
 async def assign_room(
     id: str,
     roomnr: str,
-    guestlist: Optional[List[Guest]] = None,
-    roomtype: Optional[str] = None,
 ) -> Lodging:
     """
     assign a room to a reservation
@@ -165,12 +163,11 @@ async def assign_room(
         raise RdBadRequest(description="RoomBlocked")
     now = datetime.now(tz=timezone.utc)
     assignments = reservation.assignments or []
-    logger.info(f"room {room} roomtype {roomtype}")
     assignments.append(
         Assignment(
             roomnr=roomnr,
-            roomtype=roomtype or room.roomtype,
-            guestlist=guestlist or reservation.guestlist,
+            roomtype=room.roomtype,
+            guestlist=reservation.guestlist,
             assignmentdate=now,
         )
     )

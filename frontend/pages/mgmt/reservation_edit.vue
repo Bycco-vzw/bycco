@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue'
+import { parse } from 'yaml'
 import ProgressLoading from '@/components/ProgressLoading.vue'
 import SnackbarMessage from '@/components/SnackbarMessage.vue'
 import { useMgmtTokenStore } from "@/store/mgmttoken"
@@ -24,19 +25,18 @@ const personstore = usePersonStore();
 const { person } = storeToRefs(personstore)
 
 // datamodel
-const rsv = ref({ payment_id: "" })
-const search = ref("")
 const assignment = ref({
   roomtype: '',
   roomnumber: '',
   modroomtype: null
 })
-const dialogDelete = ref(false)
 const idreservation = route.query.id
 const newguest = ref({})
-const period = ref({})
 const roomtypes = ref([])
 const roomnumbers = ref([])
+const rsv = ref({ payment_id: "" })
+
+
 
 definePageMeta({
   layout: 'mgmt',
@@ -93,22 +93,24 @@ async function confirm_assignment() {
   try {
     reply = await $backend("lodging", "mgmt_assign_room", {
       id: idreservation,
-      roomnumber: assignment.value.roomnumber,
+      roomnr: assignment.value.roomnumber,
       token: mgmttoken.value
     })
-    readReservation(resp.data)
+    readReservation(reply.data)
   }
   catch (error) {
-    console.error('getting assigning room', resp)
-    if (error.code === 401) {
+    console.error('getting assigning room', error)
+    if (error.code == 401) {
       await navigateTo('/mgmt')
     } else {
       showSnackbar('Assigning room failed' + error.detail)
     }
+    return
   }
   finally {
     showLoading(false)
   }
+  showSnackbar('Room number assigned OK')
 }
 
 async function create_pr() {
@@ -220,11 +222,11 @@ function readReservation(reservation) {
   assignment.value = { roomtype: '', roomnumber: '' }
 }
 
-async function roomtypeSelected() {
+async function get_free_rooms() {
   let reply
   showLoading(true)
   try {
-    reply = await $backend("lodging", "get_free_rooms", {
+    reply = await $backend("lodging", "mgmt_get_free_rooms", {
       roomtype: assignment.value.roomtype
     })
   }
@@ -236,7 +238,68 @@ async function roomtypeSelected() {
   }
   const rooms = reply.data
   console.log('returned rooms', rooms)
-  // roomnumbers.value = Array.from(Object.keys(rooms), x => rooms[x].number)
+}
+
+async function parseYaml(group, name) {
+  let yamlcontent
+  try {
+    yamlcontent = await readBucket(group, name)
+    if (!yamlcontent) {
+      return null
+    }
+    return parse(yamlcontent)
+  }
+  catch (error) {
+    console.error('cannot parse yaml', error)
+  }
+}
+
+async function processCommon() {
+  const cm = await parseYaml("data", "common.yaml")
+  roomtypes.value = []
+  cm.mgmtroomtypes.forEach((rt) => {
+    roomtypes.value.push({
+      title: cm.i18n[rt].nl,
+      value: rt,
+    })
+  })
+}
+
+
+async function readBucket(group, name) {
+  try {
+    const reply = await $backend('filestore', 'anon_get_file', {
+      group,
+      name,
+    })
+    return reply.data
+  }
+  catch (error) {
+    console.error('failed to fetch file from bucket')
+    return null
+  }
+}
+
+
+async function roomtypeSelected() {
+  let reply
+  showLoading(true)
+  try {
+    reply = await $backend("lodging", "mgmt_get_free_rooms", {
+      token: mgmttoken.value,
+      roomtype: assignment.value.roomtype,
+    })
+  }
+  catch (error) {
+    console.error('getting free rooms', error.response)
+    showSnackbar('Cannot get room numbers')
+    return
+  }
+  finally {
+    showLoading(false)
+  }
+  const rooms = reply.data
+  roomnumbers.value = Array.from(Object.keys(rooms), x => rooms[x].number)
 }
 
 async function saveGuestlist() {
@@ -314,6 +377,7 @@ async function saveProperties() {
 onMounted(async () => {
   showSnackbar = refsnackbar.value.showSnackbar
   showLoading = refloading.value.showLoading
+  await processCommon()
   await checkAuth()
   await getReservation()
 })
@@ -429,7 +493,7 @@ onMounted(async () => {
         <v-row>
           <v-col cols="3">
             <v-select v-model="assignment.roomtype" :items="roomtypes" label="Select roomtype"
-              @change="roomtypeSelected" />
+              @update:model-value="roomtypeSelected" />
           </v-col>
           <v-col cols="3">
             <v-select v-model="assignment.roomnumber" :items="roomnumbers" label="Select room number"

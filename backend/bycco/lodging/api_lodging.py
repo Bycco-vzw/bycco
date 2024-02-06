@@ -77,11 +77,11 @@ async def api_update_reservation(id: str, reservation: Lodging):
         raise HTTPException(status_code=500)
 
 
-@router.put("/cmd/assignroom/{id}/{roomnr}", response_model=Lodging)
-async def api_assign_room(id: str, roomnr: str, roomtype: str | None):
+@router.post("/cmd/assignroom/{id}/{roomnr}", response_model=Lodging)
+async def api_assign_room(id: str, roomnr: str):
     try:
-        logger.info(f"assign roomtype {roomtype}")
-        return await assign_room(id, roomnr, roomtype=roomtype)
+        logger.info(f"assign room {roomnr}")
+        return await assign_room(id, roomnr)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except:

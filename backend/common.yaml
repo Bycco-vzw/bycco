@@ -4,6 +4,13 @@
 roomtypes:
   - SH
   - DH
+  - SD
+  - AP4
+  - AP6
+
+mgmtroomtypes:
+  - SH
+  - DH
   - TH
   - SD
   - AP4
