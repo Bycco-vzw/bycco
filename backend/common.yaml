@@ -1,0 +1,141 @@
+---
+# common configuration options for backend and frontend
+
+roomtypes:
+  - SH
+  - DH
+  - TH
+  - SD
+  - AP4
+  - AP6
+
+catering:
+  - "no"
+  - half
+
+period:
+  startdate: 2024-04-07
+  enddate: 2024-04-13
+
+i18n:
+  ROOM_18:
+    nl: Korting -18 jaar
+    fr: Reduction -18 ans
+    de: Rabatt -18 Jahr
+    en: Reduction -18 years
+  SH:
+    nl: Hotelkamer 1 persoon
+    fr: Chambre d'Hôtel 1 personne
+    de: Hotelzimmer 1 Person
+    en: Hotel room 1 person
+  DH:
+    nl: Hotelkamer 2 personen
+    fr: Chambre d'Hôtel 2 personnes
+    de: Hotelzimmer 2 Personen
+    en: Hotel room 2 persons
+  TH:
+    nl: Hotelkamer 3 personen
+    fr: Chambre d'Hôtel 3 personnes
+    de: Hotelzimmer 3 Personen
+    en: Hotel room 3 persons
+  SD:
+    nl: Studio 2 à 3 personen
+    fr: Studio 2 à 3 personnes
+    de: Studio 2 bis Personen
+    en: Studio 2 to 3 persons
+  AP4:
+    nl: Appartement 4 personen
+    fr: Appartement 4 personnes
+    de: Appartement 4 Personen
+    en: Apartment 4 persons
+  AP6:
+    nl: Appartement 6 personen
+    fr: Appartement 6 personnes
+    de: Appartement 6 Personen
+    en: Apartment 6 persons
+  full:
+    nl: Volpension
+    fr: Pension complète
+    de: Vollpension
+    en: Full boarding
+  half:
+    nl: Halfpension
+    fr: Demi-pension
+    de: Halbpension
+    en: Half boarding
+  "no":
+    nl: Geen maaltijden
+    fr: Pas de repas
+    de: Keine Mahlzeiten
+    en: No meals
+  tax:
+    nl: Verblijftaks Blankenberge
+    fr: Taxe de séjour Blankenberge
+    de: Aufenthaltssteuer Blankenberge
+    en: Resident tax Blankenberge
+  cleaning:
+    nl: Eindschoonmaak
+    fr: Nettoyage final
+    de: Endreinigung
+    en: Final cleaning
+  reduction:
+    nl: Korting
+    fr: Réduction
+    de: Rabatt
+    en: Discount
+  total:
+    nl: Totaal
+    fr: Total
+    de: Gesamt
+    en: Total
+  costnor:
+    nl: Kost zonder Korting
+    fr: Coût sans réduction
+    de: Kosten ohne Rabatt
+    en: Cost without discount
+  enrollment:
+    nl: Inschrijving
+    fr: Enregistrement
+    de: Anmeldung
+    en: Enrollment
+  admcost:
+    nl: Extra adminstratiekost
+    fr: Frais administratifs supplémentaires
+    de: Zusätzliche Verwaltungskosten
+    en: Extra administration cost
+
+prices:
+  ST2:
+    day: 95
+    clean: 33
+  ST3:
+    day: 95
+    clean: 33
+  AP4:
+    day: 100
+    clean: 44
+  AP5:
+    day: 100
+    clean: 44
+  AP6:
+    day: 110
+    clean: 55
+  AP7:
+    day: 110
+    clean: 55
+  "+18":
+    half: 40
+    breakfast: 14
+    dinner: 26
+  "-18":
+    half: 24
+    breakfast: 10
+    dinner: 14
+  "-12":
+    half: 21
+    breakfast: 9
+    dinner: 12
+  "-3":
+    half: 0
+    breakfast: 0
+    dinner: 0
