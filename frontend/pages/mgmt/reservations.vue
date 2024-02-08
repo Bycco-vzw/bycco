@@ -8,6 +8,7 @@ import { storeToRefs } from "pinia"
 
 // communication
 const { $backend } = useNuxtApp()
+const router = useRouter()
 
 //  snackbar and loading widgets
 const refsnackbar = ref(null)
@@ -101,7 +102,7 @@ async function downloadReservations() {
 }
 
 async function editReservation(item) {
-  await navigateTo('/mgmt/reservation_edit/?id=' + item.id)
+  router.push('/mgmt/reservation_edit/?id=' + item.id)
 }
 
 async function getReservations() {
@@ -121,19 +122,20 @@ async function getReservations() {
   catch (error) {
     console.error('getting reservations failed', error)
     if (error.code === 401) {
-      await navigateTo('/mgmt')
+      router.push('/mgmt')
     }
     else {
       showSnackbar('Getting reservations failed')
     }
+    return
   }
   finally {
     showLoading(false)
   }
 }
 
-async function gotoPaymentRequest(item) {
-  await navigateTo('/mgmt/paymentrequest_edit?id=' + item.payment_id)
+function gotoPaymentRequest(item) {
+  router.push('/mgmt/paymentrequest_edit?id=' + item.payment_id)
 }
 
 function lightgreyRow(item) {

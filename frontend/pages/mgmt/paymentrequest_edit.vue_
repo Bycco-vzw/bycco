@@ -1,0 +1,140 @@
+<script setup>
+import { ref } from 'vue'
+import { parse } from 'yaml'
+import ProgressLoading from '@/components/ProgressLoading.vue'
+import SnackbarMessage from '@/components/SnackbarMessage.vue'
+import { useMgmtTokenStore } from "@/store/mgmttoken"
+import { usePersonStore } from "@/store/person"
+import { storeToRefs } from "pinia"
+
+// communication
+const { $backend } = useNuxtApp()
+const route = useRoute()
+const router = useRouter()
+
+//  snackbar and loading widgets
+const refsnackbar = ref(null)
+let showSnackbar
+const refloading = ref(null)
+let showLoading
+
+// stores
+const mgmtstore = useMgmtTokenStore()
+const { token: mgmttoken } = storeToRefs(mgmtstore)
+const personstore = usePersonStore();
+const { person } = storeToRefs(personstore)
+
+// datamodel
+const assignment = ref({ roomtype: '', roomnumber: '' })
+const dialogDelete = ref(false)
+const idpaymentrequest = route.value.query.id
+const newguest = ref({})
+const period = ref({})
+const roomtypes = ref([])
+const roomnumbers = ref([])
+const prq = ref({})
+
+</script >
+
+<template>
+  <v-container>
+    <v-row>
+      <h2>Payment request {{ prq.number }}: {{ prq.last_name }} {{ prq.first_name }}</h2>
+      <v-spacer />
+      <v-tooltip bottom>
+        <template #activator="{ on }">
+          <v-btn slot="activator" outlined fab color="deep-purple" v-on="on" @click="back()">
+            <v-icon>mdi-arrow-left</v-icon>
+          </v-btn>
+        </template>
+        <span>Go Back</span>
+      </v-tooltip>
+      <v-tooltip bottom>
+        <template #activator="{ on }">
+          <v-btn slot="activator" outlined fab color="deep-purple" v-on="on" @click="email()">
+            <v-icon>mdi-email</v-icon>
+          </v-btn>
+        </template>
+        <span>Email</span>
+      </v-tooltip>
+    </v-row>
+    <v-card class="my-3">
+      <v-card-title>
+        Register payment
+      </v-card-title>
+      <v-card-text>
+        <v-switch v-model="prq.paystatus" label="Paid" color="deep-purple" />
+        <v-textarea v-model="prq.remarks" rows="2" label="Remarks" />
+      </v-card-text>
+      <v-card-actions>
+        <v-btn @click="registerPayment">
+          Register Payment
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+    <v-card class="my-3">
+      <v-card-title>
+        Properties
+      </v-card-title>
+      <v-card-text>
+        <v-row>
+          <v-col cols="12" sm="6">
+            <p>Reason: {{ prq.reason }}</p>
+            <p>Email sent: {{ prq.sentdate }}</p>
+            <v-text-field v-model="prq.last_name" label="Last name" />
+            <v-text-field v-model="prq.first_name" label="First name" />
+            <v-textarea v-model="prq.address" label="Address" />
+          </v-col>
+          <v-col cols="12" sm="6">
+            <p>Total cost: <b>{{ prq.totalprice }} €</b></p>
+            <p>Guests: {{ prq.guests }}</p>
+            <v-text-field v-model="prq.email" label="E-mail" />
+            <v-text-field v-model="prq.mobile" label="Mobile" />
+            <v-text-field v-model="prq.locale" label="Language" />
+            <v-text-field v-model="prq.reductionamount" label="Reduction fixed amount" />
+            <v-text-field v-model="prq.reductionpct" label="Reduction pct" />
+          </v-col>
+        </v-row>
+      </v-card-text>
+      <v-card-actions>
+        <v-btn @click="saveProperties">
+          Save
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+    <v-card class="my-3">
+      <v-card-title>Details</v-card-title>
+      <v-card-text>
+        <v-row v-for="(d, ix) in prq.details" :key="ix" class="mt-2">
+          <v-col cols="2" sm="2" md="1">
+            {{ ix + 1 }}
+          </v-col>
+          <v-col cols="10" sm="10" md="5">
+            {{ d.description }}
+          </v-col>
+          <v-col cols="4" sm="4" md="2" class="text-right">
+            {{ d.unitprice }} {{ d.unitprice ? "€" : "" }}
+          </v-col>
+          <v-col cols="4" sm="4" md="2" class="text-right">
+            {{ d.quantity }}
+          </v-col>
+          <v-col cols="4" sm="4" md="2" class="text-right">
+            {{ d.totalprice }} €
+          </v-col>
+        </v-row>
+      </v-card-text>
+      <v-card-actions />
+    </v-card>
+  </v-container>
+</template> 
+
+
+<style scoped>
+.bordermd {
+  border: 1px solid grey;
+}
+
+.v-input--checkbox {
+  margin-top: 0;
+}
+</style>
