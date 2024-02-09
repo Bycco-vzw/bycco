@@ -27,9 +27,17 @@ export default {
       }
     })
   },
-  mgmt_update_paymentrequest: async function (options) {
+  mgmt_update_lodging_pr: async function (options) {
     const { token, id, prq } = options
-    return await axios.put(`${prefix}/pr/${id}`, prq, {
+    return await axios.put(`${prefix}/lodging_pr/${id}`, prq, {
+      headers: {
+        Authorization: "Bearer " + token,
+      }
+    })
+  },
+  mgmt_email_pr: async function (options) {
+    const { token, id, prq } = options
+    return await axios.post(`${prefix}/email_pr/${id}`, prq, {
       headers: {
         Authorization: "Bearer " + token,
       }

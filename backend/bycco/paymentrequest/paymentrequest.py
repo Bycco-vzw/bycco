@@ -240,15 +240,16 @@ async def delete_pr_lodging(rsvid: str) -> None:
         pass
 
 
-async def update_pr_lodging(rsvid: str, prq: PaymentRequest) -> None:
-    rsv = await get_lodging(rsvid)
+async def update_pr_lodging(id: str, prq: PaymentRequest) -> None:
+    prq = await get_payment_request(id)
+    assert prq.reason == "lodging"
+    rsv = await get_lodging(prq.link_id)
     (details, totalprice) = calc_pricedetails(
         rsv, prq.reductionamount, prq.reductionpct
     )
     prq.details = details
     prq.totalprice = totalprice
-    assert rsv.payment_id
-    await update_payment_request(rsv.payment_id, prq)
+    await update_payment_request(id, prq)
 
 
 async def email_paymentrequest(prqid) -> None:
@@ -269,9 +270,9 @@ async def email_pr_lodging(prqid) -> None:
         template="pr_lodging_mail_{locale}.md",
         locale=prq.locale,
         attachments=[],
-        bcc=settings.EMAIL["bcc_lodging"],
+        bcc=settings.EMAIL["bcc_reservation"],
     )
-    sendEmailNoAttachments(mp, prq.dict(), "payment request lodging")
+    sendEmailNoAttachments(mp, prq.model_dump(), "payment request lodging")
     await update_payment_request(
         prqid, PaymentRequest(sentdate=date.today().isoformat())
     )

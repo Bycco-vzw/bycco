@@ -102,7 +102,7 @@ async function downloadReservations() {
 }
 
 async function editReservation(item) {
-  router.push('/mgmt/reservation_edit/?id=' + item.id)
+  router.push('/mgmt/reservation_edit?id=' + item.id)
 }
 
 async function getReservations() {

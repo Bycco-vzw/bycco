@@ -92,7 +92,7 @@ async def api_create_pr_lodging(
         raise HTTPException(status_code=500)
 
 
-@router.put("/lodging_pr/{id}", response_model=str)
+@router.put("/lodging_pr/{id}")
 async def api_update_pr_lodging(
     id: str,
     prq: PaymentRequest,
@@ -100,7 +100,7 @@ async def api_update_pr_lodging(
 ):
     try:
         await validate_token(auth)
-        return await update_pr_lodging(rsvid, prq)
+        await update_pr_lodging(id, prq)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except:

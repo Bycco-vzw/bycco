@@ -77,9 +77,9 @@ async function email() {
   let reply
   showLoading(true)
   try {
-    reply = await $backend("payment", mgmt_email, {
+    reply = await $backend("payment", "mgmt_email_pr", {
       id: idpaymentrequest,
-      token: mgmttoken.value
+      token: mgmttoken.value,
     })
   }
   catch (error) {
@@ -127,7 +127,7 @@ async function registerPayment() {
   let reply
   showLoading(true)
   try {
-    reply = await $backend("payment", "mgmt_update_paymentrequest", {
+    reply = await $backend("payment", "mgmt_update_lodging_pr", {
       id: idpaymentrequest,
       prq: {
         remarks: prq.value.remarks,
@@ -158,7 +158,7 @@ async function saveProperties() {
   let reply
   showLoading(true)
   try {
-    reply = await $backend("payment", "mgmt_update_paymentrequest", {
+    reply = await $backend("payment", "mgmt_update_lodging_pr", {
       id: idpaymentrequest,
       prq: {
         address: prq.value.address,
