@@ -9,6 +9,7 @@ EMAIL = {
     "bcc_enrollment": "ruben.decrop@gmail.com,luc.cornet@bycco.be",
 }
 
+
 SECRETS = {
     "mongodb": {
         "name": "bycco-mongodb-dev",
