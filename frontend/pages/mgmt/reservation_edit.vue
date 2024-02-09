@@ -46,7 +46,7 @@ function addGuest() {
   rsv.value.guestlist.push({
     last_name: newguest.value.last_name,
     first_name: newguest.value.first_name,
-    birthday: newguest.value.birthday,
+    birthdate: newguest.value.birthdate,
     player: newguest.value.player
   })
   newguest.value = {}
@@ -448,7 +448,7 @@ onMounted(async () => {
             <v-text-field v-model="g.last_name" dense label="Last name" />
           </v-col>
           <v-col cols="12" sm="6" md="2">
-            <v-text-field v-model="g.birthday" dense label="Birthdate" />
+            <v-text-field v-model="g.birthdate" dense label="Birthdate" />
           </v-col>
           <v-col cols="6" sm="3" md="2">
             <v-checkbox v-model="g.player" dense label="player" />
@@ -468,7 +468,7 @@ onMounted(async () => {
             <v-text-field v-model="newguest.last_name" dense label="Last name" />
           </v-col>
           <v-col cols="12" sm="6" md="2">
-            <v-text-field v-model="newguest.birthday" dense label="Birthdate" />
+            <v-text-field v-model="newguest.birthdate" dense label="Birthdate" />
           </v-col>
           <v-col cols="6" sm="3" md="2">
             <v-checkbox v-model="newguest.player" dense label="player" />
