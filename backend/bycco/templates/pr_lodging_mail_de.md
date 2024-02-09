@@ -1,4 +1,4 @@
-## Zahlungsanfrage Aufenthalt Floreal 2023
+## Zahlungsanfrage Aufenthalt Floreal 2024
 
 Wir bitten Sie, die aufgeführten Daten noch einmal zu überprüfen und uns eventuelle Fehler zu melden
 
@@ -13,6 +13,7 @@ Check-in Datum: {{ checkindate }}<br>
 Check-out Datum: {{ checkoutdate}}
 
 {{ guests }}
+
 ### Reserverung
 
 | Bezeichnung | Anzahl | Preis | Summe |
@@ -23,20 +24,20 @@ Check-out Datum: {{ checkoutdate}}
 
 ### Zahlung
 
-Bitte überweisen Sie vor dem 15. Dezember 2022 den Betrag von {{ totalprice }} € auf das Konto von Bycco
+Bitte überweisen Sie vor dem 15. Februar 2024 den Betrag von {{ totalprice }} € auf das Konto von Bycco
 BE33 0017 5924 5146 mit der strukturierten Kommunikation {{ paymessage }}
 
-Nach dem 15. Dezember fallen Stornokosten an.
+Nach dem 15. Februar fallen Stornokosten an.
 
 Nach der Zahlung ist die Reservierung des Aufenthalts endgültig bestätigt.
 
 Wenn Sie eine Rechnung im Namen eines Mehrwertsteuerzahlers wünschen, kontaktieren Sie uns bitte so schnell wie möglich
 um auf diese E-Mail unter Angabe der Umsatzsteuerdaten des Betroffenen zu antworten:
 
-  - Name
-  - Adresse
-  - Email
-  - Umsatzsteuer-Identifikationsnummer
+- Name
+- Adresse
+- Email
+- Umsatzsteuer-Identifikationsnummer
 
 Mit freundlichen Grüßen
 

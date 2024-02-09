@@ -46,7 +46,7 @@ function addGuest() {
   rsv.value.guestlist.push({
     last_name: newguest.value.last_name,
     first_name: newguest.value.first_name,
-    birthday: newguest.value.birthday,
+    birthdate: newguest.value.birthdate,
     player: newguest.value.player
   })
   newguest.value = {}
@@ -60,11 +60,11 @@ async function checkAuth() {
   console.log('checking if auth is already set', mgmttoken.value)
   if (mgmttoken.value) return
   if (person.value.credentials.length === 0) {
-    navigateTo('/mgmt')
+    router.push('/mgmt')
     return
   }
   if (!person.value.email.endsWith('@bycco.be')) {
-    navigateTo('/mgmt')
+    router.push('/mgmt')
     return
   }
   let reply
@@ -101,9 +101,9 @@ async function confirm_assignment() {
   catch (error) {
     console.error('getting assigning room', error)
     if (error.code == 401) {
-      await navigateTo('/mgmt')
+      router.push('/mgmt')
     } else {
-      showSnackbar('Assigning room failed' + error.detail)
+      showSnackbar('Assigning room failed: ' + error.detail)
     }
     return
   }
@@ -117,15 +117,15 @@ async function create_pr() {
   let reply
   showLoading(true)
   try {
-    reply = await $backend("lodging", "create_pr", {
-      id: this.$route.query.id,
+    reply = await $backend("payment", "mgmt_create_lodging_pr", {
+      id: idreservation,
       token: mgmttoken.value
     })
   }
   catch (error) {
     console.error('creating payment request', error)
     if (error.code === 401) {
-      await navigateTo('/mgmt')
+      router.push('/mgmt')
     } else {
       showSnackbar('Creating paymentrequesr failed: ' + error.detail)
     }
@@ -134,7 +134,7 @@ async function create_pr() {
   finally {
     showLoading(false)
   }
-  await navigateTo('/mgmt/paymentrequestedit?id=' + resp.data)
+  router.push('/mgmt/paymentrequest_edit?id=' + reply.data)
 }
 
 function deleteGuest(ix) {
@@ -154,7 +154,7 @@ async function delete_pr() {
     catch (error) {
       console.error('deleting linked payment request', error)
       if (error.code === 401) {
-        await navigateTo('/mgmt')
+        router.push('/mgmt')
       } else {
         showSnackbar('Deleting Paymentrequest failed' + error.detail)
       }
@@ -180,7 +180,7 @@ async function deleteAssignment(ix) {
   } catch (error) {
     console.error('getting unassigning room', error)
     if (error.code === 401) {
-      await navigateTo('/mgmt')
+      router.push('/mgmt')
     }
     else {
       showSnackbar('Assigning room failed' + error.detail)
@@ -201,7 +201,7 @@ async function getReservation() {
   catch (error) {
     console.error('getting reservation failed', error)
     if (error.code === 401) {
-      navigateTo('/mgmt')
+      router.push('/mgmt')
     }
     else {
       showSnackbar('Getting reservation failed')
@@ -214,7 +214,7 @@ async function getReservation() {
 
 async function gotoPaymentrequest(id) {
   console.log('going to payment request', id)
-  await navigateTo('/mgmt/paymentrequest_edit?id=' + id)
+  router.push('/mgmt/paymentrequest_edit?id=' + id)
 }
 
 function readReservation(reservation) {
@@ -317,7 +317,7 @@ async function saveGuestlist() {
   catch (error) {
     console.error('getting getReservations', error)
     if (error.code === 401) {
-      await navigateTo('/mgmt')
+      router.push('/mgmt')
     }
     else {
       showSnackbar('Saving reservation failed: ' + error.detail)
@@ -360,7 +360,7 @@ async function saveProperties() {
   catch (error) {
     console.error('getting getReservations', error)
     if (error.code === 401) {
-      await navigateTo('/mgmt')
+      router.push('/mgmt')
     }
     else {
       showSnackbar('Saving reservation failed: ' + error.detail)
@@ -448,7 +448,7 @@ onMounted(async () => {
             <v-text-field v-model="g.last_name" dense label="Last name" />
           </v-col>
           <v-col cols="12" sm="6" md="2">
-            <v-text-field v-model="g.birthday" dense label="Birthdate" />
+            <v-text-field v-model="g.birthdate" dense label="Birthdate" />
           </v-col>
           <v-col cols="6" sm="3" md="2">
             <v-checkbox v-model="g.player" dense label="player" />
@@ -468,7 +468,7 @@ onMounted(async () => {
             <v-text-field v-model="newguest.last_name" dense label="Last name" />
           </v-col>
           <v-col cols="12" sm="6" md="2">
-            <v-text-field v-model="newguest.birthday" dense label="Birthdate" />
+            <v-text-field v-model="newguest.birthdate" dense label="Birthdate" />
           </v-col>
           <v-col cols="6" sm="3" md="2">
             <v-checkbox v-model="newguest.player" dense label="player" />

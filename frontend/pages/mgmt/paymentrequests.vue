@@ -18,32 +18,34 @@ let showLoading
 
 // stores
 const mgmtstore = useMgmtTokenStore()
-const { token } = storeToRefs(mgmtstore)
+const { token: mgmttoken } = storeToRefs(mgmtstore)
 const personstore = usePersonStore();
 const { person } = storeToRefs(personstore)
 
 // datamodel
-const reservations = ref([])
-const search = ref("")
 const headers = [
-  { title: 'Request nr', value: 'number' },
+  { title: 'PR nr', value: 'number' },
+  { title: 'Type', value: 'reason' },
   { title: 'Last Name', value: 'last_name' },
   { title: 'First Name', value: 'first_name' },
-  { title: 'Request room', value: 'lodging' },
-  { title: '# guests', value: 'guestlist' },
-  { title: 'room', value: 'room' },
+  { title: 'Total price', value: 'totalprice' },
+  { title: 'Pay date', value: 'paydate' },
+  { title: 'Message', value: 'paymessage' },
   { title: 'Actions', value: 'action', sortable: false }
 ]
-const xls = ref(null)
+const prqs = ref([])
+const search = ref("")
+const filter = ref({})
+const footerProps = ref({
+  itemsPerPageOptions: [150, -1]
+})
 
 definePageMeta({
   layout: 'mgmt',
 })
 
-
 async function checkAuth() {
-  console.log('checking if auth is already set', token.value)
-  if (token.value) return
+  if (mgmttoken.value) return
   if (person.value.credentials.length === 0) {
     router.push('/mgmt')
     return
@@ -75,97 +77,66 @@ async function checkAuth() {
   mgmtstore.updateToken(reply.data)
 }
 
+function editPaymentRequest(item) {
+  router.push('/mgmt/paymentrequest_edit/?id=' + item.id)
+}
 
-async function downloadReservations() {
+async function getPaymentRequests() {
   let reply
   showLoading(true)
   try {
-    reply = await $backend("lodging", "xls_reservations", {
-      authorization: 'Bearer ' + this.token
+    reply = await $backend("payment", "mgmt_get_paymentrequests", {
+      token: mgmttoken.value
     })
-    xls = resp.data.xls64
   }
   catch (error) {
-    console.log('download error', error)
-    showSnackbar('Download error: ' + error.detail)
-  }
-  finally {
-    showLoading(false)
-  }
-  const link = document.createElement('a')
-  link.download = 'reservations.xlsx'
-  link.href = 'data:aaplication/excel;base64,' + xls.value
-  document.body.appendChild(link)
-  link.click()
-  document.body.removeChild(link)
-  showSnackbar('Downloading reservations successful')
-}
-
-async function editReservation(item) {
-  router.push('/mgmt/reservation_edit?id=' + item.id)
-}
-
-async function getReservations() {
-  let reply
-  showLoading(true)
-  try {
-    reply = await $backend('lodging', "mgmt_get_reservations", {
-      token: token.value
-    })
-    reservations.value = reply.data
-    reservations.value.forEach((r) => {
-      const rooms = r.assignments ? Array.from(r.assignments, a => a.roomnr) : []
-      r.room = rooms.join(',')
-    })
-    console.log('rsv', reservations.value)
-  }
-  catch (error) {
-    console.error('getting reservations failed', error)
+    console.error('getting paymentrequests', error)
     if (error.code === 401) {
       router.push('/mgmt')
     }
     else {
-      showSnackbar('Getting reservations failed')
+      showSnackbar('Getting payment requests failed')
     }
+    prqs.value = []
     return
   }
   finally {
     showLoading(false)
   }
+  prqs.value = reply.data
+  console.log('prqs', prqs.value)
 }
 
-function gotoPaymentRequest(item) {
-  router.push('/mgmt/paymentrequest_edit?id=' + item.payment_id)
-}
-
-function lightgreyRow(item) {
-  if (!item.enabled) {
-    return 'lightgreyrow'
+function gotoLinked(item) {
+  if (item.reason == "lodging") {
+    router.push('/mgmt/reservation_edit/?id=' + item.id)
   }
 }
 
+
 async function refresh() {
-  await getReservations()
+  await getPaymentRequests()
 }
 
 onMounted(async () => {
   showSnackbar = refsnackbar.value.showSnackbar
   showLoading = refloading.value.showLoading
   await checkAuth()
-  await getReservations()
+  await getPaymentRequests()
 })
+
 </script>
+
 
 <template>
   <v-container>
     <SnackbarMessage ref="refsnackbar" />
     <ProgressLoading ref="refloading" />
-    <h1>Management Reservations</h1>
-    <v-data-table :headers="headers" :items="reservations" :item-class="lightgreyRow"
-      :footer-props="footerProps" class="elevation-1" :sort-by="['name', 'modified']"
-      :search="search">
+    <h1>Payment Requests</h1>
+    <v-data-table :headers="headers" :items="prqs" :footer-props="footerProps" class="elevation-1"
+      :sort-by="['name']" :search="search">
       <template #top>
-        <v-card color="grey lighten-4">
+        <v-card color="grey-lighten-4">
           <v-card-title>
             <v-row class="px-2">
               <v-text-field v-model="search" label="Search" class="mx-4" append-icon="mdi-magnify"
@@ -173,11 +144,12 @@ onMounted(async () => {
               <v-spacer />
               <v-tooltip bottom>
                 <template #activator="{ on }">
-                  <v-btn fab outlined color="deep-purple" v-on="on" @click="downloadReservations()">
+                  <v-btn fab outlined color="deep-purple" v-on="on"
+                    @click="downloadPaymentRequests()">
                     <v-icon>mdi-download-multiple</v-icon>
                   </v-btn>
                 </template>
-                Download Reservations
+                Download Paymentrequests
               </v-tooltip>
               <v-tooltip bottom>
                 <template #activator="{ on }">
@@ -191,38 +163,32 @@ onMounted(async () => {
           </v-card-title>
         </v-card>
       </template>
-      <template #item._creationtime="{ item }">
-        {{ (new Date(item._creationtime)).toLocaleDateString("en-GB", { dateStyle: 'medium' }) }}
-      </template>
-      <template #item.guestlist="{ item }">
-        {{ item.guestlist.length }}
-      </template>
-      <template #item.payment_id="{ item }">
-        <NuxtLink v-if="item.payment_id" :to="'/mgmt/paymentrequestedit?id=' + item.payment_id">
-          link
-        </NuxtLink>
-      </template>
       <template #item.action="{ item }">
         <v-tooltip bottom>
           <template #activator="{ on }">
-            <v-icon small class="mr-2" v-on="on" @click="editReservation(item)">
+            <v-icon small class="mr-2" v-on="on" @click="gotoLinked(item)">
+              mdi-link
+            </v-icon>
+          </template>
+        </v-tooltip>
+        <v-tooltip bottom>
+          <template #activator="{ on }">
+            <v-icon small class="mr-2" v-on="on" @click="editPaymentRequest(item)">
               mdi-pencil
             </v-icon>
           </template>
-          Edit Reservation
-        </v-tooltip>
-        <v-tooltip v-if="item.payment_id" bottom>
-          <template #activator="{ on }">
-            <v-icon small class="mr-2" v-on="on" @click="gotoPaymentRequest(item)">
-              mdi-currency-eur
-            </v-icon>
-          </template>
-          Show payment request
         </v-tooltip>
       </template>
       <template #no-data>
-        No reservations found.
+        No paymentrequests found.
       </template>
     </v-data-table>
   </v-container>
 </template>
+
+
+<style>
+.lightgreyrow {
+  color: #ddd;
+}
+</style>

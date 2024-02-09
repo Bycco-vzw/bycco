@@ -107,7 +107,7 @@ async def make_reservation(d: LodgingIn, bt: BackgroundTasks) -> str:
         f"Reservation {id} registered for {rd['first_name']} {rd['last_name']} "
     )
     try:
-        ldg = await get_reservation(id)
+        ldg = await get_lodging(id)
         logger.info(f"saved lodging {ldg}")
     except:
         logger.exception("Cannot get lodging")
@@ -117,7 +117,7 @@ async def make_reservation(d: LodgingIn, bt: BackgroundTasks) -> str:
     return id
 
 
-async def get_reservation(id: str, options: dict = {}) -> Lodging:
+async def get_lodging(id: str, options: dict = {}) -> Lodging:
     """
     get the Lodging
     """
@@ -127,7 +127,7 @@ async def get_reservation(id: str, options: dict = {}) -> Lodging:
     return cast(Lodging, await DbLodging.find_single(filter))
 
 
-async def get_reservations(options: dict = {}) -> List[Lodging]:
+async def get_lodgings(options: dict = {}) -> List[Lodging]:
     """
     get the reservations
     """
@@ -136,7 +136,7 @@ async def get_reservations(options: dict = {}) -> List[Lodging]:
     return [cast(Lodging, x) for x in await DbLodging.find_multiple(filter)]
 
 
-async def update_reservation(id: str, rsv: Lodging, options: dict = {}) -> Lodging:
+async def update_lodging(id: str, rsv: Lodging, options: dict = {}) -> Lodging:
     opt = options.copy()
     opt["_model"] = opt.pop("_model", Lodging)
     lodging = cast(
@@ -153,7 +153,7 @@ async def assign_room(
     assign a room to a reservation
     """
 
-    reservation = await get_reservation(id)
+    reservation = await get_lodging(id)
     room = await get_room_by_number(roomnr)
     if room.reservation_id is not None:
         logger.info(f"cannot assign {roomnr}: already taken")
@@ -177,9 +177,7 @@ async def assign_room(
     logging = reservation.logging or []
     nf = now.isoformat(sep=" ", timespec="minutes")
     logging.append(f"{nf} Assigned room {roomnr} to reservation {reservation.number}")
-    return await update_reservation(
-        id, Lodging(assignments=assignments, logging=logging)
-    )
+    return await update_lodging(id, Lodging(assignments=assignments, logging=logging))
 
 
 async def unassign_room(id: str, roomnr: str) -> Lodging:
@@ -187,7 +185,7 @@ async def unassign_room(id: str, roomnr: str) -> Lodging:
     unassign a room to a reservation
     """
 
-    reservation = await get_reservation(id)
+    reservation = await get_lodging(id)
     room = await get_room_by_number(roomnr)
     now = datetime.now(tz=timezone.utc)
     assignments = [a for a in (reservation.assignments or []) if a.roomnr != roomnr]
@@ -195,12 +193,10 @@ async def unassign_room(id: str, roomnr: str) -> Lodging:
     logging = reservation.logging or []
     nf = now.isoformat(sep=" ", timespec="minutes")
     logging.append(f"{nf} Unassigned room {roomnr} to reservation {reservation.number}")
-    return await update_reservation(
-        id, Lodging(assignments=assignments, logging=logging)
-    )
+    return await update_lodging(id, Lodging(assignments=assignments, logging=logging))
 
 
-async def xls_reservations() -> bytes:
+async def xls_lodgings() -> bytes:
     """
     get all reservations in xls format
     """

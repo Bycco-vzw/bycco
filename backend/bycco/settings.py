@@ -35,6 +35,8 @@ GOOGLE_PROJECT_ID = "byccowebsiteprod"
 JWT_ALGORITHM = "HS256"
 JWT_SECRET = "levedetorrevanostende"
 
+KBSB_HOST = "https://www.frbe-kbsb-ksb.be"
+
 LOG_CONFIG = {
     "version": 1,
     "formatters": {

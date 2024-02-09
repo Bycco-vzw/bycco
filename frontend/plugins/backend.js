@@ -3,6 +3,7 @@ import accounts from '@/api/accounts'
 import filestore from '@/api/filestore'
 import lodging from '@/api/lodging'
 import enrollment from '@/api/enrollment'
+import payment from '@/api/payment'
 
 axios.defaults.withCredentials = true
 
@@ -58,6 +59,7 @@ const factories = {
   enrollment,
   filestore,
   lodging,
+  payment,
 }
 
 export default defineNuxtPlugin((nuxtApp) => {
