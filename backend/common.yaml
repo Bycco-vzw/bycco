@@ -112,35 +112,35 @@ i18n:
     en: Extra administration cost
 
 prices:
-  ST2:
-    day: 95
-    clean: 33
-  ST3:
-    day: 95
+  SH:
+    day: 65
+    clean: 0
+  DH:
+    day: 90
+    clean: 0
+  TH:
+    day: 135
+    clean: 0
+  SG:
+    day: 90
     clean: 33
   AP4:
-    day: 100
-    clean: 44
-  AP5:
-    day: 100
+    day: 120
     clean: 44
   AP6:
-    day: 110
-    clean: 55
-  AP7:
-    day: 110
+    day: 135
     clean: 55
   "+18":
-    half: 40
-    breakfast: 14
-    dinner: 26
+    half: 41
+    breakfast: 17
+    dinner: 24
   "-18":
     half: 24
-    breakfast: 10
-    dinner: 14
+    breakfast: 11
+    dinner: 13
   "-12":
-    half: 21
-    breakfast: 9
+    half: 22
+    breakfast: 10
     dinner: 12
   "-3":
     half: 0

@@ -103,7 +103,7 @@ async function confirm_assignment() {
     if (error.code == 401) {
       router.push('/mgmt')
     } else {
-      showSnackbar('Assigning room failed' + error.detail)
+      showSnackbar('Assigning room failed: ' + error.detail)
     }
     return
   }
@@ -117,7 +117,7 @@ async function create_pr() {
   let reply
   showLoading(true)
   try {
-    reply = await $backend("lodging", "mgmt_create_pr", {
+    reply = await $backend("payment", "mgmt_create_lodging_pr", {
       id: idreservation,
       token: mgmttoken.value
     })
@@ -134,7 +134,7 @@ async function create_pr() {
   finally {
     showLoading(false)
   }
-  router.push('/mgmt/paymentrequest_edit?id=' + resp.data)
+  router.push('/mgmt/paymentrequest_edit?id=' + reply.data)
 }
 
 function deleteGuest(ix) {

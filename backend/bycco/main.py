@@ -58,12 +58,14 @@ from reddevil.filestore import api_filestore
 from bycco.lodging import api_lodging
 from bycco.enrollment import api_enrollment
 from bycco.room import api_room
+from bycco.paymentrequest import api_paymentrequest
 
 app.include_router(api_account.router)
 app.include_router(api_enrollment.router)
 app.include_router(api_filestore.router)
 app.include_router(api_lodging.router)
 app.include_router(api_room.router)
+app.include_router(api_paymentrequest.router)
 
 
 logger.info(f"Api layer loaded")

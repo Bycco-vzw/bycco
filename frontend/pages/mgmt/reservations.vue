@@ -45,11 +45,11 @@ async function checkAuth() {
   console.log('checking if auth is already set', token.value)
   if (token.value) return
   if (person.value.credentials.length === 0) {
-    navigateTo('/mgmt')
+    router.push('/mgmt')
     return
   }
   if (!person.value.email.endsWith('@bycco.be')) {
-    navigateTo('/mgmt')
+    router.push('/mgmt')
     return
   }
   let reply
@@ -65,7 +65,7 @@ async function checkAuth() {
   }
   catch (error) {
     console.log('cannot login', error)
-    navigateTo('/mgmt')
+    router.push('/mgmt')
     return
   }
   finally {

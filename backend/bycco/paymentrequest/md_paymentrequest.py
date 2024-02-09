@@ -2,7 +2,8 @@
 # copyright Chessdevil Consulting BVBA 2015 - 2019
 
 from datetime import datetime
-from typing import Dict, Any, List, Optional, Type, Union
+from typing import Any, List
+from decimal import Decimal
 from enum import Enum
 from pydantic import BaseModel, Field
 from reddevil.core import DbBase
@@ -41,7 +42,7 @@ class PaymentRequestDB:
     reductionpct: str
     remarks: str
     reason: str
-    totalprice: str
+    totalprice: float
     totalwithdiscount: str
     sentdate: str
     _creationtime: datetime
@@ -59,7 +60,7 @@ class PaymentRequest(BaseModel):
     address: str | None = None
     checkindate: str | None = None  # format YYYY-MM-DD
     checkoutdate: str | None = None  # format YYYY-MM-DD
-    details: Optional[List[PaymentDetail]]
+    details: List[PaymentDetail] | None = None
     email: str | None = None  # csl of email addresses
     first_name: str | None = None
     guests: str | None = None  # csl of firstname lastname
@@ -71,6 +72,7 @@ class PaymentRequest(BaseModel):
     locale: str | None = None
     mobile: str | None = None
     number: int | None = None
+    reason: str | None = None
     reductionamount: str | None = None
     reductionpct: str | None = None
     remarks: str | None = None
@@ -78,13 +80,11 @@ class PaymentRequest(BaseModel):
     paymessage: str | None = None  # '+++NNN-NNNN-NNNNN+++'
     paystatus: bool | None = None
     reason: str | None = None  # 'lodging' or 'enrollment'
-    totalprice: str | None = None  # a Decimal
+    totalprice: float | None = None  # a Decimal
     totalwithdiscount: str | None = None  # a Decimal
     sentdate: str | None = None  # format YYYY-MM-DD
     _version: int | None = None
     _documenttype: str | None = None
-    creationtime: datetime | None = None
-    modificationtime: datetime | None = None
 
 
 class PaymentRequestItem(BaseModel):
@@ -92,26 +92,19 @@ class PaymentRequestItem(BaseModel):
     validator for list of paymentrequest( lodging and enrollment)
     """
 
-    email: str
     first_name: str
     id: str
     idbel: str | None = ""
     idfide: str | None = ""
     locale: str
     last_name: str
-    reductionamount: str | None = None
-    reductionpct: str | None = None
-    remarks: str | None = ""
-    room: str | None = ""
-    sentdate: str | None = None
+    link_id: str | None = None
+    number: int | None = None
     paydate: str | None = None
     paymessage: str | None = None
     paynumber: int | None = None
-    price: dict
-    enrollment_id: str | None = None
-    enrollment_date: str | None = None
-    creationtime: datetime | None = None
-    modificationtime: datetime | None = None
+    reason: str | None = None
+    totalprice: float | None = None  # a Decimal
 
 
 class PaymentRequestUpdate(BaseModel):

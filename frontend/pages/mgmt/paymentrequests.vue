@@ -8,6 +8,7 @@ import { storeToRefs } from "pinia"
 
 // communication
 const { $backend } = useNuxtApp()
+const router = useRouter()
 
 //  snackbar and loading widgets
 const refsnackbar = ref(null)
@@ -24,13 +25,12 @@ const { person } = storeToRefs(personstore)
 // datamodel
 const headers = [
   { title: 'PR nr', value: 'number' },
-  { title: 'Reason', value: 'reason' },
+  { title: 'Type', value: 'reason' },
   { title: 'Last Name', value: 'last_name' },
   { title: 'First Name', value: 'first_name' },
   { title: 'Total price', value: 'totalprice' },
-  { title: 'Status', value: 'paystatus' },
+  { title: 'Pay date', value: 'paydate' },
   { title: 'Message', value: 'paymessage' },
-  { title: 'Link', value: 'link_id' },
   { title: 'Actions', value: 'action', sortable: false }
 ]
 const prqs = ref([])
@@ -40,35 +40,79 @@ const footerProps = ref({
   itemsPerPageOptions: [150, -1]
 })
 
+definePageMeta({
+  layout: 'mgmt',
+})
+
+async function checkAuth() {
+  if (mgmttoken.value) return
+  if (person.value.credentials.length === 0) {
+    router.push('/mgmt')
+    return
+  }
+  if (!person.value.email.endsWith('@bycco.be')) {
+    router.push('/mgmt')
+    return
+  }
+  let reply
+  showLoading(true)
+  // now login using the Google auth token
+  try {
+    reply = await $backend("accounts", "login", {
+      logintype: 'google',
+      token: person.value.credentials,
+      username: null,
+      password: null,
+    })
+  }
+  catch (error) {
+    console.log('cannot login', error)
+    router.push('/mgmt')
+    return
+  }
+  finally {
+    showLoading(false)
+  }
+  console.log('mgmttoken received', reply.data)
+  mgmtstore.updateToken(reply.data)
+}
+
 function editPaymentRequest(item) {
-  navigateTo('/mgmt/paymentrequest_edit/?id=' + item.id)
+  router.push('/mgmt/paymentrequest_edit/?id=' + item.id)
 }
 
 async function getPaymentRequests() {
   let reply
   showLoading(true)
   try {
-    reply = await $backend("paymentrequest", "get_paymentrequests", {
+    reply = await $backend("payment", "mgmt_get_paymentrequests", {
       token: mgmttoken.value
     })
   }
   catch (error) {
     console.error('getting paymentrequests', error)
     if (error.code === 401) {
-      await navigateTo('/mgmt')
+      router.push('/mgmt')
     }
     else {
       showSnackbar('Getting payment requests failed')
     }
+    prqs.value = []
+    return
   }
   finally {
-    showLoading(true)
+    showLoading(false)
   }
-
-  prqs.value = resp.data
+  prqs.value = reply.data
   console.log('prqs', prqs.value)
-
 }
+
+function gotoLinked(item) {
+  if (item.reason == "lodging") {
+    router.push('/mgmt/reservation_edit/?id=' + item.id)
+  }
+}
+
 
 async function refresh() {
   await getPaymentRequests()
@@ -86,11 +130,13 @@ onMounted(async () => {
 
 <template>
   <v-container>
+    <SnackbarMessage ref="refsnackbar" />
+    <ProgressLoading ref="refloading" />
     <h1>Payment Requests</h1>
-    <v-data-table :headers="headers" :items="prqs" item-class="lightgreyrow"
-      :footer-props="footerProps" class="elevation-1" :sort-by="['name']" :search="search">
+    <v-data-table :headers="headers" :items="prqs" :footer-props="footerProps" class="elevation-1"
+      :sort-by="['name']" :search="search">
       <template #top>
-        <v-card color="grey lighten-4">
+        <v-card color="grey-lighten-4">
           <v-card-title>
             <v-row class="px-2">
               <v-text-field v-model="search" label="Search" class="mx-4" append-icon="mdi-magnify"
@@ -117,19 +163,20 @@ onMounted(async () => {
           </v-card-title>
         </v-card>
       </template>
-      <template #item.link_id="{ item }">
-        <NuxtLink v-if="item.link_id" :to="'/mgmt/reservation_edit?id=' + item.link_id">
-          link
-        </NuxtLink>
-      </template>
       <template #item.action="{ item }">
+        <v-tooltip bottom>
+          <template #activator="{ on }">
+            <v-icon small class="mr-2" v-on="on" @click="gotoLinked(item)">
+              mdi-link
+            </v-icon>
+          </template>
+        </v-tooltip>
         <v-tooltip bottom>
           <template #activator="{ on }">
             <v-icon small class="mr-2" v-on="on" @click="editPaymentRequest(item)">
               mdi-pencil
             </v-icon>
           </template>
-          Edit Paymentrequests
         </v-tooltip>
       </template>
       <template #no-data>
@@ -139,101 +186,9 @@ onMounted(async () => {
   </v-container>
 </template>
 
-<script>
-
-export default {
-
-  name: 'Paymentrequestlist',
-
-  layout: 'mgmt',
-
-  data() {
-    return {
-      filter: {},
-      footerProps: {
-        itemsPerPageOptions: [150, -1]
-      },
-      headers: [
-        {
-          text: 'PR nr', value: 'number'
-        },
-        {
-          text: 'Reason', value: 'reason'
-        },
-        {
-          text: 'Last Name', value: 'last_name'
-        },
-        {
-          text: 'First Name', value: 'first_name'
-        },
-        {
-          text: 'Total price', value: 'totalprice'
-        },
-        {
-          text: 'Status', value: 'paystatus'
-        },
-        {
-          text: 'Message', value: 'paymessage'
-        },
-        {
-          text: 'Link', value: 'link_id'
-        },
-        {
-          text: 'Actions', value: 'action', sortable: false
-        }
-      ],
-      prqs: [],
-      search: ''
-    }
-  },
-
-  computed: {
-    token() { return this.$store.state.token.value }
-  },
-
-  mounted() {
-    this.getPaymentRequests()
-  },
-
-  methods: {
-
-    downloadPaymentRequests() {
-      alert('TODO')
-    },
-
-    editPaymentRequest(item) {
-      this.$router.push('/mgmt/paymentrequestedit/?id=' + item.id)
-    },
-
-    async getPaymentRequests() {
-      try {
-        const resp = await this.$api.paymentrequest.get_paymentrequests({
-          token: this.token
-        })
-        this.prqs = resp.data.paymentrequests
-        console.log('prqs', this.prqs)
-      } catch (error) {
-        const resp = error.response
-        console.error('getting paymentrequests', resp)
-        if (resp.status === 401) {
-          this.$router.push('/mgmt/login')
-        } else {
-          this.$root.$emit('snackbar', { text: 'Getting paymentrequests failed', reason: resp.data.detail })
-        }
-      }
-    },
-
-    async refresh() {
-      await this.getPaymentRequests()
-    }
-
-  }
-
-}
-</script>
 
 <style>
 .lightgreyrow {
-  color: #bbb;
+  color: #ddd;
 }
 </style>

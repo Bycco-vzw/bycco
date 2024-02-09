@@ -15,11 +15,11 @@ router = APIRouter(prefix="/api/v1/lodging")
 from bycco.lodging.lodging import (
     assign_room,
     make_reservation,
-    get_reservation,
-    get_reservations,
+    get_lodging,
+    get_lodgings,
     unassign_room,
-    update_reservation,
-    xls_reservations,
+    update_lodging,
+    xls_lodgings,
 )
 from bycco.lodging.md_lodging import (
     Lodging,
@@ -46,7 +46,7 @@ async def api_mgmt_get_reservations(
 ):
     try:
         await validate_token(auth)
-        return await get_reservations()
+        return await get_lodgings()
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except:
@@ -57,7 +57,7 @@ async def api_mgmt_get_reservations(
 @router.get("/reservation/{id}", response_model=Lodging)
 async def api_get_reservation(id: str):
     try:
-        return await get_reservation(id)
+        return await get_lodging(id)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except:
@@ -69,7 +69,7 @@ async def api_get_reservation(id: str):
 async def api_update_reservation(id: str, reservation: Lodging):
     try:
         logger.info(f"api update rsv {reservation}")
-        return await update_reservation(id, reservation)
+        return await update_lodging(id, reservation)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except:

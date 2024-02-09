@@ -30,7 +30,7 @@ settings = get_settings()
 
 
 @router.get("/pr/{prqid}", response_model=PaymentRequest)
-async def api_get_paymentrequests(
+async def api_mgmt_get_paymentrequests(
     prqid: str,
     auth: HTTPAuthorizationCredentials = Depends(bearer_schema),
 ):
@@ -45,7 +45,7 @@ async def api_get_paymentrequests(
 
 
 @router.get("/pr", response_model=List[PaymentRequestItem])
-async def api_get_paymentrequests(
+async def api_mgmt_get_paymentrequests(
     auth: HTTPAuthorizationCredentials = Depends(bearer_schema),
 ):
     try:
@@ -58,7 +58,7 @@ async def api_get_paymentrequests(
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@app.put("/pr/{id}", response_model=PaymentRequest)
+@router.put("/pr/{id}", response_model=PaymentRequest)
 async def api_update_paymentrequest(
     id: str,
     prq: PaymentRequest,
@@ -77,7 +77,7 @@ async def api_update_paymentrequest(
 # business methods pr reservation
 
 
-@app.post("/lodging_pr/{id}", response_model=str)
+@router.post("/lodging_pr/{id}", response_model=str)
 async def api_create_pr_lodging(
     id: str,
     auth: HTTPAuthorizationCredentials = Depends(bearer_schema),
@@ -92,7 +92,7 @@ async def api_create_pr_lodging(
         raise HTTPException(status_code=500)
 
 
-@app.put("/lodging_pr/{id}", response_model=str)
+@router.put("/lodging_pr/{id}", response_model=str)
 async def api_update_pr_lodging(
     id: str,
     prq: PaymentRequest,
@@ -108,7 +108,7 @@ async def api_update_pr_lodging(
         raise HTTPException(status_code=500)
 
 
-@app.delete("/lodging_pr/{id}")
+@router.delete("/lodging_pr/{id}")
 async def api_delete_pr_lodging(
     id: str,
     auth: HTTPAuthorizationCredentials = Depends(bearer_schema),
@@ -123,7 +123,7 @@ async def api_delete_pr_lodging(
         raise HTTPException(status_code=500)
 
 
-@app.post("/email_pr/{id}")
+@router.post("/email_pr/{id}")
 async def api_email_paymentrequest(
     id: str,
     auth: HTTPAuthorizationCredentials = Depends(bearer_schema),

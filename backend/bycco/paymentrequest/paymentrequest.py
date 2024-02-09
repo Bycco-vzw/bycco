@@ -9,15 +9,17 @@ from reddevil.mail import sendEmailNoAttachments, MailParams
 
 from . import PaymentRequest, PaymentRequestItem, DbPayrequest
 from bycco.core.counter import DbCounter
-from bycco.lodging import get_lodging, Lodging
+from bycco.core.common import get_common
+from bycco.lodging import get_lodging, update_lodging, Lodging
 
 logger = logging.getLogger(__name__)
 
 settings = get_settings()
-i18n = settings.COMMON["i18n"]
-prices = settings.COMMON["prices"]
-startdate = settings.COMMON["period"]["startdate"]
-enddate = settings.COMMON["period"]["enddate"]
+common = get_common()
+i18n = common["i18n"]
+prices = common["prices"]
+startdate = common["period"]["startdate"]
+enddate = common["period"]["enddate"]
 m3y = date(startdate.year - 3, startdate.month, startdate.day)
 m12y = date(startdate.year - 12, startdate.month, startdate.day)
 m18y = date(startdate.year - 18, startdate.month, startdate.day)
@@ -63,13 +65,14 @@ async def get_payment_requests(
     return [cast(PaymentRequest, pr) for pr in await DbPayrequest.find_multiple(filter)]
 
 
-async def update_payment_request(id: str, pr: PaymentRequest) -> None:
+async def update_payment_request(id: str, pr: PaymentRequest, options={}) -> None:
     """
     update paymentrequest
     """
+    opt = options.copy()
     pd = pr.model_dump(exclude_unset=True)
-    pd["_model"] = pd("_model", PaymentRequest)
-    return await DbPayrequest.update(id, pd)
+    opt["_model"] = opt.get("_model", PaymentRequest)
+    return await DbPayrequest.update(id, pd, opt)
 
 
 # app routines
@@ -97,6 +100,7 @@ def calc_pricedetails(
     totalprice = 0.0
     checkroom18 = False
     ndays = int(rsv.checkoutdate[8:10]) - int(rsv.checkindate[8:10])
+    logger.info(f"prices {prices}")
     for ass in rsv.assignments:
         details.append(
             {
@@ -121,8 +125,8 @@ def calc_pricedetails(
             totalprice += prices[ass.roomtype]["clean"]
     if checkroom18:
         for g in rsv.guestlist:
-            assert g.birthday
-            bd = date.fromisoformat(g.birthday)
+            assert g.birthdate
+            bd = date.fromisoformat(g.birthdate)
             if bd > m18y:
                 details.append(
                     {
@@ -135,8 +139,8 @@ def calc_pricedetails(
                 totalprice += prices["ROOM_18"]["day"] * ndays
     if rsv.meals != "no":
         for g in rsv.guestlist:
-            assert g.birthday
-            bd = date.fromisoformat(g.birthday)
+            assert g.birthdate
+            bd = date.fromisoformat(g.birthdate)
             age = "+18"
             if bd > m18y:
                 age = "-18"
@@ -197,7 +201,6 @@ def calc_pricedetails(
 
 
 async def create_pr_lodging(rsvid: str) -> str:
-    from bycco.lodging import get_lodging, update_lodging
 
     rsv = await get_lodging(rsvid)
     assert rsv.guestlist
@@ -216,7 +219,7 @@ async def create_pr_lodging(rsvid: str) -> str:
     }
     pr["details"], pr["totalprice"] = calc_pricedetails(rsv)
     pr["number"] = await DbCounter.next("paymentrequest")
-    pr["paymessage"] = getPaymessage(20230000 + pr["number"])
+    pr["paymessage"] = getPaymessage(20240000 + pr["number"])
     pr["guests"] = ", ".join([f"{g.first_name} {g.last_name}" for g in rsv.guestlist])
     id = await create_payment_request(pr)
     await update_lodging(rsvid, Lodging(payment_id=id))
