@@ -101,7 +101,9 @@ def calc_pricedetails(
     checkroom18 = False
     ndays = int(rsv.checkoutdate[8:10]) - int(rsv.checkindate[8:10])
     logger.info(f"prices {prices}")
+    hotel = False
     for ass in rsv.assignments:
+
         details.append(
             {
                 "description": i18n[ass.roomtype][rsv.locale],
@@ -113,6 +115,7 @@ def calc_pricedetails(
         totalprice += prices[ass.roomtype]["day"] * ndays
         if ass.roomtype in ["SH", "DH", "TH"]:
             checkroom18 = True
+            hotel = True
         else:
             details.append(
                 {
@@ -137,6 +140,9 @@ def calc_pricedetails(
                     }
                 )
                 totalprice += prices["ROOM_18"]["day"] * ndays
+    if rsv.meals == "no" and hotel:
+        #  hotel guests must have at least breakfast
+        rsv.meals = "breakfast"
     if rsv.meals != "no":
         for g in rsv.guestlist:
             assert g.birthdate
