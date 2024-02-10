@@ -11,9 +11,9 @@ export default {
       }
     })
   },
-  mgmt_delete_pr: async function (options) {
+  mgmt_delete_lodging_pr: async function (options) {
     const { token, id } = options
-    return await axios.delete(`${prefix}/pr/${id}`, {
+    return await axios.delete(`${prefix}/lodging_pr/${id}`, {
       headers: {
         Authorization: "Bearer " + token,
       }

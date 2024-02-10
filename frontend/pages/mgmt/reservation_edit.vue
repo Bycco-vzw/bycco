@@ -36,8 +36,6 @@ const roomtypes = ref([])
 const roomnrs = ref([])
 const rsv = ref({ payment_id: "" })
 
-
-
 definePageMeta({
   layout: 'mgmt',
 })
@@ -146,7 +144,7 @@ async function delete_pr() {
   if (confirm('Are you sure to delete the linked payment request')) {
     showLoading(true)
     try {
-      reply = await $backend("payment", "mgmt_delete_pr", {
+      reply = await $backend("payment", "mgmt_delete_lodging_pr", {
         id: idreservation,
         token: mgmttoken.value
       })
