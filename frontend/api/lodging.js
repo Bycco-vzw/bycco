@@ -16,6 +16,14 @@ export default {
       }
     })
   },
+  mgmt_unassign_room: async function (options) {
+    const { token, id, roomnr } = options
+    return await axios.delete(`${prefix}/cmd/assignroom/${id}/${roomnr}`, {
+      headers: {
+        Authorization: "Bearer " + token,
+      }
+    })
+  },
   mgmt_get_reservations: async function (options) {
     const { token } = options
     return await axios.get(`${prefix}/reservation`, {

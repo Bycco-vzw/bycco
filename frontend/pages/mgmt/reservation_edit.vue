@@ -27,13 +27,13 @@ const { person } = storeToRefs(personstore)
 // datamodel
 const assignment = ref({
   roomtype: '',
-  roomnumber: '',
+  roomnr: '',
   modroomtype: null
 })
 const idreservation = route.query.id
 const newguest = ref({})
 const roomtypes = ref([])
-const roomnumbers = ref([])
+const roomnrs = ref([])
 const rsv = ref({ payment_id: "" })
 
 
@@ -47,7 +47,7 @@ function addGuest() {
     last_name: newguest.value.last_name,
     first_name: newguest.value.first_name,
     birthdate: newguest.value.birthdate,
-    player: newguest.value.player
+    player: newguest.value.player || false
   })
   newguest.value = {}
 }
@@ -93,7 +93,7 @@ async function confirm_assignment() {
   try {
     reply = await $backend("lodging", "mgmt_assign_room", {
       id: idreservation,
-      roomnr: assignment.value.roomnumber,
+      roomnr: assignment.value.roomnr,
       token: mgmttoken.value
     })
     readReservation(reply.data)
@@ -146,7 +146,7 @@ async function delete_pr() {
   if (confirm('Are you sure to delete the linked payment request')) {
     showLoading(true)
     try {
-      reply = await $backend("lodging", "delete_pr", {
+      reply = await $backend("payment", "mgmt_delete_pr", {
         id: idreservation,
         token: mgmttoken.value
       })
@@ -171,13 +171,14 @@ async function deleteAssignment(ix) {
   let reply
   showLoading(true)
   try {
-    reply = await $backend("lodging", "unassign_room", {
+    reply = await $backend("lodging", "mgmt_unassign_room", {
       id: idreservation,
-      roomnumber: rsv.value.assignments[ix].roomnr,
+      roomnr: rsv.value.assignments[ix].roomnr,
       token: mgmttoken.value
     })
     readReservation(reply.data)
-  } catch (error) {
+  }
+  catch (error) {
     console.error('getting unassigning room', error)
     if (error.code === 401) {
       router.push('/mgmt')
@@ -185,6 +186,9 @@ async function deleteAssignment(ix) {
     else {
       showSnackbar('Assigning room failed' + error.detail)
     }
+  }
+  finally {
+    showLoading(false)
   }
 }
 
@@ -196,7 +200,7 @@ async function getReservation() {
       id: idreservation,
       token: mgmttoken.value
     })
-    rsv.value = reply.data
+    readReservation(reply.data)
   }
   catch (error) {
     console.error('getting reservation failed', error)
@@ -219,7 +223,7 @@ async function gotoPaymentrequest(id) {
 
 function readReservation(reservation) {
   rsv.value = { ...reservation }
-  assignment.value = { roomtype: '', roomnumber: '' }
+  assignment.value = { roomtype: '', roomnr: '' }
 }
 
 async function get_free_rooms() {
@@ -299,7 +303,7 @@ async function roomtypeSelected() {
     showLoading(false)
   }
   const rooms = reply.data
-  roomnumbers.value = Array.from(Object.keys(rooms), x => rooms[x].number)
+  roomnrs.value = Array.from(Object.keys(rooms), x => rooms[x].number)
 }
 
 async function saveGuestlist() {
@@ -496,11 +500,11 @@ onMounted(async () => {
               @update:model-value="roomtypeSelected" />
           </v-col>
           <v-col cols="3">
-            <v-select v-model="assignment.roomnumber" :items="roomnumbers" label="Select room number"
+            <v-select v-model="assignment.roomnr" :items="roomnrs" label="Select room number"
               :disabled="!assignment.roomtype.length" />
           </v-col>
           <v-col cols="3">
-            <v-btn :disabled="!assignment.roomnumber.length" @click="confirm_assignment">
+            <v-btn :disabled="!assignment.roomnr.length" @click="confirm_assignment">
               confirm
             </v-btn>
           </v-col>

@@ -89,6 +89,8 @@ onMounted(() => {
       </li>
       <li>Managing the <NuxtLink to="/mgmt/paymentrequests">Payment Requests</NuxtLink>
       </li>
+      <li>Managing the <NuxtLink to="/mgmt/rooms">Rooms</NuxtLink>
+      </li>
     </ul>
   </v-container>
 </template>

@@ -89,7 +89,7 @@ async def api_assign_room(id: str, roomnr: str):
         raise HTTPException(status_code=500)
 
 
-@router.delete("/cmd/unassignroom/{id}/{roomnr}", response_model=Lodging)
+@router.delete("/cmd/assignroom/{id}/{roomnr}", response_model=Lodging)
 async def api_unassign_room(id: str, roomnr: str):
     try:
         logger.info(f"unassign roomnumber {roomnr}")
