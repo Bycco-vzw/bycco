@@ -246,16 +246,17 @@ async def delete_pr_lodging(rsvid: str) -> None:
         pass
 
 
-async def update_pr_lodging(id: str, prq: PaymentRequest) -> None:
-    prq = await get_payment_request(id)
-    assert prq.reason == "lodging"
-    rsv = await get_lodging(prq.link_id)
+async def update_pr_lodging(id: str, prqin: PaymentRequest) -> None:
+    exprq = await get_payment_request(id)
+    assert exprq.reason == "lodging"
+    rsv = await get_lodging(exprq.link_id)
     (details, totalprice) = calc_pricedetails(
-        rsv, prq.reductionamount, prq.reductionpct
+        rsv, prqin.reductionamount, prqin.reductionpct
     )
-    prq.details = details
-    prq.totalprice = totalprice
-    await update_payment_request(id, prq)
+    prqdict = prqin.model_dump(exclude_unset=True)
+    prqdict["details"] = details
+    prqdict["totalprice"] = totalprice
+    await DbPayrequest.update(id, prqdict, {"_model": PaymentRequest})
 
 
 async def email_paymentrequest(prqid) -> None:

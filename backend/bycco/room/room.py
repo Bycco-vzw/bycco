@@ -54,7 +54,7 @@ async def update_room(id: str, ru: Room, options: dict = {}) -> Room:
     """
     opt = options.copy()
     opt["_model"] = opt.pop("_model", Room)
-    ur = cast(Room, await DbRoom.update(id, ru.model_dump(exclude_none=True), opt))
+    ur = cast(Room, await DbRoom.update(id, ru.model_dump(exclude_unset=True), opt))
     return ur
 
 
