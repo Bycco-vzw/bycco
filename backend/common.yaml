@@ -75,6 +75,11 @@ i18n:
     fr: Pas de repas
     de: Keine Mahlzeiten
     en: No meals
+  breakfast:
+    nl: ontbijt
+    fr: petit déjeuner
+    de: Frühstück
+    en: breakfast
   tax:
     nl: Verblijftaks Blankenberge
     fr: Taxe de séjour Blankenberge

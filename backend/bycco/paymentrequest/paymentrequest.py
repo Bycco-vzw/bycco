@@ -114,7 +114,7 @@ def calc_pricedetails(
         )
         totalprice += prices[ass.roomtype]["day"] * ndays
         if ass.roomtype in ["SH", "DH", "TH"]:
-            checkroom18 = True
+            # checkroom18 = True
             hotel = True
         else:
             details.append(
@@ -126,20 +126,20 @@ def calc_pricedetails(
                 }
             )
             totalprice += prices[ass.roomtype]["clean"]
-    if checkroom18:
-        for g in rsv.guestlist:
-            assert g.birthdate
-            bd = date.fromisoformat(g.birthdate)
-            if bd > m18y:
-                details.append(
-                    {
-                        "description": i18n["ROOM_18"][rsv.locale],
-                        "quantity": ndays,
-                        "unitprice": format(prices["ROOM_18"]["day"], ">6.2f"),
-                        "totalprice": format(prices["ROOM_18"]["day"] * ndays, ">6.2f"),
-                    }
-                )
-                totalprice += prices["ROOM_18"]["day"] * ndays
+    # if checkroom18:
+    #     for g in rsv.guestlist:
+    #         assert g.birthdate
+    #         bd = date.fromisoformat(g.birthdate)
+    #         if bd > m18y:
+    #             details.append(
+    #                 {
+    #                     "description": i18n["ROOM_18"][rsv.locale],
+    #                     "quantity": ndays,
+    #                     "unitprice": format(prices["ROOM_18"]["day"], ">6.2f"),
+    #                     "totalprice": format(prices["ROOM_18"]["day"] * ndays, ">6.2f"),
+    #                 }
+    #             )
+    #             totalprice += prices["ROOM_18"]["day"] * ndays
     if rsv.meals == "no" and hotel:
         #  hotel guests must have at least breakfast
         rsv.meals = "breakfast"
