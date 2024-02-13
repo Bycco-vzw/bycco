@@ -101,16 +101,16 @@ async def api_unassign_room(id: str, roomnr: str):
         raise HTTPException(status_code=500)
 
 
-# @app.get("/api/v1/xls/reservation")
-# async def api_xls_reservations(
-#     auth: HTTPAuthorizationCredentials = Depends(bearer_schema),
-# ):
-#     await validate_token(auth)
-#     try:
-#         xlsfile = await xls_reservations()
-#         return {"xls64": base64.b64encode(xlsfile)}
-#     except RdException as e:
-#         raise HTTPException(status_code=e.status_code, detail=e.description)
-#     except:
-#         logger.exception("failed api call xls")
-#         raise HTTPException(status_code=500, detail="Internal Server Error")
+@router.get("/cmd/xls_lodgings")
+async def api_xls_lodgings(
+    auth: HTTPAuthorizationCredentials = Depends(bearer_schema),
+):
+    await validate_token(auth)
+    try:
+        xlsfile = await xls_lodgings()
+        return {"xls64": base64.b64encode(xlsfile)}
+    except RdException as e:
+        raise HTTPException(status_code=e.status_code, detail=e.description)
+    except:
+        logger.exception("failed api call xls")
+        raise HTTPException(status_code=500, detail="Internal Server Error")

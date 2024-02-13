@@ -34,7 +34,6 @@ const headers = [
   { title: 'room', value: 'room' },
   { title: 'Actions', value: 'action', sortable: false }
 ]
-const xls = ref(null)
 
 definePageMeta({
   layout: 'mgmt',
@@ -77,13 +76,14 @@ async function checkAuth() {
 
 
 async function downloadReservations() {
-  let reply
+  let reply, xls
   showLoading(true)
   try {
-    reply = await $backend("lodging", "xls_reservations", {
-      authorization: 'Bearer ' + this.token
+    reply = await $backend("lodging", "mgmt_xls_lodgings", {
+      token: token.value
     })
-    xls = resp.data.xls64
+    console.log('xls reply', reply)
+    xls = reply.data.xls64
   }
   catch (error) {
     console.log('download error', error)
@@ -94,7 +94,7 @@ async function downloadReservations() {
   }
   const link = document.createElement('a')
   link.download = 'reservations.xlsx'
-  link.href = 'data:aaplication/excel;base64,' + xls.value
+  link.href = 'data:application/excel;base64,' + xls
   document.body.appendChild(link)
   link.click()
   document.body.removeChild(link)

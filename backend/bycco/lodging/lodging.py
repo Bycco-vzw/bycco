@@ -5,6 +5,8 @@ import logging
 from typing import cast, Optional, List
 from datetime import date, datetime, timezone, timedelta
 from fastapi import BackgroundTasks
+from tempfile import NamedTemporaryFile
+import openpyxl
 
 from reddevil.core import get_settings, RdBadRequest, RdInternalServerError
 
@@ -200,7 +202,84 @@ async def xls_lodgings() -> bytes:
     """
     get all reservations in xls format
     """
-    # docs = await DbLodging.find_multiple()
+    docs = await DbLodging.find_multiple({"_model": Lodging})
+    wb = openpyxl.Workbook()
+    ws = wb.active
+    ws.title = "Reservations"
+    ws.append(
+        [
+            "number",
+            "first_name",
+            "last_name",
+            "email",
+            "enabled",
+            "checkindate",
+            "checkoutdate",
+            "address",
+            "locale",
+            "meals",
+            "roomnr",
+            "roomtype",
+            "payment_id",
+            "remarks",
+            "bycco_remarks",
+        ]
+    )
+    for d in docs:
+        ws.append(
+            [
+                d.number,
+                d.first_name,
+                d.last_name,
+                d.email,
+                d.enabled,
+                str(d.checkindate)[0:10],
+                str(d.checkoutdate)[0:10],
+                d.address,
+                d.locale,
+                d.meals,
+                d.assignments[0].roomnr if d.assignments else "",
+                d.assignments[0].roomtype if d.assignments else "",
+                d.payment_id,
+                d.remarks,
+                d.bycco_remarks,
+            ]
+        )
+    wsguests = wb.create_sheet("Guests")
+    wsguests.append(
+        [
+            "number",
+            "first_name",
+            "last_name",
+            "birthdate",
+            "player",
+            "age_category",
+            "lodging",
+            "meals",
+        ]
+    )
+    for d in docs:
+        if not d.enabled:
+            continue
+        for g in d.guestlist:
+            wsguests.append(
+                [
+                    d.number,
+                    g.first_name,
+                    g.last_name,
+                    g.birthdate,
+                    g.player,
+                    g.age_category,
+                    g.lodging,
+                    ",".join(g.meals) if g.meals else "",
+                ]
+            )
+    with NamedTemporaryFile() as tmp:
+        wb.save(tmp.name)
+        tmp.seek(0)
+        xlscontent = tmp.read()
+    logger.info(f"xlscontent {len(xlscontent)}")
+    return xlscontent
     # guestdocs = []
     # assigndocs = []
     # for d in docs:

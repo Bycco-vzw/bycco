@@ -55,5 +55,13 @@ export default {
         Authorization: "Bearer " + token,
       }
     })
-  }
+  },
+  mgmt_xls_lodgings: async function (options) {
+    const { token } = options
+    return await axios.get(`${prefix}/cmd/xls_lodgings`, {
+      headers: {
+        Authorization: "Bearer " + token,
+      }
+    })
+  },
 }

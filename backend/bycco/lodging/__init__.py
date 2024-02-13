@@ -4,4 +4,5 @@ from .lodging import (
     get_lodgings,
     get_room_by_number,
     update_lodging,
+    xls_lodgings,
 )
