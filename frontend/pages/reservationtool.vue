@@ -59,7 +59,13 @@ function updateLodging(l) {
     <h1 class="my-2">
       {{ t('Reservation tool') }}
     </h1>
-    <div v-if="too_early">
+    <div class="my-2">
+      Reservaties verblijf via Bycco afgesloten, je kan enkel rechtstreeks bij de Floreal boeken
+    </div>
+    <div class="my-2">
+      Reservations lodging via Bycco are closed, you can only book directly via the Floreal
+    </div>
+    <!-- <div v-if="too_early">
       {{ t('Reservation for lodging not started yet') }}
     </div>
     <div v-if="!too_early">
@@ -120,7 +126,7 @@ function updateLodging(l) {
             @update-lodging="updateLodging" />
         </v-card-text>
       </v-card>
-    </div>
+    </div> -->
   </v-container>
 </template>
 

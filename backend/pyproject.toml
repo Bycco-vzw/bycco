@@ -6,16 +6,15 @@ authors = ["Ruben Decrop <ruben.decrop@bycco.be>"]
 
 [tool.poetry.dependencies]
 python = "^3.11"
-fastapi = "^0.104.1"
 toml = "^0.10.2"
 gunicorn = "^21.2.0"
-pyyaml = "^6.0.1"
-reddevil = {path = "libs/reddevil-3.3.3-py3-none-any.whl"}
-openpyxl = "^3.1.2"
+python-dotenv = "^1.0.1"
+reddevil = {path = "libs/reddevil-3.3.5-py3-none-any.whl"}
 
 [tool.poetry.group.dev.dependencies]
-black = "^23.10.1"
-pytest = "^7.4.4"
+black = "^23"
+pytest = "^7"
+pytest-asyncio = "^0.23.5"
 
 [build-system]
 requires = ["poetry-core"]

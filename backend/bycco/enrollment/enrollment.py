@@ -123,7 +123,7 @@ async def lookup_idbel(idbel: str) -> IdReply:
     if rc.status_code != 200:
         logger.info(f"failed api call to kbsb lookup_idbel {rc}")
         raise RdNotFound(description="FailedApiKBSB")
-    logger.info(f"member idbel {plyr}")
+    logger.info(f"member by idbel {plyr}")
     return IdReply(
         belfound=True,
         birthyear=plyr["birthyear"],
@@ -162,6 +162,7 @@ async def lookup_idfide(idfide: str) -> IdReply:
         logger.info(f"redirecting to lookup idbel {idbel}")
         return await lookup_idbel(idbel)
     url = api_lookupfide.format(id=idfide)
+    logger.info(f"fetching member by fideid {url}")
     try:
         async with AsyncClient() as client:
             rc = await client.get(f"{settings.KBSB_HOST}{url}")
@@ -177,7 +178,7 @@ async def lookup_idfide(idfide: str) -> IdReply:
         raise RdNotFound(description="FailedApiKBSB")
     logger.info(f"plyr {plyr}")
     reply = IdReply(
-        belfound=True,
+        belfound=False,
         birthyear=plyr["birthyear"],
         first_name=plyr["first_name"],
         gender=plyr["gender"],

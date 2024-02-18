@@ -2,10 +2,10 @@
 # Copyright 2015-2024 Ruben Decrop
 
 import os, os.path
+import logging
 from pathlib import Path
 
-# paths
-SECRETS_PATH = Path(os.environ.get("SECRETS_PATH", ""))
+BYCCO_MODE = os.environ.get("BYCCO_MODE", "production")
 
 COLORLOG = False
 
@@ -90,7 +90,10 @@ SECRETS = {
         "manager": "googlejson",
     },
 }
+SECRETS_PATH = Path(os.environ.get("SECRETS_PATH", ""))
+
 SHARED_PATH = Path(os.environ.get("SHARED_PATH", "../share"))
+
 TEMPLATES_PATH = Path(os.environ.get("TEMPLATES_PATH", "./bycco/templates"))
 
 TOKEN = {
@@ -100,12 +103,20 @@ TOKEN = {
     "nocheck": False,
 }
 
-try:
-    from local_settings import *
+ls = "No local settings found"
 
-    ls = "local settings loaded"
-except ImportError:
-    ls = "No local settings found"
+if BYCCO_MODE == "local":
+    ls = "importing local settings"
+    from env_local import *
+
+
+if BYCCO_MODE == "prodtest":
+    ls = "importing prodtest settings"
+    from env_prodtest import *
 
 if COLORLOG:
     LOG_CONFIG["handlers"]["console"]["formatter"] = "color"  # type: ignore
+
+logging.config.dictConfig(LOG_CONFIG)
+logger = logging.getLogger(__name__)
+logger.info(ls)

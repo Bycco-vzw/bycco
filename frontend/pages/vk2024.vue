@@ -17,6 +17,8 @@ async function getContent() {
       group: 'pages',
       name: 'vk2024.md'
     })
+    console.log('reply.data', reply.data)
+
     metadata.value = useMarkdown(reply.data).metadata
     updateLocale(locale.value)
   }
@@ -26,7 +28,6 @@ async function getContent() {
 }
 
 function updateLocale(l) {
-  console.log('updating locale', l)
   pagetitle.value = metadata.value["title_" + l]
   pagecontent.value = mdConverter.makeHtml(metadata.value["content_" + l])
 }

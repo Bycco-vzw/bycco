@@ -1,6 +1,5 @@
 .gcloudignore
 .git
 .gitignore
-local_settings.py
 __pycache__/
 /setup.cfg
