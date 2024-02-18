@@ -17,6 +17,8 @@ async function getContent() {
       group: 'pages',
       name: 'vk2024.md'
     })
+    console.log('reply.data', reply.data)
+
     metadata.value = useMarkdown(reply.data).metadata
     updateLocale(locale.value)
   }

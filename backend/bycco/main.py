@@ -7,8 +7,9 @@ import logging, logging.config
 from fastapi import FastAPI
 from fastapi.routing import APIRoute
 from fastapi.middleware.cors import CORSMiddleware
-from reddevil.core import register_app, get_settings, connect_mongodb, close_mongodb
 from contextlib import asynccontextmanager
+from dotenv import load_dotenv
+from reddevil.core import register_app, get_settings, connect_mongodb, close_mongodb
 
 import mimetypes
 
@@ -27,14 +28,11 @@ app = FastAPI(
     version="0",
     lifespan=lifespan,
 )
+load_dotenv()
 register_app(app, "bycco.settings", "/api")
-
-
-# get settings
 settings = get_settings()
-logging.config.dictConfig(settings.LOG_CONFIG)
 logger = logging.getLogger("bycco")
-logger.info(f"Starting website reddevilmgr ...")
+logger.info(f"Starting website bycco ...")
 
 # show local settings loaded or not
 from bycco.settings import ls
