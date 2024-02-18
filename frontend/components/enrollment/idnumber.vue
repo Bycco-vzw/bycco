@@ -33,30 +33,33 @@ const ratingbel = ref(0)
 const ratingfide = ref(0)
 
 // datamodel the rest
-const isPlayerFound = ref(false)
+const isBelPlayerFound = ref(false)
+const isFidePlayerFound = ref(false)
 const errorcode = ref(null)
 const step = 2
 
 
 async function lookup_bel() {
   let member
+  errorcode.value = null
   showLoading(true)
   try {
     const reply = await $backend('enrollment', 'lookup_idbel', {
       idbel: idbel.value
     })
-    console.log("member", reply.data)
+    console.log("bel member", reply.data)
     member = reply.data
   }
   catch (error) {
     console.error('lookup_bel failed', error)
-    showSnackbar(t('enrollvk.lookup_bel_failed'))
+    errorcode.value = "notfound"
     return
   }
   finally {
     showLoading(false)
   }
-  isPlayerFound.value = member.belfound
+  isBelPlayerFound.value = member.belfound
+  isFidePlayerFound.value = true
   birthyear.value = member.birthyear
   first_name.value = member.first_name
   gender.value = member.gender
@@ -67,42 +70,44 @@ async function lookup_bel() {
   nationalityfide.value = member.nationalityfide
   ratingbel.value = member.ratingbel
   ratingfide.value = member.ratingfide
-  if (!isPlayerFound.value) {
+  if (!isBelPlayerFound.value) {
     errorcode.value = "notfound"
   }
 }
 
 async function lookup_fide() {
   let member
+  errorcode.value = null
   showLoading(true)
   try {
     const reply = await $backend('enrollment', 'lookup_idfide', {
       idfide: idfide.value
     })
-    console.log("member", reply.data)
+    console.log("fide member", reply.data)
     member = reply.data
   }
   catch (error) {
     console.error('lookup_fide failed', error)
-    showSnackbar(t('enrollvk.lookup_bel_failed'))
+    errorcode.value = "notfound"
     return
   }
   finally {
     showLoading(false)
   }
-  isPlayerFound.value = member.belfound
+  isBelPlayerFound.value = member.belfound
+  isFidePlayerFound.value = true
   birthyear.value = member.birthyear
   first_name.value = member.first_name
   gender.value = member.gender
   idclub.value = member.idclub
-  idbel.value = member.idfide + ''
+  idbel.value = member.idbel + ''
   last_name.value = member.last_name
   nationalitybel.value = member.nationalitybel
   nationalityfide.value = member.nationalityfide
   natstatus.value = member.natstatus
   ratingbel.value = member.ratingbel
   ratingfide.value = member.ratingfide
-  if (!isPlayerFound.value) {
+  if (!isFidePlayerFound.value) {
     errorcode.value = "notfound"
   }
 }
@@ -119,14 +124,14 @@ function prev() {
 }
 
 function restart() {
-  isPlayerFound.value = false
+  isBelPlayerFound.value = false
+  isFidePlayerFound.value = false
   errorcode.value = null
   idbel.value = ""
   idfide.value = ""
 }
 
 function setup(e) {
-  console.log('setup idnumber', e)
   idbel.value = e.idbel
   idfide.value = e.idfide
   first_name.value = e.first_name + ''
@@ -170,10 +175,11 @@ onMounted(() => {
     </v-row>
     <v-row>
       <v-col cols="12" md="6">
-        <v-text-field v-model="idbel" :label="t('enrollvk.idn_idbel')" required />
+        <v-text-field v-model="idbel" :label="t('enrollvk.idn_idbel')" :disabled="isFidePlayerFound"
+          required />
       </v-col>
       <v-col cols="12" md="6">
-        <v-btn color="primary" @click="lookup_bel()">
+        <v-btn color="primary" @click="lookup_bel()" :disabled="isFidePlayerFound">
           {{ t('Lookup') }}
         </v-btn>
       </v-col>
@@ -183,10 +189,11 @@ onMounted(() => {
     </v-row>
     <v-row>
       <v-col cols="12" md="6">
-        <v-text-field v-model="idfide" :label="t('enrollvk.idn_idfide')" required />
+        <v-text-field v-model="idfide" :disabled="isBelPlayerFound" :label="t('enrollvk.idn_idfide')"
+          required />
       </v-col>
       <v-col cols="12" md="6">
-        <v-btn color="primary" @click="lookup_fide()">
+        <v-btn color="primary" @click="lookup_fide()" :disabled="isBelPlayerFound">
           {{ t('Lookup') }}
         </v-btn>
       </v-col>
@@ -203,14 +210,15 @@ onMounted(() => {
       </div>
     </v-alert>
     <div class="mt-4">
-      <div v-show="isPlayerFound">
+      <div v-show="isBelPlayerFound || isFidePlayerFound">
         {{ t('enrollvk.idn_playerfound') }} {{ first_name }} {{ last_name }}
       </div>
       <div class="mt-2">
         <v-btn class="ml-2" @click="prev" color="primary">
           {{ t('Back') }}
         </v-btn>
-        <v-btn :disabled="!isPlayerFound" class="ml-2" color="primary" @click="next">
+        <v-btn :disabled="!isBelPlayerFound && !isFidePlayerFound" class="ml-2" color="primary"
+          @click="next">
           {{ t('Continue') }}
         </v-btn>
         <v-btn class="ml-2" @click="restart">

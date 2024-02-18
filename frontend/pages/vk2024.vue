@@ -28,7 +28,6 @@ async function getContent() {
 }
 
 function updateLocale(l) {
-  console.log('updating locale', l)
   pagetitle.value = metadata.value["title_" + l]
   pagecontent.value = mdConverter.makeHtml(metadata.value["content_" + l])
 }
