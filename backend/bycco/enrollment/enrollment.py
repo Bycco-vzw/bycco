@@ -83,7 +83,7 @@ async def create_enrollment_vk(ei: EnrollmentVkIn) -> str:
             locale=ei.locale,
             mobileplayer=ei.mobileplayer,
         )
-        enrid = (await update_enrollment(ei.idsub, eu.model_dump(exclude_none=True))).id
+        enrid = (await update_enrollment(ei.idsub, eu)).id
     else:
         eidict = ei.model_dump()
         eidict.pop("idsub", None)
@@ -114,7 +114,7 @@ async def create_enrollment_vk(ei: EnrollmentVkIn) -> str:
             meu.ratingfide = pl.ratingfide
         except Exception as e:
             logger.info(f"lookup idfide failed {e}")
-    await update_enrollment(enrid, meu.model_dump(exclude_none=True))
+    await update_enrollment(enrid, meu)
     return enrid
 
 

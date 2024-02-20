@@ -118,8 +118,8 @@ function restart() {
           {{ t('Confirmation') }}
         </v-card-title>
         <v-card-text>
-          <EnrollmentConfirmation v-show="step == 6" ref="refconfirmation" @change-step="changeStep"
-            @restart="restart" />
+          <EnrollmentConfirmation_bjk v-show="step == 6" ref="refconfirmation"
+            @change-step="changeStep" @restart="restart" />
         </v-card-text>
       </v-card>
     </div>

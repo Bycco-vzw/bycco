@@ -1,7 +1,6 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { v_required, v_length2 } from '@/composables/validators'
 import { categories } from '@/util/constants'
 
 import ProgressLoading from '@/components/ProgressLoading.vue'
@@ -21,28 +20,7 @@ let showLoading
 // i18n
 const { t, locale } = useI18n()
 
-// datamodel member
-const birthyear = ref(0)
-const category = ref("20")
-const emailplayer = ref("")
-const emailparent = ref("")
-const emailattendant = ref("")
-const first_name = ref("")
-const fullnameparent = ref("")
-const fullnameattendant = ref("")
-const idbel = ref("")
-const idfide = ref("")
-const idsub = ref("")
-const isParentPresent = ref(false)
-const last_name = ref("")
-const mobileplayer = ref("")
-const mobileparent = ref("")
-const mobileattendant = ref("")
-const nationalityfide = ref("")
-
-// datamodel the rest
-const step = 3
-const errorcode = ref(false)
+// computed
 const apicat = computed(() => {
   if ([8, 10, 12, 14, 16, 18, 20].includes(category.value)) {
     return "U" + category.value
@@ -57,8 +35,33 @@ const catitems = computed(() => {
   return cs
 })
 const isAdult = computed(() => {
-  birthyear.value < categories[1].year
+  return birthyear.value < categories[1].year
 })
+
+
+// datamodel member
+const birthyear = ref(0)
+const category = ref("20")
+const emailplayer = ref("")
+const emailparent = ref("")
+const emailattendant = ref("")
+const first_name = ref("")
+const fullnameparent = ref("")
+const fullnameattendant = ref("")
+const gender = ref("")
+const idbel = ref("")
+const idfide = ref("")
+const idsub = ref("")
+const isParentPresent = ref(false)
+const last_name = ref("")
+const mobileplayer = ref("")
+const mobileparent = ref("")
+const mobileattendant = ref("")
+const nationalityfide = ref("")
+
+// datamodel the rest
+const step = 3
+const errorcode = ref(false)
 const formvalid = ref(false)
 
 async function next() {
@@ -116,6 +119,7 @@ function setup(e) {
   first_name.value = e.first_name
   fullnameattendant.value = e.fullnameattendant || ""
   fullnameparent.value = e.fullnameparent || ""
+  gender.value = e.gender
   idbel.value = e.idbel
   idfide.value = e.idfide
   idsub.value = e.idsub
@@ -128,11 +132,12 @@ function setup(e) {
         category.value = c.value
     })
   }
+  console.log('cy', categories[1].year, birthyear.value)
 }
 
 function updateEnrollment() {
   emit('updateEnrollment', {
-    category: category.value,
+    category: apicat.value,
     emailplayer: emailplayer.value,
     idsub: idsub.value,
     mobileplayer: mobileplayer.value,
@@ -141,6 +146,7 @@ function updateEnrollment() {
 
 function validate_form() {
   errorcode.value = false
+  console.log('isAdult', isAdult.value)
   if (isAdult.value) {
     if (emailplayer.value.length < 2 && mobileplayer.value.length < 2) {
       errorcode.value = "playerdetailsnotvalid"
