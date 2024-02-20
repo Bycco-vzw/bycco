@@ -12,30 +12,22 @@ from reddevil.core import validate_token
 
 router = APIRouter(prefix="/api/v1/enrollment")
 
-from bycco.enrollment.enrollment import (
-    confirm_enrollment_vk,
+from bycco.enrollment import (
+    EnrollmentVkIn,
+    EnrollmentIn,
+    IdReply,
+    confirm_enrollment,
     create_enrollment_vk,
+    create_enrollment_bjk,
     get_photo,
     lookup_idbel,
     lookup_idfide,
     upload_photo,
 )
-from bycco.enrollment.md_enrollment import EnrollmentVkIn, IdReply
 
 logger = logging.getLogger(__name__)
 
 # vk
-
-
-@router.post("/vkconfirm/{id}", status_code=201)
-async def api_confirm_enrollment_vk(id: str, bt: BackgroundTasks):
-    try:
-        await confirm_enrollment_vk(id, bt)
-    except RdException as e:
-        raise HTTPException(status_code=e.status_code, detail=e.description)
-    except:
-        logger.exception("failed api call confirm_enrollment_vk")
-        raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
 @router.post("/vk", response_model=str)
@@ -47,6 +39,35 @@ async def api_create_enrollment_vk(enr: EnrollmentVkIn):
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except:
         logger.exception("failed api call create_enrollment_vk")
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+
+
+# bjk
+
+
+@router.post("/bjk", response_model=str)
+async def api_create_enrollment_bjk(enr: EnrollmentIn):
+    try:
+        id = await create_enrollment_bjk(enr)
+        return id
+    except RdException as e:
+        raise HTTPException(status_code=e.status_code, detail=e.description)
+    except:
+        logger.exception("failed api call create_enrollment_vk")
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+
+
+# other
+
+
+@router.post("/confirm/{id}", status_code=201)
+async def api_confirm_enrollment(id: str, bt: BackgroundTasks):
+    try:
+        await confirm_enrollment(id, bt)
+    except RdException as e:
+        raise HTTPException(status_code=e.status_code, detail=e.description)
+    except:
+        logger.exception("failed api call confirm_enrollment")
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 

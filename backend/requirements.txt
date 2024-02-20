@@ -2,3 +2,4 @@ toml==0.10.2
 gunicorn==21.2.0
 python-dotenv==1.0.1
 libs/reddevil-3.3.5-py3-none-any.whl
+openpyxl==3.1.2

@@ -15,9 +15,13 @@ export default {
     const { enrollmentVkIn } = options
     return await axios.post(`${prefix}/vk`, enrollmentVkIn)
   },
+  create_enrollment_bjk: async function (options) {
+    const { enrollmentIn } = options
+    return await axios.post(`${prefix}/bjk`, enrollmentIn)
+  },
   confirm_enrollment: async function (options) {
     const { idsub } = options
-    return await axios.post(`${prefix}/vkconfirm/${idsub}`)
+    return await axios.post(`${prefix}/confirm/${idsub}`)
   },
   upload_photo: async function (options) {
     const { idsub, photo } = options

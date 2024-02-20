@@ -3,12 +3,13 @@
 
 import logging
 import base64
-import asyncio
 from typing import List
 from fastapi import HTTPException, BackgroundTasks, Depends, APIRouter
 from fastapi.security import HTTPAuthorizationCredentials
 from reddevil.core import RdException, bearer_schema
 from reddevil.core import validate_token
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/api/v1/lodging")
 
@@ -25,8 +26,6 @@ from bycco.lodging.md_lodging import (
     Lodging,
     LodgingIn,
 )
-
-logger = logging.getLogger("bycco")
 
 
 @router.post("/cmd/make_reservation", response_model=str)

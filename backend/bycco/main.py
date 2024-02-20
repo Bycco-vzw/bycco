@@ -31,14 +31,8 @@ app = FastAPI(
 load_dotenv()
 register_app(app, "bycco.settings", "/api")
 settings = get_settings()
-logger = logging.getLogger("bycco")
+logger = logging.getLogger(__name__)
 logger.info(f"Starting website bycco ...")
-
-# show local settings loaded or not
-from bycco.settings import ls
-
-logger.info(ls)
-
 
 # add CORS middleware for dev only
 app.add_middleware(

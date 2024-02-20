@@ -32,6 +32,10 @@ const photourl = computed(() => `${runtimeConfig.public.apiUrl}api/v1/enrollment
 const isConfirmed = ref(false)
 
 const step = 6
+const canBeChampion = computed(() => {
+  if (nationalityfide.value == "BEL") return t("Yes")
+  return nationalityfide.value ? t("No") : t("Unknown")
+})
 
 async function confirm() {
   let reply
@@ -72,6 +76,8 @@ function setup(e) {
   last_name.value = e.last_name
 }
 
+
+
 onMounted(() => {
   showSnackbar = refsnackbar.value.showSnackbar
   showLoading = refloading.value.showLoading
@@ -98,6 +104,9 @@ onMounted(() => {
         </div>
         <div>
           {{ t('FIDE nationality') }}: <b>{{ nationalityfide }}</b>
+        </div>
+        <div>
+          {{ t('enroll.cfm_champion') }}: <b>{{ canBeChampion }}</b>
         </div>
         <div>
           {{ t('Gender') }}: <b>{{ gender }}</b>
