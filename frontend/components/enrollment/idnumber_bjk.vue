@@ -46,7 +46,7 @@ async function lookup_bel() {
   showLoading(true)
   try {
     const reply = await $backend('enrollment', 'lookup_idbel', {
-      idbel: idbel.value
+      idbel: idbel.value.trim()
     })
     console.log("bel member", reply.data)
     member = reply.data
@@ -112,7 +112,7 @@ function updateEnrollment() {
     birthyear: birthyear.value,
     first_name: first_name.value,
     gender: gender.value,
-    idbel: idbel.value,
+    idbel: idbel.value.trim(),
     idclub: idclub.value,
     idfide: idfide.value,
     last_name: last_name.value,
