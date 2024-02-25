@@ -14,7 +14,6 @@ from weasyprint import HTML, CSS
 from reddevil.core import get_settings
 from reddevil.mail.md_mail import MailParams
 
-from bycco.enrollment.md_enrollment import Enrollment
 from bycco.lodging.md_lodging import Lodging
 from bycco.core.mailbackend import backends
 from bycco.core.common import get_common
@@ -83,23 +82,6 @@ def test_mail():
         logger.info(f"testmail sent for {receiver}")
     except Exception:
         logger.exception("failed")
-
-
-def sendemail_enrollment_vk(enr: Enrollment) -> None:
-    settings = get_settings()
-    emails = [enr.emailplayer]
-    mp = MailParams(
-        subject="VK 2024",
-        sender=settings.EMAIL["sender"],
-        receiver=",".join(emails),
-        template="mailenrollment_vk_{locale}.md",
-        locale=enr.locale,
-        attachments=[],
-        bcc=settings.EMAIL["bcc_enrollment"],
-    )
-    edict = enr.model_dump()
-    edict["category"] = edict["category"].value
-    sendemail_no_attachments(mp, edict, "confirmation enrollment")
 
 
 def sendemail_reservation(ldg: Lodging):

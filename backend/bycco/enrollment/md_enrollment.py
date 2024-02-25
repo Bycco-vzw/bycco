@@ -9,20 +9,13 @@ from reddevil.core import DbBase
 
 
 class EnrollmentCategory(str, Enum):
-    B8 = "B8"
-    B10 = "B10"
-    B12 = "B12"
-    B14 = "B14"
-    B16 = "B16"
-    B18 = "B18"
-    B20 = "B20"
-    G8 = "G8"
-    G10 = "G10"
-    G12 = "G12"
-    G14 = "G14"
-    G16 = "G16"
-    G18 = "G18"
-    G20 = "G20"
+    U8 = "U8"
+    U10 = "U10"
+    U12 = "U12"
+    U14 = "U14"
+    U16 = "U16"
+    U18 = "U18"
+    U20 = "U20"
     ARB = "ARB"
     ORG = "ORG"
     OTHER = "OTH"
@@ -40,18 +33,6 @@ class NatStatus(str, Enum):
     fidebelg = "Fide Belg."
     nobelg = "No Belg."
     unknown = "Unknown"
-
-
-class EnrollmentEvent(BaseModel):
-    """
-    event details
-    """
-
-    enddate: str | None
-    eventtype: str | None
-    startdate: str | None
-    title: str | None
-    options: dict | None
 
 
 class EnrollmentRepresentative(BaseModel):
@@ -79,6 +60,7 @@ class EnrollmentDB(BaseModel):
     custom: str | None
     emailplayer: str | None
     enabled: bool
+    event: str
     federation: str
     first_name: str
     gender: Gender
@@ -98,7 +80,6 @@ class EnrollmentDB(BaseModel):
     registrationtime: datetime
     representative: EnrollmentRepresentative | None
     remarks: str
-    enrollmentevent: EnrollmentEvent
     _id: str
     _version: int
     _documenttype: str
@@ -118,6 +99,8 @@ class EnrollmentIn(BaseModel):
     fullnameattendant: str
     fullnameparent: str
     idbel: str
+    idfide: str | None = None
+    idsub: str | None = None
     locale: str
     mobileattendant: str
     mobileparent: str
@@ -138,12 +121,12 @@ class EnrollmentVkIn(BaseModel):
     mobileplayer: str
 
 
-class EnrollmentPublic(BaseModel):
+class EnrollmentItem(BaseModel):
     """
     validator for public view of a enrollment
     """
 
-    badgelength: Optional[int] = 0
+    badgelength: int | None = 0
     birthyear: int
     category: EnrollmentCategory
     chesstitle: str | None
@@ -158,14 +141,6 @@ class EnrollmentPublic(BaseModel):
     rating: int = 0
     ratingbel: int = 0
     ratingfide: int = 0
-
-
-class EnrollmentList(BaseModel):
-    """
-    a list view of enrollments
-    """
-
-    enrollments: List[EnrollmentPublic]
 
 
 class EnrollmentVKOut(BaseModel):
@@ -261,6 +236,7 @@ class EnrollmentUpdate(BaseModel):
     custom: str | None = None
     emailplayer: str | None = None
     enabled: Optional[bool] = None
+    event: str | None = None
     federation: str | None = None
     first_name: str | None = None
     gender: str | None = None
@@ -281,7 +257,6 @@ class EnrollmentUpdate(BaseModel):
     registrationtime: datetime | None = None
     representative: EnrollmentRepresentative | None = None
     remarks: str | None = None
-    enrollmentevent: Optional[EnrollmentEvent] = None
 
 
 class Enrollment(BaseModel):
@@ -300,6 +275,7 @@ class Enrollment(BaseModel):
     custom: str | None = None
     emailplayer: str | None = None
     enabled: Optional[bool] = None
+    event: str | None = None
     federation: str | None = None
     first_name: str | None = None
     gender: str | None = None
@@ -321,7 +297,6 @@ class Enrollment(BaseModel):
     registrationtime: datetime | None = None
     representative: EnrollmentRepresentative | None = None
     remarks: str | None = None
-    enrollmentevent: Optional[EnrollmentEvent] = None
 
 
 class IdReply(BaseModel):
@@ -337,8 +312,8 @@ class IdReply(BaseModel):
     nationalitybel: str = "BEL"
     nationalityfide: str = ""
     natstatus: NatStatus = NatStatus.unknown
-    ratingbel: int = 0
-    ratingfide: int = 0
+    ratingbel: int | None = 0
+    ratingfide: int | None = 0
     subconfirmed: bool = False
     subid: str | None = None
 

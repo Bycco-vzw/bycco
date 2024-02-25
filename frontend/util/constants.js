@@ -1,11 +1,11 @@
 const categories = [
-  { value: 20, text: '-20', year: 2003 },
-  { value: 18, text: '-18', year: 2005 },
-  { value: 16, text: '-16', year: 2007 },
-  { value: 14, text: '-14', year: 2009 },
-  { value: 12, text: '-12', year: 2011 },
-  { value: 10, text: '-10', year: 2013 },
-  { value: 8, text: '-8', year: 2015 }
+  { value: 20, title: '-20', year: 2004 },
+  { value: 18, title: '-18', year: 2006 },
+  { value: 16, title: '-16', year: 2008 },
+  { value: 14, title: '-14', year: 2010 },
+  { value: 12, title: '-12', year: 2012 },
+  { value: 10, title: '-10', year: 2014 },
+  { value: 8, title: '-8', year: 2016 }
 ]
 
 
@@ -30,4 +30,4 @@ const trndates = {
 
 const roomtypes = []
 
-export { trndates, roomtypes }
+export { trndates, roomtypes, categories, yesno, canbechampion }

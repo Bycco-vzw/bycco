@@ -9,8 +9,9 @@ from fastapi.responses import Response
 from binascii import a2b_base64
 
 from reddevil.core import get_settings, RdBadRequest, RdNotFound
+from bycco.core.mail import MailParams, sendemail_no_attachments
 
-from bycco.enrollment.md_enrollment import (
+from bycco.enrollment import (
     DbEnrollment,
     Enrollment,
     EnrollmentIn,
@@ -19,7 +20,7 @@ from bycco.enrollment.md_enrollment import (
     IdReply,
     NatStatus,
 )
-from bycco.core.mail import MailParams, sendemail_enrollment_vk
+
 from httpx import (
     TransportError,
     DecodingError,
@@ -50,11 +51,24 @@ async def update_enrollment(id, eu: EnrollmentUpdate, options: dict = {}) -> Enr
     """
     filter = options.copy()
     filter["_model"] = filter.pop("_model", Enrollment)
+    eudict = eu.model_dump(exclude_unset=True)
+    if "representative" in eudict:
+        eudict["representative"] = {
+            "emailattendant": eudict.pop("emailattendant", ""),
+            "emailparent": eudict.pop("emailparent", ""),
+            "fullnameattendant": eudict.pop("fullnameattendant", ""),
+            "fullnameparent": eudict.pop("fullnameparent", ""),
+            "mobileattendant": eudict.pop("mobileattendant", ""),
+            "mobileparent": eudict.pop("mobileparent", ""),
+        }
     mo = cast(
         Enrollment,
-        await DbEnrollment.update(id, eu, filter),
+        await DbEnrollment.update(id, eudict, filter),
     )
     return mo
+
+
+# business methods
 
 
 async def create_enrollment_vk(ei: EnrollmentVkIn) -> str:
@@ -69,7 +83,7 @@ async def create_enrollment_vk(ei: EnrollmentVkIn) -> str:
             locale=ei.locale,
             mobileplayer=ei.mobileplayer,
         )
-        enrid = (await update_enrollment(ei.idsub, eu.model_dump(exclude_none=True))).id
+        enrid = (await update_enrollment(ei.idsub, eu)).id
     else:
         eidict = ei.model_dump()
         eidict.pop("idsub", None)
@@ -100,7 +114,57 @@ async def create_enrollment_vk(ei: EnrollmentVkIn) -> str:
             meu.ratingfide = pl.ratingfide
         except Exception as e:
             logger.info(f"lookup idfide failed {e}")
-    await update_enrollment(enrid, meu.model_dump(exclude_none=True))
+    await update_enrollment(enrid, meu)
+    return enrid
+
+
+async def create_enrollment_bjk(ei: EnrollmentIn) -> str:
+    logger.info(f"create an enrollment for BJK {ei}")
+
+    if ei.idsub:
+        eu = EnrollmentUpdate(
+            category=ei.category,
+            emailattendant=ei.emailattendant,
+            emailparent=ei.emailparent,
+            emailplayer=ei.emailplayer,
+            fullnameattendant=ei.fullnameattendant,
+            fullnameparent=ei.fullnameparent,
+            idbel=ei.idbel,
+            idfide=ei.idfide,
+            locale=ei.locale,
+            mobileattendant=ei.mobileattendant,
+            mobileparent=ei.mobileparent,
+            mobileplayer=ei.mobileplayer,
+        )
+        enrid = (await update_enrollment(ei.idsub, eu)).id
+    else:
+        eidict = ei.model_dump()
+        eidict.pop("idsub", None)
+        eidict["event"] = "bjk2024"
+        eidict["representative"] = {
+            "emailattendant": eidict.pop("emailattendant", ""),
+            "emailparent": eidict.pop("emailparent", ""),
+            "fullnameattendant": eidict.pop("fullnameattendant", ""),
+            "fullnameparent": eidict.pop("fullnameparent", ""),
+            "mobileattendant": eidict.pop("mobileattendant", ""),
+            "mobileparent": eidict.pop("mobileparent", ""),
+        }
+        enrid = await add_enrollment(eidict)
+    meu = EnrollmentUpdate()
+    try:
+        pl = await lookup_idbel(ei.idbel)
+        meu.birthyear = pl.birthyear
+        meu.gender = pl.gender
+        meu.first_name = pl.first_name
+        meu.idclub = pl.idclub
+        meu.last_name = pl.last_name
+        meu.nationalitybel = pl.nationalitybel
+        meu.nationalityfide = pl.nationalityfide
+        meu.natstatus = pl.natstatus
+        meu.ratingbel = pl.ratingbel
+    except Exception as e:
+        logger.info(f"lookup idbel failed {e}")
+    await update_enrollment(enrid, meu)
     return enrid
 
 
@@ -208,13 +272,16 @@ async def upload_photo(id: str, photo: str) -> None:
         )
     except:
         raise RdBadRequest(description="BadPhotoData")
-    await update_enrollment(id, su.model_dump(exclude_none=True))
+    await update_enrollment(id, su)
 
 
-async def confirm_enrollment_vk(id: str, bt: BackgroundTasks) -> None:
+async def confirm_enrollment(id: str, bt: BackgroundTasks) -> None:
     su = EnrollmentUpdate(confirmed=True, registrationtime=datetime.now(), enabled=True)
-    enr = await update_enrollment(id, su.model_dump(exclude_none=True))
-    sendemail_enrollment_vk(enr)
+    enr = await update_enrollment(id, su)
+    if enr.event == "bjk2024":
+        sendemail_enrollment_bjk(enr)
+    else:
+        sendemail_enrollment_vk(enr)
 
 
 async def get_photo(id: str):
@@ -225,3 +292,41 @@ async def get_photo(id: str):
         }
     )
     return Response(content=photo["badgeimage"], media_type=photo["badgemimetype"])
+
+
+def sendemail_enrollment_vk(enr: Enrollment) -> None:
+    settings = get_settings()
+    emails = [enr.emailplayer]
+    mp = MailParams(
+        subject="VK 2024",
+        sender=settings.EMAIL["sender"],
+        receiver=",".join(emails),
+        template="mailenrollment_vk_{locale}.md",
+        locale=enr.locale,
+        attachments=[],
+        bcc=settings.EMAIL["bcc_enrollment"],
+    )
+    edict = enr.model_dump()
+    edict["category"] = edict["category"].value
+    sendemail_no_attachments(mp, edict, "confirmation enrollment")
+
+
+def sendemail_enrollment_bjk(enr: Enrollment) -> None:
+    settings = get_settings()
+    emails = [enr.emailplayer]
+    mp = MailParams(
+        subject="BJK 2024 / CBJ 2024 / BJLM 2024",
+        sender=settings.EMAIL["sender"],
+        receiver=",".join(emails),
+        template="mailenrollment_bjk_{locale}.md",
+        locale=enr.locale,
+        attachments=[],
+        bcc=settings.EMAIL["bcc_enrollment"],
+    )
+    edict = enr.model_dump()
+    edict["category"] = edict["category"].value
+    if enr.nationalityfide:
+        edict["natstatus"] = 0 if enr.nationalityfide == "BEL" else 1
+    else:
+        edict["natstatus"] = 2
+    sendemail_no_attachments(mp, edict, "confirmation enrollment")

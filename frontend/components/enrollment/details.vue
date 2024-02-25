@@ -78,7 +78,7 @@ function setup(e) {
   idbel.value = e.idbel
   idfide.value = e.idfide
   idsub.value = e.idsub
-  last_name.value = e.kast_name
+  last_name.value = e.last_name
   mobileplayer.value = e.mobileplayer
   nationalityfide.value = e.nationalityfide
 }

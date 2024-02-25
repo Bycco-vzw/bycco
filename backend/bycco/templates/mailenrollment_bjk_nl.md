@@ -1,4 +1,4 @@
-## Bevestiging inschrijving B 2023
+## Bevestiging inschrijving B 2024
 
 ### Details deelnemer
 
