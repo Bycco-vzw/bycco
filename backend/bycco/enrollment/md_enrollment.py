@@ -312,8 +312,8 @@ class IdReply(BaseModel):
     nationalitybel: str = "BEL"
     nationalityfide: str = ""
     natstatus: NatStatus = NatStatus.unknown
-    ratingbel: int = 0
-    ratingfide: int = 0
+    ratingbel: int | None = 0
+    ratingfide: int | None = 0
     subconfirmed: bool = False
     subid: str | None = None
 

@@ -98,7 +98,7 @@ TEMPLATES_PATH = Path(os.environ.get("TEMPLATES_PATH", "./bycco/templates"))
 
 TOKEN = {
     "timeout": 180,  # timeout in minutes
-    "secret": "kenuvrowe,endaklaagtendazaagt",
+    "secret": "kennehvrowe,endaklaagtendazaagt",
     "algorithm": "HS256",
     "nocheck": False,
 }
