@@ -313,11 +313,13 @@ def sendemail_enrollment_vk(enr: Enrollment) -> None:
 
 def sendemail_enrollment_bjk(enr: Enrollment) -> None:
     settings = get_settings()
-    emails = [enr.emailplayer]
+    em1 = enr.emailplayer.split(",")
+    em2 = enr.representative.emailattendant.split(",")
+    em3 = enr.representative.emailparent.split(",")
     mp = MailParams(
         subject="BJK 2024 / CBJ 2024 / BJLM 2024",
         sender=settings.EMAIL["sender"],
-        receiver=",".join(emails),
+        receiver=",".join(em1 + em2 + em3),
         template="mailenrollment_bjk_{locale}.md",
         locale=enr.locale,
         attachments=[],
