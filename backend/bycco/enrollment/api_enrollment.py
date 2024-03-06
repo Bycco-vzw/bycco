@@ -20,6 +20,7 @@ from bycco.enrollment import (
     create_enrollment_bjk,
     get_enrollments_vk,
     get_photo,
+    get_enrollments_vk,
     lookup_idbel,
     lookup_idfide,
     upload_photo,
@@ -124,20 +125,6 @@ async def api_anon_get_photo(id: str):
     except:
         logger.exception("failed api call get_photo")
         raise HTTPException(status_code=500, detail="Internal Server Error")
-
-
-# @router.get("", response_model=EnrollmentList)
-# async def api_get_enrollments(
-#     auth: HTTPAuthorizationCredentials = Depends(bearer_schema),
-# ):
-#     try:
-#         await validate_token(auth)
-#         return await get_enrollments({"_class": EnrollmentOut})
-#     except RdException as e:
-#         raise HTTPException(status_code=e.status_code, detail=e.description)
-#     except:
-#         log.exception("failed api call get_enrollments")
-#         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
 # @router.get("/api/v1/enrollment/{id}", response_model=Enrollment)

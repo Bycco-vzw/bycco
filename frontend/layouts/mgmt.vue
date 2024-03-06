@@ -13,14 +13,13 @@ async function goto(section) {
 <template>
   <VApp>
     <VNavigationDrawer v-model="drawer" color="deep-purple darken-1" dark>
-      <!-- <VToolbar title="Menu" color="deep-purple darken-3" dark /> -->
+      <VToolbar title="BYCCO Mgmt" color="deep-purple darken-3" dark />
       <VList>
         <VListItem @click="goto('overview')" title="Overview" />
         <VListItem @click="goto('reservations')" title="Reservations" />
         <VListItem @click="goto('payments')" title="Payment Requests" />
-        <VListItem @click="goto('rooms')" title="Rooms" />
-        <!-- <VListItem @click="goto('enrollments')" title="Enrollments" />
-        <VListItem @click="goto('attendees')" title="Attendees" /> -->
+        <VListItem @click="goto('enrollments_vk')" title="Enrollments VK2024" />
+        <VListItem @click="goto('participants_vk')" title="Participants VK2024" />
         <VListItem @click="goto('logout')" title="Logout" />
       </VList>
     </VNavigationDrawer>

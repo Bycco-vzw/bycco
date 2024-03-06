@@ -26,12 +26,11 @@ const { person } = storeToRefs(personstore)
 const enrollments = ref([])
 const search = ref("")
 const headers = [
-  { title: 'ID bel', value: 'idbel' },
-  { title: 'ID fide', value: 'idfide' },
-  { title: 'First name', value: 'first_name' },
-  { title: 'Last name', value: 'last_name' },
+  { title: 'Last Name', value: 'last_name' },
+  { title: 'First Name', value: 'first_name' },
   { title: 'Category', value: 'category' },
-  { title: 'Actions', value: 'action', sortable: false }
+  { title: 'ID Bel', value: 'idbel' },
+  { title: 'ID Fide', value: 'idfide' },
 ]
 
 definePageMeta({
