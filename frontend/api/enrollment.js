@@ -27,4 +27,7 @@ export default {
     const { idsub, photo } = options
     return await axios.post(`${prefix}/photo/${idsub}`, { photo })
   },
+  get_enrollments_vk: async function () {
+    return await axios.get(`${prefix}/vk`)
+  }
 }

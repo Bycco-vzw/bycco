@@ -15,6 +15,7 @@ from bycco.enrollment import (
     DbEnrollment,
     Enrollment,
     EnrollmentIn,
+    EnrollmentItem,
     EnrollmentUpdate,
     EnrollmentVkIn,
     IdReply,
@@ -43,6 +44,20 @@ async def add_enrollment(edict: dict) -> str:
     """
     id = await DbEnrollment.add(edict)
     return id
+
+
+async def get_enrollments_vk(options: dict = {}) -> List[EnrollmentItem]:
+    """
+    get enrollments
+    """
+    filter = options.copy()
+    filter["_model"] = filter.pop("_model", EnrollmentItem)
+    filter["event"] = "VK2024"
+    logger.info(f"filter in get_enrollments {filter}")
+    # enrs = await DbEnrollment.find_multiple(filter)
+    enrs = [cast(EnrollmentItem, x) for x in await DbEnrollment.find_multiple(filter)]
+    logger.info(f"enrs {len(enrs)}")
+    return enrs
 
 
 async def update_enrollment(id, eu: EnrollmentUpdate, options: dict = {}) -> Enrollment:

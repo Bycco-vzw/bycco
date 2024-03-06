@@ -129,18 +129,17 @@ class EnrollmentItem(BaseModel):
     badgelength: int | None = 0
     birthyear: int
     category: EnrollmentCategory
-    chesstitle: str | None
+    chesstitle: str | None = None
     first_name: str
     gender: Gender
     id: str
-    idbel: str
-    idclub: str | None
-    idfide: str | None
+    idbel: str | None = None
+    idclub: str | None = None
+    idfide: str | None = None
     last_name: str
     nationalityfide: str
-    rating: int = 0
-    ratingbel: int = 0
-    ratingfide: int = 0
+    ratingbel: int | None = 0
+    ratingfide: int | None = 0
 
 
 class EnrollmentVKOut(BaseModel):

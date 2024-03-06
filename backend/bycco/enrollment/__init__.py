@@ -17,6 +17,7 @@ from .enrollment import (
     create_enrollment_bjk,
     create_enrollment_vk,
     get_photo,
+    get_enrollments_vk,
     lookup_idbel,
     lookup_idfide,
     upload_photo,

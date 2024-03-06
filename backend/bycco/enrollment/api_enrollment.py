@@ -4,7 +4,7 @@
 import logging
 import base64
 import asyncio
-from typing import Optional
+from typing import List
 from fastapi import HTTPException, BackgroundTasks, Depends, APIRouter
 from fastapi.security import HTTPAuthorizationCredentials
 from reddevil.core import RdException, bearer_schema
@@ -15,11 +15,13 @@ router = APIRouter(prefix="/api/v1/enrollment")
 from bycco.enrollment import (
     EnrollmentVkIn,
     EnrollmentIn,
+    EnrollmentItem,
     IdReply,
     confirm_enrollment,
     create_enrollment_vk,
     create_enrollment_bjk,
     get_photo,
+    get_enrollments_vk,
     lookup_idbel,
     lookup_idfide,
     upload_photo,
@@ -28,6 +30,17 @@ from bycco.enrollment import (
 logger = logging.getLogger(__name__)
 
 # vk
+
+
+@router.get("/vk", response_model=List[EnrollmentItem])
+async def api_get_enrollments_vk():
+    try:
+        return await get_enrollments_vk()
+    except RdException as e:
+        raise HTTPException(status_code=e.status_code, detail=e.description)
+    except:
+        logger.exception("failed api call get_enrollments_vk")
+        raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
 @router.post("/vk", response_model=str)
@@ -113,20 +126,6 @@ async def api_anon_get_photo(id: str):
     except:
         logger.exception("failed api call get_photo")
         raise HTTPException(status_code=500, detail="Internal Server Error")
-
-
-# @router.get("", response_model=EnrollmentList)
-# async def api_get_enrollments(
-#     auth: HTTPAuthorizationCredentials = Depends(bearer_schema),
-# ):
-#     try:
-#         await validate_token(auth)
-#         return await get_enrollments({"_class": EnrollmentOut})
-#     except RdException as e:
-#         raise HTTPException(status_code=e.status_code, detail=e.description)
-#     except:
-#         log.exception("failed api call get_enrollments")
-#         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
 # @router.get("/api/v1/enrollment/{id}", response_model=Enrollment)
