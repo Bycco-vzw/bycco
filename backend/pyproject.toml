@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "bycco"
-version = "2.0.0"
+version = "2.0.1"
 description = "Bycco backend"
 authors = ["Ruben Decrop <ruben.decrop@bycco.be>"]
 
@@ -16,6 +16,7 @@ openpyxl = "^3.1.2"
 black = "^23"
 pytest = "^7"
 pytest-asyncio = "^0.23.5"
+toml = "^0.10.2"
 
 [build-system]
 requires = ["poetry-core"]

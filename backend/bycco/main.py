@@ -20,19 +20,20 @@ async def lifespan(app: FastAPI):
     yield
     close_mongodb()
 
+from . import version
 
 # load and register app
 app = FastAPI(
     title="Bycco backend",
     description="backend website bycco.be",
-    version="1",
+    version=version,
     lifespan=lifespan,
 )
 load_dotenv()
 register_app(app, "bycco.settings", "/api")
 settings = get_settings()
 logger = logging.getLogger(__name__)
-logger.info(f"Starting website bycco ...")
+logger.info(f"Starting website bycco {version} ...")
 
 # add CORS middleware for dev only
 app.add_middleware(
