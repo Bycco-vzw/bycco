@@ -133,7 +133,7 @@ onMounted(async () => {
   <v-container>
     <SnackbarMessage ref="refsnackbar" />
     <ProgressLoading ref="refloading" />
-    <h1>Management Particpants VK202</h1>
+    <h1>Management Participants VK202</h1>
     <v-data-table :headers="headers" :items="participants" :item-class="lightgreyRow"
       :items-per-page-options="[150, -1]" class="elevation-1"
       :sort-by="[{ key: 'last_name', order: 'asc' }]" :search="search">
