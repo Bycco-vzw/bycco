@@ -30,6 +30,8 @@ function setLocale(l) {
         <template #activator="{ props }">
           <v-list-item v-bind="props" :title="t('Tournament')" />
         </template>
+        <v-list-item to="/vk2024" title="Info" />
+        <v-list-item to="/gameschedule" :title="t('Game schedule')" />
         <v-list-item to="/enrollmenttool" :title="t('Enrollment')" />
         <v-list-item to="/participants_vk" :title="t('Participants')" />
       </v-list-group>

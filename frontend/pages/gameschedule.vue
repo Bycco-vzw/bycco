@@ -15,7 +15,7 @@ async function getContent() {
     try {
         const reply = await $backend('filestore', 'anon_get_file', {
             group: 'pages',
-            name: 'gameschedule.md'
+            name: 'game-schedule.md'
         })
         metadata.value = useMarkdown(reply.data).metadata
         updateLocale(locale.value)
