@@ -8,6 +8,7 @@ handlers:
 
   - url: /
     static_files: dist/index.html
+    secure: always
     upload: dist/index.html
 
   - url: /([^\.]*)$
