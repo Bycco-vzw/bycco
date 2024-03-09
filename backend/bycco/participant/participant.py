@@ -11,11 +11,11 @@ from bycco.core.mail import MailParams, sendemail_no_attachments
 
 from bycco.participant import (
     ParticipantBJKCategory,
-    ParticipantBJKDB,
+    ParticipantBJKDetail,
     ParticipantBJKItem,
     DbParticpantBJK,
     ParticipantVKCategory,
-    ParticipantVKDB,
+    ParticipantVKDetail,
     ParticipantVKItem,
     DbParticpantVK,
     Gender,
@@ -38,6 +38,10 @@ async def get_participants_vk(options: dict = {}) -> List[ParticipantVKItem]:
     ]
 
 
+async def mgmt_get_participant_vk(id: str) -> ParticipantVKDetail:
+    return await DbParticpantVK.find_single({"_model": ParticipantVKDetail, "id": id})
+
+
 async def get_participant_vk_by_idbel(idbel: str) -> ParticipantVKItem:
     return await DbParticpantVK.find_single(
         {"_model": ParticipantVKItem, "idbel": idbel}
@@ -46,7 +50,7 @@ async def get_participant_vk_by_idbel(idbel: str) -> ParticipantVKItem:
 
 async def get_participant_vk_by_idfide(idfide: str) -> ParticipantVKItem:
     return await DbParticpantVK.find_single(
-        {"_model": ParticipantVKItem, "idfide": idfide}
+        {"_model": ParticipantVKDB, "idfide": idfide}
     )
 
 
@@ -131,6 +135,10 @@ async def get_participants_bjk(options: dict = {}) -> List[ParticipantBJKItem]:
     return [
         cast(ParticipantBJKItem, x) for x in await DbParticpantBJK.find_multiple(filter)
     ]
+
+
+async def mgmt_get_participant_bjk(id: str) -> ParticipantBJKDetail:
+    return await DbParticpantBJK.find_single({"_model": ParticipantBJKDetail, "id": id})
 
 
 async def get_participant_bjk_by_idbel(idbel: str) -> ParticipantBJKItem:

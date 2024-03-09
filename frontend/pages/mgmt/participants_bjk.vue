@@ -31,6 +31,7 @@ const headers = [
   { title: 'Elo BEL', value: 'ratingbel', sortable: true },
   { title: 'Elo FIDE', value: 'ratingfide', sortable: true },
   { title: 'Category', value: 'category', sortable: true },
+  { title: 'Actions', value: 'action', sortable: false },
 ]
 
 
@@ -74,6 +75,10 @@ async function checkAuth() {
 }
 
 
+async function editParticipant(item) {
+  router.push('/mgmt/participantbjk_edit?id=' + item.id)
+}
+
 async function getParticipants() {
   let reply
   showLoading(true)
@@ -89,6 +94,10 @@ async function getParticipants() {
   finally {
     showLoading(false)
   }
+}
+
+function gotoPaymentRequest(item) {
+  router.push('/mgmt/paymentrequest_edit?id=' + item.payment_id)
 }
 
 async function importEnrollments() {
@@ -157,7 +166,6 @@ onMounted(async () => {
               &nbsp;
               <v-tooltip location="bottom">
                 Refresh
-
                 <template #activator="{ props }">
                   <v-btn fab outlined color="deep-purple-lighten-1" v-bind="props"
                     @click="refresh()">
@@ -169,7 +177,29 @@ onMounted(async () => {
           </v-card-title>
         </v-card>
       </template>
-
+      <template #item.payment_id="{ item }">
+        <NuxtLink v-if="item.payment_id" :to="'/mgmt/paymentrequestedit?id=' + item.payment_id">
+          link
+        </NuxtLink>
+      </template>
+      <template #item.action="{ item }">
+        <v-tooltip bottom>
+          <template #activator="{ on }">
+            <v-icon small class="mr-2" v-on="on" @click="editParticipant(item)">
+              mdi-pencil
+            </v-icon>
+          </template>
+          Edit Participant
+        </v-tooltip>
+        <v-tooltip v-if="item.payment_id" bottom>
+          <template #activator="{ on }">
+            <v-icon small class="mr-2" v-on="on" @click="gotoPaymentRequest(item)">
+              mdi-currency-eur
+            </v-icon>
+          </template>
+          Show payment request
+        </v-tooltip>
+      </template>
       <template #no-data>
         No participants found.
       </template>

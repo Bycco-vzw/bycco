@@ -11,12 +11,16 @@ from reddevil.core import validate_token
 router = APIRouter(prefix="/api/v1/participant")
 
 from . import (
-    get_participants_vk,
-    ParticipantVKItem,
-    mgmt_import_enrollments_vk,
-    get_participants_bjk,
     ParticipantBJKItem,
+    ParticipantBJKDetail,
+    ParticipantVKItem,
+    ParticipantVKDetail,
+    get_participants_bjk,
+    get_participants_vk,
+    mgmt_get_participant_bjk,
+    mgmt_get_participant_vk,
     mgmt_import_enrollments_bjk,
+    mgmt_import_enrollments_vk,
 )
 
 logger = logging.getLogger(__name__)
@@ -32,6 +36,20 @@ async def api_get_participants_vk():
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except:
         logger.exception("failed api call get_particpants_vk")
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+
+
+@router.get("/vk/{id}", response_model=ParticipantVKDetail)
+async def api_mgmt_get_participants_vk(
+    id: str, auth: HTTPAuthorizationCredentials = Depends(bearer_schema)
+):
+    try:
+        await validate_token(auth)
+        return await mgmt_get_participant_vk(id)
+    except RdException as e:
+        raise HTTPException(status_code=e.status_code, detail=e.description)
+    except:
+        logger.exception("failed api call get_particpant_vk")
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
@@ -60,6 +78,20 @@ async def api_get_participants_bjk():
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except:
         logger.exception("failed api call get_particpants_bjk")
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+
+
+@router.get("/bjk/{id}", response_model=ParticipantBJKDetail)
+async def api_mgmt_get_participants_bjk(
+    id: str, auth: HTTPAuthorizationCredentials = Depends(bearer_schema)
+):
+    try:
+        await validate_token(auth)
+        return await mgmt_get_participant_bjk(id)
+    except RdException as e:
+        raise HTTPException(status_code=e.status_code, detail=e.description)
+    except:
+        logger.exception("failed api call get_particpant_bjk")
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 

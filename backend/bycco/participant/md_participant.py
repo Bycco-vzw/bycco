@@ -31,7 +31,6 @@ class ParticipantVKDB(BaseModel):
     birthyear: int
     category: ParticipantVKCategory
     chesstitle: str
-    custom: str | None
     enabled: bool
     emails: List[str]
     first_name: str
@@ -42,6 +41,7 @@ class ParticipantVKDB(BaseModel):
     locale: str
     last_name: str
     nationalityfide: str | None
+    payment_id: str | None = None
     present: datetime | None
     ratingbel: int
     ratingfide: int
@@ -51,6 +51,33 @@ class ParticipantVKDB(BaseModel):
     _documenttype: str
     _creationtime: datetime
     _modificationtime: datetime
+
+
+class ParticipantVKDetail(BaseModel):
+    """
+    the detailed participan model
+    """
+
+    badgemimetype: str
+    badgelength: int
+    birthyear: int
+    category: ParticipantVKCategory
+    chesstitle: str
+    enabled: bool
+    emails: List[str]
+    first_name: str
+    gender: Gender
+    idbel: str
+    idclub: str | None
+    idfide: str | None
+    locale: str
+    last_name: str
+    nationalityfide: str | None
+    payment_id: str | None = None
+    present: datetime | None
+    ratingbel: int
+    ratingfide: int
+    remarks: str
 
 
 class ParticipantVKItem(BaseModel):
@@ -70,6 +97,7 @@ class ParticipantVKItem(BaseModel):
     idfide: str | None
     last_name: str
     nationalityfide: str | None = "BEL"
+    payment_id: str | None = None
     ratingbel: int | None = 0
     ratingfide: int | None = 0
 
@@ -111,7 +139,6 @@ class ParticipantBJKDB(BaseModel):
     birthyear: int
     category: ParticipantBJKCategory
     chesstitle: str
-    custom: str | None
     enabled: bool
     emails: List[str]
     first_name: str
@@ -123,6 +150,7 @@ class ParticipantBJKDB(BaseModel):
     last_name: str
     nationalityfide: str | None
     natstatus: NatStatus | None = NatStatus.unknown
+    payment_id: str | None = None
     present: datetime | None
     ratingbel: int
     ratingfide: int
@@ -132,6 +160,34 @@ class ParticipantBJKDB(BaseModel):
     _documenttype: str
     _creationtime: datetime
     _modificationtime: datetime
+
+
+class ParticipantBJKDetail(BaseModel):
+    """
+    the detailed participant model
+    """
+
+    badgemimetype: str
+    badgelength: int
+    birthyear: int
+    category: ParticipantBJKCategory
+    chesstitle: str
+    enabled: bool
+    emails: List[str]
+    first_name: str
+    gender: Gender
+    idbel: str
+    idclub: str | None
+    idfide: str | None
+    locale: str
+    last_name: str
+    nationalityfide: str | None
+    natstatus: NatStatus | None = NatStatus.unknown
+    payment_id: str | None = None
+    present: datetime | None
+    ratingbel: int
+    ratingfide: int
+    remarks: str
 
 
 class ParticipantBJKItem(BaseModel):
@@ -152,6 +208,7 @@ class ParticipantBJKItem(BaseModel):
     last_name: str
     nationalityfide: str | None = "BEL"
     natstatus: NatStatus | None = NatStatus.unknown
+    payment_id: str | None = None
     ratingbel: int | None = 0
     ratingfide: int | None = 0
 
