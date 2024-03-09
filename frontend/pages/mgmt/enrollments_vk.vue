@@ -108,8 +108,9 @@ onMounted(async () => {
     <SnackbarMessage ref="refsnackbar" />
     <ProgressLoading ref="refloading" />
     <h1>Management Enrollments VK2024</h1>
-    <v-data-table :headers="headers" :items="enrollments" :items-per-page-options="[150, -1]"
-      class="elevation-1" :sort-by="[{ key: 'last_name', order: 'asc' }]" :search="search">
+    <v-data-table :headers="headers" :items="enrollments" :items-per-page-options="[80, 150, -1]"
+      item-per-page="80" class="elevation-1" :sort-by="[{ key: 'last_name', order: 'asc' }]"
+      :search="search">
       <template #top>
         <v-card color="bg-grey-lighten-4">
           <v-card-title>
@@ -117,16 +118,7 @@ onMounted(async () => {
               <v-text-field v-model="search" label="Search" class="mx-4" append-icon="mdi-magnify"
                 hide_details />
               <v-spacer />
-              <v-tooltip location="bottom" text="Copy to participants">
-                <template #activator="{ props }">
-                  <v-btn fab outlined color="deep-purple" v-bind="props"
-                    @click="downloadReservations()">
-                    <v-icon>mdi-download-multiple</v-icon>
-                  </v-btn>
-                </template>
-              </v-tooltip>
               <v-tooltip location="bottom" text="Refresh">
-
                 <template #activator="{ props }">
                   <v-btn fab outlined color="deep-purple" v-bind="props" @click="refresh()">
                     <v-icon>mdi-refresh</v-icon>

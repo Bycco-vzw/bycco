@@ -11,6 +11,9 @@ from bycco.core.mail import MailParams, sendemail_no_attachments
 
 from bycco.participant import (
     ParticipantBJKCategory,
+    ParticipantBJKDB,
+    ParticipantBJKItem,
+    DbParticpantBJK,
     ParticipantVKCategory,
     ParticipantVKDB,
     ParticipantVKItem,
@@ -19,11 +22,12 @@ from bycco.participant import (
 )
 from bycco.enrollment import (
     Enrollment,
-    get_enrollment_vk,
+    get_enrollment,
+    get_enrollments_vk,
+    get_enrollments_bjk,
 )
 
 from reddevil.core import RdNotFound
-from bycco.enrollment import get_enrollments_vk, get_enrollment_vk
 
 
 async def get_participants_vk(options: dict = {}) -> List[ParticipantVKItem]:
@@ -51,7 +55,7 @@ async def import_participant_vk(idenr) -> str:
     import an enrollemnt and create a participant
     return the id of the participant
     """
-    enr = cast(Enrollment, await get_enrollment_vk(idenr))
+    enr = cast(Enrollment, await get_enrollment(idenr))
     return await DbParticpantVK.add(
         {
             "badgeimage": enr.badgeimage,
@@ -119,3 +123,75 @@ async def mgmt_import_enrollments_vk():
             par = None
         if par is None:
             await import_participant_vk(enr.id)
+
+
+async def get_participants_bjk(options: dict = {}) -> List[ParticipantBJKItem]:
+    filter = options.copy()
+    filter["_model"] = filter.pop("_model", ParticipantBJKItem)
+    return [
+        cast(ParticipantBJKItem, x) for x in await DbParticpantBJK.find_multiple(filter)
+    ]
+
+
+async def get_participant_bjk_by_idbel(idbel: str) -> ParticipantBJKItem:
+    return await DbParticpantBJK.find_single(
+        {"_model": ParticipantBJKItem, "idbel": idbel}
+    )
+
+
+async def import_participant_bjk(idenr) -> str:
+    """
+    import an enrollemnt and create a participant
+    return the id of the participant
+    """
+    enr = cast(Enrollment, await get_enrollment(idenr))
+    return await DbParticpantBJK.add(
+        {
+            "badgeimage": enr.badgeimage,
+            "badgemimetype": enr.badgemimetype,
+            "badgelength": enr.badgelength,
+            "birthyear": enr.birthyear,
+            "category": ParticipantBJKCategory(enr.category.value),
+            "chesstitle": enr.chesstitle or "",
+            "enabled": True,
+            "emails": enr.emailplayer.split(","),
+            "first_name": enr.first_name,
+            "gender": Gender(enr.gender),
+            "idbel": enr.idbel,
+            "idclub": enr.idclub,
+            "idfide": enr.idfide,
+            "locale": enr.locale,
+            "last_name": enr.last_name,
+            "nationalityfide": enr.nationalityfide,
+            "natstatus": enr.natstatus,
+            "present": None,
+            "ratingbel": enr.ratingbel or 0,
+            "ratingfide": enr.ratingfide or 0,
+            "remarks": "",
+        }
+    )
+
+
+async def mgmt_import_enrollments_bjk():
+    """
+    import all enrollment for the bjk 2024
+    check doubles
+    retain most recent enrollment for the same person
+    """
+    enrs = await get_enrollments_bjk({"confirmed": True})
+    idbels = {}
+    for enr in enrs:
+        if enr.idbel in idbels:
+            # we have a double detected via idbel
+            if enr.registrationtime > idbels[enr.idbel].registrationtime:
+                idbels[enr.idbel] = enr
+        else:
+            idbels[enr.idbel] = enr
+    # process the participants
+    for idbel, enr in idbels.items():
+        try:
+            par = await get_participant_bjk_by_idbel(idbel)
+        except RdNotFound:
+            par = None
+        if par is None:
+            await import_participant_bjk(enr.id)

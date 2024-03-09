@@ -93,6 +93,10 @@ onMounted(() => {
       </li>
       <li>Managing the <NuxtLink to="/mgmt/participants_vk">Participants VK2024</NuxtLink>
       </li>
+      <li>Managing the <NuxtLink to="/mgmt/enrollments_bjk">Enrollments BJK2024</NuxtLink>
+      </li>
+      <li>Managing the <NuxtLink to="/mgmt/participants_bjk">Participants BJK2024</NuxtLink>
+      </li>
     </ul>
   </v-container>
 </template>

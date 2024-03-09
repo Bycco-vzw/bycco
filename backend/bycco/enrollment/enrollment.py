@@ -46,14 +46,14 @@ async def add_enrollment(edict: dict) -> str:
     return id
 
 
-async def get_enrollment_vk(id: str, options: dict = {}) -> Enrollment:
+async def get_enrollments_bjk(options: dict = {}) -> List[EnrollmentItem]:
     """
     get enrollments
     """
     filter = options.copy()
-    filter["_model"] = filter.pop("_model", Enrollment)
-    filter["id"] = id
-    return cast(Enrollment, await DbEnrollment.find_single(filter))
+    filter["_model"] = filter.pop("_model", EnrollmentItem)
+    filter["event"] = "bjk2024"
+    return [cast(EnrollmentItem, x) for x in await DbEnrollment.find_multiple(filter)]
 
 
 async def get_enrollments_vk(options: dict = {}) -> List[EnrollmentItem]:
@@ -64,6 +64,16 @@ async def get_enrollments_vk(options: dict = {}) -> List[EnrollmentItem]:
     filter["_model"] = filter.pop("_model", EnrollmentItem)
     filter["event"] = "VK2024"
     return [cast(EnrollmentItem, x) for x in await DbEnrollment.find_multiple(filter)]
+
+
+async def get_enrollment(id: str, options: dict = {}) -> Enrollment:
+    """
+    get enrollments
+    """
+    filter = options.copy()
+    filter["_model"] = filter.pop("_model", Enrollment)
+    filter["id"] = id
+    return cast(Enrollment, await DbEnrollment.find_single(filter))
 
 
 async def update_enrollment(id, eu: EnrollmentUpdate, options: dict = {}) -> Enrollment:

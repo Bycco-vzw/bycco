@@ -1,9 +1,18 @@
 from .md_participant import (
     DbParticpantVK,
-    ParticipantBJKCategory,
+    DbParticpantBJK,
+    Gender,
+    NatStatus,
+    ParticipantVKCategory,
     ParticipantVKDB,
     ParticipantVKItem,
-    ParticipantVKCategory,
-    Gender,
+    ParticipantBJKCategory,
+    ParticipantBJKDB,
+    ParticipantBJKItem,
 )
-from .participant import get_participants_vk, mgmt_import_enrollments_vk
+from .participant import (
+    get_participants_bjk,
+    get_participants_vk,
+    mgmt_import_enrollments_bjk,
+    mgmt_import_enrollments_vk,
+)

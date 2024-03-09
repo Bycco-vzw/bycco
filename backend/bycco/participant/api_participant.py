@@ -10,7 +10,14 @@ from reddevil.core import validate_token
 
 router = APIRouter(prefix="/api/v1/participant")
 
-from . import get_participants_vk, ParticipantVKItem, mgmt_import_enrollments_vk
+from . import (
+    get_participants_vk,
+    ParticipantVKItem,
+    mgmt_import_enrollments_vk,
+    get_participants_bjk,
+    ParticipantBJKItem,
+    mgmt_import_enrollments_bjk,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -39,4 +46,32 @@ async def api_mgmt_import_enrollments_vk(
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except:
         logger.exception("failed api call mgmt_import_enrollments_vk")
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+
+
+# bjk
+
+
+@router.get("/bjk", response_model=List[ParticipantBJKItem])
+async def api_get_participants_bjk():
+    try:
+        return await get_participants_bjk()
+    except RdException as e:
+        raise HTTPException(status_code=e.status_code, detail=e.description)
+    except:
+        logger.exception("failed api call get_particpants_bjk")
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+
+
+@router.post("/import/enrollments/bjk", status_code=201)
+async def api_mgmt_import_enrollments_bjk(
+    auth: HTTPAuthorizationCredentials = Depends(bearer_schema),
+):
+    try:
+        await validate_token(auth)
+        await mgmt_import_enrollments_bjk()
+    except RdException as e:
+        raise HTTPException(status_code=e.status_code, detail=e.description)
+    except:
+        logger.exception("failed api call mgmt_import_enrollments_bjk")
         raise HTTPException(status_code=500, detail="Internal Server Error")

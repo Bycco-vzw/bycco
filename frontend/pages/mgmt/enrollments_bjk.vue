@@ -23,16 +23,15 @@ const personstore = usePersonStore();
 const { person } = storeToRefs(personstore)
 
 // datamodel
-const participants = ref([])
+const enrollments = ref([])
 const search = ref("")
 const headers = [
-  { title: 'Last Name', value: 'last_name', sortable: true },
-  { title: 'First Name', value: 'first_name', sortable: true },
-  { title: 'Elo BEL', value: 'ratingbel', sortable: true },
-  { title: 'Elo FIDE', value: 'ratingfide', sortable: true },
-  { title: 'Category', value: 'category', sortable: true },
+  { title: 'Last Name', value: 'last_name' },
+  { title: 'First Name', value: 'first_name' },
+  { title: 'Category', value: 'category' },
+  { title: 'ID Bel', value: 'idbel' },
+  { title: 'ID Fide', value: 'idfide' },
 ]
-
 
 definePageMeta({
   layout: 'mgmt',
@@ -74,16 +73,17 @@ async function checkAuth() {
 }
 
 
-async function getParticipants() {
+async function getEnrollments() {
   let reply
   showLoading(true)
   try {
-    reply = await $backend('participant', "get_participants_bjk")
-    participants.value = reply.data
+    reply = await $backend('enrollment', "get_enrollments_bjk")
+    enrollments.value = reply.data
+    console.log('enrs', enrollments.value)
   }
   catch (error) {
-    console.error('getting participants failed', error)
-    showSnackbar('Getting participants failed')
+    console.error('getting enrollments failed', error)
+    showSnackbar('Getting enrollments failed')
     return
   }
   finally {
@@ -91,42 +91,15 @@ async function getParticipants() {
   }
 }
 
-async function importEnrollments() {
-  let reply, xls
-  showLoading(true)
-  try {
-    reply = await $backend("participant", "mgmt_import_enrollments_bjk", {
-      token: token.value
-    })
-  }
-  catch (error) {
-    console.log('import error', error)
-    if (error.code == 401) {
-      router.push('/mgmt')
-      return
-    }
-    showSnackbar('Failed to import enrollments: ' + error.detail)
-  }
-  finally {
-    showLoading(false)
-  }
-}
-
-function lightgreyRow(item) {
-  if (!item.enabled) {
-    return 'lightgreyrow'
-  }
-}
-
 async function refresh() {
-  await getParticipants()
+  await getEnrollments()
 }
 
 onMounted(async () => {
   showSnackbar = refsnackbar.value.showSnackbar
   showLoading = refloading.value.showLoading
   await checkAuth()
-  await getParticipants()
+  await getEnrollments()
 })
 </script>
 
@@ -134,10 +107,9 @@ onMounted(async () => {
   <v-container>
     <SnackbarMessage ref="refsnackbar" />
     <ProgressLoading ref="refloading" />
-    <h1>Management Particpants BJK2024</h1>
-    <v-data-table :headers="headers" :items="participants" :item-class="lightgreyRow"
-      :items-per-page-options="[150, -1]" items-per-page="150" class="elevation-1"
-      :sort-by="[{ key: 'last_name', order: 'asc' }]" :search="search">
+    <h1>Management Enrollments BJK2024</h1>
+    <v-data-table :headers="headers" :items="enrollments" :items-per-page-options="[150, -1]"
+      class="elevation-1" :sort-by="[{ key: 'last_name', order: 'asc' }]" :search="search">
       <template #top>
         <v-card color="bg-grey-lighten-4">
           <v-card-title>
@@ -145,22 +117,9 @@ onMounted(async () => {
               <v-text-field v-model="search" label="Search" class="mx-4" append-icon="mdi-magnify"
                 hide_details />
               <v-spacer />
-              <v-tooltip location="bottom">
-                Import Enrollments
+              <v-tooltip location="bottom" text="Refresh">
                 <template #activator="{ props }">
-                  <v-btn fab outlined color="deep-purple-lighten-1" v-bind="props"
-                    @click="importEnrollments()">
-                    <v-icon>mdi-import</v-icon>
-                  </v-btn>
-                </template>
-              </v-tooltip>
-              &nbsp;
-              <v-tooltip location="bottom">
-                Refresh
-
-                <template #activator="{ props }">
-                  <v-btn fab outlined color="deep-purple-lighten-1" v-bind="props"
-                    @click="refresh()">
+                  <v-btn fab outlined color="deep-purple" v-bind="props" @click="refresh()">
                     <v-icon>mdi-refresh</v-icon>
                   </v-btn>
                 </template>
@@ -171,7 +130,7 @@ onMounted(async () => {
       </template>
 
       <template #no-data>
-        No participants found.
+        No enrollments found.
       </template>
     </v-data-table>
   </v-container>
