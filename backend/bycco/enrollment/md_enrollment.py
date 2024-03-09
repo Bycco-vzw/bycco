@@ -136,10 +136,11 @@ class EnrollmentItem(BaseModel):
     idbel: str | None = None
     idclub: str | None = None
     idfide: str | None = None
-    last_name: str 
+    last_name: str
     nationalityfide: str | None = None
     ratingbel: int | None = 0
     ratingfide: int | None = 0
+    registrationtime: datetime
 
 
 class EnrollmentVKOut(BaseModel):
@@ -154,7 +155,7 @@ class EnrollmentVKOut(BaseModel):
     confirmed: bool = False
     custom: str | None
     emailplayer: str | None
-    enabled: Optional[bool]
+    enabled: bool | None
     federation: str | None
     first_name: str
     gender: Gender
@@ -192,7 +193,7 @@ class EnrollmentOut(BaseModel):
     emailattendant: str | None
     emailparent: str | None
     emailplayer: str | None
-    enabled: Optional[bool]
+    enabled: bool | None
     federation: str | None
     first_name: str
     fullnameattendant: str
@@ -226,15 +227,15 @@ class EnrollmentUpdate(BaseModel):
 
     badgemimetype: str | None = None
     badgeimage: Optional[bytes] = None
-    badgelength: Optional[int] = None
+    badgelength: int | None = None
     birthday: str | None = None
-    birthyear: Optional[int] = None
+    birthyear: int | None = None
     category: Optional[EnrollmentCategory] = None
     chesstitle: str | None = None
-    confirmed: Optional[bool] = None
+    confirmed: bool | None = None
     custom: str | None = None
     emailplayer: str | None = None
-    enabled: Optional[bool] = None
+    enabled: bool | None = None
     event: str | None = None
     federation: str | None = None
     first_name: str | None = None
@@ -250,9 +251,9 @@ class EnrollmentUpdate(BaseModel):
     natstatus: str | None = NatStatus.unknown.value
     payment_id: str | None = None
     present: datetime | None = None
-    rating: Optional[int] = None
-    ratingbel: Optional[int] = None
-    ratingfide: Optional[int] = None
+    rating: int | None = None
+    ratingbel: int | None = None
+    ratingfide: int | None = None
     registrationtime: datetime | None = None
     representative: EnrollmentRepresentative | None = None
     remarks: str | None = None
@@ -264,16 +265,16 @@ class Enrollment(BaseModel):
     """
 
     badgemimetype: str | None = None
-    badgeimage: Optional[bytes] = None
-    badgelength: Optional[int] = None
+    badgeimage: bytes | None = None
+    badgelength: int | None = None
     birthday: str | None = None
-    birthyear: Optional[int] = None
-    category: Optional[EnrollmentCategory] = None
+    birthyear: int | None = None
+    category: EnrollmentCategory | None = None
     chesstitle: str | None = None
-    confirmed: Optional[bool] = None
+    confirmed: bool | None = None
     custom: str | None = None
     emailplayer: str | None = None
-    enabled: Optional[bool] = None
+    enabled: bool | None = None
     event: str | None = None
     federation: str | None = None
     first_name: str | None = None
@@ -290,9 +291,9 @@ class Enrollment(BaseModel):
     natstatus: str | None = NatStatus.unknown.value
     payment_id: str | None = None
     present: datetime | None = None
-    rating: Optional[int] = None
-    ratingbel: Optional[int] = None
-    ratingfide: Optional[int] = None
+    rating: int | None = None
+    ratingbel: int | None = None
+    ratingfide: int | None = None
     registrationtime: datetime | None = None
     representative: EnrollmentRepresentative | None = None
     remarks: str | None = None

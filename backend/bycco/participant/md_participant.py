@@ -49,7 +49,7 @@ class ParticipantVKDB(BaseModel):
     chesstitle: str
     custom: str | None
     enabled: bool
-    email: List[str]
+    emails: List[str]
     first_name: str
     gender: Gender
     idbel: str
@@ -57,7 +57,7 @@ class ParticipantVKDB(BaseModel):
     idfide: str | None
     locale: str
     last_name: str
-    natstatus: str
+    nationalityfide: str | None
     present: datetime | None
     ratingbel: int
     ratingfide: int
@@ -85,9 +85,9 @@ class ParticipantVKItem(BaseModel):
     idclub: str | None
     idfide: str | None
     last_name: str
-    nationalityfide: str
-    ratingbel: int = 0
-    ratingfide: int = 0
+    nationalityfide: str | None = "BEL"
+    ratingbel: int | None = 0
+    ratingfide: int | None = 0
 
 
 class DbParticpantVK(DbBase):

@@ -1,7 +1,6 @@
 # copyright Ruben Decrop 2012 - 2024
 # copyright Chessdevil Consulting 2015 - 2024
 
-import os.path
 import logging, logging.config
 
 from fastapi import FastAPI
@@ -11,7 +10,8 @@ from contextlib import asynccontextmanager
 from dotenv import load_dotenv
 from reddevil.core import register_app, get_settings, connect_mongodb, close_mongodb
 
-import mimetypes
+# to support yaml/json mimetype
+# import mimetypes
 
 
 @asynccontextmanager
@@ -20,19 +20,20 @@ async def lifespan(app: FastAPI):
     yield
     close_mongodb()
 
+from . import version
 
 # load and register app
 app = FastAPI(
     title="Bycco backend",
     description="backend website bycco.be",
-    version="0",
+    version=version,
     lifespan=lifespan,
 )
 load_dotenv()
 register_app(app, "bycco.settings", "/api")
 settings = get_settings()
 logger = logging.getLogger(__name__)
-logger.info(f"Starting website bycco ...")
+logger.info(f"Starting website bycco {version} ...")
 
 # add CORS middleware for dev only
 app.add_middleware(
@@ -50,6 +51,7 @@ from reddevil.filestore import api_filestore
 from bycco.lodging import api_lodging
 from bycco.enrollment import api_enrollment
 from bycco.room import api_room
+from bycco.participant import api_participant
 from bycco.paymentrequest import api_paymentrequest
 
 app.include_router(api_account.router)
@@ -57,6 +59,7 @@ app.include_router(api_enrollment.router)
 app.include_router(api_filestore.router)
 app.include_router(api_lodging.router)
 app.include_router(api_room.router)
+app.include_router(api_participant.router)
 app.include_router(api_paymentrequest.router)
 
 

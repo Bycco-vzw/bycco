@@ -23,7 +23,7 @@ const personstore = usePersonStore();
 const { person } = storeToRefs(personstore)
 
 // datamodel
-const enrollments = ref([])
+const participants = ref([])
 const search = ref("")
 const headers = [
   { title: 'Last Name', value: 'last_name' },
@@ -73,17 +73,33 @@ async function checkAuth() {
 }
 
 
-async function getEnrollments() {
+async function importEnrollments() {
+  let reply, xls
+  showLoading(true)
+  try {
+    reply = await $backend("participant", "mgmt_import_enrollments_vk", {
+      token: token.value
+    })
+  }
+  catch (error) {
+    console.log('download error', error)
+    showSnackbar('Failed to import enrollments: ' + error.detail)
+  }
+  finally {
+    showLoading(false)
+  }
+}
+
+async function getParticipants() {
   let reply
   showLoading(true)
   try {
-    reply = await $backend('enrollment', "get_enrollments_vk")
-    enrollments.value = reply.data
-    console.log('enrs', enrollments.value)
+    reply = await $backend('participant', "get_participants_vk")
+    participants.value = reply.data
   }
   catch (error) {
-    console.error('getting enrollments failed', error)
-    showSnackbar('Getting enrollments failed')
+    console.error('getting participants failed', error)
+    showSnackbar('Getting participants failed')
     return
   }
   finally {
@@ -91,15 +107,25 @@ async function getEnrollments() {
   }
 }
 
+// function gotoPaymentRequest(item) {
+//   router.push('/mgmt/paymentrequest_edit?id=' + item.payment_id)
+// }
+
+function lightgreyRow(item) {
+  if (!item.enabled) {
+    return 'lightgreyrow'
+  }
+}
+
 async function refresh() {
-  await getEnrollments()
+  await getParticipants()
 }
 
 onMounted(async () => {
   showSnackbar = refsnackbar.value.showSnackbar
   showLoading = refloading.value.showLoading
   await checkAuth()
-  await getEnrollments()
+  await getParticipants()
 })
 </script>
 
@@ -107,9 +133,10 @@ onMounted(async () => {
   <v-container>
     <SnackbarMessage ref="refsnackbar" />
     <ProgressLoading ref="refloading" />
-    <h1>Management Enrollments VK2024</h1>
-    <v-data-table :headers="headers" :items="enrollments" :items-per-page-options="[150, -1]"
-      class="elevation-1" :sort-by="[{ key: 'last_name', order: 'asc' }]" :search="search">
+    <h1>Management Participants VK202</h1>
+    <v-data-table :headers="headers" :items="participants" :item-class="lightgreyRow"
+      :items-per-page-options="[150, -1]" class="elevation-1"
+      :sort-by="[{ key: 'last_name', order: 'asc' }]" :search="search">
       <template #top>
         <v-card color="bg-grey-lighten-4">
           <v-card-title>
@@ -117,18 +144,22 @@ onMounted(async () => {
               <v-text-field v-model="search" label="Search" class="mx-4" append-icon="mdi-magnify"
                 hide_details />
               <v-spacer />
-              <v-tooltip location="bottom" text="Copy to participants">
+              <v-tooltip location="bottom">
+                Import Enrollments
                 <template #activator="{ props }">
-                  <v-btn fab outlined color="deep-purple" v-bind="props"
-                    @click="downloadReservations()">
-                    <v-icon>mdi-download-multiple</v-icon>
+                  <v-btn fab outlined color="deep-purple-lighten-1" v-bind="props"
+                    @click="importEnrollments()">
+                    <v-icon>mdi-import</v-icon>
                   </v-btn>
                 </template>
               </v-tooltip>
-              <v-tooltip location="bottom" text="Refresh">
+              &nbsp;
+              <v-tooltip location="bottom">
+                Refresh
 
                 <template #activator="{ props }">
-                  <v-btn fab outlined color="deep-purple" v-bind="props" @click="refresh()">
+                  <v-btn fab outlined color="deep-purple-lighten-1" v-bind="props"
+                    @click="refresh()">
                     <v-icon>mdi-refresh</v-icon>
                   </v-btn>
                 </template>
@@ -139,7 +170,7 @@ onMounted(async () => {
       </template>
 
       <template #no-data>
-        No enrollments found.
+        No participants found.
       </template>
     </v-data-table>
   </v-container>

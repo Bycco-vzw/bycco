@@ -46,6 +46,16 @@ async def add_enrollment(edict: dict) -> str:
     return id
 
 
+async def get_enrollment_vk(id: str, options: dict = {}) -> Enrollment:
+    """
+    get enrollments
+    """
+    filter = options.copy()
+    filter["_model"] = filter.pop("_model", Enrollment)
+    filter["id"] = id
+    return cast(Enrollment, await DbEnrollment.find_single(filter))
+
+
 async def get_enrollments_vk(options: dict = {}) -> List[EnrollmentItem]:
     """
     get enrollments
@@ -53,11 +63,7 @@ async def get_enrollments_vk(options: dict = {}) -> List[EnrollmentItem]:
     filter = options.copy()
     filter["_model"] = filter.pop("_model", EnrollmentItem)
     filter["event"] = "VK2024"
-    logger.info(f"filter in get_enrollments {filter}")
-    # enrs = await DbEnrollment.find_multiple(filter)
-    enrs = [cast(EnrollmentItem, x) for x in await DbEnrollment.find_multiple(filter)]
-    logger.info(f"enrs {len(enrs)}")
-    return enrs
+    return [cast(EnrollmentItem, x) for x in await DbEnrollment.find_multiple(filter)]
 
 
 async def update_enrollment(id, eu: EnrollmentUpdate, options: dict = {}) -> Enrollment:
@@ -86,11 +92,12 @@ async def update_enrollment(id, eu: EnrollmentUpdate, options: dict = {}) -> Enr
 # business methods
 
 
-async def get_enrollments_vk(options: dict= {}) -> List[EnrollmentItem]:
+async def get_enrollments_vk(options: dict = {}) -> List[EnrollmentItem]:
     filter = options.copy()
     filter["_model"] = filter.pop("_model", EnrollmentItem)
     filter["event"] = "VK2024"
     return [cast(EnrollmentItem, x) for x in await DbEnrollment.find_multiple(filter)]
+
 
 async def create_enrollment_vk(ei: EnrollmentVkIn) -> str:
     logger.info(f"create an enrollment for VK {ei}")

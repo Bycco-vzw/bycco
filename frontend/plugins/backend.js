@@ -3,6 +3,7 @@ import accounts from '@/api/accounts'
 import filestore from '@/api/filestore'
 import lodging from '@/api/lodging'
 import enrollment from '@/api/enrollment'
+import participant from '@/api/participant'
 import payment from '@/api/payment'
 
 axios.defaults.withCredentials = true
@@ -59,6 +60,7 @@ const factories = {
   enrollment,
   filestore,
   lodging,
+  participant,
   payment,
 }
 
