@@ -29,6 +29,8 @@ from bycco.enrollment import (
 
 from reddevil.core import RdNotFound
 
+logger = logging.getLogger(__name__)
+
 
 async def get_participants_vk(options: dict = {}) -> List[ParticipantVKItem]:
     filter = options.copy()

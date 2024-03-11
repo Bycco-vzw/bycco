@@ -125,6 +125,7 @@ async def create_enrollment_vk(ei: EnrollmentVkIn) -> str:
     else:
         eidict = ei.model_dump()
         eidict.pop("idsub", None)
+        eidict["event"] = "VK2024"
         enrid = await add_enrollment(eidict)
     meu = EnrollmentUpdate()
     if ei.idbel:
