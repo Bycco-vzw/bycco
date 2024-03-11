@@ -50,7 +50,7 @@ async def get_participant_vk_by_idbel(idbel: str) -> ParticipantVKItem:
 
 async def get_participant_vk_by_idfide(idfide: str) -> ParticipantVKItem:
     return await DbParticpantVK.find_single(
-        {"_model": ParticipantVKDB, "idfide": idfide}
+        {"_model": ParticipantVKDetail, "idfide": idfide}
     )
 
 

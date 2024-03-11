@@ -11,6 +11,12 @@ from . import PaymentRequest, PaymentRequestItem, DbPayrequest
 from bycco.core.counter import DbCounter
 from bycco.core.common import get_common
 from bycco.lodging import get_lodging, update_lodging, Lodging
+from bycco.participant import (
+    mgmt_get_participant_bjk, 
+    mgmt_get_participant_vk, 
+    ParticipantBJKDetail, 
+    ParticipantVKDetail,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -84,8 +90,9 @@ def getPaymessage(n) -> str:
     p4 = n % 97 or 97
     return f"+++{p1:03d}/{p2:04d}/{p3:03d}{p4:02d}+++"
 
+# lodging
 
-def calc_pricedetails(
+def calc_pricedetails_lodging(
     rsv: Lodging,
     reductionamount: str | None = None,
     reductionpct: str | None = None,
@@ -223,7 +230,7 @@ async def create_pr_lodging(rsvid: str) -> str:
         "paystatus": False,
         "reason": "lodging",
     }
-    pr["details"], pr["totalprice"] = calc_pricedetails(rsv)
+    pr["details"], pr["totalprice"] = calc_pricedetails_lodging(rsv)
     pr["number"] = await DbCounter.next("paymentrequest")
     pr["paymessage"] = getPaymessage(20240000 + pr["number"])
     pr["guests"] = ", ".join([f"{g.first_name} {g.last_name}" for g in rsv.guestlist])
@@ -250,7 +257,7 @@ async def update_pr_lodging(id: str, prqin: PaymentRequest) -> None:
     exprq = await get_payment_request(id)
     assert exprq.reason == "lodging"
     rsv = await get_lodging(exprq.link_id)
-    (details, totalprice) = calc_pricedetails(
+    (details, totalprice) = calc_pricedetails_lodging(
         rsv, prqin.reductionamount, prqin.reductionpct
     )
     prqdict = prqin.model_dump(exclude_unset=True)
@@ -258,6 +265,26 @@ async def update_pr_lodging(id: str, prqin: PaymentRequest) -> None:
     prqdict["totalprice"] = totalprice
     await DbPayrequest.update(id, prqdict, {"_model": PaymentRequest})
 
+
+async def create_pr_participant_vk(parid: str) -> str:
+
+    par = await get_participant_vk(parid)
+    pr: Dict[str, Any] = {
+        "email": par.email,
+        "first_name": par.first_name,
+        "last_name": par.last_name,
+        "link_id": parid,
+        "locale": par.locale,
+        "mobile": rsv.mobile,
+        "paystatus": False,
+        "reason": "vk2024",
+    }
+    pr["details"], pr["totalprice"] = calc_pricedetails_par_vk(par)
+    pr["number"] = await DbCounter.next("paymentrequest")
+    pr["paymessage"] = getPaymessage(20240000 + pr["number"])
+    id = await create_payment_request(pr)
+    await update_lodging(parid, ParticipantVKDetail(payment_id=id))
+    return id
 
 async def email_paymentrequest(prqid) -> None:
     prq = await get_payment_request(prqid)
