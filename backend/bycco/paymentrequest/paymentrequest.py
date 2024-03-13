@@ -12,9 +12,9 @@ from bycco.core.counter import DbCounter
 from bycco.core.common import get_common
 from bycco.lodging import get_lodging, update_lodging, Lodging
 from bycco.participant import (
-    mgmt_get_participant_bjk, 
-    mgmt_get_participant_vk, 
-    ParticipantBJKDetail, 
+    mgmt_get_participant_bjk,
+    mgmt_get_participant_vk,
+    ParticipantBJKDetail,
     ParticipantVKDetail,
 )
 
@@ -90,7 +90,9 @@ def getPaymessage(n) -> str:
     p4 = n % 97 or 97
     return f"+++{p1:03d}/{p2:04d}/{p3:03d}{p4:02d}+++"
 
+
 # lodging
+
 
 def calc_pricedetails_lodging(
     rsv: Lodging,
@@ -266,16 +268,19 @@ async def update_pr_lodging(id: str, prqin: PaymentRequest) -> None:
     await DbPayrequest.update(id, prqdict, {"_model": PaymentRequest})
 
 
+# participant vk
+
+
 async def create_pr_participant_vk(parid: str) -> str:
 
-    par = await get_participant_vk(parid)
+    par = await mgmt_get_participant_vk(parid)
     pr: Dict[str, Any] = {
         "email": par.email,
         "first_name": par.first_name,
         "last_name": par.last_name,
         "link_id": parid,
         "locale": par.locale,
-        "mobile": rsv.mobile,
+        "mobile": par.mobile,
         "paystatus": False,
         "reason": "vk2024",
     }
@@ -285,6 +290,7 @@ async def create_pr_participant_vk(parid: str) -> str:
     id = await create_payment_request(pr)
     await update_lodging(parid, ParticipantVKDetail(payment_id=id))
     return id
+
 
 async def email_paymentrequest(prqid) -> None:
     prq = await get_payment_request(prqid)
@@ -312,15 +318,16 @@ async def email_pr_lodging(prqid) -> None:
     )
 
 
-def calc_enrollment(
+def calc_pricedetails_par_vk(
     enr: Lodging,
     reductionamount: str | None = None,
     reductionpct: str | None = None,
 ):
     """
-    calculates cost for enrollment
+    calculates cost for pricedetails
     """
-    ## TODO
+    # TODO
+    pass
 
 
 async def create_pr_enrollment(enrid: str, admincost: str = "#NA") -> str:
