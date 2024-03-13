@@ -16,7 +16,7 @@ export default {
   },
   mgmt_get_participant_vk: async function (options) {
     const { id, token } = options
-    return await axios.get(`${prefix}/vk/${id}`, {}, {
+    return await axios.get(`${prefix}/vk/${id}`, {
       headers: {
         Authorization: "Bearer " + token,
       }

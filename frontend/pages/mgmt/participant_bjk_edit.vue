@@ -1,6 +1,5 @@
 <script setup>
 import { ref } from 'vue'
-import { parse } from 'yaml'
 import ProgressLoading from '@/components/ProgressLoading.vue'
 import SnackbarMessage from '@/components/SnackbarMessage.vue'
 import { useMgmtTokenStore } from "@/store/mgmttoken"
@@ -32,15 +31,6 @@ definePageMeta({
   layout: 'mgmt',
 })
 
-function addGuest() {
-  par.value.guestlist.push({
-    last_name: newguest.value.last_name,
-    first_name: newguest.value.first_name,
-    birthdate: newguest.value.birthdate,
-    player: newguest.value.player || false
-  })
-  newguest.value = {}
-}
 
 function back() {
   router.go(-1)
@@ -82,7 +72,7 @@ async function create_pr() {
   let reply
   showLoading(true)
   try {
-    reply = await $backend("payment", "mgmt_create_participantvk_pr", {
+    reply = await $backend("payment", "mgmt_create_participantbjk_pr", {
       id: idparticipant,
       token: mgmttoken.value
     })
@@ -107,7 +97,7 @@ async function delete_pr() {
   if (confirm('Are you sure to delete the linked payment request')) {
     showLoading(true)
     try {
-      reply = await $backend("payment", "mgmt_delete_participantvk_pr", {
+      reply = await $backend("payment", "mgmt_delete_participantbjk_pr", {
         id: idparticipant,
         token: mgmttoken.value
       })
@@ -132,11 +122,11 @@ async function getParticipant() {
   let reply
   showLoading(true)
   try {
-    reply = await $backend('participant', "mgmt_get_participantvk", {
+    reply = await $backend('participant', "mgmt_get_participant_bjk", {
       id: idparticipant,
       token: mgmttoken.value
     })
-    readReservation(reply.data)
+    readParticipant(reply.data)
   }
   catch (error) {
     console.error('getting participant failed', error)
@@ -166,7 +156,7 @@ async function saveParticipant() {
   let reply
   showLoading(true)
   try {
-    await $backend("participant", "mgmt_update_participantvk", {
+    await $backend("participant", "mgmt_update_participant_bjk", {
       id: idreservation,
       participant: {},
       token: mgmttoken.value
@@ -174,7 +164,7 @@ async function saveParticipant() {
   }
   catch (error) {
     console.error('getting getParticipant', error)
-    if (error.code === 401) {
+    if (error.code == 401) {
       router.push('/mgmt')
     }
     else {
@@ -192,7 +182,6 @@ async function saveParticipant() {
 onMounted(async () => {
   showSnackbar = refsnackbar.value.showSnackbar
   showLoading = refloading.value.showLoading
-  await processCommon()
   await checkAuth()
   await getParticipant()
 })
@@ -235,7 +224,7 @@ onMounted(async () => {
         </v-row>
       </v-card-text>
       <v-card-actions>
-        <v-btn @click="saveProperties">
+        <v-btn @click="saveParticipant">
           Save
         </v-btn>
       </v-card-actions>

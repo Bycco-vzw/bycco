@@ -25,6 +25,7 @@ from bycco.enrollment import (
     get_enrollment,
     get_enrollments_vk,
     get_enrollments_bjk,
+    lookup_idfide,
 )
 
 from reddevil.core import RdNotFound
@@ -62,6 +63,12 @@ async def import_participant_vk(idenr) -> str:
     return the id of the participant
     """
     enr = cast(Enrollment, await get_enrollment(idenr))
+    # solving transitional issue with chesstitle
+    if enr.idfide and enr.ratingfide > 2100:
+        idreply = await lookup_idfide(enr.idfide)
+        chesstitle = idreply.chesstitle
+    else:
+        chesstitle = enr.chesstitle or ""
     return await DbParticpantVK.add(
         {
             "badgeimage": enr.badgeimage,
@@ -69,7 +76,7 @@ async def import_participant_vk(idenr) -> str:
             "badgelength": enr.badgelength,
             "birthyear": enr.birthyear,
             "category": ParticipantVKCategory(enr.category.value),
-            "chesstitle": enr.chesstitle or "",
+            "chesstitle": chesstitle,
             "enabled": True,
             "emails": enr.emailplayer.split(","),
             "first_name": enr.first_name,

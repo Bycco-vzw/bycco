@@ -29,6 +29,10 @@ enddate = common["period"]["enddate"]
 m3y = date(startdate.year - 3, startdate.month, startdate.day)
 m12y = date(startdate.year - 12, startdate.month, startdate.day)
 m18y = date(startdate.year - 18, startdate.month, startdate.day)
+i18n_enrollment = {
+    "nl": "Inschrijving VK2024",
+    "en": "Enrollment VK2024",
+}
 
 # crud
 
@@ -292,6 +296,29 @@ async def create_pr_participant_vk(parid: str) -> str:
     return id
 
 
+def calc_pricedetails_par_vk(
+    par: ParticipantVKDetail,
+):
+    """
+    calculates cost for pricedetails
+    """
+    amount = 50
+    if par.chesstitle:
+        if par.chesstitle in ["WFM", "FM"]:
+            amount = 25
+        if par.chesstitle in ["WIM", "IM", "GM", "WGM"]:
+            amount = 0
+    details = [
+        {
+            "description": i18n_enrollment[par.locale],
+            "quantity": 1,
+            "unitprice": format(amount, ">6.2f"),
+            "totalprice": format(amount, ">6.2f"),
+        }
+    ]
+    return details, amount
+
+
 async def email_paymentrequest(prqid) -> None:
     prq = await get_payment_request(prqid)
     if prq.reason == "enrollment":
@@ -313,133 +340,6 @@ async def email_pr_lodging(prqid) -> None:
         bcc=settings.EMAIL["bcc_reservation"],
     )
     sendEmailNoAttachments(mp, prq.model_dump(), "payment request lodging")
-    await update_payment_request(
-        prqid, PaymentRequest(sentdate=date.today().isoformat())
-    )
-
-
-def calc_pricedetails_par_vk(
-    enr: Lodging,
-    reductionamount: str | None = None,
-    reductionpct: str | None = None,
-):
-    """
-    calculates cost for pricedetails
-    """
-    # TODO
-    pass
-
-
-async def create_pr_enrollment(enrid: str, admincost: str = "#NA") -> str:
-    from bycco.service.enrollment import get_enrollment, update_enrollment
-
-    enr = await get_enrollment(enrid)
-    assert enr.registrationtime
-    emails = []
-    for em in [enr.emailplayer, enr.emailparent, enr.emailattendant]:
-        if em:
-            emails.append(em)
-    pr: Dict[str, Any] = {
-        "email": ",".join(emails),
-        "first_name": enr.first_name,
-        "last_name": enr.last_name,
-        "link_id": enrid,
-        "locale": enr.locale,
-        "mobile": enr.mobileparent or enr.mobileplayer,
-        "paystatus": False,
-        "reason": "enrollment",
-    }
-    d = [
-        {
-            "description": f"{i18n['enrollment'][enr.locale]} {enr.first_name} {enr.last_name}",
-            "quantity": 1,
-            "unitprice": format(35, ">6.2f"),
-            "totalprice": format(35, ">6.2f"),
-        }
-    ]
-    t = 35
-    if admincost == "#NA":
-        addadmincost = enr.registrationtime > finalday
-    else:
-        addadmincost = admincost == "1"
-    logger.info(f"admincost {admincost},  addadmincost {addadmincost}")
-    if addadmincost:
-        d.append(
-            {
-                "description": f"{i18n['admcost'][enr.locale]}",
-                "quantity": 1,
-                "unitprice": "",
-                "totalprice": format(10, ">6.2f"),
-            }
-        )
-        t = 45
-    d.append(
-        {
-            "description": f"{i18n['total'][enr.locale]}",
-            "quantity": None,
-            "unitprice": None,
-            "totalprice": format(t, ">6.2f"),
-        }
-    )
-    pr["details"] = d
-    pr["totalprice"] = t
-    pr["number"] = await DbCounter.next("paymentrequest")
-    pr["paymessage"] = getPaymessage(20230000 + pr["number"])
-    id = await create_payment_request(pr)
-    await update_enrollment(enrid, EnrollmentUpdate(payment_id=id))
-    return id
-
-
-async def delete_pr_enrollment(enrid: str) -> None:
-    from bycco.service.enrollment import get_enrollment, update_enrollment
-
-    enr = await get_enrollment(enrid)
-    payment_id = enr.payment_id
-    assert payment_id
-    await update_enrollment(enrid, EnrollmentUpdate(payment_id=None))
-    try:
-        await delete_payment_request(payment_id)
-    except:
-        logger.info("Could not delete payment request")
-        pass
-
-
-async def update_pr_enrollment(enrid: str, prq: PaymentRequest) -> None:
-    from bycco.service.enrollment import get_enrollment
-
-    enr = await get_enrollment(enrid)
-    ## TODO
-    # (details, totalprice) = calc_pricedetails(
-    #     enr, prq.reductionamount, prq.reductionpct
-    # )
-    # prq.details = details
-    # prq.totalprice = totalprice
-    assert enr.payment_id
-    await update_payment_request(enr.payment_id, prq)
-
-
-async def email_pr_enrollment(prqid: str) -> None:
-    from bycco.service.enrollment import get_enrollment
-
-    prq = await get_payment_request(prqid)
-    assert prq.link_id
-    enr = await get_enrollment(prq.link_id)
-    assert enr.registrationtime
-    emails = []
-    for em in [enr.emailplayer, enr.emailparent, enr.emailattendant]:
-        if em:
-            emails.append(em)
-    assert prq.email and prq.locale
-    mp = MailParams(
-        subject="BJK - CBJ - BJLM - BYCC  2023",
-        sender=settings.EMAIL["sender"],
-        receiver=",".join(emails),
-        template="mailpayenroll_{locale}.md",
-        locale=prq.locale,
-        attachments=[],
-        bcc=settings.EMAIL["bcc_enrollment"],
-    )
-    sendEmailNoAttachments(mp, prq.dict(), "payment request enrollment")
     await update_payment_request(
         prqid, PaymentRequest(sentdate=date.today().isoformat())
     )

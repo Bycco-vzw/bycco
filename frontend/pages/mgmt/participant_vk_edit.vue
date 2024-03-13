@@ -1,6 +1,5 @@
 <script setup>
 import { ref } from 'vue'
-import { parse } from 'yaml'
 import ProgressLoading from '@/components/ProgressLoading.vue'
 import SnackbarMessage from '@/components/SnackbarMessage.vue'
 import { useMgmtTokenStore } from "@/store/mgmttoken"
@@ -32,15 +31,6 @@ definePageMeta({
   layout: 'mgmt',
 })
 
-function addGuest() {
-  par.value.guestlist.push({
-    last_name: newguest.value.last_name,
-    first_name: newguest.value.first_name,
-    birthdate: newguest.value.birthdate,
-    player: newguest.value.player || false
-  })
-  newguest.value = {}
-}
 
 function back() {
   router.go(-1)
@@ -77,12 +67,11 @@ async function checkAuth() {
   mgmtstore.updateToken(reply.data)
 }
 
-
 async function create_pr() {
   let reply
   showLoading(true)
   try {
-    reply = await $backend("payment", "mgmt_create_participantbjk_pr", {
+    reply = await $backend("payment", "mgmt_create_participant_vk_pr", {
       id: idparticipant,
       token: mgmttoken.value
     })
@@ -107,7 +96,7 @@ async function delete_pr() {
   if (confirm('Are you sure to delete the linked payment request')) {
     showLoading(true)
     try {
-      reply = await $backend("payment", "mgmt_delete_participantbjk_pr", {
+      reply = await $backend("payment", "mgmt_delete_participantvk_pr", {
         id: idparticipant,
         token: mgmttoken.value
       })
@@ -132,7 +121,7 @@ async function getParticipant() {
   let reply
   showLoading(true)
   try {
-    reply = await $backend('participant', "mgmt_get_participant_bjk", {
+    reply = await $backend('participant', "mgmt_get_participant_vk", {
       id: idparticipant,
       token: mgmttoken.value
     })
@@ -161,12 +150,11 @@ function readParticipant(participant) {
   par.value = { ...participant }
 }
 
-
 async function saveParticipant() {
   let reply
   showLoading(true)
   try {
-    await $backend("participant", "mgmt_update_participant_bjk", {
+    await $backend("participant", "mgmt_update_participant_vk", {
       id: idreservation,
       participant: {},
       token: mgmttoken.value
@@ -174,7 +162,7 @@ async function saveParticipant() {
   }
   catch (error) {
     console.error('getting getParticipant', error)
-    if (error.code == 401) {
+    if (error.code === 401) {
       router.push('/mgmt')
     }
     else {
@@ -226,8 +214,12 @@ onMounted(async () => {
           <v-col cols="12" sm="6">
             <v-text-field v-model="par.last_name" label="Last name" />
             <v-text-field v-model="par.first_name" label="First name" />
+            <v-text-field v-model="par.category" label="Category" />
+            <v-text-field v-model="par.chesstitle" label="Title" />
           </v-col>
           <v-col cols="12" sm="6">
+            <v-text-field v-model="par.idbel" label="ID BEL" />
+            <v-text-field v-model="par.idfide" label="ID FIDE" />
             <v-text-field v-model="par.ratingbel" label="ELO BEL" />
             <v-text-field v-model="par.ratingfide" label="ELO FIDE" />
           </v-col>

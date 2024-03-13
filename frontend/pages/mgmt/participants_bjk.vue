@@ -28,17 +28,17 @@ const search = ref("")
 const headers = [
   { title: 'Last Name', value: 'last_name', sortable: true },
   { title: 'First Name', value: 'first_name', sortable: true },
+  { title: 'Category', value: 'category', sortable: true },
+  { title: 'ID Bel', value: 'idbel' },
+  { title: 'ID Fide', value: 'idfide' },
   { title: 'Elo BEL', value: 'ratingbel', sortable: true },
   { title: 'Elo FIDE', value: 'ratingfide', sortable: true },
-  { title: 'Category', value: 'category', sortable: true },
-  { title: 'Actions', value: 'action', sortable: false },
+  { title: 'Actions', value: 'action' },
 ]
-
 
 definePageMeta({
   layout: 'mgmt',
 })
-
 
 async function checkAuth() {
   console.log('checking if auth is already set', token.value)
@@ -74,8 +74,7 @@ async function checkAuth() {
   mgmtstore.updateToken(reply.data)
 }
 
-
-async function editParticipant(item) {
+function editParticipant(item) {
   router.push('/mgmt/participantbjk_edit?id=' + item.id)
 }
 
@@ -101,7 +100,7 @@ function gotoPaymentRequest(item) {
 }
 
 async function importEnrollments() {
-  let reply, xls
+  let reply
   showLoading(true)
   try {
     reply = await $backend("participant", "mgmt_import_enrollments_bjk", {
