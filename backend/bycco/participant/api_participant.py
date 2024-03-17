@@ -17,10 +17,10 @@ from . import (
     ParticipantVKDetail,
     get_participants_bjk,
     get_participants_vk,
-    mgmt_get_participant_bjk,
-    mgmt_get_participant_vk,
-    mgmt_import_enrollments_bjk,
-    mgmt_import_enrollments_vk,
+    get_participant_bjk,
+    get_participant_vk,
+    # import_participants_bjk,
+    import_participants_vk,
 )
 
 logger = logging.getLogger(__name__)
@@ -45,7 +45,7 @@ async def api_mgmt_get_participants_vk(
 ):
     try:
         await validate_token(auth)
-        return await mgmt_get_participant_vk(id)
+        return await get_participant_vk(id)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except:
@@ -59,7 +59,7 @@ async def api_mgmt_import_enrollments_vk(
 ):
     try:
         await validate_token(auth)
-        await mgmt_import_enrollments_vk()
+        await import_participants_vk()
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except:
@@ -87,7 +87,7 @@ async def api_mgmt_get_participants_bjk(
 ):
     try:
         await validate_token(auth)
-        return await mgmt_get_participant_bjk(id)
+        return await get_participant_bjk(id)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except:
@@ -101,7 +101,7 @@ async def api_mgmt_import_enrollments_bjk(
 ):
     try:
         await validate_token(auth)
-        await mgmt_import_enrollments_bjk()
+        await import_participant_bjk()
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except:

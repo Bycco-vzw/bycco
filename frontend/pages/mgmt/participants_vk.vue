@@ -74,6 +74,30 @@ async function checkAuth() {
   mgmtstore.updateToken(reply.data)
 }
 
+
+async function create_prs() {
+  let reply
+  showLoading(true)
+  try {
+    reply = await $backend("payment", "mgmt_create_participants_vk_pr", {
+      token: token.value
+    })
+  }
+  catch (error) {
+    console.error('creating all pr failed', error)
+    if (error.code === 401) {
+      router.push('/mgmt')
+    } else {
+      showSnackbar('Creating paymentrequests failed: ' + error.detail)
+    }
+    return
+  }
+  finally {
+    showLoading(false)
+  }
+  await getParticipants()
+}
+
 function editParticipant(item) {
   router.push('/mgmt/participant_vk_edit?id=' + item.id)
 }
@@ -108,7 +132,7 @@ async function importEnrollments() {
     })
   }
   catch (error) {
-    console.log('download error', error)
+    console.log('import enrollments error', error)
     showSnackbar('Failed to import enrollments: ' + error.detail)
   }
   finally {
@@ -156,6 +180,16 @@ onMounted(async () => {
                   <v-btn fab outlined color="deep-purple-lighten-1" v-bind="props"
                     @click="importEnrollments()">
                     <v-icon>mdi-import</v-icon>
+                  </v-btn>
+                </template>
+              </v-tooltip>
+              &nbsp;
+              <v-tooltip location="bottom">
+                Create new payment requests
+                <template #activator="{ props }">
+                  <v-btn fab outlined color="deep-purple-lighten-1" v-bind="props"
+                    @click="create_prs()">
+                    <v-icon>mdi-currency-eur</v-icon>
                   </v-btn>
                 </template>
               </v-tooltip>

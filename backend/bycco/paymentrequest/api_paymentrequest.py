@@ -10,7 +10,10 @@ from reddevil.core import RdException, get_settings, bearer_schema, validate_tok
 from bycco.main import app
 from . import (
     create_pr_lodging,
+    create_pr_participant_vk,
+    create_pr_participants_vk,
     delete_pr_lodging,
+    delete_pr_participant_vk,
     email_paymentrequest,
     get_payment_requests,
     get_payment_request,
@@ -24,6 +27,8 @@ from . import (
 logger = logging.getLogger("bycco")
 router = APIRouter(prefix="/api/v1/payment")
 settings = get_settings()
+
+# general
 
 
 @router.get("/pr/{prqid}", response_model=PaymentRequest)
@@ -71,7 +76,22 @@ async def api_update_paymentrequest(
         raise HTTPException(status_code=500)
 
 
-# business methods pr reservation
+@router.post("/email_pr/{id}")
+async def api_email_paymentrequest(
+    id: str,
+    auth: HTTPAuthorizationCredentials = Depends(bearer_schema),
+):
+    try:
+        await validate_token(auth)
+        await email_paymentrequest(id)
+    except RdException as e:
+        raise HTTPException(status_code=e.status_code, detail=e.description)
+    except:
+        logger.exception("failed api call create_pr_reservation")
+        raise HTTPException(status_code=500)
+
+
+# lodging
 
 
 @router.post("/lodging_pr/{id}", response_model=str)
@@ -120,6 +140,9 @@ async def api_delete_pr_lodging(
         raise HTTPException(status_code=500)
 
 
+# vk
+
+
 @router.post("/participant_vk_pr/{id}", response_model=str)
 async def api_create_pr_participant_vk(
     id: str,
@@ -128,6 +151,20 @@ async def api_create_pr_participant_vk(
     try:
         await validate_token(auth)
         return await create_pr_participant_vk(id)
+    except RdException as e:
+        raise HTTPException(status_code=e.status_code, detail=e.description)
+    except:
+        logger.exception("failed api call create_pr_reservation")
+        raise HTTPException(status_code=500)
+
+
+@router.post("/participant_vk_pr", status_code=201)
+async def api_create_pr_participant_vk(
+    auth: HTTPAuthorizationCredentials = Depends(bearer_schema),
+):
+    try:
+        await validate_token(auth)
+        await create_pr_participants_vk()
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except:
@@ -163,21 +200,6 @@ async def api_delete_pr_participant_vk(
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except:
         logger.exception("failed api call delete_pr_reservation")
-        raise HTTPException(status_code=500)
-
-
-@router.post("/email_pr/{id}")
-async def api_email_paymentrequest(
-    id: str,
-    auth: HTTPAuthorizationCredentials = Depends(bearer_schema),
-):
-    try:
-        await validate_token(auth)
-        await email_paymentrequest(id)
-    except RdException as e:
-        raise HTTPException(status_code=e.status_code, detail=e.description)
-    except:
-        logger.exception("failed api call create_pr_reservation")
         raise HTTPException(status_code=500)
 
 

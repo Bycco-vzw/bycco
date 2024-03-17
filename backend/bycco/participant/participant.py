@@ -13,10 +13,12 @@ from bycco.participant import (
     ParticipantBJKCategory,
     ParticipantBJKDetail,
     ParticipantBJKItem,
+    ParticipantBJK,
     DbParticpantBJK,
     ParticipantVKCategory,
     ParticipantVKDetail,
     ParticipantVKItem,
+    ParticipantVK,
     DbParticpantVK,
     Gender,
 )
@@ -32,6 +34,8 @@ from reddevil.core import RdNotFound
 
 logger = logging.getLogger(__name__)
 
+# vk
+
 
 async def get_participants_vk(options: dict = {}) -> List[ParticipantVKItem]:
     filter = options.copy()
@@ -41,7 +45,7 @@ async def get_participants_vk(options: dict = {}) -> List[ParticipantVKItem]:
     ]
 
 
-async def mgmt_get_participant_vk(id: str) -> ParticipantVKDetail:
+async def get_participant_vk(id: str) -> ParticipantVKDetail:
     return await DbParticpantVK.find_single({"_model": ParticipantVKDetail, "id": id})
 
 
@@ -95,7 +99,7 @@ async def import_participant_vk(idenr) -> str:
     )
 
 
-async def mgmt_import_enrollments_vk():
+async def import_participants_vk():
     """
     import all enrollment for the vk 2024
     check doubles
@@ -126,7 +130,7 @@ async def mgmt_import_enrollments_vk():
             par = None
         if par is None:
             await import_participant_vk(enr.id)
-    # now process the idfides withoit idbel
+    # now process the participants with the idfides but without idbel
     for idfide, enr in idfides.items():
         if enr.idbel:
             continue
@@ -138,6 +142,20 @@ async def mgmt_import_enrollments_vk():
             await import_participant_vk(enr.id)
 
 
+async def update_participate_vk(
+    id: str, par: ParticipantVK, options: dict = {}
+) -> ParticipantVK:
+    opt = options.copy()
+    opt["_model"] = opt.pop("_model", ParticipantVK)
+    return cast(
+        ParticipantVK,
+        await DbParticpantVK.update(id, par.model_dump(exclude_unset=True), opt),
+    )
+
+
+# bjk
+
+
 async def get_participants_bjk(options: dict = {}) -> List[ParticipantBJKItem]:
     filter = options.copy()
     filter["_model"] = filter.pop("_model", ParticipantBJKItem)
@@ -146,7 +164,7 @@ async def get_participants_bjk(options: dict = {}) -> List[ParticipantBJKItem]:
     ]
 
 
-async def mgmt_get_participant_bjk(id: str) -> ParticipantBJKDetail:
+async def get_participant_bjk(id: str) -> ParticipantBJKDetail:
     return await DbParticpantBJK.find_single({"_model": ParticipantBJKDetail, "id": id})
 
 
@@ -189,7 +207,21 @@ async def import_participant_bjk(idenr) -> str:
     )
 
 
-async def mgmt_import_enrollments_bjk():
+async def update_participate_bjk(
+    id: str, par: ParticipantBJK, options: dict = {}
+) -> ParticipantBJK:
+    opt = options.copy()
+    opt["_model"] = opt.pop("_model", ParticipantBJK)
+    return cast(
+        ParticipantBJK,
+        await DbParticpantBJK.update(id, par.model_dump(exclude_unset=True), opt),
+    )
+
+
+#########
+
+
+async def import_enrollments_bjk():
     """
     import all enrollment for the bjk 2024
     check doubles

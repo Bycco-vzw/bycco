@@ -96,7 +96,7 @@ async function delete_pr() {
   if (confirm('Are you sure to delete the linked payment request')) {
     showLoading(true)
     try {
-      reply = await $backend("payment", "mgmt_delete_participantvk_pr", {
+      reply = await $backend("payment", "mgmt_delete_participant_vk_pr", {
         id: idparticipant,
         token: mgmttoken.value
       })
@@ -113,7 +113,7 @@ async function delete_pr() {
     finally {
       showLoading(false)
     }
-    await getReservation()
+    await getParticipant()
   }
 }
 

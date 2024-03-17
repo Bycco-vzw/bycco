@@ -67,6 +67,7 @@ class ParticipantVKDetail(BaseModel):
     emails: List[str]
     first_name: str
     gender: Gender
+    id: str
     idbel: str
     idclub: str | None
     idfide: str | None
@@ -78,6 +79,33 @@ class ParticipantVKDetail(BaseModel):
     ratingbel: int
     ratingfide: int
     remarks: str
+
+
+class ParticipantVK(BaseModel):
+    """
+    the participant model
+    """
+
+    badgemimetype: str | None = None
+    badgelength: int | None = None
+    birthyear: int | None = None
+    category: ParticipantVKCategory | None = None
+    chesstitle: str | None = None
+    enabled: bool | None = None
+    emails: List[str] | None = None
+    first_name: str | None = None
+    gender: Gender | None = None
+    idbel: str | None = None
+    idclub: str | None = None
+    idfide: str | None = None
+    locale: str | None = None
+    last_name: str | None = None
+    nationalityfide: str | None = None
+    payment_id: str | None = None
+    present: datetime | None = None
+    ratingbel: int | None = None
+    ratingfide: int | None = None
+    remarks: str | None = None
 
 
 class ParticipantVKItem(BaseModel):
@@ -188,6 +216,33 @@ class ParticipantBJKDetail(BaseModel):
     ratingbel: int
     ratingfide: int
     remarks: str
+
+
+class ParticipantBJK(BaseModel):
+    """
+    the participant model
+    """
+
+    badgemimetype: str | None = None
+    badgelength: int | None = None
+    birthyear: int | None = None
+    category: ParticipantBJKCategory | None = None
+    chesstitle: str | None = None
+    enabled: bool | None = None
+    emails: List[str] | None = None
+    first_name: str | None = None
+    gender: Gender | None = None
+    idbel: str | None = None
+    idclub: str | None = None
+    idfide: str | None = None
+    locale: str | None = None
+    last_name: str | None = None
+    nationalityfide: str | None = None
+    payment_id: str | None = None
+    present: datetime | None = None
+    ratingbel: int | None = None
+    ratingfide: int | None = None
+    remarks: str | None = None
 
 
 class ParticipantBJKItem(BaseModel):
