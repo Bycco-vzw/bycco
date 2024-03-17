@@ -400,6 +400,8 @@ async def update_pr_participant_vk(id: str, prqin: PaymentRequest) -> None:
 async def email_pr_participant_vk(prqid) -> None:
     prq = await get_payment_request(prqid)
     assert prq.email and prq.locale
+    if prq.locale not in ["en", "nl"]:
+        prq.locale = "en"
     mp = MailParams(
         subject="VK 2024",
         sender=settings.EMAIL["sender"],
