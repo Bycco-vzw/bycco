@@ -306,7 +306,7 @@ async def create_pr_participants_vk() -> str:
     for ix, par in enumerate(
         await get_participants_vk({"_model": ParticipantVKDetail})
     ):
-        if ix > 3:
+        if ix > 10:
             break
         if par.payment_id:
             continue
@@ -517,6 +517,7 @@ async def email_paymentrequest(prqid) -> None:
     else:
         logger.info(f"reason not implemented: {prq.reason}")
         raise NotImplemented
+
 
 async def email_paymentrequests(prqid) -> None:
     """
