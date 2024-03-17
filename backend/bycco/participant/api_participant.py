@@ -19,7 +19,7 @@ from . import (
     get_participants_vk,
     get_participant_bjk,
     get_participant_vk,
-    # import_participants_bjk,
+    import_participants_bjk,
     import_participants_vk,
 )
 
@@ -101,7 +101,7 @@ async def api_mgmt_import_enrollments_bjk(
 ):
     try:
         await validate_token(auth)
-        await import_participant_bjk()
+        await import_participants_bjk()
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except:

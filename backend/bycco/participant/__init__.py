@@ -20,7 +20,7 @@ from .participant import (
     get_participant_bjk,
     get_participant_vk,
     import_participant_bjk,
-    # import_participant_bjk,
+    import_participants_bjk,
     import_participant_vk,
     import_participants_vk,
     update_participate_bjk,

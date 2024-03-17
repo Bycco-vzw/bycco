@@ -207,21 +207,7 @@ async def import_participant_bjk(idenr) -> str:
     )
 
 
-async def update_participate_bjk(
-    id: str, par: ParticipantBJK, options: dict = {}
-) -> ParticipantBJK:
-    opt = options.copy()
-    opt["_model"] = opt.pop("_model", ParticipantBJK)
-    return cast(
-        ParticipantBJK,
-        await DbParticpantBJK.update(id, par.model_dump(exclude_unset=True), opt),
-    )
-
-
-#########
-
-
-async def import_enrollments_bjk():
+async def import_participants_bjk():
     """
     import all enrollment for the bjk 2024
     check doubles
@@ -230,6 +216,8 @@ async def import_enrollments_bjk():
     enrs = await get_enrollments_bjk({"confirmed": True})
     idbels = {}
     for enr in enrs:
+        if enr.first_name == "Kobe":
+            logger.info(f"enr {enr}")
         if enr.idbel in idbels:
             # we have a double detected via idbel
             if enr.registrationtime > idbels[enr.idbel].registrationtime:
@@ -244,3 +232,17 @@ async def import_enrollments_bjk():
             par = None
         if par is None:
             await import_participant_bjk(enr.id)
+
+
+async def update_participate_bjk(
+    id: str, par: ParticipantBJK, options: dict = {}
+) -> ParticipantBJK:
+    opt = options.copy()
+    opt["_model"] = opt.pop("_model", ParticipantBJK)
+    return cast(
+        ParticipantBJK,
+        await DbParticpantBJK.update(id, par.model_dump(exclude_unset=True), opt),
+    )
+
+
+#########
