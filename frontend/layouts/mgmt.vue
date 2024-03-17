@@ -17,7 +17,7 @@ async function goto(section) {
       <VList>
         <VListItem @click="goto('overview')" title="Overview" />
         <VListItem @click="goto('reservations')" title="Reservations" />
-        <VListItem @click="goto('payments')" title="Payment Requests" />
+        <VListItem @click="goto('paymentrequests')" title="Payment Requests" />
         <VListItem @click="goto('enrollments_vk')" title="Enrollments VK2024" />
         <VListItem @click="goto('participants_vk')" title="Participants VK2024" />
         <VListItem @click="goto('enrollments_bjk')" title="Enrollments BJK2024" />

@@ -14,6 +14,7 @@ from .paymentrequest import (
     delete_pr_lodging,
     delete_pr_participant_vk,
     email_paymentrequest,
+    email_paymentrequests,
     get_payment_request,
     get_payment_requests,
     update_payment_request,

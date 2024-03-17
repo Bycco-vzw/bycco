@@ -100,11 +100,11 @@ class PaymentRequestItem(BaseModel):
     last_name: str
     link_id: str | None = None
     number: int | None = None
-    paydate: str | None = None
     paymessage: str | None = None
     paynumber: int | None = None
     reason: str | None = None
     totalprice: float | None = None  # a Decimal
+    sentdate: str | None = None
 
 
 class PaymentRequestUpdate(BaseModel):

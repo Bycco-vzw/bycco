@@ -306,7 +306,7 @@ async def create_pr_participants_vk() -> str:
     for ix, par in enumerate(
         await get_participants_vk({"_model": ParticipantVKDetail})
     ):
-        if ix > 10:
+        if ix > 3:
             break
         if par.payment_id:
             continue
@@ -501,6 +501,8 @@ async def email_pr_participant_bjk(prqid) -> None:
     )
 
 
+# more general
+
 emailfunctions = {
     "lodging": email_pr_lodging,
     "vk2024": email_pr_participant_vk,
@@ -515,3 +517,17 @@ async def email_paymentrequest(prqid) -> None:
     else:
         logger.info(f"reason not implemented: {prq.reason}")
         raise NotImplemented
+
+async def email_paymentrequests(prqid) -> None:
+    """
+    send all virgin payment requests
+    """
+    prqs = await get_payment_requests()
+    for prq in prqs:
+        if prq.sentdate:
+            continue
+        if prq.reason in emailfunctions:
+            await emailfunctions[prq.reason](prq.id)
+        else:
+            logger.info(f"reason not implemented: {prq.reason}")
+            raise NotImplemented

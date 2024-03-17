@@ -15,6 +15,7 @@ from . import (
     delete_pr_lodging,
     delete_pr_participant_vk,
     email_paymentrequest,
+    email_paymentrequests,
     get_payment_requests,
     get_payment_request,
     update_payment_request,
@@ -84,6 +85,20 @@ async def api_email_paymentrequest(
     try:
         await validate_token(auth)
         await email_paymentrequest(id)
+    except RdException as e:
+        raise HTTPException(status_code=e.status_code, detail=e.description)
+    except:
+        logger.exception("failed api call create_pr_reservation")
+        raise HTTPException(status_code=500)
+
+
+@router.post("/email_pr")
+async def api_email_paymentrequest(
+    auth: HTTPAuthorizationCredentials = Depends(bearer_schema),
+):
+    try:
+        await validate_token(auth)
+        await email_paymentrequests(id)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except:

@@ -73,6 +73,14 @@ export default {
       }
     })
   },
+  mgmt_email_prs: async function (options) {
+    const { token, id, prq } = options
+    return await axios.post(`${prefix}/email_pr`, null, {
+      headers: {
+        Authorization: "Bearer " + token,
+      }
+    })
+  },
   mgmt_get_paymentrequests: async function (options) {
     const { token } = options
     return await axios.get(`${prefix}/pr`, {
