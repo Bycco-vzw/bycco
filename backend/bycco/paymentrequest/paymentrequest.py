@@ -303,13 +303,13 @@ async def create_pr_participants_vk() -> str:
     """
     create payrq for all participants wihtout payrq
     """
-    for ix, par in enumerate(
-        await get_participants_vk({"_model": ParticipantVKDetail})
-    ):
-        if ix > 10:
-            break
+    ix = 0
+    for par in await get_participants_vk({"_model": ParticipantVKDetail}):
         if par.payment_id:
             continue
+        ix += 1
+        if ix > 10:
+            break
         pr: Dict[str, Any] = {
             "email": ",".join(par.emails),
             "first_name": par.first_name,
