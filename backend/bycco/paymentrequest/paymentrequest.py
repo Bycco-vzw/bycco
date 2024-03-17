@@ -360,6 +360,8 @@ def calc_pricedetails_par_vk(
             amount = 25
         if par.chesstitle in ["WIM", "IM", "GM", "WGM"]:
             amount = 0
+    if par.locale not in ["en", "nl"]:
+        par.locale = "en"
     details = [
         {
             "description": i18n_enrollment[par.locale],
