@@ -11,6 +11,18 @@ from . import PaymentRequest, PaymentRequestItem, DbPayrequest
 from bycco.core.counter import DbCounter
 from bycco.core.common import get_common
 from bycco.lodging import get_lodging, update_lodging, Lodging
+from bycco.participant import (
+    get_participant_bjk,
+    get_participant_vk,
+    get_participants_bjk,
+    get_participants_vk,
+    update_participate_bjk,
+    update_participate_vk,
+    ParticipantBJKDetail,
+    ParticipantVKDetail,
+    ParticipantBJK,
+    ParticipantVK,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -23,6 +35,10 @@ enddate = common["period"]["enddate"]
 m3y = date(startdate.year - 3, startdate.month, startdate.day)
 m12y = date(startdate.year - 12, startdate.month, startdate.day)
 m18y = date(startdate.year - 18, startdate.month, startdate.day)
+i18n_enrollment = {
+    "nl": "Inschrijving VK2024",
+    "en": "Enrollment VK2024",
+}
 
 # crud
 
@@ -85,7 +101,10 @@ def getPaymessage(n) -> str:
     return f"+++{p1:03d}/{p2:04d}/{p3:03d}{p4:02d}+++"
 
 
-def calc_pricedetails(
+# lodging
+
+
+def calc_pricedetails_lodging(
     rsv: Lodging,
     reductionamount: str | None = None,
     reductionpct: str | None = None,
@@ -223,7 +242,7 @@ async def create_pr_lodging(rsvid: str) -> str:
         "paystatus": False,
         "reason": "lodging",
     }
-    pr["details"], pr["totalprice"] = calc_pricedetails(rsv)
+    pr["details"], pr["totalprice"] = calc_pricedetails_lodging(rsv)
     pr["number"] = await DbCounter.next("paymentrequest")
     pr["paymessage"] = getPaymessage(20240000 + pr["number"])
     pr["guests"] = ", ".join([f"{g.first_name} {g.last_name}" for g in rsv.guestlist])
@@ -250,21 +269,13 @@ async def update_pr_lodging(id: str, prqin: PaymentRequest) -> None:
     exprq = await get_payment_request(id)
     assert exprq.reason == "lodging"
     rsv = await get_lodging(exprq.link_id)
-    (details, totalprice) = calc_pricedetails(
+    (details, totalprice) = calc_pricedetails_lodging(
         rsv, prqin.reductionamount, prqin.reductionpct
     )
     prqdict = prqin.model_dump(exclude_unset=True)
     prqdict["details"] = details
     prqdict["totalprice"] = totalprice
     await DbPayrequest.update(id, prqdict, {"_model": PaymentRequest})
-
-
-async def email_paymentrequest(prqid) -> None:
-    prq = await get_payment_request(prqid)
-    if prq.reason == "enrollment":
-        await email_pr_enrollment(prqid)
-    else:
-        await email_pr_lodging(prqid)
 
 
 async def email_pr_lodging(prqid) -> None:
@@ -285,127 +296,243 @@ async def email_pr_lodging(prqid) -> None:
     )
 
 
-def calc_enrollment(
-    enr: Lodging,
-    reductionamount: str | None = None,
-    reductionpct: str | None = None,
-):
+# participant vk
+
+
+async def create_pr_participants_vk() -> str:
     """
-    calculates cost for enrollment
+    create payrq for all participants wihtout payrq
     """
-    ## TODO
+    ix = 0
+    for par in await get_participants_vk({"_model": ParticipantVKDetail}):
+        if par.payment_id:
+            continue
+        ix += 1
+        if ix > 10:
+            break
+        pr: Dict[str, Any] = {
+            "email": ",".join(par.emails),
+            "first_name": par.first_name,
+            "last_name": par.last_name,
+            "link_id": par.id,
+            "locale": par.locale,
+            "paystatus": False,
+            "reason": "vk2024",
+        }
+        pr["details"], pr["totalprice"] = calc_pricedetails_par_vk(par)
+        pr["number"] = await DbCounter.next("paymentrequest")
+        pr["paymessage"] = getPaymessage(20240000 + pr["number"])
+        id = await create_payment_request(pr)
+        await update_participate_vk(par.id, ParticipantVK(payment_id=id))
 
 
-async def create_pr_enrollment(enrid: str, admincost: str = "#NA") -> str:
-    from bycco.service.enrollment import get_enrollment, update_enrollment
-
-    enr = await get_enrollment(enrid)
-    assert enr.registrationtime
-    emails = []
-    for em in [enr.emailplayer, enr.emailparent, enr.emailattendant]:
-        if em:
-            emails.append(em)
+async def create_pr_participant_vk(parid: str) -> str:
+    """
+    create a single payment request for a participant
+    """
+    par = await get_participant_vk(parid)
     pr: Dict[str, Any] = {
-        "email": ",".join(emails),
-        "first_name": enr.first_name,
-        "last_name": enr.last_name,
-        "link_id": enrid,
-        "locale": enr.locale,
-        "mobile": enr.mobileparent or enr.mobileplayer,
+        "email": ",".join(par.emails),
+        "first_name": par.first_name,
+        "last_name": par.last_name,
+        "link_id": parid,
+        "locale": par.locale,
         "paystatus": False,
-        "reason": "enrollment",
+        "reason": "vk2024",
     }
-    d = [
-        {
-            "description": f"{i18n['enrollment'][enr.locale]} {enr.first_name} {enr.last_name}",
-            "quantity": 1,
-            "unitprice": format(35, ">6.2f"),
-            "totalprice": format(35, ">6.2f"),
-        }
-    ]
-    t = 35
-    if admincost == "#NA":
-        addadmincost = enr.registrationtime > finalday
-    else:
-        addadmincost = admincost == "1"
-    logger.info(f"admincost {admincost},  addadmincost {addadmincost}")
-    if addadmincost:
-        d.append(
-            {
-                "description": f"{i18n['admcost'][enr.locale]}",
-                "quantity": 1,
-                "unitprice": "",
-                "totalprice": format(10, ">6.2f"),
-            }
-        )
-        t = 45
-    d.append(
-        {
-            "description": f"{i18n['total'][enr.locale]}",
-            "quantity": None,
-            "unitprice": None,
-            "totalprice": format(t, ">6.2f"),
-        }
-    )
-    pr["details"] = d
-    pr["totalprice"] = t
+    pr["details"], pr["totalprice"] = calc_pricedetails_par_vk(par)
     pr["number"] = await DbCounter.next("paymentrequest")
-    pr["paymessage"] = getPaymessage(20230000 + pr["number"])
+    pr["paymessage"] = getPaymessage(20240000 + pr["number"])
     id = await create_payment_request(pr)
-    await update_enrollment(enrid, EnrollmentUpdate(payment_id=id))
+    await update_participate_vk(parid, ParticipantVK(payment_id=id))
     return id
 
 
-async def delete_pr_enrollment(enrid: str) -> None:
-    from bycco.service.enrollment import get_enrollment, update_enrollment
+def calc_pricedetails_par_vk(
+    par: ParticipantVKDetail,
+):
+    """
+    calculates cost for pricedetails
+    """
+    amount = 50
+    if par.chesstitle:
+        if par.chesstitle in ["WFM", "FM"]:
+            amount = 25
+        if par.chesstitle in ["WIM", "IM", "GM", "WGM"]:
+            amount = 0
+    if par.locale not in ["en", "nl"]:
+        par.locale = "en"
+    details = [
+        {
+            "description": i18n_enrollment[par.locale],
+            "quantity": 1,
+            "unitprice": format(amount, ">6.2f"),
+            "totalprice": format(amount, ">6.2f"),
+        }
+    ]
+    return details, amount
 
-    enr = await get_enrollment(enrid)
-    payment_id = enr.payment_id
+
+async def delete_pr_participant_vk(parid: str) -> None:
+    par = await get_participant_vk(parid)
+    payment_id = par.payment_id
     assert payment_id
-    await update_enrollment(enrid, EnrollmentUpdate(payment_id=None))
+    await update_participate_vk(parid, ParticipantVK(payment_id=None))
     try:
         await delete_payment_request(payment_id)
     except:
-        logger.info("Could not delete payment request")
+        logger.info("Could not delete linked payment request")
         pass
 
 
-async def update_pr_enrollment(enrid: str, prq: PaymentRequest) -> None:
-    from bycco.service.enrollment import get_enrollment
-
-    enr = await get_enrollment(enrid)
-    ## TODO
-    # (details, totalprice) = calc_pricedetails(
-    #     enr, prq.reductionamount, prq.reductionpct
-    # )
-    # prq.details = details
-    # prq.totalprice = totalprice
-    assert enr.payment_id
-    await update_payment_request(enr.payment_id, prq)
+async def update_pr_participant_vk(id: str, prqin: PaymentRequest) -> None:
+    exprq = await get_payment_request(id)
+    par = await get_participant_vk(exprq.link_id)
+    (details, totalprice) = calc_pricedetails_par_vk(
+        par, prqin.reductionamount, prqin.reductionpct
+    )
+    prqdict = prqin.model_dump(exclude_unset=True)
+    prqdict["details"] = details
+    prqdict["totalprice"] = totalprice
+    await DbPayrequest.update(id, prqdict, {"_model": PaymentRequest})
 
 
-async def email_pr_enrollment(prqid: str) -> None:
-    from bycco.service.enrollment import get_enrollment
-
+async def email_pr_participant_vk(prqid) -> None:
     prq = await get_payment_request(prqid)
-    assert prq.link_id
-    enr = await get_enrollment(prq.link_id)
-    assert enr.registrationtime
-    emails = []
-    for em in [enr.emailplayer, enr.emailparent, enr.emailattendant]:
-        if em:
-            emails.append(em)
     assert prq.email and prq.locale
+    if prq.locale not in ["en", "nl"]:
+        prq.locale = "en"
     mp = MailParams(
-        subject="BJK - CBJ - BJLM - BYCC  2023",
+        subject="VK 2024",
         sender=settings.EMAIL["sender"],
-        receiver=",".join(emails),
-        template="mailpayenroll_{locale}.md",
+        receiver=prq.email,
+        template="pr_part_vk_mail_{locale}.md",
         locale=prq.locale,
         attachments=[],
         bcc=settings.EMAIL["bcc_enrollment"],
     )
-    sendEmailNoAttachments(mp, prq.dict(), "payment request enrollment")
+    sendEmailNoAttachments(mp, prq.model_dump(), "paymentrq participant vk")
     await update_payment_request(
         prqid, PaymentRequest(sentdate=date.today().isoformat())
     )
+
+
+# participant bjk
+
+
+async def create_pr_participant_bjk(parid: str) -> str:
+
+    par = await get_participant_bjk(parid)
+    pr: Dict[str, Any] = {
+        "email": ",".join(par.emails),
+        "first_name": par.first_name,
+        "last_name": par.last_name,
+        "link_id": parid,
+        "locale": par.locale,
+        "paystatus": False,
+        "reason": "bjk2024",
+    }
+    pr["details"], pr["totalprice"] = calc_pricedetails_par_bjk(par)
+    pr["number"] = await DbCounter.next("paymentrequest")
+    pr["paymessage"] = getPaymessage(20240000 + pr["number"])
+    id = await create_payment_request(pr)
+    await update_participate_bjk(parid, ParticipantVK(payment_id=id))
+    return id
+
+
+def calc_pricedetails_par_bjk(
+    par: ParticipantVKDetail,
+):
+    """
+    calculates cost for pricedetails
+    """
+    amount = 50
+    if par.chesstitle:
+        if par.chesstitle in ["WFM", "FM"]:
+            amount = 25
+        if par.chesstitle in ["WIM", "IM", "GM", "WGM"]:
+            amount = 0
+    details = [
+        {
+            "description": i18n_enrollment[par.locale],
+            "quantity": 1,
+            "unitprice": format(amount, ">6.2f"),
+            "totalprice": format(amount, ">6.2f"),
+        }
+    ]
+    return details, amount
+
+
+async def delete_pr_participant_bjk(parid: str) -> None:
+    par = await get_participant_bjk(parid)
+    payment_id = par.payment_id
+    assert payment_id
+    await update_participate_bjk(parid, ParticipantVK(payment_id=None))
+    try:
+        await delete_payment_request(payment_id)
+    except:
+        logger.info("Could not delete linked payment request")
+        pass
+
+
+async def update_pr_participant_bjk(id: str, prqin: PaymentRequest) -> None:
+    exprq = await get_payment_request(id)
+    par = await get_participant_bjk(exprq.link_id)
+    (details, totalprice) = calc_pricedetails_par_bjk(
+        par, prqin.reductionamount, prqin.reductionpct
+    )
+    prqdict = prqin.model_dump(exclude_unset=True)
+    prqdict["details"] = details
+    prqdict["totalprice"] = totalprice
+    await DbPayrequest.update(id, prqdict, {"_model": PaymentRequest})
+
+
+async def email_pr_participant_bjk(prqid) -> None:
+    prq = await get_payment_request(prqid)
+    assert prq.email and prq.locale
+    mp = MailParams(
+        subject="VK 2024",
+        sender=settings.EMAIL["sender"],
+        receiver=prq.email,
+        template="pr_part_bjk_mail_{locale}.md",
+        locale=prq.locale,
+        attachments=[],
+        bcc=settings.EMAIL["bcc_reservation"],
+    )
+    sendEmailNoAttachments(mp, prq.model_dump(), "paymentrq participant bjk")
+    await update_payment_request(
+        prqid, PaymentRequest(sentdate=date.today().isoformat())
+    )
+
+
+# more general
+
+emailfunctions = {
+    "lodging": email_pr_lodging,
+    "vk2024": email_pr_participant_vk,
+    "participant_bjk": email_pr_participant_bjk,
+}
+
+
+async def email_paymentrequest(prqid) -> None:
+    prq = await get_payment_request(prqid)
+    if prq.reason in emailfunctions:
+        await emailfunctions[prq.reason](prqid)
+    else:
+        logger.info(f"reason not implemented: {prq.reason}")
+        raise NotImplemented
+
+
+async def email_paymentrequests(prqid) -> None:
+    """
+    send all virgin payment requests
+    """
+    prqs = await get_payment_requests()
+    for prq in prqs:
+        if prq.sentdate:
+            continue
+        if prq.reason in emailfunctions:
+            await emailfunctions[prq.reason](prq.id)
+        else:
+            logger.info(f"reason not implemented: {prq.reason}")
+            raise NotImplemented

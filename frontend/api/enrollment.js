@@ -30,4 +30,7 @@ export default {
   get_enrollments_vk: async function () {
     return await axios.get(`${prefix}/vk`)
   },
+  get_enrollments_bjk: async function () {
+    return await axios.get(`${prefix}/bjk`)
+  },
 }

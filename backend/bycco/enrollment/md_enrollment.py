@@ -77,7 +77,7 @@ class EnrollmentDB(BaseModel):
     rating: int
     ratingbel: int
     ratingfide: int
-    registrationtime: datetime
+    registrationtime: datetime | None = None
     representative: EnrollmentRepresentative | None
     remarks: str
     _id: str
@@ -140,7 +140,7 @@ class EnrollmentItem(BaseModel):
     nationalityfide: str | None = None
     ratingbel: int | None = 0
     ratingfide: int | None = 0
-    registrationtime: datetime
+    registrationtime: datetime | None = None
 
 
 class EnrollmentVKOut(BaseModel):
@@ -303,6 +303,7 @@ class IdReply(BaseModel):
     age_ok: bool = True
     belfound: bool = False
     birthyear: int = 0
+    chesstitle: str | None = None
     first_name: str | None = ""
     gender: Gender | None = None
     idbel: str | None = None

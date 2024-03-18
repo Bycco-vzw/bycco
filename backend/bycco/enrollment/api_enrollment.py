@@ -21,6 +21,7 @@ from bycco.enrollment import (
     get_enrollments_vk,
     get_photo,
     get_enrollments_vk,
+    get_enrollments_bjk,
     lookup_idbel,
     lookup_idfide,
     upload_photo,
@@ -55,6 +56,18 @@ async def api_create_enrollment_vk(enr: EnrollmentVkIn):
 
 
 # bjk
+
+@router.get("/bjk", response_model=List[EnrollmentItem])
+async def api_get_enrollments_bjk():
+    try:
+        return await get_enrollments_bjk()
+    except RdException as e:
+        raise HTTPException(status_code=e.status_code, detail=e.description)
+    except:
+        logger.exception("failed api call get_enrollments_vk")
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+
+
 
 
 @router.post("/bjk", response_model=str)
@@ -125,65 +138,3 @@ async def api_anon_get_photo(id: str):
     except:
         logger.exception("failed api call get_photo")
         raise HTTPException(status_code=500, detail="Internal Server Error")
-
-
-# @router.get("/api/v1/enrollment/{id}", response_model=Enrollment)
-# async def api_get_enrollment(
-#     id: str, auth: HTTPAuthorizationCredentials = Depends(bearer_schema)
-# ):
-#     log.info(f"get enrollment {id} {auth}")
-#     try:
-#         await validate_token(auth)
-#         a = await get_enrollment(id, {"_class": EnrollmentOut})
-#         log.info(f"a: {a}")
-#         return a
-#     except RdException as e:
-#         raise HTTPException(status_code=e.status_code, detail=e.description)
-#     except:
-#         log.exception("failed api call get_enrollment")
-#         raise HTTPException(status_code=500, detail="Internal Server Error")
-
-
-# @router.delete("/api/v1/enrollment/{id}")
-# async def api_delete_enrollment(
-#     id: str, auth: HTTPAuthorizationCredentials = Depends(bearer_schema)
-# ):
-#     await validate_token(auth)
-#     try:
-#         await disable_enrollment(id)
-#     except RdException as e:
-#         raise HTTPException(status_code=e.status_code, detail=e.description)
-#     except:
-#         log.exception("failed api call delete_enrollment")
-#         raise HTTPException(status_code=500, detail="Internal Server Error")
-
-
-# @router.put("/api/v1/enrollment/{id}")
-# async def api_update_enrollment(
-#     id: str,
-#     s: EnrollmentUpdate,
-#     auth: HTTPAuthorizationCredentials = Depends(bearer_schema),
-# ):
-#     try:
-#         await validate_token(auth)
-#         await update_enrollment(id, s)
-#     except RdException as e:
-#         raise HTTPException(status_code=e.status_code, detail=e.description)
-#     except:
-#         log.exception("failed api call update_enrollment")
-#         raise HTTPException(status_code=500, detail="Internal Server Error")
-
-
-# @router.get("/api/v1/xls/enrollment")
-# async def api_xls_enrollments(
-#     auth: HTTPAuthorizationCredentials = Depends(bearer_schema),
-# ):
-#     await validate_token(auth)
-#     try:
-#         xlsfile = await xls_enrollments()
-#         return {"xls64": base64.b64encode(xlsfile) }
-#     except RdException as e:
-#         raise HTTPException(status_code=e.status_code, detail=e.description)
-#     except:
-#         log.exception("failed api call get_enrollments")
-#         raise HTTPException(status_code=500, detail="Internal Server Error")

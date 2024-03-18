@@ -23,22 +23,22 @@ const personstore = usePersonStore();
 const { person } = storeToRefs(personstore)
 
 // datamodel
-const reservations = ref([])
+const participants = ref([])
 const search = ref("")
 const headers = [
-  { title: 'Request nr', value: 'number' },
-  { title: 'Last Name', value: 'last_name' },
-  { title: 'First Name', value: 'first_name' },
-  { title: 'Request room', value: 'lodging' },
-  { title: '# guests', value: 'guestlist' },
-  { title: 'room', value: 'room' },
-  { title: 'Actions', value: 'action', sortable: false }
+  { title: 'Last Name', value: 'last_name', sortable: true },
+  { title: 'First Name', value: 'first_name', sortable: true },
+  { title: 'Category', value: 'category', sortable: true },
+  { title: 'ID Bel', value: 'idbel' },
+  { title: 'ID Fide', value: 'idfide' },
+  { title: 'Elo BEL', value: 'ratingbel', sortable: true },
+  { title: 'Elo FIDE', value: 'ratingfide', sortable: true },
+  { title: 'Actions', value: 'action' },
 ]
 
 definePageMeta({
   layout: 'mgmt',
 })
-
 
 async function checkAuth() {
   console.log('checking if auth is already set', token.value)
@@ -74,59 +74,20 @@ async function checkAuth() {
   mgmtstore.updateToken(reply.data)
 }
 
-
-async function downloadReservations() {
-  let reply, xls
-  showLoading(true)
-  try {
-    reply = await $backend("lodging", "mgmt_xls_lodgings", {
-      token: token.value
-    })
-    console.log('xls reply', reply)
-    xls = reply.data.xls64
-  }
-  catch (error) {
-    console.log('download error', error)
-    showSnackbar('Download error: ' + error.detail)
-  }
-  finally {
-    showLoading(false)
-  }
-  const link = document.createElement('a')
-  link.download = 'reservations.xlsx'
-  link.href = 'data:application/excel;base64,' + xls
-  document.body.appendChild(link)
-  link.click()
-  document.body.removeChild(link)
-  showSnackbar('Downloading reservations successful')
+function editParticipant(item) {
+  router.push('/mgmt/participantbjk_edit?id=' + item.id)
 }
 
-async function editReservation(item) {
-  router.push('/mgmt/reservation_edit?id=' + item.id)
-}
-
-async function getReservations() {
+async function getParticipants() {
   let reply
   showLoading(true)
   try {
-    reply = await $backend('lodging', "mgmt_get_reservations", {
-      token: token.value
-    })
-    reservations.value = reply.data
-    reservations.value.forEach((r) => {
-      const rooms = r.assignments ? Array.from(r.assignments, a => a.roomnr) : []
-      r.room = rooms.join(',')
-    })
-    console.log('rsv', reservations.value)
+    reply = await $backend('participant', "get_participants_bjk")
+    participants.value = reply.data
   }
   catch (error) {
-    console.error('getting reservations failed', error)
-    if (error.code === 401) {
-      router.push('/mgmt')
-    }
-    else {
-      showSnackbar('Getting reservations failed')
-    }
+    console.error('getting participants failed', error)
+    showSnackbar('Getting participants failed')
     return
   }
   finally {
@@ -138,6 +99,27 @@ function gotoPaymentRequest(item) {
   router.push('/mgmt/paymentrequest_edit?id=' + item.payment_id)
 }
 
+async function importEnrollments() {
+  let reply
+  showLoading(true)
+  try {
+    reply = await $backend("participant", "mgmt_import_enrollments_bjk", {
+      token: token.value
+    })
+  }
+  catch (error) {
+    console.log('import error', error)
+    if (error.code == 401) {
+      router.push('/mgmt')
+      return
+    }
+    showSnackbar('Failed to import enrollments: ' + error.detail)
+  }
+  finally {
+    showLoading(false)
+  }
+}
+
 function lightgreyRow(item) {
   if (!item.enabled) {
     return 'lightgreyrow'
@@ -145,14 +127,14 @@ function lightgreyRow(item) {
 }
 
 async function refresh() {
-  await getReservations()
+  await getParticipants()
 }
 
 onMounted(async () => {
   showSnackbar = refsnackbar.value.showSnackbar
   showLoading = refloading.value.showLoading
   await checkAuth()
-  await getReservations()
+  await getParticipants()
 })
 </script>
 
@@ -160,42 +142,39 @@ onMounted(async () => {
   <v-container>
     <SnackbarMessage ref="refsnackbar" />
     <ProgressLoading ref="refloading" />
-    <h1>Management Reservations</h1>
-    <v-data-table :headers="headers" :items="reservations" :item-class="lightgreyRow"
-      :footer-props="footerProps" class="elevation-1" :sort-by="['name', 'modified']"
-      :search="search">
+    <h1>Management Particpants BJK2024</h1>
+    <v-data-table :headers="headers" :items="participants" :item-class="lightgreyRow"
+      :items-per-page-options="[150, -1]" items-per-page="150" class="elevation-1"
+      :sort-by="[{ key: 'last_name', order: 'asc' }]" :search="search">
       <template #top>
-        <v-card color="grey lighten-4">
+        <v-card color="bg-grey-lighten-4">
           <v-card-title>
             <v-row class="px-2">
               <v-text-field v-model="search" label="Search" class="mx-4" append-icon="mdi-magnify"
                 hide_details />
               <v-spacer />
-              <v-tooltip bottom>
-                <template #activator="{ on }">
-                  <v-btn fab outlined color="deep-purple" v-on="on" @click="downloadReservations()">
-                    <v-icon>mdi-download-multiple</v-icon>
+              <v-tooltip location="bottom">
+                Import Enrollments
+                <template #activator="{ props }">
+                  <v-btn fab outlined color="deep-purple-lighten-1" v-bind="props"
+                    @click="importEnrollments()">
+                    <v-icon>mdi-import</v-icon>
                   </v-btn>
                 </template>
-                Download Reservations
               </v-tooltip>
-              <v-tooltip bottom>
-                <template #activator="{ on }">
-                  <v-btn fab outlined color="deep-purple" v-on="on" @click="refresh()">
+              &nbsp;
+              <v-tooltip location="bottom">
+                Refresh
+                <template #activator="{ props }">
+                  <v-btn fab outlined color="deep-purple-lighten-1" v-bind="props"
+                    @click="refresh()">
                     <v-icon>mdi-refresh</v-icon>
                   </v-btn>
                 </template>
-                Refresh
               </v-tooltip>
             </v-row>
           </v-card-title>
         </v-card>
-      </template>
-      <template #item._creationtime="{ item }">
-        {{ (new Date(item._creationtime)).toLocaleDateString("en-GB", { dateStyle: 'medium' }) }}
-      </template>
-      <template #item.guestlist="{ item }">
-        {{ item.guestlist.length }}
       </template>
       <template #item.payment_id="{ item }">
         <NuxtLink v-if="item.payment_id" :to="'/mgmt/paymentrequestedit?id=' + item.payment_id">
@@ -205,11 +184,11 @@ onMounted(async () => {
       <template #item.action="{ item }">
         <v-tooltip bottom>
           <template #activator="{ on }">
-            <v-icon small class="mr-2" v-on="on" @click="editReservation(item)">
+            <v-icon small class="mr-2" v-on="on" @click="editParticipant(item)">
               mdi-pencil
             </v-icon>
           </template>
-          Edit Reservation
+          Edit Participant
         </v-tooltip>
         <v-tooltip v-if="item.payment_id" bottom>
           <template #activator="{ on }">
@@ -221,7 +200,7 @@ onMounted(async () => {
         </v-tooltip>
       </template>
       <template #no-data>
-        No reservations found.
+        No participants found.
       </template>
     </v-data-table>
   </v-container>

@@ -18,7 +18,7 @@ let showLoading
 
 // stores
 const mgmtstore = useMgmtTokenStore()
-const { token: mgmttoken } = storeToRefs(mgmtstore)
+const { token } = storeToRefs(mgmtstore)
 const personstore = usePersonStore();
 const { person } = storeToRefs(personstore)
 
@@ -29,8 +29,7 @@ const headers = [
   { title: 'Last Name', value: 'last_name' },
   { title: 'First Name', value: 'first_name' },
   { title: 'Total price', value: 'totalprice' },
-  { title: 'Pay date', value: 'paydate' },
-  { title: 'Message', value: 'paymessage' },
+  { title: 'Send date', value: 'sentdate' },
   { title: 'Actions', value: 'action', sortable: false }
 ]
 const prqs = ref([])
@@ -45,7 +44,7 @@ definePageMeta({
 })
 
 async function checkAuth() {
-  if (mgmttoken.value) return
+  if (token.value) return
   if (person.value.credentials.length === 0) {
     router.push('/mgmt')
     return
@@ -73,7 +72,7 @@ async function checkAuth() {
   finally {
     showLoading(false)
   }
-  console.log('mgmttoken received', reply.data)
+  console.log('token received', reply.data)
   mgmtstore.updateToken(reply.data)
 }
 
@@ -86,7 +85,7 @@ async function getPaymentRequests() {
   showLoading(true)
   try {
     reply = await $backend("payment", "mgmt_get_paymentrequests", {
-      token: mgmttoken.value
+      token: token.value
     })
   }
   catch (error) {
@@ -118,6 +117,53 @@ async function refresh() {
   await getPaymentRequests()
 }
 
+async function send_prs() {
+  showLoading(true)
+  try {
+    const reply = await $backend("payment", "mgmt_email_prs", {
+      token: token.value
+    })
+  }
+  catch (error) {
+    console.error('getting paymentrequests', error)
+    if (error.code === 401) {
+      router.push('/mgmt')
+    }
+    else {
+      showSnackbar('Getting payment requests failed')
+    }
+    return
+  }
+  finally {
+    showLoading(false)
+  }
+  await getPaymentRequests()
+}
+
+async function send_pr(item) {
+  showLoading(true)
+  try {
+    const reply = await $backend("payment", "mgmt_email_pr", {
+      token: token.value,
+      id: item.id,
+    })
+  }
+  catch (error) {
+    console.error('getting paymentrequests', error)
+    if (error.code === 401) {
+      router.push('/mgmt')
+    }
+    else {
+      showSnackbar('Getting payment requests failed')
+    }
+    return
+  }
+  finally {
+    showLoading(false)
+  }
+  await getPaymentRequests()
+}
+
 onMounted(async () => {
   showSnackbar = refsnackbar.value.showSnackbar
   showLoading = refloading.value.showLoading
@@ -133,8 +179,8 @@ onMounted(async () => {
     <SnackbarMessage ref="refsnackbar" />
     <ProgressLoading ref="refloading" />
     <h1>Payment Requests</h1>
-    <v-data-table :headers="headers" :items="prqs" :footer-props="footerProps" class="elevation-1"
-      :sort-by="['name']" :search="search">
+    <v-data-table :headers="headers" :items="prqs" class="elevation-1" :sort-by="['name']"
+      :search="search" :items-per-page-options="[50, 150, -1]" items-per-page="50">
       <template #top>
         <v-card color="grey-lighten-4">
           <v-card-title>
@@ -144,13 +190,13 @@ onMounted(async () => {
               <v-spacer />
               <v-tooltip bottom>
                 <template #activator="{ on }">
-                  <v-btn fab outlined color="deep-purple" v-on="on"
-                    @click="downloadPaymentRequests()">
-                    <v-icon>mdi-download-multiple</v-icon>
+                  <v-btn fab outlined color="deep-purple" v-on="on" @click="send_prs()">
+                    <v-icon>mdi-send</v-icon>
                   </v-btn>
                 </template>
-                Download Paymentrequests
+                Send virgin payment requests
               </v-tooltip>
+              &nbsp;
               <v-tooltip bottom>
                 <template #activator="{ on }">
                   <v-btn fab outlined color="deep-purple" v-on="on" @click="refresh()">
@@ -164,16 +210,26 @@ onMounted(async () => {
         </v-card>
       </template>
       <template #item.action="{ item }">
-        <v-tooltip bottom>
-          <template #activator="{ on }">
-            <v-icon small class="mr-2" v-on="on" @click="gotoLinked(item)">
+        <v-tooltip location="bottom">
+          Linked object
+          <template #activator="{ props }">
+            <v-icon small class="mr-2" v-bind="props" @click="gotoLinked(item)">
               mdi-link
             </v-icon>
           </template>
         </v-tooltip>
-        <v-tooltip bottom>
-          <template #activator="{ on }">
-            <v-icon small class="mr-2" v-on="on" @click="editPaymentRequest(item)">
+        <v-tooltip location="bottom">
+          Send
+          <template #activator="{ props }">
+            <v-icon small class="mr-2" v-bind="props" @click="send_pr(item)">
+              mdi-send
+            </v-icon>
+          </template>
+        </v-tooltip>
+        <v-tooltip location="bottom">
+          Edit
+          <template #activator="{ props }">
+            <v-icon small class="mr-2" v-bind="props" @click="editPaymentRequest(item)">
               mdi-pencil
             </v-icon>
           </template>

@@ -77,7 +77,7 @@ async function getEnrollments() {
   let reply
   showLoading(true)
   try {
-    reply = await $backend('enrollment', "get_enrollments_vk")
+    reply = await $backend('enrollment', "get_enrollments_bjk")
     enrollments.value = reply.data
     console.log('enrs', enrollments.value)
   }
@@ -107,10 +107,9 @@ onMounted(async () => {
   <v-container>
     <SnackbarMessage ref="refsnackbar" />
     <ProgressLoading ref="refloading" />
-    <h1>Management Enrollments VK2024</h1>
-    <v-data-table :headers="headers" :items="enrollments" :items-per-page-options="[80, 150, -1]"
-      item-per-page="80" class="elevation-1" :sort-by="[{ key: 'last_name', order: 'asc' }]"
-      :search="search">
+    <h1>Management Enrollments BJK2024</h1>
+    <v-data-table :headers="headers" :items="enrollments" :items-per-page-options="[150, -1]"
+      class="elevation-1" :sort-by="[{ key: 'last_name', order: 'asc' }]" :search="search">
       <template #top>
         <v-card color="bg-grey-lighten-4">
           <v-card-title>

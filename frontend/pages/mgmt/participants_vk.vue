@@ -26,17 +26,19 @@ const { person } = storeToRefs(personstore)
 const participants = ref([])
 const search = ref("")
 const headers = [
-  { title: 'Last Name', value: 'last_name' },
-  { title: 'First Name', value: 'first_name' },
-  { title: 'Category', value: 'category' },
+  { title: 'Last Name', value: 'last_name', sortable: true },
+  { title: 'First Name', value: 'first_name', sortable: true },
+  { title: 'Category', value: 'category', sortable: true },
   { title: 'ID Bel', value: 'idbel' },
   { title: 'ID Fide', value: 'idfide' },
+  { title: 'Elo BEL', value: 'ratingbel', sortable: true },
+  { title: 'Elo FIDE', value: 'ratingfide', sortable: true },
+  { title: 'Actions', value: 'action' },
 ]
 
 definePageMeta({
   layout: 'mgmt',
 })
-
 
 async function checkAuth() {
   console.log('checking if auth is already set', token.value)
@@ -73,21 +75,31 @@ async function checkAuth() {
 }
 
 
-async function importEnrollments() {
-  let reply, xls
+async function create_prs() {
+  let reply
   showLoading(true)
   try {
-    reply = await $backend("participant", "mgmt_import_enrollments_vk", {
+    reply = await $backend("payment", "mgmt_create_participants_vk_pr", {
       token: token.value
     })
   }
   catch (error) {
-    console.log('download error', error)
-    showSnackbar('Failed to import enrollments: ' + error.detail)
+    console.error('creating all pr failed', error)
+    if (error.code === 401) {
+      router.push('/mgmt')
+    } else {
+      showSnackbar('Creating paymentrequests failed: ' + error.detail)
+    }
+    return
   }
   finally {
     showLoading(false)
   }
+  await getParticipants()
+}
+
+function editParticipant(item) {
+  router.push('/mgmt/participant_vk_edit?id=' + item.id)
 }
 
 async function getParticipants() {
@@ -107,9 +119,26 @@ async function getParticipants() {
   }
 }
 
-// function gotoPaymentRequest(item) {
-//   router.push('/mgmt/paymentrequest_edit?id=' + item.payment_id)
-// }
+function gotoPaymentRequest(item) {
+  router.push('/mgmt/paymentrequest_edit?id=' + item.payment_id)
+}
+
+async function importEnrollments() {
+  let reply
+  showLoading(true)
+  try {
+    reply = await $backend("participant", "mgmt_import_enrollments_vk", {
+      token: token.value
+    })
+  }
+  catch (error) {
+    console.log('import enrollments error', error)
+    showSnackbar('Failed to import enrollments: ' + error.detail)
+  }
+  finally {
+    showLoading(false)
+  }
+}
 
 function lightgreyRow(item) {
   if (!item.enabled) {
@@ -127,15 +156,16 @@ onMounted(async () => {
   await checkAuth()
   await getParticipants()
 })
+
 </script>
 
 <template>
   <v-container>
     <SnackbarMessage ref="refsnackbar" />
     <ProgressLoading ref="refloading" />
-    <h1>Management Participants VK202</h1>
+    <h1>Management Participants VK2024</h1>
     <v-data-table :headers="headers" :items="participants" :item-class="lightgreyRow"
-      :items-per-page-options="[150, -1]" class="elevation-1"
+      :items-per-page-options="[50, 150, -1]" items-per-page="50" class="elevation-1"
       :sort-by="[{ key: 'last_name', order: 'asc' }]" :search="search">
       <template #top>
         <v-card color="bg-grey-lighten-4">
@@ -155,8 +185,17 @@ onMounted(async () => {
               </v-tooltip>
               &nbsp;
               <v-tooltip location="bottom">
+                Create new payment requests
+                <template #activator="{ props }">
+                  <v-btn fab outlined color="deep-purple-lighten-1" v-bind="props"
+                    @click="create_prs()">
+                    <v-icon>mdi-currency-eur</v-icon>
+                  </v-btn>
+                </template>
+              </v-tooltip>
+              &nbsp;
+              <v-tooltip location="bottom">
                 Refresh
-
                 <template #activator="{ props }">
                   <v-btn fab outlined color="deep-purple-lighten-1" v-bind="props"
                     @click="refresh()">
@@ -168,7 +207,24 @@ onMounted(async () => {
           </v-card-title>
         </v-card>
       </template>
-
+      <template #item.action="{ item }">
+        <v-tooltip bottom>
+          <template #activator="{ on }">
+            <v-icon small class="mr-2" v-on="on" @click="editParticipant(item)">
+              mdi-pencil
+            </v-icon>
+          </template>
+          Edit Participant
+        </v-tooltip>
+        <v-tooltip v-if="item.payment_id" bottom>
+          <template #activator="{ on }">
+            <v-icon small class="mr-2" v-on="on" @click="gotoPaymentRequest(item)">
+              mdi-currency-eur
+            </v-icon>
+          </template>
+          Show payment request
+        </v-tooltip>
+      </template>
       <template #no-data>
         No participants found.
       </template>
