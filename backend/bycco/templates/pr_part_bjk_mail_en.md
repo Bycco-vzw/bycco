@@ -1,5 +1,4 @@
-### Payment request enrollment BYCC 2023
-
+### Payment request enrollment BYCC 2024
 
 ### Enrollment
 
@@ -17,10 +16,10 @@ BE33 0017 5924 5146 with the structured communication {{ paymessage }} within 7 
 If you would like an invoice in the name of a VAT payer, please contact us as soon as possible
 to reply to this e-mail stating the VAT details of the party concerned:
 
-  - name
-  - address
-  - e-mail
-  - VAT number
+- name
+- address
+- e-mail
+- VAT number
 
 Yours sincerely
 

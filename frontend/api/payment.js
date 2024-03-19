@@ -63,6 +63,40 @@ export default {
     })
   },
 
+  // particpant bjk
+  mgmt_create_participant_bjk_pr: async function (options) {
+    const { token, id } = options
+    return await axios.post(`${prefix}/participant_bjk_pr/${id}`, {}, {
+      headers: {
+        Authorization: "Bearer " + token,
+      }
+    })
+  },
+  mgmt_create_participants_bjk_pr: async function (options) {
+    const { token } = options
+    return await axios.post(`${prefix}/participant_bjk_pr`, {}, {
+      headers: {
+        Authorization: "Bearer " + token,
+      }
+    })
+  },
+  mgmt_delete_participant_bjk_pr: async function (options) {
+    const { token, id } = options
+    return await axios.delete(`${prefix}/participant_bjk_pr/${id}`, {
+      headers: {
+        Authorization: "Bearer " + token,
+      }
+    })
+  },
+  mgmt_update_participant_bjk_pr: async function (options) {
+    const { token, id, prq } = options
+    return await axios.put(`${prefix}/participant_bjk_pr/${id}`, prq, {
+      headers: {
+        Authorization: "Bearer " + token,
+      }
+    })
+  },
+
 
   // general
   mgmt_email_pr: async function (options) {
