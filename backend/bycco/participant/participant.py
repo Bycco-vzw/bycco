@@ -189,7 +189,9 @@ async def import_participant_bjk(idenr) -> str:
             "category": ParticipantBJKCategory(enr.category.value),
             "chesstitle": enr.chesstitle or "",
             "enabled": True,
-            "emails": enr.emailplayer.split(","),
+            "emails": enr.emailplayer.split(",")
+            + enr.representative.emailparent.split(",")
+            + enr.representative.emailattendant.split(","),
             "first_name": enr.first_name,
             "gender": Gender(enr.gender),
             "idbel": enr.idbel,

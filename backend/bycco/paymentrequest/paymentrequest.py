@@ -35,9 +35,15 @@ enddate = common["period"]["enddate"]
 m3y = date(startdate.year - 3, startdate.month, startdate.day)
 m12y = date(startdate.year - 12, startdate.month, startdate.day)
 m18y = date(startdate.year - 18, startdate.month, startdate.day)
-i18n_enrollment = {
+i18n_enrollment_vk = {
     "nl": "Inschrijving VK2024",
     "en": "Enrollment VK2024",
+}
+i18n_enrollment_bjk = {
+    "nl": "Inschrijving BJK 2024",
+    "en": "Enrollment BYCC 2024",
+    "fr": "Enregistrement CBJ 2024",
+    "de": "Anmeldung BJLM 2024",
 }
 
 # crud
@@ -364,7 +370,7 @@ def calc_pricedetails_par_vk(
         par.locale = "en"
     details = [
         {
-            "description": i18n_enrollment[par.locale],
+            "description": i18n_enrollment_vk[par.locale],
             "quantity": 1,
             "unitprice": format(amount, ">6.2f"),
             "totalprice": format(amount, ">6.2f"),
@@ -420,6 +426,33 @@ async def email_pr_participant_vk(prqid) -> None:
 # participant bjk
 
 
+async def create_pr_participants_bjk() -> str:
+    """
+    create payrq for all participants wihtout payrq
+    """
+    ix = 0
+    for par in await get_participants_bjk({"_model": ParticipantBJKDetail}):
+        if par.payment_id:
+            continue
+        ix += 1
+        if ix > 10:
+            break
+        pr: Dict[str, Any] = {
+            "email": ",".join(par.emails),
+            "first_name": par.first_name,
+            "last_name": par.last_name,
+            "link_id": par.id,
+            "locale": par.locale,
+            "paystatus": False,
+            "reason": "bjk2024",
+        }
+        pr["details"], pr["totalprice"] = calc_pricedetails_par_bjk(par)
+        pr["number"] = await DbCounter.next("paymentrequest")
+        pr["paymessage"] = getPaymessage(20240000 + pr["number"])
+        id = await create_payment_request(pr)
+        await update_participate_bjk(par.id, ParticipantVK(payment_id=id))
+
+
 async def create_pr_participant_bjk(parid: str) -> str:
 
     par = await get_participant_bjk(parid)
@@ -446,15 +479,10 @@ def calc_pricedetails_par_bjk(
     """
     calculates cost for pricedetails
     """
-    amount = 50
-    if par.chesstitle:
-        if par.chesstitle in ["WFM", "FM"]:
-            amount = 25
-        if par.chesstitle in ["WIM", "IM", "GM", "WGM"]:
-            amount = 0
+    amount = 35
     details = [
         {
-            "description": i18n_enrollment[par.locale],
+            "description": i18n_enrollment_bjk[par.locale],
             "quantity": 1,
             "unitprice": format(amount, ">6.2f"),
             "totalprice": format(amount, ">6.2f"),
@@ -491,13 +519,13 @@ async def email_pr_participant_bjk(prqid) -> None:
     prq = await get_payment_request(prqid)
     assert prq.email and prq.locale
     mp = MailParams(
-        subject="VK 2024",
+        subject="BJK / CBJ / BJLM 2024",
         sender=settings.EMAIL["sender"],
         receiver=prq.email,
         template="pr_part_bjk_mail_{locale}.md",
         locale=prq.locale,
         attachments=[],
-        bcc=settings.EMAIL["bcc_reservation"],
+        bcc=settings.EMAIL["bcc_enrollment"],
     )
     sendEmailNoAttachments(mp, prq.model_dump(), "paymentrq participant bjk")
     await update_payment_request(
@@ -510,7 +538,7 @@ async def email_pr_participant_bjk(prqid) -> None:
 emailfunctions = {
     "lodging": email_pr_lodging,
     "vk2024": email_pr_participant_vk,
-    "participant_bjk": email_pr_participant_bjk,
+    "bjk2024": email_pr_participant_bjk,
 }
 
 

@@ -204,6 +204,7 @@ class ParticipantBJKDetail(BaseModel):
     emails: List[str]
     first_name: str
     gender: Gender
+    id: str
     idbel: str
     idclub: str | None
     idfide: str | None
