@@ -1,0 +1,1 @@
+from .statamic import get_page
