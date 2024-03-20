@@ -68,7 +68,7 @@ async def import_participant_vk(idenr) -> str:
     """
     enr = cast(Enrollment, await get_enrollment(idenr))
     # solving transitional issue with chesstitle
-    if enr.idfide and enr.ratingfide > 2100:
+    if enr.idfide and enr.ratingfide and enr.ratingfide > 2100:
         idreply = await lookup_idfide(enr.idfide)
         chesstitle = idreply.chesstitle
     else:
