@@ -30,6 +30,7 @@ const headers = [
   { title: 'First Name', value: 'first_name' },
   { title: 'Total price', value: 'totalprice' },
   { title: 'Send date', value: 'sentdate' },
+  { title: 'Message', value: 'paymessage' },
   { title: 'Actions', value: 'action', sortable: false }
 ]
 const prqs = ref([])
