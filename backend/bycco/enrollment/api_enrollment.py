@@ -18,6 +18,7 @@ from bycco.enrollment import (
     confirm_enrollment,
     create_enrollment_vk,
     create_enrollment_bjk,
+    get_notconfirmed_vk,
     get_enrollments_vk,
     get_photo,
     get_enrollments_vk,
@@ -57,6 +58,7 @@ async def api_create_enrollment_vk(enr: EnrollmentVkIn):
 
 # bjk
 
+
 @router.get("/bjk", response_model=List[EnrollmentItem])
 async def api_get_enrollments_bjk():
     try:
@@ -66,8 +68,6 @@ async def api_get_enrollments_bjk():
     except:
         logger.exception("failed api call get_enrollments_vk")
         raise HTTPException(status_code=500, detail="Internal Server Error")
-
-
 
 
 @router.post("/bjk", response_model=str)
@@ -133,6 +133,17 @@ async def api_anon_upload_photo(id: str, body: dict):
 async def api_anon_get_photo(id: str):
     try:
         return await get_photo(id)
+    except RdException as e:
+        raise HTTPException(status_code=e.status_code, detail=e.description)
+    except:
+        logger.exception("failed api call get_photo")
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+
+
+@router.post("/notconfirmed_vk")
+async def api_get_notconfirmed_vk():
+    try:
+        return await get_notconfirmed_vk()
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except:

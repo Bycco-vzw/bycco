@@ -23,5 +23,6 @@ from .enrollment import (
     get_enrollment,
     lookup_idbel,
     lookup_idfide,
+    get_notconfirmed_vk,
     upload_photo,
 )

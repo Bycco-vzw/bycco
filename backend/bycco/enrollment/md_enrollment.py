@@ -57,6 +57,7 @@ class EnrollmentDB(BaseModel):
     category: EnrollmentCategory
     chesstitle: str
     confirmed: bool
+    comfirmation_email: datetime | None = None
     custom: str | None
     emailplayer: str | None
     enabled: bool
@@ -131,7 +132,8 @@ class EnrollmentItem(BaseModel):
     category: EnrollmentCategory
     confirmed: bool | None = False
     chesstitle: str | None = None
-    enabled: bool | None = True
+    comfirmation_email: datetime | None = None
+    enabled: bool = True
     first_name: str
     gender: Gender
     id: str
@@ -155,6 +157,7 @@ class EnrollmentVKOut(BaseModel):
     category: EnrollmentCategory
     chesstitle: str | None
     confirmed: bool = False
+    comfirmation_email: datetime | None = None
     custom: str | None
     emailplayer: str | None
     enabled: bool | None
