@@ -129,7 +129,9 @@ class EnrollmentItem(BaseModel):
     badgelength: int | None = 0
     birthyear: int
     category: EnrollmentCategory
+    confirmed: bool | None = False
     chesstitle: str | None = None
+    enabled: bool | None = True
     first_name: str
     gender: Gender
     id: str
