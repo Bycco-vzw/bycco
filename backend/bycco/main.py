@@ -20,6 +20,7 @@ async def lifespan(app: FastAPI):
     yield
     close_mongodb()
 
+
 from . import version
 
 # load and register app
@@ -54,6 +55,8 @@ from bycco.room import api_room
 from bycco.participant import api_participant
 from bycco.paymentrequest import api_paymentrequest
 from bycco.statamic import api_statamic
+from bycco.page import api_page
+
 
 app.include_router(api_account.router)
 app.include_router(api_enrollment.router)
@@ -63,6 +66,7 @@ app.include_router(api_room.router)
 app.include_router(api_participant.router)
 app.include_router(api_paymentrequest.router)
 app.include_router(api_statamic.router)
+app.include_router(api_page.router)
 
 
 logger.info(f"Api layer loaded")
