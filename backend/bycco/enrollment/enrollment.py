@@ -61,6 +61,7 @@ async def get_enrollments_vk(options: dict = {}) -> List[EnrollmentItem]:
     filter = options.copy()
     filter["_model"] = filter.pop("_model", EnrollmentItem)
     filter["event"] = "VK2024"
+    logger.info(f"g_e_vk {filter}")
     return [cast(EnrollmentItem, x) for x in await DbEnrollment.find_multiple(filter)]
 
 
@@ -363,3 +364,33 @@ def sendemail_enrollment_bjk(enr: Enrollment) -> None:
     else:
         edict["natstatus"] = 2
     sendemail_no_attachments(mp, edict, "confirmation enrollment")
+
+
+def sendemail_confirmationreq_vk(enr: Enrollment) -> None:
+    settings = get_settings()
+    emails = [enr.emailplayer]
+    mp = MailParams(
+        subject="VK 2024",
+        sender=settings.EMAIL["sender"],
+        receiver=",".join(emails),
+        template="mailenrollment_vk_{locale}.md",
+        locale=enr.locale,
+        attachments=[],
+        bcc=settings.EMAIL["bcc_enrollment"],
+    )
+    edict = enr.model_dump()
+    edict["category"] = edict["category"].value
+    sendemail_no_attachments(mp, edict, "confirmation enrollment")
+
+
+
+async def get_notconfirmed_vk() -> List[EnrollmentItem]:
+    """
+    get a list of all enrollments of an event that are not confirmed
+    and sends a requestConfirmation email to them
+    """
+    for enr in await get_enrollments_vk({
+        "confirmed": {"$eq": None},
+        "enabled": True,
+        "confirmation_email": {"$eq": None},
+    }):
