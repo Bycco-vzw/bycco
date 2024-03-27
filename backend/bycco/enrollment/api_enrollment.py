@@ -12,6 +12,7 @@ router = APIRouter(prefix="/api/v1/enrollment")
 
 from bycco.enrollment import (
     EnrollmentVkIn,
+    EnrollmentVkOut,
     EnrollmentIn,
     EnrollmentItem,
     IdReply,
@@ -19,6 +20,7 @@ from bycco.enrollment import (
     create_enrollment_vk,
     create_enrollment_bjk,
     get_notconfirmed_vk,
+    get_enrollment_vk,
     get_enrollments_vk,
     get_photo,
     get_enrollments_vk,
@@ -44,10 +46,33 @@ async def api_get_enrollments_vk():
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
+@router.get("/vk/{id}", response_model=EnrollmentVkOut)
+async def api_get_enrollments_vk():
+    try:
+        return await get_enrollment_vk(id)
+    except RdException as e:
+        raise HTTPException(status_code=e.status_code, detail=e.description)
+    except:
+        logger.exception("failed api call get_enrollments_vk")
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+
+
 @router.post("/vk", response_model=str)
 async def api_create_enrollment_vk(enr: EnrollmentVkIn):
     try:
         id = await create_enrollment_vk(enr)
+        return id
+    except RdException as e:
+        raise HTTPException(status_code=e.status_code, detail=e.description)
+    except:
+        logger.exception("failed api call create_enrollment_vk")
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+
+
+@router.put("/vk/{id}", response_model=EnrollmentVkOut)
+async def api_update_enrollment_vk(id: str, enr: EnrollmentVkIn):
+    try:
+        id = await update_enrollment_vk(id, enr)
         return id
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)

@@ -33,4 +33,7 @@ export default {
   get_enrollments_bjk: async function () {
     return await axios.get(`${prefix}/bjk`)
   },
+  mgmt_update_enrollment_vk: async function (options) {
+    return await axios.post(`${prefix}/vk`)
+  }
 }

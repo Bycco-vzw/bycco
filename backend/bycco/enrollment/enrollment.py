@@ -22,6 +22,7 @@ from bycco.enrollment import (
     EnrollmentItem,
     EnrollmentUpdate,
     EnrollmentVkIn,
+    EnrollmentVkOut,
     IdReply,
     NatStatus,
 )
@@ -75,9 +76,11 @@ async def get_enrollment(id: str, options: dict = {}) -> Enrollment:
     return cast(Enrollment, await DbEnrollment.find_single(filter))
 
 
-async def update_enrollment(id, eu: EnrollmentUpdate, options: dict = {}) -> Enrollment:
+async def update_enrollment(
+    id: str, eu: EnrollmentUpdate, options: dict = {}
+) -> Enrollment:
     """
-    update a member
+    update an enrollment
     """
     filter = options.copy()
     filter["_model"] = filter.pop("_model", Enrollment)
@@ -106,6 +109,13 @@ async def get_enrollments_vk(options: dict = {}) -> List[EnrollmentItem]:
     filter["_model"] = filter.pop("_model", EnrollmentItem)
     filter["event"] = "VK2024"
     return [cast(EnrollmentItem, x) for x in await DbEnrollment.find_multiple(filter)]
+
+
+async def get_enrollment_vk(id: str, options: dict = {}) -> EnrollmentVkOut:
+    filter = options.copy()
+    filter["_model"] = filter.pop("_model", EnrollmentVkOut)
+    filter["id"] = id
+    return cast(EnrollmentVkOut, await DbEnrollment.find_single(filter))
 
 
 async def create_enrollment_vk(ei: EnrollmentVkIn) -> str:
@@ -383,14 +393,16 @@ def sendemail_confirmationreq_vk(enr: Enrollment) -> None:
     sendemail_no_attachments(mp, edict, "confirmation enrollment")
 
 
-
 async def get_notconfirmed_vk() -> List[EnrollmentItem]:
     """
     get a list of all enrollments of an event that are not confirmed
     and sends a requestConfirmation email to them
     """
-    for enr in await get_enrollments_vk({
-        "confirmed": {"$eq": None},
-        "enabled": True,
-        "confirmation_email": {"$eq": None},
-    }):
+    for enr in await get_enrollments_vk(
+        {
+            "confirmed": {"$eq": None},
+            "enabled": True,
+            "confirmation_email": {"$eq": None},
+        }
+    ):
+        pass
