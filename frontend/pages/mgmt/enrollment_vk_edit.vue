@@ -101,7 +101,7 @@ async function saveEnrollment() {
   try {
     await $backend("enrollment", "mgmt_update_enrollment_vk", {
       id: idenr.value,
-      enrollment: {
+      enr: {
         enabled: enr.value.enabled
       },
       token: mgmttoken.value

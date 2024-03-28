@@ -276,6 +276,7 @@ class Enrollment(BaseModel):
     birthyear: int | None = None
     category: EnrollmentCategory | None = None
     chesstitle: str | None = None
+    confirmation_email: datetime | None = None
     confirmed: bool | None = None
     custom: str | None = None
     emailplayer: str | None = None

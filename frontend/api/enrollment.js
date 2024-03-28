@@ -30,10 +30,42 @@ export default {
   get_enrollments_vk: async function () {
     return await axios.get(`${prefix}/vk`)
   },
+  get_enrollments_vk: async function () {
+    return await axios.get(`${prefix}/vk`)
+  },
   get_enrollments_bjk: async function () {
     return await axios.get(`${prefix}/bjk`)
   },
+  mgmt_get_enrollment_bjk: async function (options) {
+    const { id, token } = options
+    return await axios.get(`${prefix}/bjk/${id}`, {
+      headers: {
+        Authorization: "Bearer " + token,
+      }
+    })
+  },
+  mgmt_get_enrollment_vk: async function (options) {
+    const { id, token } = options
+    return await axios.get(`${prefix}/vk/${id}`, {
+      headers: {
+        Authorization: "Bearer " + token,
+      }
+    })
+  },
+  mgmt_update_enrollment_bjk: async function (options) {
+    const { id, enr, token } = options
+    return await axios.put(`${prefix}/bjk/${id}`, enr, {
+      headers: {
+        Authorization: "Bearer " + token,
+      }
+    })
+  },
   mgmt_update_enrollment_vk: async function (options) {
-    return await axios.post(`${prefix}/vk`)
-  }
+    const { id, enr, token } = options
+    return await axios.put(`${prefix}/vk/${id}`, enr, {
+      headers: {
+        Authorization: "Bearer " + token,
+      }
+    })
+  },
 }

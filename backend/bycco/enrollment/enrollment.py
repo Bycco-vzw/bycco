@@ -66,13 +66,25 @@ async def get_enrollments_vk(options: dict = {}) -> List[EnrollmentItem]:
     return [cast(EnrollmentItem, x) for x in await DbEnrollment.find_multiple(filter)]
 
 
-async def get_enrollment(id: str, options: dict = {}) -> Enrollment:
+async def get_enrollment_bjk(id: str, options: dict = {}) -> Enrollment:
     """
     get enrollments
     """
     filter = options.copy()
     filter["_model"] = filter.pop("_model", Enrollment)
     filter["id"] = id
+    filter["event"] = "bjk2024"
+    return cast(Enrollment, await DbEnrollment.find_single(filter))
+
+
+async def get_enrollment_vkk(id: str, options: dict = {}) -> Enrollment:
+    """
+    get enrollments
+    """
+    filter = options.copy()
+    filter["_model"] = filter.pop("_model", Enrollment)
+    filter["id"] = id
+    filter["event"] = "VK2024"
     return cast(Enrollment, await DbEnrollment.find_single(filter))
 
 
@@ -393,7 +405,7 @@ def sendemail_confirmationreq_vk(enr: Enrollment) -> None:
     sendemail_no_attachments(mp, edict, "confirmation enrollment")
 
 
-async def get_notconfirmed_vk() -> List[EnrollmentItem]:
+async def send_notconfirmed_vk() -> None:
     """
     get a list of all enrollments of an event that are not confirmed
     and sends a requestConfirmation email to them

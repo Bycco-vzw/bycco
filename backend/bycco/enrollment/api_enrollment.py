@@ -12,21 +12,23 @@ router = APIRouter(prefix="/api/v1/enrollment")
 
 from bycco.enrollment import (
     EnrollmentVkIn,
-    EnrollmentVkOut,
+    Enrollment,
     EnrollmentIn,
     EnrollmentItem,
+    EnrollmentUpdate,
     IdReply,
     confirm_enrollment,
     create_enrollment_vk,
     create_enrollment_bjk,
-    get_notconfirmed_vk,
+    get_enrollment_bjk,
     get_enrollment_vk,
+    get_enrollments_bjk,
     get_enrollments_vk,
     get_photo,
-    get_enrollments_vk,
-    get_enrollments_bjk,
     lookup_idbel,
     lookup_idfide,
+    send_notconfirmed_vk,
+    update_enrollment,
     upload_photo,
 )
 
@@ -46,8 +48,8 @@ async def api_get_enrollments_vk():
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.get("/vk/{id}", response_model=EnrollmentVkOut)
-async def api_get_enrollments_vk():
+@router.get("/vk/{id}", response_model=Enrollment)
+async def api_get_enrollments_vk(id: str):
     try:
         return await get_enrollment_vk(id)
     except RdException as e:
@@ -69,10 +71,10 @@ async def api_create_enrollment_vk(enr: EnrollmentVkIn):
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.put("/vk/{id}", response_model=EnrollmentVkOut)
-async def api_update_enrollment_vk(id: str, enr: EnrollmentVkIn):
+@router.put("/vk/{id}", response_model=Enrollment)
+async def api_update_enrollment_vk(id: str, enr: EnrollmentUpdate):
     try:
-        id = await update_enrollment_vk(id, enr)
+        id = await update_enrollment(id, enr)
         return id
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
@@ -92,6 +94,17 @@ async def api_get_enrollments_bjk():
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except:
         logger.exception("failed api call get_enrollments_vk")
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+
+
+@router.get("/bjk/{id}", response_model=Enrollment)
+async def api_get_enrollments_bjk(id: str):
+    try:
+        return await get_enrollment_bjk(id)
+    except RdException as e:
+        raise HTTPException(status_code=e.status_code, detail=e.description)
+    except:
+        logger.exception("failed api call get_enrollment_bjk")
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
@@ -168,7 +181,7 @@ async def api_anon_get_photo(id: str):
 @router.post("/notconfirmed_vk")
 async def api_get_notconfirmed_vk():
     try:
-        return await get_notconfirmed_vk()
+        return await send_notconfirmed_vk()
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except:
