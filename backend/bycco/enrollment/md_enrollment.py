@@ -57,6 +57,7 @@ class EnrollmentDB(BaseModel):
     category: EnrollmentCategory
     chesstitle: str
     confirmed: bool
+    confirmation_email: datetime | None = None
     custom: str | None
     emailplayer: str | None
     enabled: bool
@@ -129,7 +130,10 @@ class EnrollmentItem(BaseModel):
     badgelength: int | None = 0
     birthyear: int
     category: EnrollmentCategory
+    confirmed: bool | None = False
     chesstitle: str | None = None
+    confirmation_email: datetime | None = None
+    enabled: bool = True
     first_name: str
     gender: Gender
     id: str
@@ -143,7 +147,7 @@ class EnrollmentItem(BaseModel):
     registrationtime: datetime | None = None
 
 
-class EnrollmentVKOut(BaseModel):
+class EnrollmentVkOut(BaseModel):
     """
     validator for ouput
     """
@@ -153,6 +157,7 @@ class EnrollmentVKOut(BaseModel):
     category: EnrollmentCategory
     chesstitle: str | None
     confirmed: bool = False
+    confirmation_email: datetime | None = None
     custom: str | None
     emailplayer: str | None
     enabled: bool | None
@@ -271,10 +276,11 @@ class Enrollment(BaseModel):
     birthyear: int | None = None
     category: EnrollmentCategory | None = None
     chesstitle: str | None = None
+    confirmation_email: datetime | None = None
     confirmed: bool | None = None
     custom: str | None = None
     emailplayer: str | None = None
-    enabled: bool | None = None
+    enabled: bool | None = True
     event: str | None = None
     federation: str | None = None
     first_name: str | None = None

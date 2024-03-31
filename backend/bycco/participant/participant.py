@@ -24,9 +24,10 @@ from bycco.participant import (
 )
 from bycco.enrollment import (
     Enrollment,
-    get_enrollment,
-    get_enrollments_vk,
+    get_enrollment_bjk,
+    get_enrollment_vk,
     get_enrollments_bjk,
+    get_enrollments_vk,
     lookup_idfide,
 )
 
@@ -66,7 +67,7 @@ async def import_participant_vk(idenr) -> str:
     import an enrollemnt and create a participant
     return the id of the participant
     """
-    enr = cast(Enrollment, await get_enrollment(idenr))
+    enr = cast(Enrollment, await get_enrollment_vk(idenr))
     # solving transitional issue with chesstitle
     if enr.idfide and enr.ratingfide and enr.ratingfide > 2100:
         idreply = await lookup_idfide(enr.idfide)
@@ -179,7 +180,7 @@ async def import_participant_bjk(idenr) -> str:
     import an enrollemnt and create a participant
     return the id of the participant
     """
-    enr = cast(Enrollment, await get_enrollment(idenr))
+    enr = cast(Enrollment, await get_enrollment_bjk(idenr))
     return await DbParticpantBJK.add(
         {
             "badgeimage": enr.badgeimage,
