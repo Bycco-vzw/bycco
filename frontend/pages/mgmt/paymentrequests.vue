@@ -35,10 +35,6 @@ const headers = [
 ]
 const prqs = ref([])
 const search = ref("")
-const filter = ref({})
-const footerProps = ref({
-  itemsPerPageOptions: [150, -1]
-})
 
 definePageMeta({
   layout: 'mgmt',
@@ -179,7 +175,7 @@ onMounted(async () => {
   <v-container>
     <SnackbarMessage ref="refsnackbar" />
     <ProgressLoading ref="refloading" />
-    <h1>Payment Requests</h1>
+    <h1>Payment Requests 2024</h1>
     <v-data-table :headers="headers" :items="prqs" class="elevation-1" :sort-by="['name']"
       :search="search" :items-per-page-options="[50, 150, -1]" items-per-page="50">
       <template #top>

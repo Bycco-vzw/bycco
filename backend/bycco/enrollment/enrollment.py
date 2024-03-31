@@ -22,6 +22,7 @@ from bycco.enrollment import (
     EnrollmentItem,
     EnrollmentUpdate,
     EnrollmentVkIn,
+    EnrollmentVkOut,
     IdReply,
     NatStatus,
 )
@@ -64,19 +65,37 @@ async def get_enrollments_vk(options: dict = {}) -> List[EnrollmentItem]:
     return [cast(EnrollmentItem, x) for x in await DbEnrollment.find_multiple(filter)]
 
 
-async def get_enrollment(id: str, options: dict = {}) -> Enrollment:
+async def get_enrollment_bjk(id: str, options: dict = {}) -> Enrollment:
     """
     get enrollments
     """
     filter = options.copy()
     filter["_model"] = filter.pop("_model", Enrollment)
     filter["id"] = id
-    return cast(Enrollment, await DbEnrollment.find_single(filter))
+    filter["event"] = "bjk2024"
+    enr = cast(Enrollment, await DbEnrollment.find_single(filter))
+    enr.badgeimage = None
+    return enr
 
 
-async def update_enrollment(id, eu: EnrollmentUpdate, options: dict = {}) -> Enrollment:
+async def get_enrollment_vk(id: str, options: dict = {}) -> Enrollment:
     """
-    update a member
+    get enrollments
+    """
+    filter = options.copy()
+    filter["_model"] = filter.pop("_model", Enrollment)
+    filter["id"] = id
+    filter["event"] = "VK2024"
+    enr = cast(Enrollment, await DbEnrollment.find_single(filter))
+    enr.badgeimage = None
+    return enr
+
+
+async def update_enrollment(
+    id: str, eu: EnrollmentUpdate, options: dict = {}
+) -> Enrollment:
+    """
+    update an enrollment
     """
     filter = options.copy()
     filter["_model"] = filter.pop("_model", Enrollment)
@@ -94,6 +113,7 @@ async def update_enrollment(id, eu: EnrollmentUpdate, options: dict = {}) -> Enr
         Enrollment,
         await DbEnrollment.update(id, eudict, filter),
     )
+    mo.badgeimage = None
     return mo
 
 
@@ -105,6 +125,16 @@ async def get_enrollments_vk(options: dict = {}) -> List[EnrollmentItem]:
     filter["_model"] = filter.pop("_model", EnrollmentItem)
     filter["event"] = "VK2024"
     return [cast(EnrollmentItem, x) for x in await DbEnrollment.find_multiple(filter)]
+
+
+async def get_enrollment_vk(id: str, options: dict = {}) -> Enrollment:
+    filter = options.copy()
+    filter["_model"] = filter.pop("_model", Enrollment)
+    filter["id"] = id
+    enr = cast(Enrollment, await DbEnrollment.find_single(filter))
+    enr.badgeimage = None
+    logger.info(f"emf {enr}")
+    return enr
 
 
 async def create_enrollment_vk(ei: EnrollmentVkIn) -> str:
@@ -363,3 +393,35 @@ def sendemail_enrollment_bjk(enr: Enrollment) -> None:
     else:
         edict["natstatus"] = 2
     sendemail_no_attachments(mp, edict, "confirmation enrollment")
+
+
+def sendemail_confirmationreq_vk(enr: Enrollment) -> None:
+    settings = get_settings()
+    emails = [enr.emailplayer]
+    mp = MailParams(
+        subject="VK 2024",
+        sender=settings.EMAIL["sender"],
+        receiver=",".join(emails),
+        template="mailenrollment_vk_{locale}.md",
+        locale=enr.locale,
+        attachments=[],
+        bcc=settings.EMAIL["bcc_enrollment"],
+    )
+    edict = enr.model_dump()
+    edict["category"] = edict["category"].value
+    sendemail_no_attachments(mp, edict, "confirmation enrollment")
+
+
+async def send_notconfirmed_vk() -> None:
+    """
+    get a list of all enrollments of an event that are not confirmed
+    and sends a requestConfirmation email to them
+    """
+    for enr in await get_enrollments_vk(
+        {
+            "confirmed": {"$eq": None},
+            "enabled": True,
+            "confirmation_email": {"$eq": None},
+        }
+    ):
+        pass
