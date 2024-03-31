@@ -120,6 +120,18 @@ async def api_create_enrollment_bjk(enr: EnrollmentIn):
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
+@router.put("/bjk/{id}", response_model=Enrollment)
+async def api_update_enrollment_vk(id: str, enr: EnrollmentUpdate):
+    try:
+        id = await update_enrollment(id, enr)
+        return id
+    except RdException as e:
+        raise HTTPException(status_code=e.status_code, detail=e.description)
+    except:
+        logger.exception("failed api call create_enrollment_bjkk")
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+
+
 # other
 
 

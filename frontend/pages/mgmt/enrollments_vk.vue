@@ -29,12 +29,13 @@ const headers = [
   { title: 'Category', value: 'category' },
   { title: 'ID Bel', value: 'idbel' },
   { title: 'ID Fide', value: 'idfide' },
-  { title: 'Enabled', value: 'enabled' },
   { title: 'Comfirmed', value: 'confirmed' },
   { title: 'Actions', value: 'action', sortable: false },
 ]
 const enrs = ref([])
+const enr = ref({})
 const search = ref("")
+const editdialog = ref(false)
 
 definePageMeta({
   layout: 'mgmt',
@@ -44,11 +45,17 @@ async function checkAuth() {
   console.log('checking if auth is already set', token.value)
   if (token.value) return
   if (person.value.credentials.length === 0) {
+    console.log('person credentals not set')
+    console.log('pushing to /mgmt')
     router.push('/mgmt')
+    console.log('pushing done')
     return
   }
   if (!person.value.email.endsWith('@bycco.be')) {
+    console.log('person credentals not ending with bycco.be')
+    console.log('pushing to /mgmt')
     router.push('/mgmt')
+    console.log('pushing done')
     return
   }
   let reply
@@ -64,18 +71,44 @@ async function checkAuth() {
   }
   catch (error) {
     console.log('cannot login', error)
+    console.log('pushing to /mgmt')
     router.push('/mgmt')
+    console.log('pushing done')
     return
   }
   finally {
     showLoading(false)
   }
-  console.log('mgmttoken received', reply.data)
   mgmtstore.updateToken(reply.data)
 }
 
-function editEnrollment(item) {
-  router.push('/mgmt/enrollment_vk_edit/?id=' + item.id)
+async function editEnrollment(item) {
+  await getEnrollment(item.id)
+  editdialog.value = true
+}
+
+async function getEnrollment(id) {
+  let reply
+  showLoading(true)
+  try {
+    reply = await $backend('enrollment', "mgmt_get_enrollment_vk", {
+      id: id,
+      token: token.value
+    })
+    enr.value = reply.data
+  }
+  catch (error) {
+    console.error('getting enrollment failed', error)
+    if (error.code === 401) {
+      router.push('/mgmt')
+    }
+    else {
+      showSnackbar('Getting enrollment failed')
+    }
+  }
+  finally {
+    showLoading(false)
+  }
 }
 
 async function getEnrollments() {
@@ -98,6 +131,40 @@ async function getEnrollments() {
 
 async function refresh() {
   await getEnrollments()
+}
+
+async function save() {
+  showLoading(true)
+  try {
+    await $backend("enrollment", "mgmt_update_enrollment_vk", {
+      id: enr.value.id,
+      enr: {
+        enabled: enr.value.enabled
+      },
+      token: token.value
+    })
+    editdialog.value = false
+    enrs.value.forEach((e) => {
+      if (e.id == enr.value.id) {
+        e.enabled = enr.value.enabled
+      }
+    })
+  }
+  catch (error) {
+    console.error('update enrollment', error)
+    if (error.code === 401) {
+      showSnackbar('Credentials expired, you need to login again')
+      router.push('/mgmt')
+    }
+    else {
+      showSnackbar('Saving enrollment failed: ' + error.detail)
+    }
+    return
+  }
+  finally {
+    showLoading(false)
+  }
+  showSnackbar('Enrollment saved')
 }
 
 onMounted(async () => {
@@ -134,6 +201,21 @@ onMounted(async () => {
           </v-card-title>
         </v-card>
       </template>
+      <template v-slot:item.last_name="{ item }">
+        <span :class="{ disabled: !item.enabled }">
+          {{ item.last_name }}
+        </span>
+      </template>
+      <template v-slot:item.first_name="{ item }">
+        <span :class="{ disabled: !item.enabled }">
+          {{ item.first_name }}
+        </span>
+      </template>
+      <template v-slot:item.category="{ item }">
+        <span :class="{ disabled: !item.enabled }">
+          {{ item.category }}
+        </span>
+      </template>
       <template #item.action="{ item }">
         <v-tooltip location="bottom">
           Edit
@@ -148,5 +230,36 @@ onMounted(async () => {
         No enrollments found.
       </template>
     </v-data-table>
+    <VDialog v-model="editdialog" width="20em">
+      <VCard>
+        <VCardTitle>
+          {{ $t('Edit') }}: {{ enr.last_name }} {{ enr.first_name }}
+          <VDivider />
+        </VCardTitle>
+        <VCardText>
+          <v-switch v-model="enr.enabled" label="Enabled" color="deep-purple" />
+          Last name: <b>{{ enr.last_name }}</b><br />
+          First name: <b>{{ enr.first_name }}</b><br />
+          Confirmed: <b>{{ enr.confirmed }}</b><br />
+          Confirmation email: <b>{{ enr.confirmation_email }}</b>
+          Category: <b>{{ enr.category }}</b><br />
+          ID BEL: <b>{{ enr.idbel }}</b><br />
+          ID FIDE: <b>{{ enr.idfide }}</b><br />
+          Chess title <b>{{ enr.chesstitle }}</b><br />
+          Nationality FIDE: <b>{{ enr.nationalityfide }}</b>
+        </VCardText>
+        <VCardActions>
+          <VSpacer />
+          <VBtn @click="save">Save</VBtn>
+          <VBtn @click="editdialog = false">Cancel</VBtn>
+        </VCardActions>
+      </VCard>
+    </VDialog>
   </v-container>
 </template>
+
+<style scoped>
+.disabled {
+  color: rgb(186, 185, 185);
+}
+</style>

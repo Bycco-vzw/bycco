@@ -62,7 +62,6 @@ async def get_enrollments_vk(options: dict = {}) -> List[EnrollmentItem]:
     filter = options.copy()
     filter["_model"] = filter.pop("_model", EnrollmentItem)
     filter["event"] = "VK2024"
-    logger.info(f"g_e_vk {filter}")
     return [cast(EnrollmentItem, x) for x in await DbEnrollment.find_multiple(filter)]
 
 
@@ -74,10 +73,12 @@ async def get_enrollment_bjk(id: str, options: dict = {}) -> Enrollment:
     filter["_model"] = filter.pop("_model", Enrollment)
     filter["id"] = id
     filter["event"] = "bjk2024"
-    return cast(Enrollment, await DbEnrollment.find_single(filter))
+    enr = cast(Enrollment, await DbEnrollment.find_single(filter))
+    enr.badgeimage = None
+    return enr
 
 
-async def get_enrollment_vkk(id: str, options: dict = {}) -> Enrollment:
+async def get_enrollment_vk(id: str, options: dict = {}) -> Enrollment:
     """
     get enrollments
     """
@@ -85,7 +86,9 @@ async def get_enrollment_vkk(id: str, options: dict = {}) -> Enrollment:
     filter["_model"] = filter.pop("_model", Enrollment)
     filter["id"] = id
     filter["event"] = "VK2024"
-    return cast(Enrollment, await DbEnrollment.find_single(filter))
+    enr = cast(Enrollment, await DbEnrollment.find_single(filter))
+    enr.badgeimage = None
+    return enr
 
 
 async def update_enrollment(
@@ -110,6 +113,7 @@ async def update_enrollment(
         Enrollment,
         await DbEnrollment.update(id, eudict, filter),
     )
+    mo.badgeimage = None
     return mo
 
 
@@ -123,11 +127,14 @@ async def get_enrollments_vk(options: dict = {}) -> List[EnrollmentItem]:
     return [cast(EnrollmentItem, x) for x in await DbEnrollment.find_multiple(filter)]
 
 
-async def get_enrollment_vk(id: str, options: dict = {}) -> EnrollmentVkOut:
+async def get_enrollment_vk(id: str, options: dict = {}) -> Enrollment:
     filter = options.copy()
-    filter["_model"] = filter.pop("_model", EnrollmentVkOut)
+    filter["_model"] = filter.pop("_model", Enrollment)
     filter["id"] = id
-    return cast(EnrollmentVkOut, await DbEnrollment.find_single(filter))
+    enr = cast(Enrollment, await DbEnrollment.find_single(filter))
+    enr.badgeimage = None
+    logger.info(f"emf {enr}")
+    return enr
 
 
 async def create_enrollment_vk(ei: EnrollmentVkIn) -> str:

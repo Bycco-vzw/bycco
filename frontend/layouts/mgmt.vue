@@ -1,12 +1,13 @@
 <script setup>
-import { ref } from "vue";
+import { ref } from "vue"
 
+const router = useRouter()
 const drawer = ref(false);
 
 async function goto(section) {
   const url = `/mgmt/${section}`
   console.log('going to', url)
-  navigateTo(url)
+  router.push(url)
 }
 </script>
 

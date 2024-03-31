@@ -280,7 +280,7 @@ class Enrollment(BaseModel):
     confirmed: bool | None = None
     custom: str | None = None
     emailplayer: str | None = None
-    enabled: bool | None = None
+    enabled: bool | None = True
     event: str | None = None
     federation: str | None = None
     first_name: str | None = None
