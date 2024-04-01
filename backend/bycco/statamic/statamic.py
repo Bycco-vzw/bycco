@@ -29,7 +29,7 @@ async def get_file(fr: ReadRequest) -> str:
     return content
 
 
-async def put_file(name: str, content: Any) -> None:
+async def put_file(name: str, content: Any, mode="w") -> None:
     """
     put a page to statamic
     """
@@ -40,8 +40,22 @@ async def put_file(name: str, content: Any) -> None:
         password=st_settings["ssh-password"],
     ) as conn:
         async with conn.start_sftp_client() as sftp:
-            async with sftp.open(name, "w") as fd:
+            async with sftp.open(name, mode) as fd:
                 await fd.write(content)
+
+
+async def list_files(name: str) -> list:
+    """
+    git a list of files statamic
+    """
+    st_settings = get_secret("statamic")
+    async with asyncssh.connect(
+        st_settings["ssh-host"],
+        username=st_settings["ssh-user"],
+        password=st_settings["ssh-password"],
+    ) as conn:
+        async with conn.start_sftp_client() as sftp:
+            return await sftp.scandir(name)
 
 
 async def empty_dir(path: str) -> None:
