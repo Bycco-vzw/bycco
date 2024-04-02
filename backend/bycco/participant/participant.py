@@ -69,11 +69,7 @@ async def import_participant_vk(idenr) -> str:
     """
     enr = cast(Enrollment, await get_enrollment_vk(idenr))
     # solving transitional issue with chesstitle
-    if enr.idfide and enr.ratingfide and enr.ratingfide > 2100:
-        idreply = await lookup_idfide(enr.idfide)
-        chesstitle = idreply.chesstitle
-    else:
-        chesstitle = enr.chesstitle or ""
+    chesstitle = enr.chesstitle or ""
     return await DbParticpantVK.add(
         {
             "badgeimage": enr.badgeimage,
@@ -110,15 +106,17 @@ async def import_participants_vk():
     idbels = {}
     idfides = {}
     for enr in enrs:
-        if enr.idbel and enr.idbel in idbels:
+        if enr.idbel and enr.idbel != "0" and enr.idbel in idbels:
             # we have a double detected via idbel
             if enr.registrationtime > idbels[enr.idbel].registrationtime:
                 idbels[enr.idbel] = enr
-        elif enr.idfide and enr.idfide in idfides:
+        elif enr.idfide and enr.idfide != "0" and enr.idfide in idfides:
             # we have a double detected via idfide
             if enr.registrationtime > idfides[enr.idfide].registrationtime:
                 idfides[enr.idfide] = enr
         else:
+            if enr.idbel == "27212":
+                logger.info(f"player 27212 is new")
             if enr.idbel:
                 idbels[enr.idbel] = enr
             if enr.idfide:
@@ -129,6 +127,8 @@ async def import_participants_vk():
             par = await get_participant_vk_by_idbel(idbel)
         except RdNotFound:
             par = None
+        if enr.idbel == "27212":
+            logger.info(f"par {par}")
         if par is None:
             await import_participant_vk(enr.id)
     # now process the participants with the idfides but without idbel
