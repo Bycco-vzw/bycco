@@ -87,6 +87,8 @@ onMounted(() => {
     <ul>
       <li>Managing the <NuxtLink to="/mgmt/reservations">Reservations</NuxtLink>
       </li>
+      <li>Managing the <NuxtLink to="/mgmt/pages">Pages</NuxtLink>
+      </li>
       <li>Managing the <NuxtLink to="/mgmt/paymentrequests">Payment Requests</NuxtLink>
       </li>
       <li>Managing the <NuxtLink to="/mgmt/enrollments_vk">Enrollments VK2024</NuxtLink>

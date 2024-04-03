@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 from . import ReadRequest
 
 
-async def get_file(fr: ReadRequest) -> str:
+async def get_file(fr: ReadRequest) -> str | bytes:
     """
     get a file from statamic
     """
@@ -24,7 +24,7 @@ async def get_file(fr: ReadRequest) -> str:
     ) as conn:
         async with conn.start_sftp_client() as sftp:
             mode = "rb" if fr.binary else "r"
-            async with sftp.open(fr.name, mode=mode) as fd:
+            async with sftp.open(fr.name, mode) as fd:
                 content = await fd.read()
     return content
 
@@ -55,7 +55,7 @@ async def list_files(name: str) -> list:
         password=st_settings["ssh-password"],
     ) as conn:
         async with conn.start_sftp_client() as sftp:
-            return await sftp.scandir(name)
+            return await sftp.readdir(name)
 
 
 async def empty_dir(path: str) -> None:
