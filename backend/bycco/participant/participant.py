@@ -115,8 +115,6 @@ async def import_participants_vk():
             if enr.registrationtime > idfides[enr.idfide].registrationtime:
                 idfides[enr.idfide] = enr
         else:
-            if enr.idbel == "27212":
-                logger.info(f"player 27212 is new")
             if enr.idbel:
                 idbels[enr.idbel] = enr
             if enr.idfide:
@@ -127,8 +125,6 @@ async def import_participants_vk():
             par = await get_participant_vk_by_idbel(idbel)
         except RdNotFound:
             par = None
-        if enr.idbel == "27212":
-            logger.info(f"par {par}")
         if par is None:
             await import_participant_vk(enr.id)
     # now process the participants with the idfides but without idbel

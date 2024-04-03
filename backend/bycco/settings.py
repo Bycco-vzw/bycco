@@ -89,7 +89,12 @@ SECRETS = {
         "name": "bycco-gmail",
         "manager": "googlejson",
     },
+    "statamic": {
+        "name": "statamic-server",
+        "manager": "googlejson",
+    },
 }
+
 SECRETS_PATH = Path(os.environ.get("SECRETS_PATH", ""))
 
 SHARED_PATH = Path(os.environ.get("SHARED_PATH", "../share"))

@@ -17,6 +17,7 @@ async function goto(section) {
       <VToolbar title="BYCCO Mgmt" color="deep-purple darken-3" dark />
       <VList>
         <VListItem @click="goto('overview')" title="Overview" />
+        <VListItem @click="goto('pages')" title="Pages" />
         <VListItem @click="goto('reservations')" title="Reservations" />
         <VListItem @click="goto('paymentrequests')" title="Payment Requests" />
         <VListItem @click="goto('enrollments_vk')" title="Enrollments VK2024" />

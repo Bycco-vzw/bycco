@@ -19,4 +19,8 @@ SECRETS = {
         "name": "bycco-gmail-prod",
         "manager": "filejson",
     },
+    "statamic": {
+        "name": "statamic-server",
+        "manager": "filejson",        
+    }
 }
