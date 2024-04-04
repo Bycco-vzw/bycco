@@ -5,7 +5,7 @@ import logging
 from typing import cast, Dict, Any, List
 from datetime import date
 from reddevil.core import get_settings
-from reddevil.mail import sendEmailNoAttachments, MailParams
+from bycco.core.mail import MailParams, sendemail_no_attachments
 
 from . import PaymentRequest, PaymentRequestItem, DbPayrequest
 from bycco.core.counter import DbCounter
@@ -296,7 +296,7 @@ async def email_pr_lodging(prqid) -> None:
         attachments=[],
         bcc=settings.EMAIL["bcc_reservation"],
     )
-    sendEmailNoAttachments(mp, prq.model_dump(), "payment request lodging")
+    sendemail_no_attachments(mp, prq.model_dump(), "payment request lodging")
     await update_payment_request(
         prqid, PaymentRequest(sentdate=date.today().isoformat())
     )
@@ -417,7 +417,7 @@ async def email_pr_participant_vk(prqid) -> None:
         attachments=[],
         bcc=settings.EMAIL["bcc_enrollment"],
     )
-    sendEmailNoAttachments(mp, prq.model_dump(), "paymentrq participant vk")
+    sendemail_no_attachments(mp, prq.model_dump(), "paymentrq participant vk")
     await update_payment_request(
         prqid, PaymentRequest(sentdate=date.today().isoformat())
     )
@@ -527,7 +527,7 @@ async def email_pr_participant_bjk(prqid) -> None:
         attachments=[],
         bcc=settings.EMAIL["bcc_enrollment"],
     )
-    sendEmailNoAttachments(mp, prq.model_dump(), "paymentrq participant bjk")
+    sendemail_no_attachments(mp, prq.model_dump(), "paymentrq participant bjk")
     await update_payment_request(
         prqid, PaymentRequest(sentdate=date.today().isoformat())
     )
