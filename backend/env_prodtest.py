@@ -22,4 +22,8 @@ SECRETS = {
         "name": "statamic-server",
         "manager": "filejson",
     },
+    "known-hosts": {
+        "name": "known-hosts",
+        "manager": "filejson",
+    },
 }

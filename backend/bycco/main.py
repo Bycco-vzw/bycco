@@ -47,14 +47,31 @@ app.add_middleware(
 
 
 # import api endpoints
+logger.info("loading api_account")
 from reddevil.account import api_account
+
+logger.info("loading api_filestore")
 from reddevil.filestore import api_filestore
+
+logger.info("loading api_lodging")
 from bycco.lodging import api_lodging
+
+logger.info("loading api_enrollment")
 from bycco.enrollment import api_enrollment
+
+logger.info("loading api_room")
 from bycco.room import api_room
+
+logger.info("loading api_participant")
 from bycco.participant import api_participant
+
+logger.info("loading api_paymentrequest")
 from bycco.paymentrequest import api_paymentrequest
+
+logger.info("loading api_statamic")
 from bycco.statamic import api_statamic
+
+logger.info("loading api_page")
 from bycco.page import api_page
 
 

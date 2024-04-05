@@ -93,6 +93,10 @@ SECRETS = {
         "name": "statamic-server",
         "manager": "googlejson",
     },
+    "known-hosts": {
+        "name": "known-hosts",
+        "manager": "googlejson",
+    },
 }
 
 SECRETS_PATH = Path(os.environ.get("SECRETS_PATH", ""))

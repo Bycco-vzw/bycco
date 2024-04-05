@@ -17,10 +17,12 @@ async def get_file(fr: ReadRequest) -> str | bytes:
     get a file from statamic
     """
     st_settings = get_secret("statamic")
+    kh = get_secret("known-hosts")["kh"][0].encode("ascii")
     async with asyncssh.connect(
         st_settings["ssh-host"],
         username=st_settings["ssh-user"],
         password=st_settings["ssh-password"],
+        known_hosts=kh,
     ) as conn:
         async with conn.start_sftp_client() as sftp:
             mode = "rb" if fr.binary else "r"
@@ -34,10 +36,12 @@ async def put_file(name: str, content: Any, mode="w") -> None:
     put a page to statamic
     """
     st_settings = get_secret("statamic")
+    kh = get_secret("known-hosts")["kh"][0].encode("ascii")
     async with asyncssh.connect(
         st_settings["ssh-host"],
         username=st_settings["ssh-user"],
         password=st_settings["ssh-password"],
+        known_hosts=kh,
     ) as conn:
         async with conn.start_sftp_client() as sftp:
             async with sftp.open(name, mode) as fd:
@@ -49,10 +53,12 @@ async def list_files(name: str) -> list:
     git a list of files statamic
     """
     st_settings = get_secret("statamic")
+    kh = get_secret("known-hosts")["kh"][0].encode("ascii")
     async with asyncssh.connect(
         st_settings["ssh-host"],
         username=st_settings["ssh-user"],
         password=st_settings["ssh-password"],
+        known_hosts=kh,
     ) as conn:
         async with conn.start_sftp_client() as sftp:
             return await sftp.readdir(name)
@@ -64,10 +70,12 @@ async def empty_dir(path: str) -> None:
     """
     mypath = f"{path}*" if path.endswith("/") else f"{path}/*"
     st_settings = get_secret("statamic")
+    logger.info(f"kh: {kh}")
     async with asyncssh.connect(
         st_settings["ssh-host"],
         username=st_settings["ssh-user"],
         password=st_settings["ssh-password"],
+        known_hosts=kh,
     ) as conn:
         result = await conn.run(f"rm {mypath}")
         logger.info(f"empty dir: {result} ")
