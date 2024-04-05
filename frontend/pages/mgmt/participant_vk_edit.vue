@@ -155,8 +155,10 @@ async function saveParticipant() {
   showLoading(true)
   try {
     await $backend("participant", "mgmt_update_participant_vk", {
-      id: idreservation,
-      participant: {},
+      id: idparticipant,
+      participant: {
+        category: par.value.category,
+      },
       token: mgmttoken.value
     })
   }

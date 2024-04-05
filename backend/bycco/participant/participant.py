@@ -140,7 +140,7 @@ async def import_participants_vk():
             await import_participant_vk(enr.id)
 
 
-async def update_participate_vk(
+async def update_participant_vk(
     id: str, par: ParticipantVK, options: dict = {}
 ) -> ParticipantVK:
     opt = options.copy()
@@ -234,7 +234,7 @@ async def import_participants_bjk():
             await import_participant_bjk(enr.id)
 
 
-async def update_participate_bjk(
+async def update_participant_bjk(
     id: str, par: ParticipantBJK, options: dict = {}
 ) -> ParticipantBJK:
     opt = options.copy()

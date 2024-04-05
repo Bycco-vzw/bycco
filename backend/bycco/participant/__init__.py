@@ -23,6 +23,6 @@ from .participant import (
     import_participants_bjk,
     import_participant_vk,
     import_participants_vk,
-    update_participate_bjk,
-    update_participate_vk,
+    update_participant_bjk,
+    update_participant_vk,
 )

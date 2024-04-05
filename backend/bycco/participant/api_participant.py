@@ -14,6 +14,7 @@ router = APIRouter(prefix="/api/v1/participant")
 from . import (
     ParticipantBJKItem,
     ParticipantBJKDetail,
+    ParticipantVK,
     ParticipantVKItem,
     ParticipantVKDetail,
     get_participants_bjk,
@@ -22,6 +23,8 @@ from . import (
     get_participant_vk,
     import_participants_bjk,
     import_participants_vk,
+    update_participant_vk,
+    update_participant_bjk,
 )
 
 logger = logging.getLogger(__name__)
@@ -47,6 +50,22 @@ async def api_mgmt_get_participants_vk(
     try:
         await validate_token(auth)
         return await get_participant_vk(id)
+    except RdException as e:
+        raise HTTPException(status_code=e.status_code, detail=e.description)
+    except:
+        logger.exception("failed api call get_particpant_vk")
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+
+
+@router.put("/vk/{id}", status_code=201)
+async def api_mgmt_update_participants_vk(
+    id: str,
+    participant: ParticipantVK,
+    auth: HTTPAuthorizationCredentials = Depends(bearer_schema),
+):
+    try:
+        await validate_token(auth)
+        await update_participant_vk(id, participant)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except:
