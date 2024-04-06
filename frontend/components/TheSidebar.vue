@@ -32,8 +32,10 @@ function setLocale(l) {
         </template>
         <v-list-item to="/vk2024" title="Info" />
         <v-list-item to="/gameschedule" :title="t('Game schedule')" />
-        <v-list-item to="/enrollmenttool" :title="t('Enrollment')" />
-        <v-list-item to="/participants_vk" :title="t('Participants')" />
+        <v-list-item to="/trn_expert" :title="t('Experts')" />
+        <v-list-item to="/trn_open" title="Open" />
+        <v-list-item to="/trn_senior" :title="t('Seniors')" />
+
       </v-list-group>
       <v-list-group no-action>
 
