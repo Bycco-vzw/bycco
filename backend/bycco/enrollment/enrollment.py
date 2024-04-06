@@ -288,7 +288,6 @@ async def lookup_idfide(idfide: str) -> IdReply:
         raise RdBadRequest(description="DecodingErrorKBSB")
     except TransportError:
         raise RdBadRequest(description="TransportErrorKBSB")
-    logger.info(f"using idbel {idbel}")
     url = api_lookupfide.format(id=idfide)
     try:
         async with AsyncClient() as client:

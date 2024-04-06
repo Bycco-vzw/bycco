@@ -6,6 +6,7 @@ import logging, logging.config
 from fastapi import FastAPI
 from fastapi.routing import APIRoute
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from contextlib import asynccontextmanager
 from dotenv import load_dotenv
 from reddevil.core import register_app, get_settings, connect_mongodb, close_mongodb
@@ -85,8 +86,11 @@ app.include_router(api_paymentrequest.router)
 app.include_router(api_statamic.router)
 app.include_router(api_page.router)
 
-
 logger.info(f"Api layer loaded")
+
+# static files
+app.mount("/css", StaticFiles(directory="css"), name="css")
+app.mount("/img", StaticFiles(directory="img"), name="img")
 
 # fetch the common
 
