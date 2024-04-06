@@ -16,8 +16,8 @@ from bycco.participant import (
     get_participant_vk,
     get_participants_bjk,
     get_participants_vk,
-    update_participate_bjk,
-    update_participate_vk,
+    update_participant_bjk,
+    update_participant_vk,
     ParticipantBJKDetail,
     ParticipantVKDetail,
     ParticipantBJK,
@@ -329,7 +329,7 @@ async def create_pr_participants_vk() -> str:
         pr["number"] = await DbCounter.next("paymentrequest")
         pr["paymessage"] = getPaymessage(20240000 + pr["number"])
         id = await create_payment_request(pr)
-        await update_participate_vk(par.id, ParticipantVK(payment_id=id))
+        await update_participant_vk(par.id, ParticipantVK(payment_id=id))
 
 
 async def create_pr_participant_vk(parid: str) -> str:
@@ -350,7 +350,7 @@ async def create_pr_participant_vk(parid: str) -> str:
     pr["number"] = await DbCounter.next("paymentrequest")
     pr["paymessage"] = getPaymessage(20240000 + pr["number"])
     id = await create_payment_request(pr)
-    await update_participate_vk(parid, ParticipantVK(payment_id=id))
+    await update_participant_vk(parid, ParticipantVK(payment_id=id))
     return id
 
 
@@ -383,7 +383,7 @@ async def delete_pr_participant_vk(parid: str) -> None:
     par = await get_participant_vk(parid)
     payment_id = par.payment_id
     assert payment_id
-    await update_participate_vk(parid, ParticipantVK(payment_id=None))
+    await update_participant_vk(parid, ParticipantVK(payment_id=None))
     try:
         await delete_payment_request(payment_id)
     except:
@@ -450,7 +450,7 @@ async def create_pr_participants_bjk() -> str:
         pr["number"] = await DbCounter.next("paymentrequest")
         pr["paymessage"] = getPaymessage(20240000 + pr["number"])
         id = await create_payment_request(pr)
-        await update_participate_bjk(par.id, ParticipantVK(payment_id=id))
+        await update_participant_bjk(par.id, ParticipantVK(payment_id=id))
 
 
 async def create_pr_participant_bjk(parid: str) -> str:
@@ -469,7 +469,7 @@ async def create_pr_participant_bjk(parid: str) -> str:
     pr["number"] = await DbCounter.next("paymentrequest")
     pr["paymessage"] = getPaymessage(20240000 + pr["number"])
     id = await create_payment_request(pr)
-    await update_participate_bjk(parid, ParticipantVK(payment_id=id))
+    await update_participant_bjk(parid, ParticipantVK(payment_id=id))
     return id
 
 
@@ -495,7 +495,7 @@ async def delete_pr_participant_bjk(parid: str) -> None:
     par = await get_participant_bjk(parid)
     payment_id = par.payment_id
     assert payment_id
-    await update_participate_bjk(parid, ParticipantVK(payment_id=None))
+    await update_participant_bjk(parid, ParticipantVK(payment_id=None))
     try:
         await delete_payment_request(payment_id)
     except:

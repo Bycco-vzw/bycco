@@ -29,6 +29,7 @@ from bycco.enrollment import (
     get_enrollment_vk,
     get_enrollments_bjk,
     get_enrollments_vk,
+    lookup_idbel,
     lookup_idfide,
 )
 
@@ -140,7 +141,7 @@ async def import_participants_vk():
             await import_participant_vk(enr.id)
 
 
-async def update_participate_vk(
+async def update_participant_vk(
     id: str, par: ParticipantVK, options: dict = {}
 ) -> ParticipantVK:
     opt = options.copy()
@@ -149,6 +150,29 @@ async def update_participate_vk(
         ParticipantVK,
         await DbParticpantVK.update(id, par.model_dump(exclude_unset=True), opt),
     )
+
+
+async def update_elo_vk() -> None:
+    """
+    update the elo of all participants
+    """
+    prts = await get_participants_vk()
+    for pr in prts:
+        upd = ParticipantVK()
+        if pr.idbel:
+            try:
+                pl = await lookup_idbel(pr.idbel)
+                upd.ratingbel = pl.ratingbel
+            except Exception as e:
+                logger.info(f"lookup idbel failed {e}")
+        if pr.idfide:
+            try:
+                pl = await lookup_idfide(pr.idfide)
+                upd.ratingfide = pl.ratingfide
+            except Exception as e:
+                logger.info(f"lookup idfide failed {e}")
+        if upd:
+            await update_participant_vk(pr.id, upd)
 
 
 # bjk
@@ -234,7 +258,7 @@ async def import_participants_bjk():
             await import_participant_bjk(enr.id)
 
 
-async def update_participate_bjk(
+async def update_participant_bjk(
     id: str, par: ParticipantBJK, options: dict = {}
 ) -> ParticipantBJK:
     opt = options.copy()
@@ -319,7 +343,7 @@ async def generate_namecards_vk(cat: str):
             "natrating": p.ratingbel or 0,
             "fiderating": p.ratingfide or 0,
             "category": p.category.value,
-            "locale": p.locale,
+            "nationalityfide": p.nationalityfide,
             # 'photourl': '/photo/{0}'.format(p.id),
             "positionclass": "card_1{0}".format(rix),
             "ix": ix,
@@ -332,7 +356,7 @@ async def generate_namecards_vk(cat: str):
             cards = []
     if j > 0:
         pages.append(cards)
-    tmpl = env.get_template("printnamecard.j2")
+    tmpl = env.get_template("printnamecard_vk.j2")
     return tmpl.render({"pages": pages})
 
 

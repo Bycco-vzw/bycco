@@ -22,6 +22,14 @@ export default {
       }
     })
   },
+  mgmt_update_participant_vk: async function (options) {
+    const { id, participant, token } = options
+    return await axios.put(`${prefix}/vk/${id}`, participant, {
+      headers: {
+        Authorization: "Bearer " + token,
+      }
+    })
+  },
   get_participants_bjk: async function () {
     return await axios.get(`${prefix}/bjk`)
   },
