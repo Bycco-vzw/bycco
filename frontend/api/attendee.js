@@ -3,7 +3,7 @@ import axios from 'axios'
 const prefix = '/api/v1/attendee'
 
 export default {
-  mgmt_add_attendees_vk: async function (options) {
+  mgmt_add_attendee_vk: async function (options) {
     const { attendee, token } = options
     return await axios.post(`${prefix}/vk`, attendee, {
       headers: {

@@ -35,22 +35,10 @@ class Attendee(BaseModel):
     The model used to make badge
     """
 
-    badgemimetype: str | None
-    badgeimage: bytes | None
-    badgelength: int | None
-    category: AttendeeCategory | None
-    chesstitle: str | None
-    first_name: str | None
-    gender: Gender | None
-    id: str | None
-    idbel: str
-    idfide: str | None
-    locale: str | None
-    last_name: str | None
-    meals: str | None
-    ratingbel: int | None
-    ratingfide: int | None
-    remarks: str | None
+    category: AttendeeCategory | None = None
+    first_name: str | None = None
+    id: str | None = None
+    last_name: str | None = None
 
 
 class AttendeeItem(BaseModel):
@@ -59,18 +47,9 @@ class AttendeeItem(BaseModel):
     """
 
     category: AttendeeCategory | None
-    chesstitle: str | None
     first_name: str | None
-    gender: Gender | None
     id: str | None
-    idbel: str
-    idfide: str | None
-    locale: str | None
     last_name: str | None
-    meals: str | None
-    ratingbel: int | None
-    ratingfide: int | None
-    remarks: str | None
 
 
 class AttendeeUpdate(BaseModel):

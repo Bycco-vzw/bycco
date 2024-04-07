@@ -1,5 +1,6 @@
 import axios from 'axios'
 import accounts from '@/api/accounts'
+import attendee from '@/api/attendee'
 import filestore from '@/api/filestore'
 import lodging from '@/api/lodging'
 import enrollment from '@/api/enrollment'
@@ -59,6 +60,7 @@ axios.interceptors.response.use(
 
 const factories = {
   accounts,
+  attendee,
   enrollment,
   filestore,
   lodging,

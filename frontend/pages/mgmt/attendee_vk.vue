@@ -19,7 +19,7 @@ let showLoading
 // stores
 const mgmtstore = useMgmtTokenStore()
 const { token } = storeToRefs(mgmtstore)
-const pwzersonstore = usePersonStore();
+const personstore = usePersonStore();
 const { person } = storeToRefs(personstore)
 
 // datamodel
@@ -32,6 +32,8 @@ const headers = [
   { title: 'Category', value: 'category', sortable: true },
   { title: 'Actions', value: 'action' },
 ]
+const add_dialog = ref(false)
+const edit_dialog = ref(false)
 
 definePageMeta({
   layout: 'mgmt',
@@ -71,39 +73,23 @@ async function checkAuth() {
   mgmtstore.updateToken(reply.data)
 }
 
-
-async function create_att() {
-  let reply
-  showLoading(true)
-  try {
-    reply = await $backend("attendee", "mgmt_create_attendee_vk", {
-      token: token.value,
-      attendee: att.value
-    })
-  }
-  catch (error) {
-    console.error('creating all pr failed', error)
-    if (error.code === 401) {
-      router.push('/mgmt')
-    } else {
-      showSnackbar('Creating paymentrequests failed: ' + error.detail)
-    }
-    return
-  }
-  finally {
-    showLoading(false)
-  }
-  await getParticipants()
+function create_att() {
+  att.value = {}
+  add_dialog.value = true
 }
 
 function edit_att(item) {
+  att.value = { ...item }
+  edit_dialog.value = true
 }
 
 async function get_attendees() {
   let reply
   showLoading(true)
   try {
-    reply = await $backend('attendee', "get_attendees_vk")
+    reply = await $backend('attendee', "mgmt_get_attendees_vk", {
+      token: token.value
+    })
     attendees.value = reply.data
   }
   catch (error) {
@@ -120,6 +106,34 @@ async function get_attendees() {
 async function refresh() {
   await get_attendees()
 }
+
+
+async function save_new_att() {
+  let reply
+  showLoading(true)
+  try {
+    reply = await $backend("attendee", "mgmt_add_attendee_vk", {
+      token: token.value,
+      attendee: att.value
+    })
+  }
+  catch (error) {
+    console.error('save new failed', error)
+    if (error.code === 401) {
+      router.push('/mgmt')
+    } else {
+      showSnackbar('save new failed: ' + error.detail)
+    }
+    return
+  }
+  finally {
+    showLoading(false)
+  }
+  add_dialog.value = false
+  showSnackbar('save new OK')
+  await get_attendees()
+}
+
 
 onMounted(async () => {
   showSnackbar = refsnackbar.value.showSnackbar
@@ -182,7 +196,25 @@ onMounted(async () => {
         No attendees found.
       </template>
     </v-data-table>
-    <VDialog v-model="editdialog" width="30em">
+    <VDialog v-model="add_dialog" width="30em">
+      <VCard>
+        <VCardTitle>
+          New Attendee
+          <VDivider />
+        </VCardTitle>
+        <VCardText>
+          <v-text-field v-model="att.first_name" label="first name" />
+          <v-text-field v-model="att.last_name" label="last name" />
+          <v-select v-model="att.category" label="category" :items="['ARB', 'ORG', 'EAT']" />
+        </VCardText>
+        <VCardActions>
+          <VSpacer />
+          <VBtn @click="save_new_att">Save</VBtn>
+          <VBtn @click="editdialog = false">Cancel</VBtn>
+        </VCardActions>
+      </VCard>
+    </VDialog>
+    <VDialog v-model="edit_dialog" width="30em">
       <VCard>
         <VCardTitle>
           {{ $t('Edit') }}: {{ att.last_name }} {{ att.first_name }}
@@ -198,7 +230,7 @@ onMounted(async () => {
         </VCardText>
         <VCardActions>
           <VSpacer />
-          <VBtn @click="edit_save">Save</VBtn>
+          <VBtn @click="save_edit_att">Save</VBtn>
           <VBtn @click="editdialog = false">Cancel</VBtn>
         </VCardActions>
       </VCard>
