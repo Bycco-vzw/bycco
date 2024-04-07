@@ -6,6 +6,7 @@ import enrollment from '@/api/enrollment'
 import page from '@/api/page'
 import participant from '@/api/participant'
 import payment from '@/api/payment'
+import tournament from '@/api/tournament'
 
 axios.defaults.withCredentials = true
 
@@ -64,6 +65,7 @@ const factories = {
   page,
   participant,
   payment,
+  tournament,
 }
 
 export default defineNuxtPlugin((nuxtApp) => {

@@ -150,12 +150,9 @@ onMounted(() => {
     <p>We use a tool called Statamic</p>
     <p>In order to make changes to a page, you have the following steps</p>
     <ul>
-      <li>Copy the content of the operational website to Statamic.</li>
-      <v-btn variant="tonal" @click="checkin">copy</v-btn><br><br>
       <li>Open the Statamic tool (it opens in a separate browser tab/window)</li>
       <v-btn variant="tonal" @click="openPageCollection">open Statamic</v-btn><br><br>
       <li>Modify the pages in the statamic tool</li><br>
-      <li>Close the Statamic tab/window </li><br>
       <li>Copy the modified content in Statamic to the operational site</li>
       <v-btn variant="tonal" @click="checkout">copy</v-btn><br><br>
     </ul>
