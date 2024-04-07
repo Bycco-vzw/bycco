@@ -71,6 +71,9 @@ from bycco.participant import api_participant
 
 logger.info("loading api_paymentrequest")
 from bycco.paymentrequest import api_paymentrequest
+from bycco.statamic import api_statamic
+from bycco.page import api_page
+
 
 logger.info("loading api_statamic")
 from bycco.statamic import api_statamic
