@@ -167,26 +167,12 @@ async def api_generate_namecards(cat: str):
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-# @app.get("/api/v1/attendee/{id}/photo", response_class=Response)
-# async def api_get_photo(id: str):
-#     try:
-#         return await get_photo(id)
-#     except RdException as e:
-#         raise HTTPException(status_code=e.status_code, detail=e.description)
-#     except:
-#         log.exception("failed api call get_participant")
-#         raise HTTPException(status_code=500, detail="Internal Server Error")
-
-
-# @app.post("/api/v1/attendee/{id}/photo")
-# async def api_upload_photo(
-#     id: str,
-#     body: dict,
-# ):
-#     try:
-#         await upload_photo(id, body["photo"])
-#     except RdException as e:
-#         raise HTTPException(status_code=e.status_code, detail=e.description)
-#     except:
-#         log.exception("failed api call update_participant")
-#         raise HTTPException(status_code=500, detail="Internal Server Error")
+@router.get("/namecards_id/{ids}", response_class=HTMLResponse)
+async def api_generate_namecards(ids: str):
+    try:
+        return await generate_namecards_vk(cat="", ids=ids)
+    except RdException as e:
+        raise HTTPException(status_code=e.status_code, detail=e.description)
+    except:
+        logger.exception("failed api call generate_namecards")
+        raise HTTPException(status_code=500, detail="Internal Server Error")

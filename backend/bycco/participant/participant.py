@@ -322,13 +322,17 @@ env = Environment(loader=FileSystemLoader("bycco/templates"), trim_blocks=True)
 #     return tmpl.render({"pages": pages})
 
 
-async def generate_namecards_vk(cat: str):
+async def generate_namecards_vk(cat: str, ids: str):
     """
-    get the Namecards for the vl
+    get the Namecards for the vk by categorie or by ids
+    ids: comma separated ids
     """
     filter: Dict[str, Any] = {"enabled": True}
     logger.info(f"filter {filter}")
-    prts = await get_participants_vk({"category": cat})
+    if cat:
+        prts = await get_participants_vk({"category": cat})
+    else:
+        prts = await get_participants_vk({"idbel": {"$in": ids.split(",")}})
     logger.info(f"nr of participants {len(prts)}")
     pages = []
     cards = []
