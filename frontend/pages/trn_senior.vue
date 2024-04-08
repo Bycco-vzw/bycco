@@ -184,13 +184,13 @@ onMounted(() => {
     <v-window v-model="tab">
       <v-window-item>
         <v-data-table :items="trn.standings" :headers="sheaders" :items-per-page="50"
-          :hide-default-footer="true" mobile-breakpoint="0" />
+          :hide-default-footer="true" density="compact" mobile-breakpoint="0" />
       </v-window-item>
       <v-window-item>
         <div v-for="p in trn.sortpairings" :key="p.rnr" class="my-2">
           <h2>Ronde {{ p.rnr }}</h2>
           <v-data-table :items="p.games" :headers="gheaders" :items-per-page="50"
-            :hide-default-footer="true" mobile-breakpoint="0" />
+            :hide-default-footer="true" density="compact" mobile-breakpoint="0" />
         </div>
       </v-window-item>
     </v-window>
