@@ -87,7 +87,6 @@ async function editEnrollment(item) {
   editdialog.value = true
 }
 
-
 async function getEnrollment(id) {
   let reply
   showLoading(true)
@@ -111,7 +110,6 @@ async function getEnrollment(id) {
     showLoading(false)
   }
 }
-
 
 async function getEnrollments() {
   let reply
@@ -243,12 +241,13 @@ onMounted(async () => {
           Last name: <b>{{ enr.last_name }}</b><br />
           First name: <b>{{ enr.first_name }}</b><br />
           Confirmed: <b>{{ enr.confirmed }}</b><br />
-          Confirmation email: <b>{{ enr.confirmation_email }}</b><br />
           Category: <b>{{ enr.category }}</b><br />
           ID BEL: <b>{{ enr.idbel }}</b><br />
           ID FIDE: <b>{{ enr.idfide }}</b><br />
           Chess title <b>{{ enr.chesstitle }}</b><br />
-          Nationality FIDE: <b>{{ enr.nationalityfide }}</b>
+          Nationality FIDE: <b>{{ enr.nationalityfide }}</b><br />
+          Email: <b>{{ enr.emailplayer }}</b><br />
+          Mobile: <b>{{ enr.mobileplayer }}</b>
         </VCardText>
         <VCardActions>
           <VSpacer />

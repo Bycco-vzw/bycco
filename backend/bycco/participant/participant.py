@@ -240,8 +240,6 @@ async def import_participants_bjk():
     enrs = await get_enrollments_bjk({"confirmed": True})
     idbels = {}
     for enr in enrs:
-        if enr.first_name == "Kobe":
-            logger.info(f"enr {enr}")
         if enr.idbel in idbels:
             # we have a double detected via idbel
             if enr.registrationtime > idbels[enr.idbel].registrationtime:

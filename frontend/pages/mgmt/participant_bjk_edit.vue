@@ -72,7 +72,7 @@ async function create_pr() {
   let reply
   showLoading(true)
   try {
-    reply = await $backend("payment", "mgmt_create_participantbjk_pr", {
+    reply = await $backend("payment", "mgmt_create_participant_bjk_pr", {
       id: idparticipant,
       token: mgmttoken.value
     })
