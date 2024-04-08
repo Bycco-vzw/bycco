@@ -1,11 +1,13 @@
 import axios from 'axios'
 import accounts from '@/api/accounts'
+import attendee from '@/api/attendee'
 import filestore from '@/api/filestore'
 import lodging from '@/api/lodging'
 import enrollment from '@/api/enrollment'
 import page from '@/api/page'
 import participant from '@/api/participant'
 import payment from '@/api/payment'
+import tournament from '@/api/tournament'
 
 axios.defaults.withCredentials = true
 
@@ -58,12 +60,14 @@ axios.interceptors.response.use(
 
 const factories = {
   accounts,
+  attendee,
   enrollment,
   filestore,
   lodging,
   page,
   participant,
   payment,
+  tournament,
 }
 
 export default defineNuxtPlugin((nuxtApp) => {

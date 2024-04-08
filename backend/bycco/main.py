@@ -51,6 +51,9 @@ app.add_middleware(
 logger.info("loading api_account")
 from reddevil.account import api_account
 
+logger.info("loading api_attendee")
+from bycco.attendee import api_attendee
+
 logger.info("loading api_filestore")
 from reddevil.filestore import api_filestore
 
@@ -68,6 +71,9 @@ from bycco.participant import api_participant
 
 logger.info("loading api_paymentrequest")
 from bycco.paymentrequest import api_paymentrequest
+from bycco.statamic import api_statamic
+from bycco.page import api_page
+
 
 logger.info("loading api_statamic")
 from bycco.statamic import api_statamic
@@ -77,6 +83,7 @@ from bycco.page import api_page
 
 
 app.include_router(api_account.router)
+app.include_router(api_attendee.router)
 app.include_router(api_enrollment.router)
 app.include_router(api_filestore.router)
 app.include_router(api_lodging.router)

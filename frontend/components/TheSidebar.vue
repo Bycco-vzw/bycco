@@ -7,6 +7,9 @@ function setLocale(l) {
   locale.value = l
 }
 
+function livegames() {
+  window.open("https://lichess.org/broadcast/flemish-championship-2024--closed/round-1/YKpRRcUf", "_live")
+}
 
 </script>
 
@@ -32,11 +35,12 @@ function setLocale(l) {
         </template>
         <v-list-item to="/vk2024" title="Info" />
         <v-list-item to="/gameschedule" :title="t('Game schedule')" />
-        <v-list-item to="/enrollmenttool" :title="t('Enrollment')" />
-        <v-list-item to="/participants_vk" :title="t('Participants')" />
+        <v-list-item to="/trn_expert" :title="t('Experts')" />
+        <v-list-item to="/trn_open" title="Open" />
+        <v-list-item to="/trn_senior" :title="t('Seniors')" />
+        <v-list-item @click="livegames" title="Live" />
       </v-list-group>
       <v-list-group no-action>
-
         <template #activator="{ props }">
           <v-list-item v-bind="props" :title="t('Lodging')" />
         </template>
