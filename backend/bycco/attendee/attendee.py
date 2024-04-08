@@ -13,6 +13,8 @@ from bycco.attendee import (
     DbAttendee,
 )
 
+env = Environment(loader=FileSystemLoader("bycco/templates"), trim_blocks=True)
+
 logger = logging.getLogger(__name__)
 
 # vk
@@ -51,30 +53,32 @@ async def generate_badges_vk(filter: dict = {}):
     prts = await get_attendees_vk(filter)
     logger.info(f"nr of attendees {len(prts)}")
     pages = []
-    cards = []
+    badges = []
     j = 0
     sorteddocs = sorted(prts, key=lambda x: f"{x.last_name}, {x.first_name}")
     for ix, p in enumerate(sorteddocs):
         rix = j % 2 + 1
-        ct = ""
-        # ct = p.chesstitle + " " if p.chesstitle else ""
-        card = {
-            "fullname": "{0}{1} {2}".format(ct, p.last_name, p.first_name),
-            "natrating": p.ratingbel or 0,
-            "fiderating": p.ratingfide or 0,
+        cix = j // 2 + 1
+        badge = {
+            "first_name": p.first_name,
+            "last_name": p.last_name,
+            # "rating": max(p.ratingbel or 0, p.ratingfide or 0),
+            "chesstitle": "",
             "category": p.category.value,
-            "nationalityfide": p.nationalityfide,
-            # 'photourl': '/photo/{0}'.format(p.id),
-            "positionclass": "card_1{0}".format(rix),
+            # "meals": p.meals or "",
+            # "mealsclass": "badge_{}".format(p.meals or "NM"),
+            # "photourl": f"/photo/{p.id}",
+            "positionclass": "badge{0}{1}".format(cix, rix),
             "ix": ix,
         }
-        cards.append(card)
+        # log.info(f"badge: {badge}")
+        badges.append(badge)
         j += 1
-        if j == 2:
+        if j == 8:
             j = 0
-            pages.append(cards)
-            cards = []
+            pages.append(badges)
+            badges = []
     if j > 0:
-        pages.append(cards)
-    tmpl = env.get_template("printnamecard_vk.j2")
+        pages.append(badges)
+    tmpl = env.get_template("printbadge_vk.j2")
     return tmpl.render({"pages": pages})

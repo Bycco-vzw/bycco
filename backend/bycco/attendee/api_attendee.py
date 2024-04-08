@@ -15,9 +15,9 @@ from . import (
     Attendee,
     AttendeeItem,
     add_attendees_vk,
+    generate_badges_vk,
     get_attendee_vk,
     get_attendees_vk,
-    update_update_bjk,
 )
 
 logger = logging.getLogger(__name__)
@@ -74,7 +74,7 @@ async def api_update_attendee_vk(id: str, enr: Attendee):
 @router.get("/badges_vk", response_class=HTMLResponse)
 async def api_generate_badges():
     try:
-        return await generate_badges_vk(cat)
+        return await generate_badges_vk()
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except:

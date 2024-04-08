@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="">
+  <title>Badges VK2024</title>
+  <link href="/css/badge.css" rel="stylesheet">
+  <link href="/css/catcolors.css" rel="stylesheet">
+
+</head>
+
+<body style="margin-top: 0;">
+
+  {% for page in pages %}
+  <div class="badgepage">
+    {% for badge in page %}
+    <div class="badge_1 {{ badge.positionclass }}">
+      <div class="badgeleft">
+        <img src="{{ badge.photourl }}">
+      </div>
+      <div class="badgemiddle">
+        <div class="badgename">{{badge.first_name}}</div>
+        <div class="badgename">{{badge.last_name}}</div>
+        <div class="badgecategory">{{badge.category}}</div>
+        <div>&nbsp;</div>
+      </div>
+      <div class="badgeright {{ badge.category }}"></div>
+      <div class="badgebottom">
+        <img src="/img/talistro.png">
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% endfor %}
+</body>
+
+</html>
