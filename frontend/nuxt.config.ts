@@ -8,6 +8,10 @@ export default defineNuxtConfig({
           rel: 'stylesheet',
           href: '/css/bycco.css',
         },
+        {
+          rel: 'stylesheet',
+          href: '/css/stackedit.css',
+        },
       ],
     },
   },
