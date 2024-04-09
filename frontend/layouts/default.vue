@@ -18,13 +18,13 @@ const drawer = ref(false)
     <v-main>
       <slot />
       <hr />
-      <!-- <TheCarousel />>  -->
+      <AdCarousel />
     </v-main>
 
     <TheFooter />
   </v-app>
 </template>
-  
+
 <style scoped>
 a {
   text-decoration: none;
