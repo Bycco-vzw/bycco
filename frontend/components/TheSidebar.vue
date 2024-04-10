@@ -20,7 +20,6 @@ function livegames() {
         <v-list-item title="Menu" />
       </v-list>
     </v-toolbar>
-    <v-divider />
     <div class="bm-blue-grey-darken-1">
       <v-btn variant="text" class="btn-language hover-darker" @click="setLocale('nl')">NL</v-btn>
       <v-btn variant="text" class="btn-language hover-darker" @click="setLocale('fr')">FR</v-btn>
