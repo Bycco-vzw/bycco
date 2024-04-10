@@ -6,12 +6,7 @@ const personstore = usePersonStore();
 const mgmttokenstore = useMgmtTokenStore()
 
 useHead({
-  title: 'Management Overview',
-  // we need google script to load because we might redirect internally
-  // to index in case we fail the authentication
-  script: [
-    { src: 'https://accounts.google.com/gsi/client', async: true, defer: true }
-  ]
+  title: 'Management Logout',
 })
 
 definePageMeta({

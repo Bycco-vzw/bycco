@@ -9,30 +9,48 @@ async function goto(section) {
   console.log('going to', url)
   router.push(url)
 }
-</script>
 
+useHead({
+  script: [
+    { src: 'https://accounts.google.com/gsi/client', defer: true }
+  ],
+})
+
+
+</script>
+<script>
+</script>
 <template>
   <VApp>
     <VNavigationDrawer v-model="drawer" color="deep-purple darken-1" dark>
       <VToolbar title="BYCCO Mgmt" color="deep-purple darken-3" dark />
-      <VList>
-        <VListItem @click="goto('overview')" title="Overview" />
-        <VListItem @click="goto('pages')" title="Pages" />
-        <VListItem @click="goto('reservations')" title="Reservations" />
-        <VListItem @click="goto('paymentrequests')" title="Payment Requests" />
-        <VListItem @click="goto('enrollments_vk')" title="Enrollments VK2024" />
-        <VListItem @click="goto('participants_vk')" title="Participants VK2024" />
-        <VListItem @click="goto('tournament_vk')" title="Tournaments VK2024" />
-        <VListItem @click="goto('attendee_vk')" title="Attendees VK2024" />
-        <VListItem @click="goto('participants_vk')" title="Participants VK2024" />
-        <VListItem @click="goto('enrollments_bjk')" title="Enrollments BJK2024" />
-        <VListItem @click="goto('participants_bjk')" title="Participants BJK2024" />
-        <VListItem @click="goto('logout')" title="Logout" />
-      </VList>
+      <v-list>
+        <v-list-item @click="goto('overview')" title="Overview" />
+        <v-list-item @click="goto('pages')" title="Pages" />
+        <v-list-item @click="goto('reservations')" title="Reservations" />
+        <v-list-item @click="goto('paymentrequests')" title="Payment Requests" />
+        <v-list-group no-action>
+          <template #activator="{ props }">
+            <v-list-item v-bind="props" title="VK 2024" />
+          </template>
+          <v-list-item @click="goto('enrollments_vk')" title="Enrollments" />
+          <v-list-item @click="goto('participants_vk')" title="Participants" />
+          <v-list-item @click="goto('tournament_vk')" title="Tournaments" />
+          <v-list-item @click="goto('attendee_vk')" title="Attendees" />
+        </v-list-group>
+        <v-list-group no-action>
+          <template #activator="{ props }">
+            <v-list-item v-bind="props" title="BJK 2024" />
+          </template>
+          <v-list-item @click="goto('enrollments_bjk')" title="Enrollments" />
+          <v-list-item @click="goto('participants_bjk')" title="Participants" />
+        </v-list-group>
+        <v-list-item @click="goto('logout')" title="Logout" />
+      </v-list>
     </VNavigationDrawer>
     <VAppBar color="deep-purple darken-1" dark>
       <VAppBarNavIcon @click="drawer = !drawer" />
-      <VAppBarTitle> Management Bycco </VAppBarTitle>
+      <VAppBarTitle>Management Bycco </VAppBarTitle>
     </VAppBar>
     <VMain>
       <slot />

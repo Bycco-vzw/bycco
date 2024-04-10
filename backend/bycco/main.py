@@ -57,6 +57,7 @@ from bycco.attendee import api_attendee
 logger.info("loading api_filestore")
 from reddevil.filestore import api_filestore
 
+
 logger.info("loading api_lodging")
 from bycco.lodging import api_lodging
 
@@ -66,21 +67,20 @@ from bycco.enrollment import api_enrollment
 logger.info("loading api_room")
 from bycco.room import api_room
 
+logger.info("loading api_page")
+from bycco.page import api_page
+
 logger.info("loading api_participant")
 from bycco.participant import api_participant
 
 logger.info("loading api_paymentrequest")
 from bycco.paymentrequest import api_paymentrequest
-from bycco.statamic import api_statamic
-from bycco.page import api_page
-
 
 logger.info("loading api_statamic")
 from bycco.statamic import api_statamic
 
-logger.info("loading api_page")
-from bycco.page import api_page
-
+logger.info("loading api_tournament")
+from bycco.tournament import api_tournament
 
 app.include_router(api_account.router)
 app.include_router(api_attendee.router)
@@ -92,8 +92,8 @@ app.include_router(api_participant.router)
 app.include_router(api_paymentrequest.router)
 app.include_router(api_statamic.router)
 app.include_router(api_page.router)
-
-logger.info(f"Api layer loaded")
+app.include_router(api_tournament.router)
+logger.info(f"Api's loaded")
 
 # static files
 app.mount("/css", StaticFiles(directory="css"), name="css")
