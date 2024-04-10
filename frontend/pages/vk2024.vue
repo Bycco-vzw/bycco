@@ -48,17 +48,6 @@ onMounted(() => {
 </template>
 
 <style scoped>
-h1:after {
-  content: ' ';
-  display: block;
-  border: 1px solid #aaa;
-  margin-bottom: 1em;
-}
-
-ul {
-  padding-left: 1rem;
-}
-
 .v-card-title {
   white-space: normal;
 }

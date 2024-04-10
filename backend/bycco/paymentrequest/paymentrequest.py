@@ -454,7 +454,9 @@ async def create_pr_participants_bjk() -> str:
 
 
 async def create_pr_participant_bjk(parid: str) -> str:
-
+    """
+    create payment request for participant
+    """
     par = await get_participant_bjk(parid)
     pr: Dict[str, Any] = {
         "email": ",".join(par.emails),

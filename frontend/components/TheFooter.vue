@@ -31,7 +31,7 @@ const { t } = useI18n()
           </h4>
           <div>
             Facebook: <a href="https://www.facebook.com/ByccoBel">
-              <img style="vertical-align: middle" src="~/assets/facebook.png">
+              <img style="vertical-align: middle" src="/img/facebook.png">
             </a>
           </div>
         </v-col>
