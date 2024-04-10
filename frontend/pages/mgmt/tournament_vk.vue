@@ -32,6 +32,8 @@ const trn_open = ref({
 const trn_seniors = ref({
   name: "vksenior.json"
 })
+let activetrn = null
+
 
 definePageMeta({
   layout: 'mgmt',
@@ -71,25 +73,24 @@ async function checkAuth() {
   mgmtstore.updateToken(reply.data)
 }
 
-async function handleFile(event) {
-  console.log("event", event)
+function upload_trn(t) {
+  activetrn = t
   const reader = new FileReader()
-  // reader.onload = (event) => {
-  //   trn.content = event.target.result
-  // }
-  reader.readAsDataURL(event[0])
+  reader.onload = async (event) => {
+    activetrn.jsoncontent = event.target.result
+    await uploading()
+  }
+  reader.readAsDataURL(t.file[0])
 }
 
-async function upload_trn(t) {
-  let reply
-  console.log("uploading ", t)
+async function uploading() {
   showLoading(true)
   try {
-    reply = await $backend("tournament", "mgmt_upload_json", {
+    const reply = await $backend("tournament", "mgmt_upload_json", {
       token: token.value,
       trn: {
-        name: trn.fname,
-        jsoncontent: trn.jsoncontent,
+        name: activetrn.name,
+        jsoncontent: activetrn.jsoncontent,
       }
     })
   }
@@ -121,8 +122,14 @@ onMounted(async () => {
     <ProgressLoading ref="refloading" />
     <h1>Upload JSON files VK2024</h1>
     <h3>Experts</h3>
-    <v-file-input label="Badge" v-model="trn_experts.file" @update:modelValue="handleFile" />
+    <v-file-input label="Badge" v-model="trn_experts.file" />
     <v-btn @click="upload_trn(trn_experts)">Upload</v-btn>
+    <h3>Open</h3>
+    <v-file-input label="Badge" v-model="trn_open.file" />
+    <v-btn @click="upload_trn(trn_open)">Upload</v-btn>
+    <h3>Seniors</h3>
+    <v-file-input label="Badge" v-model="trn_seniors.file" />
+    <v-btn @click="upload_trn(trn_seniors)">Upload</v-btn>
 
   </v-container>
 </template>

@@ -12,7 +12,6 @@ const { person } = storeToRefs(personstore)
 // datamodel
 const wrong_domain = ref(false)
 
-
 async function checkAuth() {
   console.log('checking if auth is present so we can go to overview')
   if (person.value.credentials.length > 0) {
@@ -24,7 +23,6 @@ async function checkAuth() {
     }
   }
 }
-
 
 function handleGoogle(resp) {
   console.log('handling google')
@@ -59,9 +57,6 @@ function setupGoogle() {
 }
 
 useHead({
-  script: [
-    { src: 'https://accounts.google.com/gsi/client', defer: true }
-  ],
   title: 'Management Login',
 })
 
@@ -87,6 +82,3 @@ onMounted(() => {
     <v-alert error v-show="wrong_domain">Invalid domain</v-alert>
   </VContainer>
 </template>
-  
-
-  

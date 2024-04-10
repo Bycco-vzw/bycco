@@ -102,11 +102,9 @@ async function get_attendees() {
   }
 }
 
-
 async function refresh() {
   await get_attendees()
 }
-
 
 async function save_new_att() {
   let reply
@@ -133,7 +131,6 @@ async function save_new_att() {
   showSnackbar('save new OK')
   await get_attendees()
 }
-
 
 onMounted(async () => {
   showSnackbar = refsnackbar.value.showSnackbar
