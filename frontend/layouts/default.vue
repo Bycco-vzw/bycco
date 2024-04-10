@@ -1,6 +1,12 @@
 <script setup>
 import { ref } from 'vue'
 const drawer = ref(false)
+
+useHead({
+  script: [
+    { src: "/js/redirect.js" }
+  ]
+})
 </script>
 
 

@@ -6,7 +6,6 @@ const drawer = ref(false);
 
 async function goto(section) {
   const url = `/mgmt/${section}`
-  console.log('going to', url)
   router.push(url)
 }
 
