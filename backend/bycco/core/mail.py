@@ -6,17 +6,14 @@ from markdown2 import Markdown
 from jinja2 import FileSystemLoader, Environment
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from email.mime.base import MIMEBase
-from email import encoders
-from io import BytesIO
 from pathlib import Path
 from weasyprint import HTML, CSS
 from reddevil.core import get_settings
 from reddevil.mail.md_mail import MailParams
 
-from bycco.lodging.md_lodging import Lodging
 from bycco.core.mailbackend import backends
 from bycco.core.common import get_common
+
 
 logger = logging.getLogger(__name__)
 settings = get_settings()
@@ -80,40 +77,6 @@ def test_mail():
         mailbackend = backends[settings.EMAIL["backend"]]()
         mailbackend.send_message(msg)
         logger.info(f"testmail sent for {receiver}")
-    except Exception:
-        logger.exception("failed")
-
-
-def sendemail_reservation(ldg: Lodging):
-    logger.info(f"sending reservation email {ldg}")
-    tmpl = env.get_template(f"mailreservation_{ldg.locale}.md")
-    context = ldg.model_dump()
-    # translate
-    context["lodging"] = i18n[context["lodging"]][context["locale"]]
-    context["meals"] = i18n[context["meals"]][context["locale"]]
-    # render the content using jinja2 templating giving markdown text
-    markdowntext = tmpl.render(**context)
-    # convert markdown text to html
-    htmltext = f"{markdownstyle} {md.convert(markdowntext)}"
-    try:
-        sender = settings.EMAIL["sender"]
-        receiver = ldg.email
-        msg = MIMEMultipart("related")
-        msg["Subject"] = "Floreal 2023"
-        msg["From"] = sender
-        msg["To"] = receiver
-        if settings.EMAIL.get("bcc_reservation"):
-            msg["Bcc"] = settings.EMAIL["bcc_reservation"]
-        msg.preamble = "This is a multi-part message in MIME format."
-        msgAlternative = MIMEMultipart("alternative")
-        msgText = MIMEText(markdowntext)
-        msgAlternative.attach(msgText)
-        msgText = MIMEText(htmltext, "html")
-        msgAlternative.attach(msgText)
-        msg.attach(msgAlternative)
-        backend = backends[settings.EMAIL["backend"]]()
-        backend.send_message(msg)
-        logger.info(f"reservation email sent to {receiver}")
     except Exception:
         logger.exception("failed")
 

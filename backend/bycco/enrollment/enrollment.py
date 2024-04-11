@@ -14,7 +14,6 @@ from httpx import (
 )
 
 from reddevil.core import get_settings, RdBadRequest, RdNotFound
-from bycco.core.mail import MailParams, sendemail_no_attachments
 from bycco.enrollment import (
     DbEnrollment,
     Enrollment,
@@ -22,7 +21,6 @@ from bycco.enrollment import (
     EnrollmentItem,
     EnrollmentUpdate,
     EnrollmentVkIn,
-    EnrollmentVkOut,
     IdReply,
     NatStatus,
 )
@@ -51,6 +49,7 @@ async def get_enrollments_bjk(options: dict = {}) -> List[EnrollmentItem]:
     """
     filter = options.copy()
     filter["_model"] = filter.pop("_model", EnrollmentItem)
+    filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
     filter["event"] = "bjk2024"
     return [cast(EnrollmentItem, x) for x in await DbEnrollment.find_multiple(filter)]
 
@@ -61,7 +60,9 @@ async def get_enrollments_vk(options: dict = {}) -> List[EnrollmentItem]:
     """
     filter = options.copy()
     filter["_model"] = filter.pop("_model", EnrollmentItem)
+    filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
     filter["event"] = "VK2024"
+    logger.info(f"filter enrollments vk: {filter}")
     return [cast(EnrollmentItem, x) for x in await DbEnrollment.find_multiple(filter)]
 
 
@@ -71,10 +72,10 @@ async def get_enrollment_bjk(id: str, options: dict = {}) -> Enrollment:
     """
     filter = options.copy()
     filter["_model"] = filter.pop("_model", Enrollment)
+    filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
     filter["id"] = id
     filter["event"] = "bjk2024"
     enr = cast(Enrollment, await DbEnrollment.find_single(filter))
-    enr.badgeimage = None
     return enr
 
 
@@ -84,10 +85,10 @@ async def get_enrollment_vk(id: str, options: dict = {}) -> Enrollment:
     """
     filter = options.copy()
     filter["_model"] = filter.pop("_model", Enrollment)
+    filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
     filter["id"] = id
     filter["event"] = "VK2024"
     enr = cast(Enrollment, await DbEnrollment.find_single(filter))
-    enr.badgeimage = None
     return enr
 
 
@@ -123,13 +124,16 @@ async def update_enrollment(
 async def get_enrollments_vk(options: dict = {}) -> List[EnrollmentItem]:
     filter = options.copy()
     filter["_model"] = filter.pop("_model", EnrollmentItem)
+    filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
     filter["event"] = "VK2024"
-    return [cast(EnrollmentItem, x) for x in await DbEnrollment.find_multiple(filter)]
+    docs = await DbEnrollment.find_multiple(filter)
+    return [cast(EnrollmentItem, x) for x in docs]
 
 
 async def get_enrollment_vk(id: str, options: dict = {}) -> Enrollment:
     filter = options.copy()
     filter["_model"] = filter.pop("_model", Enrollment)
+    filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
     filter["id"] = id
     enr = cast(Enrollment, await DbEnrollment.find_single(filter))
     enr.badgeimage = None
@@ -355,6 +359,8 @@ async def get_photo(id: str):
 
 
 def sendemail_enrollment_vk(enr: Enrollment) -> None:
+    from bycco.core.mail import MailParams, sendemail_no_attachments
+
     settings = get_settings()
     emails = [enr.emailplayer]
     mp = MailParams(
@@ -372,6 +378,8 @@ def sendemail_enrollment_vk(enr: Enrollment) -> None:
 
 
 def sendemail_enrollment_bjk(enr: Enrollment) -> None:
+    from bycco.core.mail import MailParams, sendemail_no_attachments
+
     settings = get_settings()
     em1 = enr.emailplayer.split(",")
     em2 = enr.representative.emailattendant.split(",")
@@ -395,6 +403,8 @@ def sendemail_enrollment_bjk(enr: Enrollment) -> None:
 
 
 def sendemail_confirmationreq_vk(enr: Enrollment) -> None:
+    from bycco.core.mail import MailParams, sendemail_no_attachments
+
     settings = get_settings()
     emails = [enr.emailplayer]
     mp = MailParams(

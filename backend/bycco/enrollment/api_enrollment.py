@@ -40,6 +40,7 @@ logger = logging.getLogger(__name__)
 @router.get("/vk", response_model=List[EnrollmentItem])
 async def api_get_enrollments_vk():
     try:
+        logger.info("call api get enrollments_vk")
         return await get_enrollments_vk()
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
