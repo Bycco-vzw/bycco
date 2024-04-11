@@ -6,26 +6,32 @@ from typing import cast, Optional, List
 from datetime import date, datetime, timezone, timedelta
 from fastapi import BackgroundTasks
 from tempfile import NamedTemporaryFile
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 import openpyxl
 
-from reddevil.core import get_settings, RdBadRequest, RdInternalServerError
 
-from bycco.lodging.md_lodging import (
+from reddevil.core import get_settings, RdBadRequest, RdInternalServerError
+from bycco.main import settings
+from bycco.core.counter import DbCounter
+from bycco.core.common import get_common
+from bycco.core.mail import (
+    backends,
+    env,
+    i18n,
+    md,
+    markdownstyle,
+)
+
+
+from . import (
     Assignment,
-    Guest,
     DbLodging,
     Lodging,
     LodgingIn,
 )
 from bycco.room import Room, get_room_by_number, update_room
 
-# from bycco.room import Room
-# from bycco.service.room import update_room
-
-from bycco.core.mail import sendemail_reservation
-from bycco.core.counter import DbCounter
-from bycco.core.common import get_common
-from bycco.main import settings
 
 logger = logging.getLogger(__name__)
 settings = get_settings()
@@ -35,6 +41,34 @@ enddate = common["period"]["enddate"]
 m3y = date(startdate.year - 3, startdate.month, startdate.day)
 m12y = date(startdate.year - 12, startdate.month, startdate.day)
 m18y = date(startdate.year - 18, startdate.month, startdate.day)
+
+
+async def get_lodging(id: str, options: dict = {}) -> Lodging:
+    """
+    get the Lodging
+    """
+    filter = options.copy()
+    filter["id"] = id
+    filter["_model"] = filter.pop("_model", Lodging)
+    return cast(Lodging, await DbLodging.find_single(filter))
+
+
+async def get_lodgings(options: dict = {}) -> List[Lodging]:
+    """
+    get the reservations
+    """
+    filter = options.copy()
+    filter["_model"] = filter.pop("_model", Lodging)
+    return [cast(Lodging, x) for x in await DbLodging.find_multiple(filter)]
+
+
+async def update_lodging(id: str, rsv: Lodging, options: dict = {}) -> Lodging:
+    opt = options.copy()
+    opt["_model"] = opt.pop("_model", Lodging)
+    lodging = cast(
+        Lodging, await DbLodging.update(id, rsv.model_dump(exclude_unset=True), opt)
+    )
+    return lodging
 
 
 def loopdays():
@@ -67,7 +101,42 @@ def calcmeals(cid: date, cod: date, meals: str):
     return ml
 
 
+def sendemail_reservation(ldg: Lodging):
+    logger.info(f"sending reservation email {ldg}")
+    tmpl = env.get_template(f"mailreservation_{ldg.locale}.md")
+    context = ldg.model_dump()
+    # translate
+    context["lodging"] = i18n[context["lodging"]][context["locale"]]
+    context["meals"] = i18n[context["meals"]][context["locale"]]
+    # render the content using jinja2 templating giving markdown text
+    markdowntext = tmpl.render(**context)
+    # convert markdown text to html
+    htmltext = f"{markdownstyle} {md.convert(markdowntext)}"
+    try:
+        sender = settings.EMAIL["sender"]
+        receiver = ldg.email
+        msg = MIMEMultipart("related")
+        msg["Subject"] = "Floreal 2023"
+        msg["From"] = sender
+        msg["To"] = receiver
+        if settings.EMAIL.get("bcc_reservation"):
+            msg["Bcc"] = settings.EMAIL["bcc_reservation"]
+        msg.preamble = "This is a multi-part message in MIME format."
+        msgAlternative = MIMEMultipart("alternative")
+        msgText = MIMEText(markdowntext)
+        msgAlternative.attach(msgText)
+        msgText = MIMEText(htmltext, "html")
+        msgAlternative.attach(msgText)
+        msg.attach(msgAlternative)
+        backend = backends[settings.EMAIL["backend"]]()
+        backend.send_message(msg)
+        logger.info(f"reservation email sent to {receiver}")
+    except Exception:
+        logger.exception("failed")
+
+
 async def make_reservation(d: LodgingIn, bt: BackgroundTasks) -> str:
+
     rd = d.model_dump()
     logger.info(f"rd {rd}")
     rd["locale"] = rd.get("locale") or "nl"
@@ -117,34 +186,6 @@ async def make_reservation(d: LodgingIn, bt: BackgroundTasks) -> str:
     logger.info("calling sendReservation")
     bt.add_task(sendemail_reservation, ldg)
     return id
-
-
-async def get_lodging(id: str, options: dict = {}) -> Lodging:
-    """
-    get the Lodging
-    """
-    filter = options.copy()
-    filter["id"] = id
-    filter["_model"] = filter.pop("_model", Lodging)
-    return cast(Lodging, await DbLodging.find_single(filter))
-
-
-async def get_lodgings(options: dict = {}) -> List[Lodging]:
-    """
-    get the reservations
-    """
-    filter = options.copy()
-    filter["_model"] = filter.pop("_model", Lodging)
-    return [cast(Lodging, x) for x in await DbLodging.find_multiple(filter)]
-
-
-async def update_lodging(id: str, rsv: Lodging, options: dict = {}) -> Lodging:
-    opt = options.copy()
-    opt["_model"] = opt.pop("_model", Lodging)
-    lodging = cast(
-        Lodging, await DbLodging.update(id, rsv.model_dump(exclude_unset=True), opt)
-    )
-    return lodging
 
 
 async def assign_room(
