@@ -61,7 +61,7 @@ onMounted(async () => {
     <h1>{{ t('Participants') }} BJK2024</h1>
     <v-data-table :headers="headers" :items="participants" :item-class="lightgreyRow"
       :items-per-page-options="[150, -1]" items-per-page="150" class="elevation-1"
-      :sort-by="[{ key: 'last_name', order: 'asc' }]" :search="search">
+      :sort-by="[{ key: 'last_name', order: 'asc' }]" :search="search" density="compact">
       <template #top>
         <v-card color="bg-grey-lighten-4">
           <v-card-title>
