@@ -1,4 +1,4 @@
-from .md_lodging import Lodging, LodgingDB, DbLodging
+from .md_lodging import Lodging, LodgingDB, DbLodging, Assignment, LodgingIn
 from .lodging import (
     get_lodging,
     get_lodgings,

@@ -43,25 +43,31 @@ logger = logging.getLogger(__name__)
 async def get_participants_vk(options: dict = {}) -> List[ParticipantVKItem]:
     filter = options.copy()
     filter["_model"] = filter.pop("_model", ParticipantVKItem)
+    filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
     return [
         cast(ParticipantVKItem, x) for x in await DbParticpantVK.find_multiple(filter)
     ]
 
 
 async def get_participant_vk(id: str) -> ParticipantVKDetail:
-    return await DbParticpantVK.find_single({"_model": ParticipantVKDetail, "id": id})
+    filter = {"_model": ParticipantVKDetail}
+    filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
+    filter["id"] = id
+    return await DbParticpantVK.find_single(filter)
 
 
 async def get_participant_vk_by_idbel(idbel: str) -> ParticipantVKItem:
-    return await DbParticpantVK.find_single(
-        {"_model": ParticipantVKItem, "idbel": idbel}
-    )
+    filter = {"_model": ParticipantVKItem}
+    filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
+    filter["idbel"] = idbel
+    return await DbParticpantVK.find_single(filter)
 
 
 async def get_participant_vk_by_idfide(idfide: str) -> ParticipantVKItem:
-    return await DbParticpantVK.find_single(
-        {"_model": ParticipantVKDetail, "idfide": idfide}
-    )
+    filter = {"_model": ParticipantVKItem}
+    filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
+    filter["idfide"] = idfide
+    return await DbParticpantVK.find_single(filter)
 
 
 async def import_participant_vk(idenr) -> str:
@@ -181,19 +187,24 @@ async def update_elo_vk() -> None:
 async def get_participants_bjk(options: dict = {}) -> List[ParticipantBJKItem]:
     filter = options.copy()
     filter["_model"] = filter.pop("_model", ParticipantBJKItem)
+    filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
     return [
         cast(ParticipantBJKItem, x) for x in await DbParticpantBJK.find_multiple(filter)
     ]
 
 
 async def get_participant_bjk(id: str) -> ParticipantBJKDetail:
-    return await DbParticpantBJK.find_single({"_model": ParticipantBJKDetail, "id": id})
+    filter = {"_model": ParticipantBJKDetail}
+    filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
+    filter["id"] = id
+    return await DbParticpantVK.find_single(filter)
 
 
 async def get_participant_bjk_by_idbel(idbel: str) -> ParticipantBJKItem:
-    return await DbParticpantBJK.find_single(
-        {"_model": ParticipantBJKItem, "idbel": idbel}
-    )
+    filter = {"_model": ParticipantBJKItem}
+    filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
+    filter["idbel"] = idbel
+    return await DbParticpantBJK.find_single(filter)
 
 
 async def import_participant_bjk(idenr) -> str:
@@ -268,6 +279,7 @@ async def update_participant_bjk(
 
 
 env = Environment(loader=FileSystemLoader("bycco/templates"), trim_blocks=True)
+
 # current_event = EnrollmentEvent(
 #     title="BJK 2023",
 #     startdate="2023-02-19",

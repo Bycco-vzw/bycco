@@ -57,12 +57,11 @@ from bycco.attendee import api_attendee
 logger.info("loading api_filestore")
 from reddevil.filestore import api_filestore
 
+logger.info("loading api_enrollment")
+from bycco.enrollment import api_enrollment
 
 logger.info("loading api_lodging")
 from bycco.lodging import api_lodging
-
-logger.info("loading api_enrollment")
-from bycco.enrollment import api_enrollment
 
 logger.info("loading api_room")
 from bycco.room import api_room
