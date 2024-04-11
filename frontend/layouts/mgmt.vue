@@ -43,6 +43,8 @@ useHead({
           </template>
           <v-list-item @click="goto('enrollments_bjk')" title="Enrollments" />
           <v-list-item @click="goto('participants_bjk')" title="Participants" />
+          <v-list-item @click="goto('tournament_bjk')" title="Tournaments" />
+          <v-list-item @click="goto('attendee_bjk')" title="Attendees" />
         </v-list-group>
         <v-list-item @click="goto('logout')" title="Logout" />
       </v-list>

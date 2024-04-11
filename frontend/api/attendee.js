@@ -35,4 +35,36 @@ export default {
       }
     })
   },
+  mgmt_add_attendee_bjk: async function (options) {
+    const { attendee, token } = options
+    return await axios.post(`${prefix}/bjk`, attendee, {
+      headers: {
+        Authorization: "Bearer " + token,
+      }
+    })
+  },
+  mgmt_get_attendees_bjk: async function (options) {
+    const { token } = options
+    return await axios.get(`${prefix}/bjk`, {
+      headers: {
+        Authorization: "Bearer " + token,
+      }
+    })
+  },
+  mgmt_get_attendee_bjk: async function (options) {
+    const { id, token } = options
+    return await axios.get(`${prefix}/bjk/${id}`, {
+      headers: {
+        Authorization: "Bearer " + token,
+      }
+    })
+  },
+  mgmt_update_attendee_bjk: async function (options) {
+    const { id, attendee, token } = options
+    return await axios.put(`${prefix}/bjk/${id}`, attendee, {
+      headers: {
+        Authorization: "Bearer " + token,
+      }
+    })
+  },
 }

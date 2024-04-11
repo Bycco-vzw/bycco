@@ -23,14 +23,26 @@ const personstore = usePersonStore();
 const { person } = storeToRefs(personstore)
 
 // datamodel
-const trn_experts = ref({
-  name: "vkexpert.json"
+const trn_u8 = ref({
+  name: "bjk_u8.json"
 })
-const trn_open = ref({
-  name: "vkopen.json"
+const trn_u10 = ref({
+  name: "bjk_u10.json"
 })
-const trn_seniors = ref({
-  name: "vksenior.json"
+const trn_u12 = ref({
+  name: "bjk_u12.json"
+})
+const trn_u14 = ref({
+  name: "bjk_u14.json"
+})
+const trn_u16 = ref({
+  name: "bjk_u16.json"
+})
+const trn_u18 = ref({
+  name: "bjk_u18.json"
+})
+const trn_u20 = ref({
+  name: "bjk_u20.json"
 })
 let activetrn = null
 
@@ -120,16 +132,29 @@ onMounted(async () => {
   <v-container>
     <SnackbarMessage ref="refsnackbar" />
     <ProgressLoading ref="refloading" />
-    <h1>Upload JSON files VK2024</h1>
-    <h3>Experts</h3>
-    <v-file-input label="Json file" v-model="trn_experts.file" />
-    <v-btn @click="upload_trn(trn_experts)">Upload</v-btn>
-    <h3>Open</h3>
-    <v-file-input label="Json file" v-model="trn_open.file" />
-    <v-btn @click="upload_trn(trn_open)">Upload</v-btn>
-    <h3>Seniors</h3>
-    <v-file-input label="Json file" v-model="trn_seniors.file" />
-    <v-btn @click="upload_trn(trn_seniors)">Upload</v-btn>
+    <h1>Upload JSON files BJK2024</h1>
+    <h3>U8</h3>
+    <v-file-input label="Json file" v-model="trn_u8.file" />
+    <v-btn @click="upload_trn(trn_u8)">Upload</v-btn>
+    <h3>U10</h3>
+    <v-file-input label="Json file" v-model="trn_u10.file" />
+    <v-btn @click="upload_trn(trn_u10)">Upload</v-btn>
+    <h3>U12</h3>
+    <v-file-input label="Json file" v-model="trn_u12.file" />
+    <v-btn @click="upload_trn(trn_u12)">Upload</v-btn>
+    <h3>U14</h3>
+    <v-file-input label="Json file" v-model="trn_u14.file" />
+    <v-btn @click="upload_trn(trn_u14)">Upload</v-btn>
+    <h3>U16</h3>
+    <v-file-input label="Json file" v-model="trn_u16.file" />
+    <v-btn @click="upload_trn(trn_u16)">Upload</v-btn>
+    <h3>U18</h3>
+    <v-file-input label="Json file" v-model="trn_u18.file" />
+    <v-btn @click="upload_trn(trn_u18)">Upload</v-btn>
+    <h3>U20</h3>
+    <v-file-input label="Json file" v-model="trn_u20.file" />
+    <v-btn @click="upload_trn(trn_u20)">Upload</v-btn>
+
 
   </v-container>
 </template>
