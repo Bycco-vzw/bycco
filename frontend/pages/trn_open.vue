@@ -104,7 +104,7 @@ function processTournament() {
       id: p.NationalId,
       rank: p.Ranking,
       name: p.Name,
-      elo: p.NationalElo,
+      elo: p.FideElo,
       ngames: p.NbOfParts,
       points: parseFloat(p.Points)
     }
