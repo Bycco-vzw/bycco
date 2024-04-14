@@ -24,14 +24,10 @@
     "@mdi/font": "^7.3.67",
     "@pinia/nuxt": "^0.5.1",
     "axios": "^1.6.2",
-    "filepond": "^4.30.6",
-    "filepond-plugin-file-validate-type": "^1.2.8",
     "front-matter": "^4.0.2",
     "jose": "^5.2.0",
     "pinia": "^2.1.7",
     "showdown": "^2.1.0",
-    "vue-cropperjs": "^5.0.0",
-    "vue-filepond": "^7.0.4",
     "yaml": "^2.3.4"
   }
 }
