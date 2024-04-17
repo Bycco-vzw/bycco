@@ -9,8 +9,6 @@ BYCCO_MODE = os.environ.get("BYCCO_MODE", "production")
 
 COLORLOG = False
 
-COMMON_PATH = "../content/common.yaml"
-
 EMAIL = {
     "backend": os.environ.get("EMAIL_BACKEND", "GMAIL"),
     "sender": "ruben.decrop@bycco.be",

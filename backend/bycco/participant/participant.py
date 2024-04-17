@@ -197,7 +197,8 @@ async def get_participant_bjk(id: str) -> ParticipantBJKDetail:
     filter = {"_model": ParticipantBJKDetail}
     filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
     filter["id"] = id
-    return await DbParticpantVK.find_single(filter)
+    part = await DbParticpantBJK.find_single(filter)
+    return part
 
 
 async def get_participant_bjk_by_idbel(idbel: str) -> ParticipantBJKItem:

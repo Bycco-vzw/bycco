@@ -128,19 +128,19 @@ class EnrollmentItem(BaseModel):
     """
 
     badgelength: int | None = 0
-    birthyear: int
-    category: EnrollmentCategory
+    birthyear: int | None = 0
+    category: EnrollmentCategory | None = None
     confirmed: bool | None = False
     chesstitle: str | None = None
     confirmation_email: datetime | None = None
     enabled: bool = True
-    first_name: str
-    gender: Gender
+    first_name: str | None = None
+    gender: Gender | None = None
     id: str
     idbel: str | None = None
     idclub: str | None = None
     idfide: str | None = None
-    last_name: str
+    last_name: str | None = None
     nationalityfide: str | None = None
     ratingbel: int | None = 0
     ratingfide: int | None = 0
