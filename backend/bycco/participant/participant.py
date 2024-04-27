@@ -188,6 +188,7 @@ async def get_participants_bjk(options: dict = {}) -> List[ParticipantBJKItem]:
     filter = options.copy()
     filter["_model"] = filter.pop("_model", ParticipantBJKItem)
     filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
+    filter["_fieldlist"].append("_creationtime")
     return [
         cast(ParticipantBJKItem, x) for x in await DbParticpantBJK.find_multiple(filter)
     ]
