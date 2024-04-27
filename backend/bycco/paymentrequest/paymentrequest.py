@@ -3,7 +3,7 @@
 
 import logging
 from typing import cast, Dict, Any, List
-from datetime import date
+from datetime import date, datetime
 from reddevil.core import get_settings
 from bycco.core.mail import MailParams, sendemail_no_attachments
 
@@ -44,6 +44,12 @@ i18n_enrollment_bjk = {
     "en": "Enrollment BYCC 2024",
     "fr": "Enregistrement CBJ 2024",
     "de": "Anmeldung BJLM 2024",
+}
+i18n_administrative_cost = {
+    "nl": "Extra adminstratiekosten",
+    "en": "Additional administration costs",
+    "fr": "Frais administratifs supplémentaires",
+    "de": "Zusätzliche Verwaltungskosten",
 }
 
 # crud
@@ -476,12 +482,14 @@ async def create_pr_participant_bjk(parid: str) -> str:
 
 
 def calc_pricedetails_par_bjk(
-    par: ParticipantVKDetail,
+    par: ParticipantBJKDetail,
 ):
     """
     calculates cost for pricedetails
     """
     amount = 35
+    admincost = 10
+    total = amount
     details = [
         {
             "description": i18n_enrollment_bjk[par.locale],
@@ -490,7 +498,19 @@ def calc_pricedetails_par_bjk(
             "totalprice": format(amount, ">6.2f"),
         }
     ]
-    return details, amount
+    logger.info(f"par._creationtime")
+    if par._creationtime > datetime.datetime(2024, 4, 20):
+        logger.info("adding admin cost")
+        details.append(
+            {
+                "description": i18n_administrative_cost[par.locale],
+                "quantity": 1,
+                "unitprice": format(amount, ">6.2f"),
+                "totalprice": format(amount, ">6.2f"),
+            }
+        )
+        total += admincost
+    return details, total
 
 
 async def delete_pr_participant_bjk(parid: str) -> None:

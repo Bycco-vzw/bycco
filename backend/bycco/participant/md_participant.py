@@ -217,6 +217,7 @@ class ParticipantBJKDetail(BaseModel):
     ratingbel: int
     ratingfide: int
     remarks: str
+    _creationtime: datetime
 
 
 class ParticipantBJK(BaseModel):
