@@ -499,14 +499,14 @@ def calc_pricedetails_par_bjk(
         }
     ]
     logger.info(f"par._creationtime")
-    if par._creationtime > datetime.datetime(2024, 4, 20):
+    if par.creationtime > datetime(2024, 4, 20):
         logger.info("adding admin cost")
         details.append(
             {
                 "description": i18n_administrative_cost[par.locale],
                 "quantity": 1,
-                "unitprice": format(amount, ">6.2f"),
-                "totalprice": format(amount, ">6.2f"),
+                "unitprice": format(admincost, ">6.2f"),
+                "totalprice": format(admincost, ">6.2f"),
             }
         )
         total += admincost
@@ -528,9 +528,8 @@ async def delete_pr_participant_bjk(parid: str) -> None:
 async def update_pr_participant_bjk(id: str, prqin: PaymentRequest) -> None:
     exprq = await get_payment_request(id)
     par = await get_participant_bjk(exprq.link_id)
-    (details, totalprice) = calc_pricedetails_par_bjk(
-        par, prqin.reductionamount, prqin.reductionpct
-    )
+    logger.info(f"updating par {par}")
+    (details, totalprice) = calc_pricedetails_par_bjk(par)
     prqdict = prqin.model_dump(exclude_unset=True)
     prqdict["details"] = details
     prqdict["totalprice"] = totalprice

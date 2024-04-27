@@ -7,6 +7,7 @@ from .md_participant import (
     ParticipantBJKDB,
     ParticipantBJKDetail,
     ParticipantBJKItem,
+    ParticipantBJKUpdate,
     ParticipantBJK,
     ParticipantVKCategory,
     ParticipantVKDB,

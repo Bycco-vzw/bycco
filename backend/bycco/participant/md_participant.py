@@ -217,7 +217,33 @@ class ParticipantBJKDetail(BaseModel):
     ratingbel: int
     ratingfide: int
     remarks: str
-    _creationtime: datetime
+    creationtime: datetime = Field(alias="_creationtime")
+
+
+class ParticipantBJKUpdate(BaseModel):
+    """
+    participant update model
+    """
+
+    birthyear: int | None = None
+    category: ParticipantBJKCategory | None = None
+    chesstitle: str | None = None
+    enabled: bool | None = None
+    emails: List[str] | None = None
+    first_name: str | None = None
+    gender: Gender | None = None
+    idbel: str | None = None
+    idclub: str | None = None
+    idfide: str | None = None
+    locale: str | None = None
+    last_name: str | None = None
+    nationalityfide: str | None = None
+    natstatus: NatStatus | None = None
+    payment_id: str | None = None
+    present: datetime | None = None
+    ratingbel: int | None = None
+    ratingfide: int | None = None
+    remarks: str | None = None
 
 
 class ParticipantBJK(BaseModel):
@@ -274,3 +300,8 @@ class DbParticpantBJK(DbBase):
     COLLECTION = "participant_bjk"
     DOCUMENTTYPE = ParticipantBJKDB
     VERSION = 1
+
+
+class PartTest(BaseModel):
+    email: str = "@"
+    ct: str = Field(alias="_ct", default="aha")

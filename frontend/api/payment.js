@@ -89,6 +89,7 @@ export default {
     })
   },
   mgmt_update_participant_bjk_pr: async function (options) {
+    console.log('calling api update pr bjk', options)
     const { token, id, prq } = options
     return await axios.put(`${prefix}/participant_bjk_pr/${id}`, prq, {
       headers: {

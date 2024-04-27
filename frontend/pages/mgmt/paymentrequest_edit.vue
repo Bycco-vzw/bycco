@@ -158,37 +158,56 @@ async function saveProperties() {
   let reply
   showLoading(true)
   try {
-    reply = await $backend("payment", "mgmt_update_lodging_pr", {
-      id: idpaymentrequest,
-      prq: {
-        address: prq.value.address,
-        bycco_remarks: prq.value.bycco_remarks,
-        checkindate: prq.value.checkindate,
-        checkoutdate: prq.value.checkoutdate,
-        email: prq.value.email,
-        enabled: prq.value.enabled,
-        first_name: prq.value.first_name,
-        last_name: prq.value.last_name,
-        locale: prq.value.locale,
-        lodging: prq.value.lodging,
-        meals: prq.value.meals,
-        mobile: prq.value.mobile,
-        organizers: prq.value.organizers,
-        remarks: prq.value.remarks,
-        reductionamount: prq.value.reductionamount,
-        reductionpct: prq.value.reductionpct
-      },
-      token: mgmttoken.value,
-    })
-    showSnackbar("Payment registered")
+    switch (prq.value.reason) {
+      case "lodging":
+        reply = await $backend("payment", "mgmt_update_lodging_pr", {
+          id: idpaymentrequest,
+          prq: {
+            address: prq.value.address,
+            bycco_remarks: prq.value.bycco_remarks,
+            checkindate: prq.value.checkindate,
+            checkoutdate: prq.value.checkoutdate,
+            email: prq.value.email,
+            enabled: prq.value.enabled,
+            first_name: prq.value.first_name,
+            last_name: prq.value.last_name,
+            locale: prq.value.locale,
+            lodging: prq.value.lodging,
+            meals: prq.value.meals,
+            mobile: prq.value.mobile,
+            organizers: prq.value.organizers,
+            remarks: prq.value.remarks,
+            reductionamount: prq.value.reductionamount,
+            reductionpct: prq.value.reductionpct
+          },
+          token: mgmttoken.value,
+        })
+        break
+      case "bjk2024":
+        console.log("updating pr bjk2024")
+        reply = await $backend("payment", "mgmt_update_participant_bjk_pr", {
+          id: idpaymentrequest,
+          prq: {
+            address: prq.value.address,
+            email: prq.value.email,
+            enabled: prq.value.enabled,
+            first_name: prq.value.first_name,
+            last_name: prq.value.last_name,
+            locale: prq.value.locale,
+          },
+          token: mgmttoken.value,
+        })
+        break
+    }
+    showSnackbar("PR saved")
   }
   catch (error) {
-    console.error('register payment failed', error)
+    console.error('saving pr failed', error)
     if (error.code === 401) {
       router.push('/mgmt')
     }
     else {
-      showSnackbar('Registering payment failed: ' + error.detail)
+      showSnackbar('Saving pr failed: ' + error.detail)
     }
     return
   }
@@ -205,7 +224,7 @@ onMounted(async () => {
   await get_paymentrequest()
 })
 
-</script >
+</script>
 
 <template>
   <v-container>
@@ -262,9 +281,8 @@ onMounted(async () => {
           </v-col>
           <v-col cols="12" sm="6">
             <p>Total cost: <b>{{ prq.totalprice }} €</b></p>
-            <p>Guests: {{ prq.guests }}</p>
+            <p v-if="prq.reason == 'lodging'">Guests: {{ prq.guests }}</p>
             <v-text-field v-model="prq.email" label="E-mail" />
-            <v-text-field v-model="prq.mobile" label="Mobile" />
             <v-text-field v-model="prq.locale" label="Language" />
             <v-text-field v-model="prq.reductionamount" label="Reduction fixed amount" />
             <v-text-field v-model="prq.reductionpct" label="Reduction pct" />
@@ -301,7 +319,7 @@ onMounted(async () => {
       <v-card-actions />
     </v-card>
   </v-container>
-</template> 
+</template>
 
 
 <style scoped>
