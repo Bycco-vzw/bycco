@@ -73,30 +73,6 @@ async function checkAuth() {
 }
 
 
-async function checkin() {
-  let reply
-  showLoading(true)
-  try {
-    reply = await $backend("page", "checkin", {
-      instance: instance.value,
-      token: token.value,
-    })
-  }
-  catch (error) {
-    console.error('failed', error)
-    showSnackbar("Error while copying content to Statamic")
-    // mgmtstore.updateToken(null)
-    // router.push('/mgmt')
-    return
-  }
-  finally {
-    showLoading(false)
-  }
-  showSnackbar("Content copied to Statamic")
-  mgmtstore.updateToken(reply.data)
-}
-
-
 async function checkout() {
   let reply
   showLoading(true)
@@ -121,6 +97,7 @@ async function checkout() {
 }
 
 
+wz1knbg
 
 function openPageCollection() {
   const hostname = "st1"
