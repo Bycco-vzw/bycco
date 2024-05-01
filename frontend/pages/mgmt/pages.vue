@@ -97,8 +97,6 @@ async function checkout() {
 }
 
 
-wz1knbg
-
 function openPageCollection() {
   const hostname = "st1"
   window.open(`https://${hostname}.bycco.be/cp/collections/pages`, '_statamic')
