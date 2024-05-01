@@ -8,12 +8,12 @@ from fastapi import BackgroundTasks
 from jinja2 import FileSystemLoader, Environment
 
 from reddevil.core import get_settings, RdBadRequest, RdNotFound
-from bycco.core.mail import MailParams, sendemail_no_attachments
 
 from bycco.participant import (
     ParticipantBJKCategory,
     ParticipantBJKDetail,
     ParticipantBJKItem,
+    ParticipantBJKUpdate,
     ParticipantBJK,
     DbParticpantBJK,
     ParticipantVKCategory,
@@ -188,6 +188,7 @@ async def get_participants_bjk(options: dict = {}) -> List[ParticipantBJKItem]:
     filter = options.copy()
     filter["_model"] = filter.pop("_model", ParticipantBJKItem)
     filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
+    filter["_fieldlist"].append("_creationtime")
     return [
         cast(ParticipantBJKItem, x) for x in await DbParticpantBJK.find_multiple(filter)
     ]
@@ -196,9 +197,10 @@ async def get_participants_bjk(options: dict = {}) -> List[ParticipantBJKItem]:
 async def get_participant_bjk(id: str) -> ParticipantBJKDetail:
     filter = {"_model": ParticipantBJKDetail}
     filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
+    filter["_fieldlist"].append("_creationtime")
     filter["id"] = id
-    part = await DbParticpantBJK.find_single(filter)
-    return part
+    par = await DbParticpantBJK.find_single(filter)
+    return par
 
 
 async def get_participant_bjk_by_idbel(idbel: str) -> ParticipantBJKItem:
@@ -269,13 +271,14 @@ async def import_participants_bjk():
 
 
 async def update_participant_bjk(
-    id: str, par: ParticipantBJK, options: dict = {}
+    id: str, par: ParticipantBJKUpdate, options: dict = {}
 ) -> ParticipantBJK:
     opt = options.copy()
-    opt["_model"] = opt.pop("_model", ParticipantBJK)
+    opt["_model"] = opt.pop("_model", ParticipantBJKDetail)
+    upd = par.model_dump(exclude_unset=True)
     return cast(
         ParticipantBJK,
-        await DbParticpantBJK.update(id, par.model_dump(exclude_unset=True), opt),
+        await DbParticpantBJK.update(id, upd, opt),
     )
 
 

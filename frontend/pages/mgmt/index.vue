@@ -4,7 +4,6 @@ import * as jose from 'jose'
 import { usePersonStore } from "@/store/person"
 import { storeToRefs } from 'pinia'
 
-
 // stores
 const personstore = usePersonStore();
 const { person } = storeToRefs(personstore)

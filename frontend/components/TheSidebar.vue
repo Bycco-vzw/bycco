@@ -7,8 +7,13 @@ function setLocale(l) {
   locale.value = l
 }
 
-function livegames() {
+function livegames_vk() {
   window.open("https://lichess.org/broadcast/flemish-championship-2024--closed/round-1/YKpRRcUf", "_live")
+}
+
+
+function rules_bjk() {
+  window.open("https://drive.google.com/file/d/1U7VycNN8ObdzqptAt1TrpIWJDPZoEo-q/view", "_rules")
 }
 
 </script>
@@ -28,27 +33,32 @@ function livegames() {
     </div>
     <v-list nav class="bm-blue-grey-darken-1">
       <v-list-item to="/" :title="t('Home')" />
+
       <v-list-group no-action>
         <template #activator="{ props }">
-          <v-list-item v-bind="props" :title="t('Tournament')" />
+          <v-list-item v-bind="props" :title="t('BYC 2024')" />
         </template>
-        <v-list-item to="/vk2024" title="Info" />
-        <v-list-item to="/gameschedule" :title="t('Game schedule')" />
+        <v-list-item to="/enrollment_bjk" :title="t('Enrollment')" />
+        <v-list-item to="/participants_bjk" :title="t('Participants')" />
+        <v-list-item @click="rules_bjk" :title="t('Tournament Rules')" />
+        <v-list-item to="/trn_u8" title="U8" />
+        <v-list-item to="/trn_u10" title="U10" />
+        <v-list-item to="/trn_u12" title="U12" />
+        <v-list-item to="/trn_u14" title="U14" />
+        <v-list-item to="/trn_u16" title="U16" />
+        <v-list-item to="/trn_u18" title="U18" />
+        <v-list-item to="/trn_u20" title="U20" />
+
+      </v-list-group>
+      <v-list-group no-action>
+        <template #activator="{ props }">
+          <v-list-item v-bind="props" title="VK 2024" />
+        </template>
         <v-list-item to="/trn_expert" :title="t('Experts')" />
         <v-list-item to="/trn_open" title="Open" />
         <v-list-item to="/trn_senior" :title="t('Seniors')" />
-        <v-list-item @click="livegames" title="Live" />
-      </v-list-group>
-      <v-list-group no-action>
-        <template #activator="{ props }">
-          <v-list-item v-bind="props" :title="t('Lodging')" />
-        </template>
-        <v-list-item to="/lodging" :title="t('Lodging') + ' 2024'" />
-        <v-list-item to="/catering" :title="t('Catering')" />
-        <v-list-item to="/reservation" :title="t('Reservation')" />
-        <v-list-item to="/reservationtool" :title="t('Reservation tool')" />
-      </v-list-group>
-    </v-list>
+        <v-list-item @click="livegames_vk" title="Live" />
+      </v-list-group> </v-list>
 
   </div>
 </template>

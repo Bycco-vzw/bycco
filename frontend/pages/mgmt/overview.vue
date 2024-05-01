@@ -8,9 +8,6 @@ const config = useRuntimeConfig()
 const personstore = usePersonStore()
 const { person } = storeToRefs(personstore)
 
-let checkinlaunched = false
-let checkinsuccess = false
-
 definePageMeta({
   layout: "mgmt",
 })
@@ -29,46 +26,6 @@ function checkAuth() {
   }
 }
 
-async function checkin() {
-  checkinlaunched = true
-  const data = {
-    user: person.value.user,
-    email: person.value.email,
-    branch: config.public.repo_branch,
-  }
-  let reply = await fetch(config.public.statamic_url + '/python/checkin', {
-    method: 'POST',
-    body: JSON.stringify(data),
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
-  checkinlaunched = false
-  checkinsuccess = true
-}
-
-async function checkout() {
-  checkoutlaunched = true
-  const data = {
-    user: person.value.user,
-    email: person.value.email,
-    branch: config.public.repo_branch,
-  }
-  const reply = await fetch(config.public.statamic_url + '/python/checkout', {
-    method: 'POST',
-    body: JSON.stringify(data),
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
-  checkoutlaunched = false
-  checkoutsuccess = true
-}
-
-function openCollections() {
-  const stUrl = config.public.statamic_url
-  window.open(`${stUrl}/cp/collections`, '_statamic')
-}
 
 onMounted(() => {
   checkAuth()

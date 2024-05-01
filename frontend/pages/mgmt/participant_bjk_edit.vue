@@ -26,6 +26,7 @@ const { person } = storeToRefs(personstore)
 // datamodel
 const idparticipant = route.query.id
 const par = ref({ payment_id: "" })
+const emails = ref("")
 
 definePageMeta({
   layout: 'mgmt',
@@ -97,7 +98,7 @@ async function delete_pr() {
   if (confirm('Are you sure to delete the linked payment request')) {
     showLoading(true)
     try {
-      reply = await $backend("payment", "mgmt_delete_participantbjk_pr", {
+      reply = await $backend("payment", "mgmt_delete_participant_bjk_pr", {
         id: idparticipant,
         token: mgmttoken.value
       })
@@ -114,7 +115,7 @@ async function delete_pr() {
     finally {
       showLoading(false)
     }
-    await getReservation()
+    await getParticipant()
   }
 }
 
@@ -149,21 +150,25 @@ async function gotoPaymentrequest(id) {
 
 function readParticipant(participant) {
   par.value = { ...participant }
+  emails.value = par.value.emails.join(",")
 }
 
 
 async function saveParticipant() {
   let reply
   showLoading(true)
+
   try {
     await $backend("participant", "mgmt_update_participant_bjk", {
-      id: idreservation,
-      participant: {},
+      id: idparticipant,
+      participant: {
+        emails: emails.value.split(",")
+      },
       token: mgmttoken.value
     })
   }
   catch (error) {
-    console.error('getting getParticipant', error)
+    console.error('saving getParticipant', error)
     if (error.code == 401) {
       router.push('/mgmt')
     }
@@ -216,10 +221,12 @@ onMounted(async () => {
           <v-col cols="12" sm="6">
             <v-text-field v-model="par.last_name" label="Last name" />
             <v-text-field v-model="par.first_name" label="First name" />
+            <v-text-field v-model="emails" label="Emails" />
           </v-col>
           <v-col cols="12" sm="6">
             <v-text-field v-model="par.ratingbel" label="ELO BEL" />
             <v-text-field v-model="par.ratingfide" label="ELO FIDE" />
+            <div>Creation time {{ date2str(par._creationtime) }}</div>
           </v-col>
         </v-row>
       </v-card-text>

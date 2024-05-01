@@ -24,7 +24,7 @@ export default {
   },
   mgmt_update_participant_vk: async function (options) {
     const { id, participant, token } = options
-    return await axios.put(`${prefix}/vk/${id}`, participant, {
+    return await axios.put(`${prefix}/vk/${id}`, { participant }, {
       headers: {
         Authorization: "Bearer " + token,
       }

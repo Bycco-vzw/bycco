@@ -15,13 +15,6 @@ from reddevil.core import get_settings, RdBadRequest, RdInternalServerError
 from bycco.main import settings
 from bycco.core.counter import DbCounter
 from bycco.core.common import get_common
-from bycco.core.mail import (
-    backends,
-    env,
-    i18n,
-    md,
-    markdownstyle,
-)
 
 
 from . import (
@@ -102,6 +95,14 @@ def calcmeals(cid: date, cod: date, meals: str):
 
 
 def sendemail_reservation(ldg: Lodging):
+    from bycco.core.mail import (
+        backends,
+        env,
+        i18n,
+        md,
+        markdownstyle,
+    )
+
     logger.info(f"sending reservation email {ldg}")
     tmpl = env.get_template(f"mailreservation_{ldg.locale}.md")
     context = ldg.model_dump()
