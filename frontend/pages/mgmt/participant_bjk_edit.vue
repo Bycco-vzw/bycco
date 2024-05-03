@@ -162,7 +162,11 @@ async function saveParticipant() {
     await $backend("participant", "mgmt_update_participant_bjk", {
       id: idparticipant,
       participant: {
-        emails: emails.value.split(",")
+        category: par.value.category,
+        emails: emails.value.split(","),
+        enabled: par.value.enabled,
+        ratingbel: par.value.ratingbel,
+        ratingfide: par.value.ratingfide,
       },
       token: mgmttoken.value
     })
@@ -221,12 +225,15 @@ onMounted(async () => {
           <v-col cols="12" sm="6">
             <v-text-field v-model="par.last_name" label="Last name" />
             <v-text-field v-model="par.first_name" label="First name" />
+            <v-switch v-model="par.enabled" label="Enabled" color="deep-purple" />
             <v-text-field v-model="emails" label="Emails" />
           </v-col>
           <v-col cols="12" sm="6">
             <v-text-field v-model="par.ratingbel" label="ELO BEL" />
             <v-text-field v-model="par.ratingfide" label="ELO FIDE" />
-            <div>Creation time {{ date2str(par._creationtime) }}</div>
+            <v-text-field v-model="par.category" label="Category" />
+            <div class="my-2">ID Bel {{ (par.idbel) }}</div>
+            <div class="my-2">Creation time {{ date2str(par._creationtime) }}</div>
           </v-col>
         </v-row>
       </v-card-text>

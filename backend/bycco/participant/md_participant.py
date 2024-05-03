@@ -282,6 +282,7 @@ class ParticipantBJKItem(BaseModel):
     birthyear: int
     category: ParticipantBJKCategory
     chesstitle: str | None
+    enabled: bool | None = True
     first_name: str
     gender: Gender
     id: str

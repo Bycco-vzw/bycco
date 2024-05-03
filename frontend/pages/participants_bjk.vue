@@ -32,7 +32,7 @@ async function getParticipants() {
   let reply
   showLoading(true)
   try {
-    reply = await $backend('participant', "get_participants_bjk")
+    reply = await $backend('participant', "get_participants_bjk", { enabled: 1 })
     participants.value = reply.data
   }
   catch (error) {

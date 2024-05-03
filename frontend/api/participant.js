@@ -30,8 +30,14 @@ export default {
       }
     })
   },
-  get_participants_bjk: async function () {
-    return await axios.get(`${prefix}/bjk`)
+  get_participants_bjk: async function (options) {
+    const { enabled } = options
+    if (enabled) {
+      return await axios.get(`${prefix}/bjk?enabled=1`)
+    }
+    else {
+      return await axios.get(`${prefix}/bjk`)
+    }
   },
   mgmt_import_enrollments_bjk: async function (options) {
     const { token } = options

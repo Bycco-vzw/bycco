@@ -108,9 +108,12 @@ async def api_mgmt_update_elo_vk(
 
 
 @router.get("/bjk", response_model=List[ParticipantBJKItem])
-async def api_get_participants_bjk():
+async def api_get_participants_bjk(enabled: str | None = None):
     try:
-        return await get_participants_bjk()
+        if enabled:
+            return await get_participants_bjk({"enabled": True})
+        else:
+            return await get_participants_bjk()
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except:

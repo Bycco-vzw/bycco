@@ -95,7 +95,7 @@ async function checkout() {
   showSnackbar("Content copied to operational site")
   mgmtstore.updateToken(reply.data)
 }
-
+6
 
 function openPageCollection() {
   const hostname = "st1"

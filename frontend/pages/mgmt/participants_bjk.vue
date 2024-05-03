@@ -107,7 +107,7 @@ async function getParticipants() {
   let reply
   showLoading(true)
   try {
-    reply = await $backend('participant', "get_participants_bjk")
+    reply = await $backend('participant', "get_participants_bjk", {})
     participants.value = reply.data
   }
   catch (error) {
@@ -171,6 +171,21 @@ onMounted(async () => {
     <v-data-table :headers="headers" :items="participants" :item-class="lightgreyRow"
       :items-per-page-options="[150, -1]" items-per-page="150" class="elevation-1"
       :sort-by="[{ key: 'last_name', order: 'asc' }]" :search="search">
+      <template v-slot:item.last_name="{ item }">
+        <span :class="{ disabled: !item.enabled }">
+          {{ item.last_name }}
+        </span>
+      </template>
+      <template v-slot:item.first_name="{ item }">
+        <span :class="{ disabled: !item.enabled }">
+          {{ item.first_name }}
+        </span>
+      </template>
+      <template v-slot:item.category="{ item }">
+        <span :class="{ disabled: !item.enabled }">
+          {{ item.category }}
+        </span>
+      </template>
       <template #top>
         <v-card color="bg-grey-lighten-4">
           <v-card-title>
@@ -240,3 +255,9 @@ onMounted(async () => {
     </v-data-table>
   </v-container>
 </template>
+
+<style scoped>
+.disabled {
+  color: rgb(186, 185, 185);
+}
+</style>
