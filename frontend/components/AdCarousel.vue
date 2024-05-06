@@ -7,6 +7,8 @@ const items = [
   { src: '/img/frame_archery.png', name: 'archery' },
   { src: '/img/frame_chessconsult.png', name: 'chessconsult' },
   { src: '/img/frame_talistro.png', name: 'talistro' },
+  { src: '/img/frame_chronos.png', name: 'chronos' },
+  { src: '/img/frame_tusk.png', name: 'tusk' },
 ]
 
 function setupCarousel() {
@@ -24,8 +26,8 @@ onMounted(() => setupCarousel())
     <v-card class="my-2 mx-auto" max-width="400">
       <v-card-title>Gold Sponsor:</v-card-title>
       <v-card-text>
-        <a href="http://www.cronos.be" target="_blank">
-          <img src='/img/frame_chronos.png'>
+        <a href="http://www.truegen.be" target="_blank">
+          <img src='/img/frame_truegen.png'>
         </a>
       </v-card-text>
     </v-card>
