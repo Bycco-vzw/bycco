@@ -4,11 +4,12 @@ import fr from "@/lang/fr.json"
 import de from "@/lang/de.json"
 import en from "@/lang/en.json"
 
+
 export default defineNuxtPlugin(({ vueApp }) => {
   const i18n = createI18n({
     legacy: false,
     globalInjection: true,
-    locale: 'nl',
+    locale: "nl",
     messages: {
       nl,
       fr,
