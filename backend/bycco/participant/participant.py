@@ -282,6 +282,32 @@ async def update_participant_bjk(
     )
 
 
+async def update_elo_bjk() -> None:
+    """
+    update the elo of all participants
+    """
+    prts = await get_participants_bjk()
+    for pr in prts:
+        if not pr.enabled:
+            continue
+        logger.info(f"updating elo {pr.last_name} {pr.first_name}")
+        upd = ParticipantBJK()
+        if pr.idbel and pr.idbel != "0":
+            try:
+                pl = await lookup_idbel(pr.idbel)
+                upd.ratingbel = pl.ratingbel
+            except Exception as e:
+                logger.info(f"lookup idbel failed {pr.last_name} {pr.first_name}")
+        if pr.idfide and pr.idfide != "0":
+            try:
+                pl = await lookup_idfide(pr.idfide)
+                upd.ratingfide = pl.ratingfide
+            except Exception as e:
+                logger.info(f"lookup idfide failed {pr.last_name} {pr.first_name}")
+        if upd:
+            await update_participant_bjk(pr.id, upd)
+
+
 env = Environment(loader=FileSystemLoader("bycco/templates"), trim_blocks=True)
 
 # current_event = EnrollmentEvent(

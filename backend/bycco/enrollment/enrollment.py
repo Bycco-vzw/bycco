@@ -307,7 +307,7 @@ async def lookup_idfide(idfide: str) -> IdReply:
     reply = IdReply(
         belfound=belreply is not None,
         birthyear=plyr["birthyear"],
-        chesstitle=plyr["chesstitle"],
+        chesstitle=plyr.get("chesstitle", ""),
         first_name=plyr["first_name"],
         gender=plyr["gender"],
         idbel=idbel,

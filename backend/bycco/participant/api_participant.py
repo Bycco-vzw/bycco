@@ -25,6 +25,7 @@ from . import (
     get_participant_vk,
     import_participants_bjk,
     import_participants_vk,
+    update_elo_bjk,
     update_elo_vk,
     update_participant_vk,
     update_participant_bjk,
@@ -163,6 +164,23 @@ async def api_mgmt_import_enrollments_bjk(
     except:
         logger.exception("failed api call mgmt_import_enrollments_bjk")
         raise HTTPException(status_code=500, detail="Internal Server Error")
+
+
+@router.post("/update/elo/bjk", status_code=201)
+async def api_mgmt_update_elo_bjk(
+    auth: HTTPAuthorizationCredentials = Depends(bearer_schema),
+):
+    try:
+        # await validate_token(auth)
+        await update_elo_bjk()
+    except RdException as e:
+        raise HTTPException(status_code=e.status_code, detail=e.description)
+    except:
+        logger.exception("failed api call mgmt_update_elo_vk")
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+
+
+# other
 
 
 @router.get("/namecards_cat/{cat}", response_class=HTMLResponse)
