@@ -11,6 +11,10 @@ const refdetails = ref(null)
 const refphoto = ref(null)
 const refnat = ref(null)
 const refconfirmation = ref(null)
+const today = new Date()
+
+// 7th of May
+const active = today.getMonth() < 5 && today.getDate() < 7
 
 
 // data model
@@ -62,7 +66,13 @@ function restart() {
     <h1 class="my-2">
       {{ t('enroll.tool') }}
     </h1>
-    <div>
+    <div v-if="!active">
+      <p class="mt-5">Inschrijvingen afgesloten</p>
+      <p class="mt-5">Enregistrements clôturés</p>
+      <p class="mt-5">Enrollments closed</p>
+      <p class="mt-5">Anmeldungen geschlossen</p>
+    </div>
+    <div v-if="active">
       <v-card class="my-2">
         <v-card-title class="text-h5 py-2 mb-2 bottomline">
           <v-chip>1</v-chip>
