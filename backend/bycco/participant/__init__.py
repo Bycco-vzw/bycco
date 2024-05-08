@@ -16,11 +16,14 @@ from .md_participant import (
     ParticipantVKItem,
 )
 from .participant import (
+    generate_badges_bjk,
+    generate_namecards_bjk,
     generate_namecards_vk,
     get_participants_bjk,
     get_participants_vk,
     get_participant_bjk,
     get_participant_vk,
+    get_photo,
     import_participant_bjk,
     import_participants_bjk,
     import_participant_vk,

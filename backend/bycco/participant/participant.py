@@ -4,7 +4,7 @@
 import logging
 from typing import cast, List, Dict, Any
 from datetime import datetime
-from fastapi import BackgroundTasks
+from fastapi import BackgroundTasks, Response
 from jinja2 import FileSystemLoader, Environment
 
 from reddevil.core import get_settings, RdBadRequest, RdNotFound
@@ -14,6 +14,7 @@ from bycco.participant import (
     ParticipantBJKDetail,
     ParticipantBJKItem,
     ParticipantBJKUpdate,
+    ParticipantBJKDB,
     ParticipantBJK,
     DbParticpantBJK,
     ParticipantVKCategory,
@@ -21,6 +22,7 @@ from bycco.participant import (
     ParticipantVKItem,
     ParticipantVK,
     DbParticpantVK,
+    DbParticpantBJK,
     Gender,
 )
 from bycco.enrollment import (
@@ -36,6 +38,7 @@ from bycco.enrollment import (
 from reddevil.core import RdNotFound
 
 logger = logging.getLogger(__name__)
+env = Environment(loader=FileSystemLoader("bycco/templates"), trim_blocks=True)
 
 # vk
 
@@ -181,6 +184,48 @@ async def update_elo_vk() -> None:
             await update_participant_vk(pr.id, upd)
 
 
+async def generate_namecards_vk(cat: str, ids: str):
+    """
+    get the Namecards for the vk by categorie or by ids
+    ids: comma separated ids
+    """
+    filter: Dict[str, Any] = {"enabled": True}
+    logger.info(f"filter {filter}")
+    if cat:
+        prts = await get_participants_vk({"category": cat})
+    else:
+        prts = await get_participants_vk({"idbel": {"$in": ids.split(",")}})
+    logger.info(f"nr of participants {len(prts)}")
+    pages = []
+    cards = []
+    j = 0
+    sorteddocs = sorted(prts, key=lambda x: f"{x.last_name}, {x.first_name}")
+    for ix, p in enumerate(sorteddocs):
+        rix = j % 2 + 1
+        ct = ""
+        # ct = p.chesstitle + " " if p.chesstitle else ""
+        card = {
+            "fullname": "{0}{1} {2}".format(ct, p.last_name, p.first_name),
+            "natrating": p.ratingbel or 0,
+            "fiderating": p.ratingfide or 0,
+            "category": p.category.value,
+            "nationalityfide": p.nationalityfide,
+            # 'photourl': '/photo/{0}'.format(p.id),
+            "positionclass": "card_1{0}".format(rix),
+            "ix": ix,
+        }
+        cards.append(card)
+        j += 1
+        if j == 2:
+            j = 0
+            pages.append(cards)
+            cards = []
+    if j > 0:
+        pages.append(cards)
+    tmpl = env.get_template("printnamecard_vk.j2")
+    return tmpl.render({"pages": pages})
+
+
 # bjk
 
 
@@ -308,71 +353,58 @@ async def update_elo_bjk() -> None:
             await update_participant_bjk(pr.id, upd)
 
 
-env = Environment(loader=FileSystemLoader("bycco/templates"), trim_blocks=True)
-
-# current_event = EnrollmentEvent(
-#     title="BJK 2023",
-#     startdate="2023-02-19",
-#     enddate="2023-02-25",
-#     eventtype="Youth,Categories",
-#     options={"categories": [e.value for e in EnrollmentCategory], "agelimit": 2003},
-# )
-
-# async def get_badges(cat: str = None):
-#     """
-#     get the Badges
-#     """
-#     filter: Dict[str, Any] = {}
-#     if cat == "org":
-#         filter["category"] = {"$in": ["ORG", "ARB"]}
-#     elif cat is not None:
-#         filter["category"] = cat
-#     if filter:
-#         docs = (await get_attendees(filter)).attendees
-#     else:
-#         docs = (await get_attendees()).attendees
-#     log.info(f"docs {len(docs)}")
-#     pages = []
-#     badges = []
-#     j = 0
-#     sorteddocs = sorted(docs, key=lambda x: f"{x.last_name}, {x.first_name}")
-#     for ix, p in enumerate(sorteddocs):
-#         rix = j % 2 + 1
-#         cix = j // 2 + 1
-#         badge = {
-#             "first_name": p.first_name,
-#             "last_name": p.last_name,
-#             "category": p.category,
-#             "meals": p.meals or "",
-#             "mealsclass": "badge_{}".format(p.meals or "NO"),
-#             "photourl": f"/api/v1/attendee/{p.id}/photo",
-#             "positionclass": "badge{0}{1}".format(cix, rix),
-#             "ix": ix,
-#         }
-#         # log.info(f"badge: {badge}")
-#         badges.append(badge)
-#         j += 1
-#         if j == 8:
-#             j = 0
-#             pages.append(badges)
-#             badges = []
-#     if j > 0:
-#         pages.append(badges)
-#     tmpl = env.get_template("printbadge.j2")
-#     return tmpl.render({"pages": pages})
-
-
-async def generate_namecards_vk(cat: str, ids: str):
+async def generate_badges_bjk(cat: str, ids: str = ""):
     """
-    get the Namecards for the vk by categorie or by ids
+    get the Namecards for the bjk by categorie or by ids
+    cat: str
     ids: comma separated ids
     """
     filter: Dict[str, Any] = {"enabled": True}
-    logger.info(f"filter {filter}")
     if cat:
-        prts = await get_participants_vk({"category": cat})
+        prts = await get_participants_bjk({"category": cat})
     else:
-        prts = await get_participants_vk({"idbel": {"$in": ids.split(",")}})
+        prts = await get_participants_bjk({"idbel": {"$in": ids.split(",")}})
+    logger.info(f"nr of participants {len(prts)}")
+    pages = []
+    badges = []
+    j = 0
+    sorteddocs = sorted(prts, key=lambda x: f"{x.last_name}, {x.first_name}")
+    for ix, p in enumerate(sorteddocs):
+        rix = j % 2 + 1
+        cix = j // 2 + 1
+        badge = {
+            "first_name": p.first_name,
+            "last_name": p.last_name,
+            "category": p.category.value,
+            # "meals": p.meals or "",
+            # "mealsclass": "badge_{}".format(p.meals or "NO"),
+            "photourl": f"/api/v1/participant/photo/{p.id}",
+            "positionclass": "badge{0}{1}".format(cix, rix),
+            "ix": ix,
+        }
+        # log.info(f"badge: {badge}")
+        badges.append(badge)
+        j += 1
+        if j == 8:
+            j = 0
+            pages.append(badges)
+            badges = []
+    if j > 0:
+        pages.append(badges)
+    tmpl = env.get_template("printbadge_bjk.j2")
+    return tmpl.render({"pages": pages})
+
+
+async def generate_namecards_bjk(cat: str, ids: str = ""):
+    """
+    get the Namecards for the bjk by categorie or by ids
+    ids: comma separated ids
+    """
+    filter: Dict[str, Any] = {"enabled": True}
+    if cat:
+        prts = await get_participants_bjk({"category": cat})
+    else:
+        prts = await get_participants_bjk({"idbel": {"$in": ids.split(",")}})
     logger.info(f"nr of participants {len(prts)}")
     pages = []
     cards = []
@@ -400,8 +432,15 @@ async def generate_namecards_vk(cat: str, ids: str):
             cards = []
     if j > 0:
         pages.append(cards)
-    tmpl = env.get_template("printnamecard_vk.j2")
+    tmpl = env.get_template("printnamecard_bjk.j2")
     return tmpl.render({"pages": pages})
 
 
-#########
+async def get_photo(id: str) -> Response:
+    photo = await DbParticpantBJK.find_single(
+        {
+            "id": id,
+            "_fieldlist": ["badgeimage", "badgemimetype"],
+        }
+    )
+    return Response(content=photo["badgeimage"], media_type=photo["badgemimetype"])

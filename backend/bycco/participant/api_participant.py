@@ -4,7 +4,7 @@
 import logging
 from typing import List
 from fastapi import HTTPException, BackgroundTasks, Depends, APIRouter
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, Response
 from fastapi.security import HTTPAuthorizationCredentials
 from reddevil.core import RdException, bearer_schema
 from reddevil.core import validate_token
@@ -18,11 +18,14 @@ from . import (
     ParticipantVK,
     ParticipantVKItem,
     ParticipantVKDetail,
+    generate_badges_bjk,
+    generate_namecards_bjk,
     generate_namecards_vk,
     get_participants_bjk,
     get_participants_vk,
     get_participant_bjk,
     get_participant_vk,
+    get_photo,
     import_participants_bjk,
     import_participants_vk,
     update_elo_bjk,
@@ -105,6 +108,28 @@ async def api_mgmt_update_elo_vk(
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
+@router.get("/namecards_cat/vk/{cat}", response_class=HTMLResponse)
+async def api_generate_namecards(cat: str):
+    try:
+        return await generate_namecards_vk(cat)
+    except RdException as e:
+        raise HTTPException(status_code=e.status_code, detail=e.description)
+    except:
+        logger.exception("failed api call generate_namecards")
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+
+
+@router.get("/namecards_id/vk/{ids}", response_class=HTMLResponse)
+async def api_generate_namecards(ids: str):
+    try:
+        return await generate_namecards_vk(cat="", ids=ids)
+    except RdException as e:
+        raise HTTPException(status_code=e.status_code, detail=e.description)
+    except:
+        logger.exception("failed api call generate_namecards")
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+
+
 # bjk
 
 
@@ -180,13 +205,10 @@ async def api_mgmt_update_elo_bjk(
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-# other
-
-
-@router.get("/namecards_cat/{cat}", response_class=HTMLResponse)
-async def api_generate_namecards(cat: str):
+@router.get("/namecards_cat/bjk/{cat}", response_class=HTMLResponse)
+async def api_generate_namecards_cat(cat: str):
     try:
-        return await generate_namecards_vk(cat)
+        return await generate_namecards_bjk(cat)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except:
@@ -194,12 +216,45 @@ async def api_generate_namecards(cat: str):
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.get("/namecards_id/{ids}", response_class=HTMLResponse)
-async def api_generate_namecards(ids: str):
+@router.get("/namecards_id/bjk/{ids}", response_class=HTMLResponse)
+async def api_generate_namecards_ids(ids: str):
     try:
-        return await generate_namecards_vk(cat="", ids=ids)
+        return await generate_namecards_bjk(cat="", ids=ids)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except:
         logger.exception("failed api call generate_namecards")
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+
+
+@router.get("/badges_cat/bjk/{cat}", response_class=HTMLResponse)
+async def api_generate_badges_cat(cat: str):
+    try:
+        return await generate_badges_bjk(cat)
+    except RdException as e:
+        raise HTTPException(status_code=e.status_code, detail=e.description)
+    except:
+        logger.exception("failed api call generate_namecards")
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+
+
+@router.get("/badges_id/bjk/{ids}", response_class=HTMLResponse)
+async def api_generate_badges_ids(ids: str):
+    try:
+        return await generate_badges_bjk(cat="", ids=ids)
+    except RdException as e:
+        raise HTTPException(status_code=e.status_code, detail=e.description)
+    except:
+        logger.exception("failed api call generate_namecards")
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+
+
+@router.get("/photo/{id}", response_class=Response)
+async def api_get_photo(id: str):
+    try:
+        return await get_photo(id)
+    except RdException as e:
+        raise HTTPException(status_code=e.status_code, detail=e.description)
+    except:
+        logger.exception("failed api call get_participant")
         raise HTTPException(status_code=500, detail="Internal Server Error")
