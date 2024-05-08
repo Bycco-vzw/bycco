@@ -114,6 +114,7 @@ function processTournament() {
             ngames: p.NbOfParts,
             points: parseFloat(p.Points)
         }
+        if (!p.RoundArray) p.RoundArray = []
         p.RoundArray.forEach((r) => {
             const rnr = r.RoundNr
             const pr = pairings[rnr] || {
