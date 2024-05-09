@@ -32,4 +32,5 @@ from .participant import (
     update_elo_vk,
     update_participant_bjk,
     update_participant_vk,
+    upload_photo_bjk,
 )

@@ -1,5 +1,7 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import VueCropper from 'vue-cropperjs'
+import 'cropperjs/dist/cropper.css';
 import ProgressLoading from '@/components/ProgressLoading.vue'
 import SnackbarMessage from '@/components/SnackbarMessage.vue'
 import { useMgmtTokenStore } from "@/store/mgmttoken"
@@ -27,6 +29,12 @@ const { person } = storeToRefs(personstore)
 const idparticipant = route.query.id
 const par = ref({ payment_id: "" })
 const emails = ref("")
+const photourl = computed(() => {
+  return "https://www.bycco.be/api/v1/participant/photo/" + (par.value.id || "")
+})
+const photo = ref([])
+const photosrc = ref("")
+
 
 definePageMeta({
   layout: 'mgmt',
@@ -67,7 +75,6 @@ async function checkAuth() {
   }
   mgmtstore.updateToken(reply.data)
 }
-
 
 async function create_pr() {
   let reply
@@ -121,8 +128,9 @@ async function delete_pr() {
 
 async function getParticipant() {
   let reply
-  showLoading(true)
+  // showLoading(true)
   try {
+    console.log('getting participant', idparticipant)
     reply = await $backend('participant', "mgmt_get_participant_bjk", {
       id: idparticipant,
       token: mgmttoken.value
@@ -139,7 +147,7 @@ async function getParticipant() {
     }
   }
   finally {
-    showLoading(false)
+    // showLoading(false)
   }
 }
 
@@ -148,11 +156,24 @@ async function gotoPaymentrequest(id) {
   router.push('/mgmt/paymentrequest_edit?id=' + id)
 }
 
+function handleFile(event) {
+  const reader = new FileReader()
+  reader.onload = (event) => {
+    console.log('handle file onload', event, photo.value)
+    photosrc.value.replace(event.target.result)
+  }
+  reader.readAsDataURL(event[0])
+}
+
 function readParticipant(participant) {
   par.value = { ...participant }
   emails.value = par.value.emails.join(",")
 }
 
+
+async function refresh() {
+  await getParticipant()
+}
 
 async function saveParticipant() {
   let reply
@@ -188,6 +209,31 @@ async function saveParticipant() {
   showSnackbar('Participant saved')
 }
 
+async function upload_photo() {
+  let reply, photodataurl
+  showLoading(true)
+  photodataurl = photosrc.value.getCroppedCanvas({ width: 160 }).toDataURL()
+  console.log('Uploading foto', photodataurl)
+  try {
+    reply = await $backend("participant", "upload_photo_bjk", {
+      photo: photodataurl,
+      id: par.value.id
+    })
+    console.log('upload reply', reply)
+  }
+  catch (error) {
+    console.log('error reply', error)
+    showSnackbar(error.message)
+  }
+  finally {
+    console.log('finally')
+    showLoading(false)
+  }
+  console.log('uploaded')
+  photo.value = []
+  photosrc.value = ""
+}
+
 onMounted(async () => {
   showSnackbar = refsnackbar.value.showSnackbar
   showLoading = refloading.value.showLoading
@@ -213,6 +259,14 @@ onMounted(async () => {
           </v-btn>
         </template>
         <span>Go Back</span>
+      </v-tooltip>
+      <v-tooltip location="bottom">
+        Refresh
+        <template #activator="{ props }">
+          <v-btn fab outlined color="deep-purple-lighten-1" v-bind="props" @click="refresh()">
+            <v-icon>mdi-refresh</v-icon>
+          </v-btn>
+        </template>
       </v-tooltip>
     </v-row>
 
@@ -240,6 +294,32 @@ onMounted(async () => {
       <v-card-actions>
         <v-btn @click="saveParticipant">
           Save
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+
+    <v-card class="my-3">
+      <v-card-title class="mt-2">
+        Photo
+      </v-card-title>
+      <v-card-text>
+        <v-row>
+          <v-col cols="2">
+            <img :src="photourl">
+          </v-col>
+          <v-col cols="10">
+            <v-file-input label="Badge" v-model="photo" @update:modelValue="handleFile" />
+            <vue-cropper ref="photosrc" :view-mode="2" drag-mode="crop" :auto-crop-area="0.5"
+              :background="true" src="" alt=" " :aspect-ratio="0.8" preview="#photoresult"
+              :img-style="{ height: '400px' }" />
+            <h4>Result</h4>
+            <div id="photoresult" ref="photoresult" class="photoresult" />
+          </v-col>
+        </v-row>
+      </v-card-text>
+      <v-card-actions>
+        <v-btn @click="upload_photo">
+          Upload
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -272,5 +352,26 @@ onMounted(async () => {
 
 .v-input--checkbox {
   margin-top: 0;
+}
+
+.dropbox {
+  width: 100%;
+  background-color: aliceblue;
+}
+
+.photosrc {
+  overflow: hidden;
+  width: 100%;
+  height: 400px;
+  border: 1px dashed #808080;
+  background-color: #d3d3d3;
+}
+
+.photoresult {
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  width: 160px;
+  height: 200px;
 }
 </style>

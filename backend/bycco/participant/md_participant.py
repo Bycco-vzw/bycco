@@ -225,6 +225,9 @@ class ParticipantBJKUpdate(BaseModel):
     participant update model
     """
 
+    badgemimetype: str | None = None
+    badgeimage: Optional[bytes] = None
+    badgelength: int | None = None
     birthyear: int | None = None
     category: ParticipantBJKCategory | None = None
     chesstitle: str | None = None

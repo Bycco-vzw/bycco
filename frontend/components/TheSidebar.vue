@@ -38,8 +38,8 @@ function rules_bjk() {
         <template #activator="{ props }">
           <v-list-item v-bind="props" :title="t('BYC 2024')" />
         </template>
-        <v-list-item to="/enrollment_bjk" :title="t('Enrollment')" />
-        <v-list-item to="/participants_bjk" :title="t('Participants')" />
+        <!-- <v-list-item to="/enrollment_bjk" :title="t('Enrollment')" />
+        <v-list-item to="/participants_bjk" :title="t('Participants')" /> -->
         <v-list-item @click="rules_bjk" :title="t('Tournament Rules')" />
         <v-list-item to="/trn_u8" title="U8" />
         <v-list-item to="/trn_u10" title="U10" />

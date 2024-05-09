@@ -4,6 +4,7 @@
 import logging
 from typing import cast, List, Dict, Any
 from datetime import datetime
+from binascii import a2b_base64
 from fastapi import BackgroundTasks, Response
 from jinja2 import FileSystemLoader, Environment
 
@@ -444,3 +445,17 @@ async def get_photo(id: str) -> Response:
         }
     )
     return Response(content=photo["badgeimage"], media_type=photo["badgemimetype"])
+
+
+async def upload_photo_bjk(id: str, photo: str) -> None:
+    try:
+        header, data = photo.split(",")
+        imagedata = a2b_base64(data)
+        su = ParticipantBJKUpdate(
+            badgemimetype=header.split(":")[1].split(";")[0],
+            badgeimage=imagedata,
+            badgelength=len(cast(str, imagedata)),
+        )
+    except:
+        raise RdBadRequest(description="BadPhotoData")
+    await update_participant_bjk(id, su)
