@@ -146,7 +146,7 @@ function processTournament() {
                         white: p.Name,
                         black: r.OpponentName,
                         result: getWhiteResult(r.Result),
-                        boardnr
+                        boardnr: boardnr + 1,
                     }
                     break
             }
