@@ -175,7 +175,7 @@ function processTournament() {
           if (r.Tabel === 'BYE') {
             pr.bye = {
               white: p.Name,
-              black: '',
+              black: 'Bye',
               result: ''
             }
           }
@@ -189,19 +189,21 @@ function processTournament() {
           break
         case 'White':
           let boardnr = parseInt(r.Tabel) - 1
-          pr.games[boardnr] = {
+          pr.games.push({
             white: p.Name,
             black: r.OpponentName,
             result: getWhiteResult(r.Result),
             boardnr: boardnr + 1,
-          }
+          })
           break
       }
       pairings[rnr] = pr
     })
   })
+
   const maxround = pairings.length - 1
   pairings.forEach((p, ix) => {
+    p.games.sort((x, y) => x.boardnr - y.boardnr)
     if (ix > 0) {
       sortpairings[maxround - ix] = {
         games: p.games,
