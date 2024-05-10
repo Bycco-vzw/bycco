@@ -1,8 +1,10 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useDisplay } from 'vuetify'
 
 const { t } = useI18n()
+const { xs } = useDisplay()
 
 const tournament = {
   json_file: "bjk_u14.json",
@@ -10,6 +12,15 @@ const tournament = {
 }
 
 const { $backend } = useNuxtApp()
+
+const sb_headers = computed(() => {
+  if (xs.value) {
+    return sheaders.filter((x) => { return !x.small })
+  }
+  else {
+    return sheaders
+  }
+})
 
 const sheaders = [
   {
@@ -30,13 +41,44 @@ const sheaders = [
   {
     title: t('Games'),
     sortable: false,
+    small: true,
     value: 'ngames'
   },
   {
     title: t('Points'),
     sortable: false,
     value: 'points'
-  }
+  },
+  {
+    title: "BC1",
+    sortable: false,
+    small: true,
+    value: 'tb1'
+  },
+  {
+    title: "Buch",
+    sortable: false,
+    small: true,
+    value: 'tb2'
+  },
+  {
+    title: "SB",
+    sortable: false,
+    small: true,
+    value: 'tb3'
+  },
+  {
+    title: "Prog",
+    sortable: false,
+    small: true,
+    value: 'tb4'
+  },
+  {
+    title: "DE",
+    sortable: false,
+    small: true,
+    value: 'tb5'
+  },
 ]
 const gheaders = [
   {
@@ -112,7 +154,12 @@ function processTournament() {
       name: p.Name,
       elo: p.FideElo,
       ngames: p.NbOfParts,
-      points: parseFloat(p.Points)
+      points: parseFloat(p.Points),
+      tb1: p.TieBreak[0].Points,
+      tb2: p.TieBreak[1].Points,
+      tb3: p.TieBreak[2].Points,
+      tb4: p.TieBreak[3].Points,
+      tb5: p.TieBreak[4].Points,
     }
     if (!p.RoundArray) p.RoundArray = []
     p.RoundArray.forEach((r) => {
@@ -187,7 +234,7 @@ onMounted(() => {
     </v-tabs>
     <v-window v-model="tab">
       <v-window-item>
-        <v-data-table :items="trn.standings" :headers="sheaders" :items-per-page="50"
+        <v-data-table :items="trn.standings" :headers="sb_headers" :items-per-page="50"
           :hide-default-footer="true" mobile-breakpoint="0" density="compact" />
       </v-window-item>
       <v-window-item>
