@@ -14,9 +14,7 @@ const tournament = {
 const { $backend } = useNuxtApp()
 
 const swartrn = ref({})
-
 const tab = ref(0)
-const trn = ref({})
 
 async function getTournament(name) {
   let reply
@@ -33,7 +31,7 @@ async function getTournament(name) {
   finally {
     console.log()
   }
-  swartrn.value = processSwarJson(reply.data)
+  swartrn.value = processSwarJson(reply.data, xs.value, t)
 }
 
 
@@ -53,13 +51,13 @@ onMounted(() => {
     </v-tabs>
     <v-window v-model="tab">
       <v-window-item>
-        <v-data-table :items="swartrn.standings" :headers="st_headers" :items-per-page="50"
+        <v-data-table :items="swartrn.standings" :headers="swartrn.st_headers" :items-per-page="50"
           :hide-default-footer="true" mobile-breakpoint="0" density="compact" />
       </v-window-item>
       <v-window-item>
-        <div v-for="p in swarrn.sortpairings" :key="p.rnr" class="my-2">
-          <h2>Ronde {{ p.rnr }}</h2>
-          <v-data-table :items="p.games" :headers="pr_headers" :items-per-page="50"
+        <div v-for="p in swartrn.sortpairings" :key="p.rnr" class="my-2">
+          <h2>{{ t('Round') }} {{ p.rnr }}</h2>
+          <v-data-table :items="p.games" :headers="swartrn.pr_headers" :items-per-page="50"
             :hide-default-footer="true" mobile-breakpoint="0" density="compact" />
         </div>
       </v-window-item>
@@ -70,13 +68,3 @@ onMounted(() => {
     </v-window>
   </v-container>
 </template>
-
-<style scoped>
-.person-photo {
-  width: 160px;
-}
-
-.person-photo-sm {
-  width: 120px;
-}
-</style>

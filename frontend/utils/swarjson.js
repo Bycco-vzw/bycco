@@ -1,23 +1,15 @@
 
-const st_headers = computed(() => {
-  if (xs.value) {
-    return sheaders.filter((x) => { return !x.small })
-  }
-  else {
-    return sheaders
-  }
-})
 
-let $t = null
 
-const sheaders = [
+
+const _st_headers = [
   {
-    title: $t('Nb'),
+    u_title: "Nb",
     sortable: false,
     value: 'rank'
   },
   {
-    title: $t('Name'),
+    u_title: 'Name',
     sortable: false,
     value: 'name'
   },
@@ -27,13 +19,13 @@ const sheaders = [
     value: 'elo'
   },
   {
-    title: $t('Games'),
+    u_title: 'Games',
     sortable: false,
     small: true,
     value: 'ngames'
   },
   {
-    title: $t('Points'),
+    u_title: 'Points',
     sortable: false,
     value: 'points'
   },
@@ -70,22 +62,22 @@ const sheaders = [
 ]
 const pr_headers = [
   {
-    title: $t('Nb'),
+    u_title: 'Nb',
     sortable: false,
     value: 'boardnr'
   },
   {
-    title: $t('White'),
+    u_title: 'White',
     sortable: false,
     value: 'white'
   },
   {
-    title: $t('Result'),
+    u_title: 'Result',
     sortable: false,
     value: 'result'
   },
   {
-    title: $t('Black'),
+    u_title: 'Black',
     sortable: false,
     value: 'black'
   }
@@ -108,10 +100,10 @@ function getWhiteResult(rescode) {
   }
 }
 
-function processSwarJson(swarjson, t) {
-  $t = t
+function processSwarJson(swarjson, small, t) {
   const standings = [], pairings = [], sortpairings = []
   const players = swarjson.Swar.Player
+  let st_headers = _st_headers
   players.forEach((p) => {
     standings[p.Ranking - 1] = {
       id: p.NationalId,
@@ -165,7 +157,6 @@ function processSwarJson(swarjson, t) {
       pairings[rnr] = pr
     })
   })
-
   const maxround = pairings.length - 1
   pairings.forEach((p, ix) => {
     p.games.sort((x, y) => x.boardnr - y.boardnr)
@@ -182,6 +173,19 @@ function processSwarJson(swarjson, t) {
       }
     }
   })
+  st_headers.forEach((h) => {
+    if (h.u_title) {
+      h.title = t(h.u_title)
+    }
+  })
+  pr_headers.forEach((h) => {
+    if (h.u_title) {
+      h.title = t(h.u_title)
+    }
+  })
+  if (small) {
+    st_headers = st_headers.filter((x) => { return !x.small })
+  }
   return { standings, pairings, sortpairings, st_headers, pr_headers }
 }
 
