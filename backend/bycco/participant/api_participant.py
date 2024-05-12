@@ -21,6 +21,7 @@ from . import (
     generate_badges_bjk,
     generate_namecards_bjk,
     generate_namecards_vk,
+    generate_prizes_bjk,
     get_participants_bjk,
     get_participants_vk,
     get_participant_bjk,
@@ -269,4 +270,15 @@ async def api_upload_photo_bjk(id: str, body: dict):
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except:
         logger.exception("failed api call upload_photo_bjk")
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+
+
+@router.get("/prizes/bjk", response_class=HTMLResponse)
+async def api_generate_prizes():
+    try:
+        return await generate_prizes_bjk()
+    except RdException as e:
+        raise HTTPException(status_code=e.status_code, detail=e.description)
+    except:
+        logger.exception("failed api call generate_prizes")
         raise HTTPException(status_code=500, detail="Internal Server Error")

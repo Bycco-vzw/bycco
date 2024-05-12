@@ -19,6 +19,16 @@ const _st_headers = [
     value: 'elo'
   },
   {
+    title: 'ID Bel',
+    sortable: false,
+    value: 'idbel'
+  },
+  {
+    title: 'Gender',
+    sortable: false,
+    value: 'gender'
+  },
+  {
     u_title: 'Games',
     sortable: false,
     small: true,
@@ -112,6 +122,8 @@ function processSwarJson(swarjson, small, t) {
       elo: p.FideElo,
       ngames: p.NbOfParts,
       points: parseFloat(p.Points),
+      idbel: p.NationalId,
+      gender: p.Sex[0],
       tb1: p.TieBreak[0].Points,
       tb2: p.TieBreak[1].Points,
       tb3: p.TieBreak[2].Points,
