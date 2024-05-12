@@ -19,6 +19,7 @@ from .participant import (
     generate_badges_bjk,
     generate_namecards_bjk,
     generate_namecards_vk,
+    generate_prizes_bjk,
     get_participants_bjk,
     get_participants_vk,
     get_participant_bjk,
@@ -32,4 +33,5 @@ from .participant import (
     update_elo_vk,
     update_participant_bjk,
     update_participant_vk,
+    upload_photo_bjk,
 )

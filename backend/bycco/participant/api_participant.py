@@ -21,6 +21,7 @@ from . import (
     generate_badges_bjk,
     generate_namecards_bjk,
     generate_namecards_vk,
+    generate_prizes_bjk,
     get_participants_bjk,
     get_participants_vk,
     get_participant_bjk,
@@ -32,6 +33,7 @@ from . import (
     update_elo_vk,
     update_participant_vk,
     update_participant_bjk,
+    upload_photo_bjk,
 )
 
 logger = logging.getLogger(__name__)
@@ -257,4 +259,26 @@ async def api_get_photo(id: str):
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except:
         logger.exception("failed api call get_participant")
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+
+
+@router.post("/photo/bjk/{id}")
+async def api_upload_photo_bjk(id: str, body: dict):
+    try:
+        return await upload_photo_bjk(id, body["photo"])
+    except RdException as e:
+        raise HTTPException(status_code=e.status_code, detail=e.description)
+    except:
+        logger.exception("failed api call upload_photo_bjk")
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+
+
+@router.get("/prizes/bjk", response_class=HTMLResponse)
+async def api_generate_prizes():
+    try:
+        return await generate_prizes_bjk()
+    except RdException as e:
+        raise HTTPException(status_code=e.status_code, detail=e.description)
+    except:
+        logger.exception("failed api call generate_prizes")
         raise HTTPException(status_code=500, detail="Internal Server Error")

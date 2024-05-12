@@ -70,5 +70,9 @@ export default {
         Authorization: "Bearer " + token,
       }
     })
-  }
+  },
+  upload_photo_bjk: async function (options) {
+    const { id, photo } = options
+    return await axios.post(`${prefix}/photo/bjk/${id}`, { photo })
+  },
 }
