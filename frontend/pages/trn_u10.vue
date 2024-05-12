@@ -61,7 +61,7 @@ onMounted(() => {
         </div>
       </v-window-item>
       <v-window-item>
-        <a href="https://view.livechesscloud.com#3ed77562-6a33-4f0b-a315-1c1b4db61598"
+        <a href="https://view.livechesscloud.com#22ea7cb3-5470-4140-ab45-8293cbee01c5"
           target="live">Live Games</a>
       </v-window-item>
     </v-window>
