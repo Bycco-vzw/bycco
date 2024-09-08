@@ -1,4 +1,4 @@
-## Betalingsaanvraag verblijf Floreal 2024
+## Betalingsaanvraag verblijf Floreal 2025
 
 Wij vragen je om de vermelde gegevens te verifiëren en eventuele fouten aan ons te melden
 

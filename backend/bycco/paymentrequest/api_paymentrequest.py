@@ -9,12 +9,12 @@ from reddevil.core import RdException, get_settings, bearer_schema, validate_tok
 
 from bycco.main import app
 from . import (
-    create_pr_lodging,
+    create_pr_stay,
     create_pr_participant_bjk,
     create_pr_participant_vk,
     create_pr_participants_bjk,
     create_pr_participants_vk,
-    delete_pr_lodging,
+    delete_pr_stay,
     delete_pr_participant_bjk,
     delete_pr_participant_vk,
     email_paymentrequest,
@@ -22,7 +22,7 @@ from . import (
     get_payment_requests,
     get_payment_request,
     update_payment_request,
-    update_pr_lodging,
+    update_pr_stay,
     update_pr_participant_bjk,
     update_pr_participant_vk,
     PaymentRequest,
@@ -111,17 +111,17 @@ async def api_email_paymentrequest(
         raise HTTPException(status_code=500)
 
 
-# lodging
+# stay
 
 
-@router.post("/lodging_pr/{id}", response_model=str)
-async def api_create_pr_lodging(
+@router.post("/stay_pr/{id}", response_model=str)
+async def api_create_pr_stay(
     id: str,
     auth: HTTPAuthorizationCredentials = Depends(bearer_schema),
 ):
     try:
         await validate_token(auth)
-        return await create_pr_lodging(id)
+        return await create_pr_stay(id)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except:
@@ -129,15 +129,15 @@ async def api_create_pr_lodging(
         raise HTTPException(status_code=500)
 
 
-@router.put("/lodging_pr/{id}")
-async def api_update_pr_lodging(
+@router.put("/stay_pr/{id}")
+async def api_update_pr_stay(
     id: str,
     prq: PaymentRequest,
     auth: HTTPAuthorizationCredentials = Depends(bearer_schema),
 ):
     try:
         await validate_token(auth)
-        await update_pr_lodging(id, prq)
+        await update_pr_stay(id, prq)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except:
@@ -145,14 +145,14 @@ async def api_update_pr_lodging(
         raise HTTPException(status_code=500)
 
 
-@router.delete("/lodging_pr/{id}")
-async def api_delete_pr_lodging(
+@router.delete("/stay_pr/{id}")
+async def api_delete_pr_stay(
     id: str,
     auth: HTTPAuthorizationCredentials = Depends(bearer_schema),
 ):
     try:
         await validate_token(auth)
-        await delete_pr_lodging(id)
+        await delete_pr_stay(id)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except:

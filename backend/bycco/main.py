@@ -60,8 +60,8 @@ from reddevil.filestore import api_filestore
 logger.info("loading api_enrollment")
 from bycco.enrollment import api_enrollment
 
-logger.info("loading api_lodging")
-from bycco.lodging import api_lodging
+logger.info("loading api_stay")
+from bycco.stay import api_stay
 
 logger.info("loading api_room")
 from bycco.room import api_room
@@ -85,7 +85,7 @@ app.include_router(api_account.router)
 app.include_router(api_attendee.router)
 app.include_router(api_enrollment.router)
 app.include_router(api_filestore.router)
-app.include_router(api_lodging.router)
+app.include_router(api_stay.router)
 app.include_router(api_room.router)
 app.include_router(api_participant.router)
 app.include_router(api_paymentrequest.router)

@@ -12,16 +12,15 @@ import openpyxl
 
 
 from reddevil.core import get_settings, RdBadRequest, RdInternalServerError
-from bycco.main import settings
 from bycco.core.counter import DbCounter
 from bycco.core.common import get_common
 
 
 from . import (
     Assignment,
-    DbLodging,
-    Lodging,
-    LodgingIn,
+    DbStay,
+    Stay,
+    StayIn,
 )
 from bycco.room import Room, get_room_by_number, update_room
 
@@ -36,32 +35,30 @@ m12y = date(startdate.year - 12, startdate.month, startdate.day)
 m18y = date(startdate.year - 18, startdate.month, startdate.day)
 
 
-async def get_lodging(id: str, options: dict = {}) -> Lodging:
+async def get_stay(id: str, options: dict = {}) -> Stay:
     """
-    get the Lodging
+    get the Stay
     """
     filter = options.copy()
     filter["id"] = id
-    filter["_model"] = filter.pop("_model", Lodging)
-    return cast(Lodging, await DbLodging.find_single(filter))
+    filter["_model"] = filter.pop("_model", Stay)
+    return cast(Stay, await DbStay.find_single(filter))
 
 
-async def get_lodgings(options: dict = {}) -> List[Lodging]:
+async def get_stays(options: dict = {}) -> List[Stay]:
     """
     get the reservations
     """
     filter = options.copy()
-    filter["_model"] = filter.pop("_model", Lodging)
-    return [cast(Lodging, x) for x in await DbLodging.find_multiple(filter)]
+    filter["_model"] = filter.pop("_model", Stay)
+    return [cast(Stay, x) for x in await DbStay.find_multiple(filter)]
 
 
-async def update_lodging(id: str, rsv: Lodging, options: dict = {}) -> Lodging:
+async def update_stay(id: str, rsv: Stay, options: dict = {}) -> Stay:
     opt = options.copy()
-    opt["_model"] = opt.pop("_model", Lodging)
-    lodging = cast(
-        Lodging, await DbLodging.update(id, rsv.model_dump(exclude_unset=True), opt)
-    )
-    return lodging
+    opt["_model"] = opt.pop("_model", Stay)
+    stay = cast(Stay, await DbStay.update(id, rsv.model_dump(exclude_unset=True), opt))
+    return stay
 
 
 def loopdays():
@@ -94,7 +91,7 @@ def calcmeals(cid: date, cod: date, meals: str):
     return ml
 
 
-def sendemail_reservation(ldg: Lodging):
+def sendemail_reservation(ldg: Stay):
     from bycco.core.mail import (
         backends,
         env,
@@ -107,7 +104,7 @@ def sendemail_reservation(ldg: Lodging):
     tmpl = env.get_template(f"mailreservation_{ldg.locale}.md")
     context = ldg.model_dump()
     # translate
-    context["lodging"] = i18n[context["lodging"]][context["locale"]]
+    context["stay"] = i18n[context["stay"]][context["locale"]]
     context["meals"] = i18n[context["meals"]][context["locale"]]
     # render the content using jinja2 templating giving markdown text
     markdowntext = tmpl.render(**context)
@@ -136,12 +133,12 @@ def sendemail_reservation(ldg: Lodging):
         logger.exception("failed")
 
 
-async def make_reservation(d: LodgingIn, bt: BackgroundTasks) -> str:
+async def make_reservation(d: StayIn, bt: BackgroundTasks) -> str:
 
     rd = d.model_dump()
     logger.info(f"rd {rd}")
     rd["locale"] = rd.get("locale") or "nl"
-    rd["lodging"] = rd.get("lodging") or settings.DEFAULT_LODGING
+    rd["stay"] = rd.get("stay") or settings.DEFAULT_LODGING
     rd["meals"] = rd.get("meals") or settings.DEFAULT_MEALS
     gl = []
     try:
@@ -163,7 +160,7 @@ async def make_reservation(d: LodgingIn, bt: BackgroundTasks) -> str:
         if bdate > m3y:
             age_category = "-3"
         gd["age_category"] = age_category
-        gd["lodging"] = rd["lodging"]
+        gd["stay"] = rd["stay"]
         gl.append(gd)
     rd["guestlist"] = gl
     rd["enabled"] = True
@@ -171,7 +168,7 @@ async def make_reservation(d: LodgingIn, bt: BackgroundTasks) -> str:
     rd["number"] = await DbCounter.next("reservation")
     logger.info(f"call add Reservation {rd}")
     try:
-        id = await DbLodging.add(rd)
+        id = await DbStay.add(rd)
     except:
         logger.exception("Cannot add rsv")
         raise RdInternalServerError("Cannot add rsv")
@@ -179,10 +176,10 @@ async def make_reservation(d: LodgingIn, bt: BackgroundTasks) -> str:
         f"Reservation {id} registered for {rd['first_name']} {rd['last_name']} "
     )
     try:
-        ldg = await get_lodging(id)
-        logger.info(f"saved lodging {ldg}")
+        ldg = await get_stay(id)
+        logger.info(f"saved stay {ldg}")
     except:
-        logger.exception("Cannot get lodging")
+        logger.exception("Cannot get stay")
         raise RdInternalServerError("Cannot get added rsv")
     logger.info("calling sendReservation")
     bt.add_task(sendemail_reservation, ldg)
@@ -192,12 +189,12 @@ async def make_reservation(d: LodgingIn, bt: BackgroundTasks) -> str:
 async def assign_room(
     id: str,
     roomnr: str,
-) -> Lodging:
+) -> Stay:
     """
     assign a room to a reservation
     """
 
-    reservation = await get_lodging(id)
+    reservation = await get_stay(id)
     room = await get_room_by_number(roomnr)
     if room.reservation_id is not None:
         logger.info(f"cannot assign {roomnr}: already taken")
@@ -221,15 +218,15 @@ async def assign_room(
     logging = reservation.logging or []
     nf = now.isoformat(sep=" ", timespec="minutes")
     logging.append(f"{nf} Assigned room {roomnr} to reservation {reservation.number}")
-    return await update_lodging(id, Lodging(assignments=assignments, logging=logging))
+    return await update_stay(id, Stay(assignments=assignments, logging=logging))
 
 
-async def unassign_room(id: str, roomnr: str) -> Lodging:
+async def unassign_room(id: str, roomnr: str) -> Stay:
     """
     unassign a room to a reservation
     """
 
-    reservation = await get_lodging(id)
+    reservation = await get_stay(id)
     room = await get_room_by_number(roomnr)
     now = datetime.now(tz=timezone.utc)
     assignments = [a for a in (reservation.assignments or []) if a.roomnr != roomnr]
@@ -237,14 +234,14 @@ async def unassign_room(id: str, roomnr: str) -> Lodging:
     logging = reservation.logging or []
     nf = now.isoformat(sep=" ", timespec="minutes")
     logging.append(f"{nf} Unassigned room {roomnr} to reservation {reservation.number}")
-    return await update_lodging(id, Lodging(assignments=assignments, logging=logging))
+    return await update_stay(id, Stay(assignments=assignments, logging=logging))
 
 
-async def xls_lodgings() -> bytes:
+async def xls_stays() -> bytes:
     """
     get all reservations in xls format
     """
-    docs = await DbLodging.find_multiple({"_model": Lodging})
+    docs = await DbStay.find_multiple({"_model": Stay})
     wb = openpyxl.Workbook()
     ws = wb.active
     ws.title = "Reservations"
@@ -296,7 +293,7 @@ async def xls_lodgings() -> bytes:
             "birthdate",
             "player",
             "age_category",
-            "lodging",
+            "stay",
             "meals",
         ]
     )
@@ -312,7 +309,7 @@ async def xls_lodgings() -> bytes:
                     g.birthdate,
                     g.player,
                     g.age_category,
-                    g.lodging,
+                    g.stay,
                     ",".join(g.meals) if g.meals else "",
                 ]
             )
