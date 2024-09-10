@@ -9,10 +9,6 @@ from fastapi.security import HTTPAuthorizationCredentials
 from reddevil.core import RdException, bearer_schema
 from reddevil.core import validate_token
 
-logger = logging.getLogger(__name__)
-
-router = APIRouter(prefix="/api/v1/stay")
-
 from bycco.stay.stay import (
     assign_room,
     make_reservation,
@@ -26,6 +22,9 @@ from bycco.stay.md_stay import (
     Stay,
     StayIn,
 )
+
+logger = logging.getLogger(__name__)
+router = APIRouter(prefix="/api/v1/stay")
 
 
 @router.post("/cmd/make_reservation", response_model=str)

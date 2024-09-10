@@ -1,8 +1,8 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue'
-import { useI18n } from 'vue-i18n'
-import { parse } from 'yaml'
-import { v_required, v_length2 } from '@/composables/validators'
+import { ref, computed, onMounted } from "vue"
+import { useI18n } from "vue-i18n"
+import { parse } from "yaml"
+import { v_required, v_length2 } from "@/composables/validators"
 
 // api
 const { $backend } = useNuxtApp()
@@ -10,13 +10,14 @@ const { $backend } = useNuxtApp()
 // i18n
 const { t, locale } = useI18n()
 const ts = {
-  intro: 'Select which accomodation you want',
-  extra: 'Normally the reservation is for 6 nights, from 7/4/2024 until 13/4/2024.  You can optionally add 1 night before and/or after.',
-  deviation: 'Specify any special requirements in the remarks field.'
+  intro: "Select which accomodation you want",
+  extra:
+    "Normally the reservation is for 6 nights, from 7/4/2024 until 13/4/2024.  You can optionally add 1 night before and/or after.",
+  deviation: "Specify any special requirements in the remarks field.",
 }
 
 // communication with manager
-const emit = defineEmits(['changeStep', 'updateLodging'])
+const emit = defineEmits(["changeStep", "updateStay"])
 defineExpose({ setup })
 
 // datamodel
@@ -27,21 +28,21 @@ const dayafter = ref(false)
 const formvalid = ref(false)
 const startday = computed(() => {
   if (!common.value) return null
-  return new Date(common.value.period.startdate)
+  return new Date(common.value.trndates.startdate)
 })
 const startprevday = computed(() => {
   if (!common.value) return null
-  let sd = new Date(common.value.period.startdate)
+  let sd = new Date(common.value.trndates.startdate)
   sd.setDate(sd.getDate() - 1)
   return sd
 })
 const endday = computed(() => {
   if (!common.value) return null
-  return new Date(common.value.period.enddate)
+  return new Date(common.value.trndates.enddate)
 })
 const endnextday = computed(() => {
   if (!common.value) return null
-  let ed = new Date(common.value.period.enddate)
+  let ed = new Date(common.value.trndates.enddate)
   ed.setDate(ed.getDate() + 1)
   return ed
 })
@@ -49,13 +50,13 @@ const remarks = ref("")
 const roomtypes = ref([])
 
 function next() {
-  updateLodging()
-  emit('changeStep', 5)
+  updateStay()
+  emit("changeStep", 5)
 }
 
 function prev() {
-  updateLodging()
-  emit('changeStep', 3)
+  updateStay()
+  emit("changeStep", 3)
 }
 
 async function parseYaml(group, name) {
@@ -65,15 +66,15 @@ async function parseYaml(group, name) {
       return null
     }
     return parse(yamlcontent)
-  }
-  catch (error) {
-    console.error('cannot parse yaml', yamlcontent)
+  } catch (error) {
+    console.error("cannot parse yaml", yamlcontent)
   }
 }
 
-
 async function processCommon() {
-  common.value = await parseYaml("data", "common.yaml")
+  console.log("process Common")
+  common.value = await parseYaml("data", "common.yml")
+  console.log("common", common.value)
   roomtypes.value = []
   common.value.roomtypes.forEach((rt) => {
     roomtypes.value.push({
@@ -85,72 +86,92 @@ async function processCommon() {
 
 async function readBucket(group, name) {
   try {
-    const reply = await $backend('filestore', 'anon_get_file', {
+    const reply = await $backend("filestore", "anon_get_file", {
       group,
       name,
     })
     return reply.data
-  }
-  catch (error) {
-    console.error('failed to fetch file from bucket')
+  } catch (error) {
+    console.error("failed to fetch file from bucket")
     return null
   }
 }
 
-
-function setup(l) {
-  console.log('setup accomodation', l)
+async function setup(l) {
+  console.log("setup accomodation", l)
+  await processCommon()
+  console.log("zzzz")
   accomodation.value = l.accomodation
   daybefore.value = !!l.daybefore
   dayafter.value = !!l.dayafter
   remarks.value = l.remarks
 }
 
-function updateLodging() {
+function updateStay() {
   let description
   roomtypes.value.forEach((x) => {
     if (x.value == accomodation.value) {
       description = x.title
     }
   })
-  emit('updateLodging', {
+  emit("updateStay", {
     accomodation: accomodation.value,
     daybefore: daybefore.value,
     dayafter: dayafter.value,
     remarks: remarks.value,
     checkindate: daybefore.value ? startprevday.value : startday.value,
     checkoutdate: dayafter.value ? endnextday.value : endday.value,
-    acc_description: description
+    acc_description: description,
   })
 }
-
-onMounted(() => {
-  processCommon()
-})
-
-
 </script>
 
 <template>
   <div>
-    <h2>{{ t("Accomodation") }}</h2>
+    <h2>{{ t("stay.intro_accom") }}</h2>
     <v-form v-model="formvalid">
       <div class="mt-2 mb-2">
         {{ t(ts.intro) }}
         <v-radio-group v-model="accomodation" :rules="[v_required]">
-          <v-radio v-for="rt in roomtypes" :key="rt" :label="rt.title" :value="rt.value" />
+          <v-radio
+            v-for="rt in roomtypes"
+            :key="rt"
+            :label="rt.title"
+            :value="rt.value"
+          />
         </v-radio-group>
       </div>
       <div class="mt-2 mb-2">
-        {{ t(ts.extra) }}
-        <v-checkbox dense hide-details v-model="daybefore"
-          :label="t('Arrival date') + ': ' + Intl.DateTimeFormat(locale.value).format(startprevday)" />
-        <v-checkbox dense hide-details v-model="dayafter"
-          :label="t('Departure date') + ': ' + Intl.DateTimeFormat(locale.value).format(endnextday)" />
+        {{ t("stay.acc_normal") }}
+        {{ t("stay.acc_from") }} {{ Intl.DateTimeFormat(locale.value).format(startday) }}
+        {{ t("stay.acc_to") }} {{ Intl.DateTimeFormat(locale.value).format(endday) }}
+      </div>
+      <div class="mt-2">
+        {{ t("stay.acc_changedate") }}
+        <v-checkbox
+          dense
+          hide-details
+          v-model="daybefore"
+          :label="
+            t('Arrival date') +
+            ': ' +
+            Intl.DateTimeFormat(locale.value).format(startprevday)
+          "
+        />
+        <v-checkbox
+          dense
+          hide-details
+          v-model="dayafter"
+          :label="
+            t('Departure date') +
+            ': ' +
+            Intl.DateTimeFormat(locale.value).format(endnextday)
+          "
+        />
       </div>
       <div class="mt-2 mb-3">
         {{ t(ts.deviation) }}
-        <br>
+        <br />
         <v-textarea v-model="remarks" :label="t('Remarks')" auto-grow />
       </div>
       <div class="mt-2">

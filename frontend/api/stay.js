@@ -5,8 +5,8 @@ const roomprefix = "/api/v1/room"
 
 export default {
   make_reservation: async function (options) {
-    const { lodgingIn } = options
-    return await axios.post(`${prefix}/cmd/make_reservation`, lodgingIn)
+    const { stayIn } = options
+    return await axios.post(`${prefix}/cmd/make_reservation`, stayIn)
   },
   mgmt_assign_room: async function (options) {
     const { token, id, roomnr } = options

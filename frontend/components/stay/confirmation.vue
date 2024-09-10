@@ -1,54 +1,54 @@
 <script setup>
-import { ref } from 'vue'
-import { useI18n } from 'vue-i18n'
+import { ref } from "vue"
+import { useI18n } from "vue-i18n"
 
 // i18n
 const { t, locale } = useI18n()
 const ts = {
-  overview: 'Overview of the lodging reservation',
-  confirmation: 'Your request for a reservation is confirmed. We will inform you by e-mail about the next steps in the reservation process.',
-  newreservation: 'If you want to make a new reservation, click the button below',
-  noconfirmation: 'Something went wrong during the registration of your reservation.  Check your internet connection. You could try again and/or contact bycco at info@bycco.be .'
+  overview: "Overview of the stay reservation",
+  confirmation:
+    "Your request for a reservation is confirmed. We will inform you by e-mail about the next steps in the reservation process.",
+  newreservation: "If you want to make a new reservation, click the button below",
+  noconfirmation:
+    "Something went wrong during the registration of your reservation.  Check your internet connection. You could try again and/or contact bycco at info@bycco.be .",
 }
 
 // communication
-const emit = defineEmits(['changeStep', 'updateLodging'])
+const emit = defineEmits(["changeStep", "updateStay"])
 defineExpose({ setup })
 const { $backend } = useNuxtApp()
 
 // datamodel
-const lodging = ref({})
+const stay = ref({})
 const confirmed = ref(false)
 const noerror = ref(true)
 
-
 function prev() {
-  updateLodging()
-  emit('changeStep', 5)
+  updateStay()
+  emit("changeStep", 5)
 }
 
 async function postConfirmation() {
   try {
-    const reply = await $backend('lodging', 'make_reservation', {
-      lodgingIn: {
-        first_name: lodging.value.first_name,
-        last_name: lodging.value.last_name,
-        email: lodging.value.email,
-        mobile: lodging.value.mobile,
-        address: lodging.value.address,
-        guestlist: lodging.value.guestlist,
-        lodging: lodging.value.accomodation,
+    const reply = await $backend("stay", "make_reservation", {
+      stayIn: {
+        first_name: stay.value.first_name,
+        last_name: stay.value.last_name,
+        email: stay.value.email,
+        mobile: stay.value.mobile,
+        address: stay.value.address,
+        guestlist: stay.value.guestlist,
+        stay: stay.value.accomodation,
         locale: locale.value,
-        checkindate: lodging.value.checkindate,
-        checkoutdate: lodging.value.checkoutdate,
-        meals: lodging.value.meals,
-        remarks: lodging.value.remarks,
-      }
+        checkindate: stay.value.checkindate,
+        checkoutdate: stay.value.checkoutdate,
+        meals: stay.value.meals,
+        remarks: stay.value.remarks,
+      },
     })
     confirmed.value = true
-  }
-  catch (error) {
-    console.error('Failed', error)
+  } catch (error) {
+    console.error("Failed", error)
     noerror.value = false
   }
 }
@@ -56,59 +56,57 @@ async function postConfirmation() {
 function restart() {
   confirmed.value = false
   noerror.value = true
-  emit('updateLodging', { guestlist: [] })
-  emit('changeStep', 1)
-
+  emit("updateStay", { guestlist: [] })
+  emit("changeStep", 1)
 }
 
 function setup(l) {
-  console.log('setup confirmation', l)
-  lodging.value = { ...l }
+  console.log("setup confirmation", l)
+  stay.value = { ...l }
 }
 
-function updateLodging() {
-  emit('updateLodging', lodging.value)
+function updateStay() {
+  emit("updateStay", stay.value)
 }
-
-</script>?
+</script>
+?
 
 <template>
   <div>
     <div class="mt-2 mb-2">
       {{ $t(ts.overview) }}
     </div>
-    <h4 class="mt-2">
-      Contact details:
-    </h4>
+    <h4 class="mt-2">Contact details:</h4>
     <div>
-      {{ lodging.first_name }} {{ lodging.last_name }}<br>
-      E-mail: {{ lodging.email }}<br>
-      Tel: {{ lodging.mobile }}<br>
-      {{ lodging.address }}
+      {{ stay.first_name }} {{ stay.last_name }}<br />
+      E-mail: {{ stay.email }}<br />
+      Tel: {{ stay.mobile }}<br />
+      {{ stay.address }}
     </div>
     <h4 class="mt-2">
-      {{ $t('Guests') }}
+      {{ $t("Guests") }}
     </h4>
-    <div v-for="(g, ix) in lodging.guestlist" :key="ix">
+    <div v-for="(g, ix) in stay.guestlist" :key="ix">
       <span v-if="g.last_name.length">
         {{ ix + 1 }}. {{ g.last_name }} {{ g.first_name }} {{ g.birthdate }}
         {{ g.player ? "player" : "" }}
       </span>
     </div>
-    <div>{{ $t('Accomodation') }}: {{ lodging.acc_description }}:
-      {{ Intl.DateTimeFormat(locale.value).format(lodging.checkindate) }}
-      {{ Intl.DateTimeFormat(locale.value).format(lodging.checkoutdate) }}
+    <div>
+      {{ $t("Accomodation") }}: {{ stay.acc_description }}:
+      {{ Intl.DateTimeFormat(locale.value).format(stay.checkindate) }}
+      {{ Intl.DateTimeFormat(locale.value).format(stay.checkoutdate) }}
     </div>
     <div>
-      {{ $t('Meals') }}:
-      <span v-show="lodging.meals == 'no'">{{ $t('No meals') }}</span>
-      <span v-show="lodging.meals == 'half'">{{ $t('Half boarding') }}</span>
+      {{ $t("Meals") }}:
+      <span v-show="stay.meals == 'no'">{{ $t("No meals") }}</span>
+      <span v-show="stay.meals == 'half'">{{ $t("Half boarding") }}</span>
       <!-- <span v-show="meals == 'full'">{{ $t('Full boarding') }}</span> -->
     </div>
     <h4 class="mt-2">
-      {{ $t('Remarks') }}
+      {{ $t("Remarks") }}
     </h4>
-    <div>{{ lodging.remarks }}</div>
+    <div>{{ stay.remarks }}</div>
     <div v-if="!confirmed || !noerror" class="mt-2">
       <v-btn color="primary" @click="prev" class="mr-2">
         {{ $t("Back") }}
@@ -136,4 +134,3 @@ function updateLodging() {
     </div>
   </div>
 </template>
-

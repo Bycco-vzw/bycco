@@ -1,20 +1,21 @@
 <script setup>
-import { ref } from 'vue'
-import { useI18n } from 'vue-i18n'
-import { v_required } from '@/composables/validators'
+import { ref } from "vue"
+import { useI18n } from "vue-i18n"
+import { v_required } from "@/composables/validators"
 
 // i18n
 const { t } = useI18n()
 const ts = {
-  intro: 'Select which meals you want',
-  deviation: 'Normally the first meal is dinner at arrival day and the last meal is breakfast at departure day. Specify any special food wishes (vegetarian, gluten free, ...) or deviations from the normal meal scheme in the remarks field.',
+  intro: "Select which meals you want",
+  deviation:
+    "Normally the first meal is dinner at arrival day and the last meal is breakfast at departure day. Specify any special food wishes (vegetarian, gluten free, ...) or deviations from the normal meal scheme in the remarks field.",
   // full: 'Full boarding',
-  half: 'Half boarding',
-  no: 'No meals'
+  half: "Half boarding",
+  no: "No meals",
 }
 
 // communication with manager
-const emit = defineEmits(['changeStep', 'updateLodging'])
+const emit = defineEmits(["changeStep", "updateStay"])
 defineExpose({ setup })
 
 // datamodel
@@ -23,29 +24,27 @@ const remarks = ref("")
 const formvalid = ref(false)
 
 function next() {
-  updateLodging()
-  emit('changeStep', 6)
+  updateStay()
+  emit("changeStep", 6)
 }
 
 function prev() {
-  updateLodging()
-  emit('changeStep', 4)
+  updateStay()
+  emit("changeStep", 4)
 }
 
 function setup(l) {
-  console.log('setup meals', l)
-  meals.value = l.meals ? l.meals + '' : 'half'
-  remarks.value = l.remarks ? l.remarks + '' : ''
+  console.log("setup meals", l)
+  meals.value = l.meals ? l.meals + "" : "half"
+  remarks.value = l.remarks ? l.remarks + "" : ""
 }
 
-function updateLodging() {
-  emit('updateLodging', {
+function updateStay() {
+  emit("updateStay", {
     meals: meals.value,
     remarks: remarks.value,
   })
 }
-
-
 </script>
 
 <template>
@@ -61,7 +60,7 @@ function updateLodging() {
       </div>
       <div class="mt-2 mb-3">
         {{ $t(ts.deviation) }}
-        <br>
+        <br />
         <v-textarea v-model="remarks" :label="$t('Remarks')" auto-grow />
       </div>
       <div class="mt-2">
@@ -75,4 +74,3 @@ function updateLodging() {
     </v-form>
   </div>
 </template>
-

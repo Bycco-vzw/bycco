@@ -1,21 +1,25 @@
 <script setup>
-import { useI18n } from 'vue-i18n'
+import { useI18n } from "vue-i18n"
 const { t, locale } = useI18n()
 
 function setLocale(l) {
-  console.log('setting locale', l)
+  console.log("setting locale", l)
   locale.value = l
 }
 
 function livegames_vk() {
-  window.open("https://lichess.org/broadcast/flemish-championship-2024--closed/round-1/YKpRRcUf", "_live")
+  window.open(
+    "https://lichess.org/broadcast/flemish-championship-2024--closed/round-1/YKpRRcUf",
+    "_live"
+  )
 }
-
 
 function rules_bjk() {
-  window.open("https://drive.google.com/file/d/1U7VycNN8ObdzqptAt1TrpIWJDPZoEo-q/view", "_rules")
+  window.open(
+    "https://drive.google.com/file/d/1U7VycNN8ObdzqptAt1TrpIWJDPZoEo-q/view",
+    "_rules"
+  )
 }
-
 </script>
 
 <template>
@@ -26,20 +30,26 @@ function rules_bjk() {
       </v-list>
     </v-toolbar>
     <div class="bm-blue-grey-darken-1">
-      <v-btn variant="text" class="btn-language hover-darker" @click="setLocale('nl')">NL</v-btn>
-      <v-btn variant="text" class="btn-language hover-darker" @click="setLocale('fr')">FR</v-btn>
-      <v-btn variant="text" class="btn-language hover-darker" @click="setLocale('de')">DE</v-btn>
-      <v-btn variant="text" class="btn-language hover-darker" @click="setLocale('en')">EN</v-btn>
+      <v-btn variant="text" class="btn-language hover-darker" @click="setLocale('nl')"
+        >NL</v-btn
+      >
+      <v-btn variant="text" class="btn-language hover-darker" @click="setLocale('fr')"
+        >FR</v-btn
+      >
+      <v-btn variant="text" class="btn-language hover-darker" @click="setLocale('de')"
+        >DE</v-btn
+      >
+      <v-btn variant="text" class="btn-language hover-darker" @click="setLocale('en')"
+        >EN</v-btn
+      >
     </div>
     <v-list nav class="bm-blue-grey-darken-1">
       <v-list-item to="/" :title="t('Home')" />
 
-      <v-list-group no-action>
+      <!-- <v-list-group no-action>
         <template #activator="{ props }">
-          <v-list-item v-bind="props" :title="t('BYC 2024')" />
+          <v-list-item v-bind="props" :title="t('BYC 2025')" />
         </template>
-        <!-- <v-list-item to="/enrollment_bjk" :title="t('Enrollment')" />
-        <v-list-item to="/participants_bjk" :title="t('Participants')" /> -->
         <v-list-item @click="rules_bjk" :title="t('Tournament Rules')" />
         <v-list-item to="/trn_u8" title="U8" />
         <v-list-item to="/trn_u10" title="U10" />
@@ -48,18 +58,16 @@ function rules_bjk() {
         <v-list-item to="/trn_u16" title="U16" />
         <v-list-item to="/trn_u18" title="U18" />
         <v-list-item to="/trn_u20" title="U20" />
-
       </v-list-group>
       <v-list-group no-action>
         <template #activator="{ props }">
-          <v-list-item v-bind="props" title="VK 2024" />
+          <v-list-item v-bind="props" title="Info" />
         </template>
-        <v-list-item to="/trn_expert" :title="t('Experts')" />
-        <v-list-item to="/trn_open" title="Open" />
-        <v-list-item to="/trn_senior" :title="t('Seniors')" />
-        <v-list-item @click="livegames_vk" title="Live" />
-      </v-list-group> </v-list>
+        <v-list-item @click="stay" :title="t('Stay')" />
 
+        <v-list-item @click="livegames_" title="Live" />
+      </v-list-group> -->
+    </v-list>
   </div>
 </template>
 

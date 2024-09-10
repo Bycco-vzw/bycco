@@ -1,6 +1,6 @@
 ctx,key,server,nl,en,fr,de
-enroll,closed,,De inschrijvingen zijn officieel gesloten.,The enrollments are officially closed.,Les inscriptions sont officiellement terminées.,Die Anmeldungen sind offiziell geschlossen.
 enroll,cfm_champion,,Kan Belgisch kampioen worden,Can become Belgian champion,Peut devenir champion de Belgique,Kann belgischer Meister werden
+enroll,closed,,De inschrijvingen zijn officieel gesloten.,The enrollments are officially closed.,Les inscriptions sont officiellement terminées.,Die Anmeldungen sind offiziell geschlossen.
 enroll,det_attendantdetailsnotvalid,,"De naame, het emailadres of het GSM nummer van de begeleider is ongeldig","The attendant's name, email address or mobile number is invalid","Le nom, l'adresse email ou le numéro de GSM de l'accompagnateur n'est pas valide","Der Name, die E-Mail-Adresse oder Handynummer des Begleiters ist ungültig"
 enroll,det_more,,Extra informatie,Extra information,Informations supplémentaires,Zusatzinformation
 enroll,det_parentdetailsnotvalid,,"De naam, het emailadres of het GSM nummer van de ouder is ongeldig","The parent's name, email address or mobile number is invalid","Le nom, l'adresse email ou le numéro de GSM du parent n'est pas valide","Der Name, die E-Mail-Adresse oder Handynummer des Elterteils ist ungültiger "
@@ -25,6 +25,7 @@ enroll,intro_needbelid,,Je stamnummer bij de KBSB,Your id number of the Royal Be
 enroll,intro_needphoto,,een recente foto voor je badge,a recent photo for your badge,Une photo pour le badge,Ein Foto für Ihren Badge
 enroll,intro_new,,Hou er rekening mee dat het enkele dagen duurt vooraleer een aangevraagd stamnummer beschikbaar wordt.,Please take into account that it takes a few days before a newly requested id number is available.,Veuillez tenir compte que ça prend quelques jours avant que le matricule\nsoit publié.,"Bitte beachten Sie, dass es einige Tage dauert bevor eine neu angeforderte ID-Nummer verfügbar ist."
 enroll,intro_noid,,"In het geval dat je nog geen stamnummer van de KBSB hebt, dien je contact op te nemen met jouw club die het nodige zal doen.","In case you do not have an id number of the RBCF, please contact your chess club, which can provide it.","Dans le cas où vous n’avez pas de matricule de la FRBE, vous devez contacter votre club d’échecs, qui peut obtenir un nouveau matricule.","Falls Sie keine ID-Nummer beim KSB haben, wenden sie sich an einen Verantwortlichen Ihres Vereins um diese anzufordern."
+enroll,late,,Je kan echter nog steeds een e-mail sturen naar {email} met het verzoek om een laattijdige inschrijving.,"However, you can still send en email to { email }, requesting for an late enrollment.","Cependant, vous pouvez toujours envoyer un e-mail à { email }, demandant une inscription tardive.",Sie können jedoch immer noch eine E-Mail an { email } senden und um eine spätere Anmeldung bitten.
 enroll,nat_agree,,genoteerd,noted,noté,notiert
 enroll,nat_fidebelg,,Voor de FIDE ben je een Belg. Dit betekent dat je Belgisch kampioen kan worden en dat je je aan het EK / WK kan deelnemen in het Belgische team.,For the FIDE you are a Belgian. This means you can win the Belgian title and you can participate at the European and World Championships as part of the Belgian team.,"Pour la FIDE, vous êtes belge. Cela signifie que vous pouvez gagner le titre belge et vous pouvez participer aux CE ou CM faisant partie de l’équipe belge.","Für die FIDE sind Sie ein Belgier Das bedeutet, dass Sie den belgischen Titel gewinnen können und Sie können an der EM / WM teilnehmen als Spieler der belgischen Mannschaft."
 enroll,nat_nobelg,,Voor de FIDE ben je geen Belg. Dit betekent dat je geen Belgisch kampioen kan worden en dat je niet aan het EK / WK kan deelnemen in het Belgische team.,For the FIDE you are not Belgian.  This means that you cannot become Belgian chanpion and you cannot participate in the Belgian team for the EC / WC ,"Pour la FIDE, vous avez la nationalité non belge. Cela signifie que vous ne pouvez pas gagner le titre belge et vous ne pouvez pas participer aux CE ou CM faisant partie de l’équipe belge.","Für die FIDE sind Sie kein Belgier. Das bedeutet, dass Sie nicht den belgischen Titel gewinnen können und Sie können nicht an der EM / WM teilnehmen als Teilnehmer der belgischen Mannschaft."
@@ -36,7 +37,6 @@ enroll,pho_upload,,"We hebben een foto nodig voor de toernooibadge. Je kiest jou
 enroll,photo_select,,"Eenmaal de foto gekozen, kan je de hendels met de muis verplaatsen om de foto aan te passen. Zorg ervoor dat het gezicht voldoende groot zichtbaar. Wanneer de bewerkte foto OK is, klik op verder","Once the photo is selected, you can move the selector handles with your mouse in order to adjust the photo. Please make sure that the face of player fills the resulting image. When the resulting image seems OK, click continue.","Une fois la photo choisie, vous pouvez déplacer les poignées avec la souris pour ajuster la photo. Veillez à ce que le visage soit suffisamment visible. Lorsque la photo éditée est en ordre, cliquez sur continuer.","Sobald das Foto ausgewählt ist, können Sie die Griffe mit der Maus bewegen, um das Foto anzupassen. Stellen Sie bitte sicher, dass das Gesicht des Spielers das Bild füllt. Klicken Sie auf Weiter, wenn das resultierende Bild korrekt angezeigt wird."
 enroll,SubConf2,,Betaal het bedrag op rekening BE33 0017 5924 5146 van Bycco met de volgende gestructureerde mededeling:,,Veuillez payer le montant au compte BE33 0017 5924 5146 avec le message structuré: ,Überweisen Sie den Betrag auf das Konto BE33 0017 5924 5146 von Bycco mit der strukturierten Mitteilung:
 enroll,SubDetail6,,We hebben authenticatieproblemen vastgesteld toen er data naar de server werd gestuurd. \nWaarschijnlijk bevind je je achter een firewall die de trafiek blokkeert. Probeer de inschrijving\nopnieuw via een rechtstreeks verbinding met het Internet,,Nous rencontrons des problèmes d’authentification lors de l’envoi des données au serveur. \nProbablement vous êtes derrière un firewall qui bloque le trafic. Réessayez en utilisant une connexion directe à l’Internet.,"Bei dem Senden der Daten an den Server treten Probleme bei der Authentifizierung auf. Wahrscheinlich sind Sie hinter einer Firewall, die den Verkehr blockiert. Versuchen Sie es erneut mit einer direkten Verbindung zum Internet."
-enroll,tool,,Inschrijvingsmodule,Enrollment tool,Module d'inscription,Modul Anmeldung
 enrollvk,cfm_confirm,,Bevestigen,Confirm,,
 enrollvk,cfm_confirmed,,Jouw inschrijving is bevestigd,Confirm,,
 enrollvk,cfm_new,,Nieuwe inschrijving,New enrollment,,
@@ -77,13 +77,32 @@ enrollvk,pho_crop,,Je gezicht moet centraal staan en minstens de heflt van de fo
 enrollvk,pho_result,,Het resultaatbeeld,The resulting image,,
 enrollvk,pho_upload,,We hebben een foto nodig voor je badge,We need a photo for your badge,,
 enrollvk,tool,,Inschrijvingsmodule,Enrollment tool,,
+enroll,tool,,Inschrijvingsmodule,Enrollment tool,Module d'inscription,Modul Anmeldung
+stay,acc_changedate,,Je kan ervoor opteren om een dag vroeger toe te komen of een dag later te vertrekken,You can choose to arrive a day earlier or leave a day later,Vous pouvez choisir d'arriver un jour plus tôt ou de partir un jour plus tard,"Sie können wählen, ob Sie einen Tag früher anreisen oder einen Tag später abreisen möchten"
+stay,acc_from,,van,from,du,von
+stay,acc_normal,,Normaal gezien is je verblijf van start tot einde van het toernooi,Normally your stay is from the start to the end of the tournament,Normalement votre séjour s'étend du début à la fin du tournoi,Normalerweise dauert Ihr Aufenthalt vom Beginn bis zum Ende des Turniers
+stay,acc_to,,tot,to,jusqu'au,bis zum
+stay,accom_details,,"Verblijfdetails, startdatum en einddatum","Accomodation details, start date and end date","Détails du séjour, date de début et de fin","Angaben zur Unterkunft, Start- und Enddatum"
+stay,guest_2,,Gasten,Guests,Invités,Gäste
+stay,guest_detail,,"Geef voor iedere gast op: voornaam, achternaam, geboortedatum. Duid aan als een gast aan het toernooi deelneemt","Provide for any guest, the name, first name, birthdate. Indicate if a guest intends to particpatte to the tournament.","Indiquez pour chaque invité: le prénom, le nom de famille, la date de naissance. Indiquez si l'invité participe au tournoi.","Bitte geben Sie für jeden Gast ein: Vorname, Nachname, Geburtsdatum. Geben Sie an, ob ein Gast an dem Turnier teilnimmt"
+stay,guest_deviation,,"Standaard verblijven alle gasten de volledige periode in de accommodatie. Als dit niet het geval is, geef dan de eventuele afwijking van de standaard aan in het opmerkingenveld hieronder.","As a default all guests stay the full period in the accomodation.  If this it not the case, please provide the any deviation form the default in the remarks field below.","De façon standard, toutes les personnes séjournent au même logement pendant toute la période. Si cela n'est pas le cas, veuillez indiquer l'éventuelle dérogation dans la case à remarques ci-dessous.","Standardmäßig bleiben alle Gäste für den gesamten Zeitraum in der Unterkunft. Wenn dies nicht der Fall ist, geben Sie bitte jede Abweichung im Feld Bemerkungen hierunten an."
+stay,guest_part,,Geef aan welke gasten zullen deelnemen aan het toernooi,Indicate which guests will participate in the tournament,Indiquez quels invités participeront au tournoi,"Geben Sie an, welche Gäste an dem Turnier teilnehmen werden"
+stay,guest_requester,,"Vergeet de gegevens van de aanvrager niet te vermelden, voor het geval hij/zij in deze accommodatie verblijft.","Don't forget to mention the details of requester, in case he/she stays in this lodging.","N'oubliez pas de mentionner les coordonnées du demandeur, s'il séjourne dans ce logement.","Vergessen Sie nicht, die Daten des Antragstellers anzugeben, falls er/sie in dieser Unterkunft bleibt."
+stay,intro_accom,,Accomodatie,Accomodation,Logement,Unterkunft
+stay,intro_guest,,De details van de gasten,The details of the giuests,Les détails des invités,Die Details der Gäste
+stay,intro_meals,,De maaltijden,the meals,Les repas,Die Mahlzeiten
+stay,intro_multiple,,De reservering wordt per kamer gedaan.  Wilt u meer dan 1 reservering dan moet deze wizard meerdere keren gebruiken,"The reservation is done per room. If you want to book two rooms, you have to run this tool twice.","La réservation se fait par chambre. Si vous souhaitez réserver davantage de chambres, il faudre passer plusieurs fois par le présent assistant.","Die Reservierung wird pro Zimmer vorgenommen.  Wenn Sie mehr als 1 Reservierung wünschen, müssen Sie diesen Assistenten mehrfach verwenden"
+stay,intro_participant,,welke gasten zijn deelnemers aan het toernooi,which guests are participants to the tournament,quels invités participent au tournoi,welche Gäste nehmen am Turnier teil
+stay,intro_requirements,,Je hebt de volgende zaken nodig om een verblijf te reserveren,In order to make a reservation you need to provide the following elements:,Il vous faut les éléments suivants pour réserver un séjour:,"Um Ihren Aufenthalt zu buchen, benötigen Sie Folgendes"
+stay,intro_responsible,,De details van de verantwoordelijke voor deze reservering,the details of the adult responsible for the reservation,Les détails du responsable adulte de cette résevation,"Die Details der Person, die für diese Reservierung verantwortlich ist"
+stay,res_closed,,"Reservaties via Bycco zijn afgesloten, je kan enkel nog rechtstreeks bij de Floréal reserveren","Reservations via Bycco are closed, you can only directly via the Floreal","Les réservations via Bycco sont clôturées, vous ne pouvez réserver que directement auprès de Floréal","Reservierungen über Bycco wurden geschlossen, Sie können nur direkt bei Floréal buchen"
+stay,res_notstarted,,Reserveringen voor het verblijf zijn nog niet gestart,Reservation for the stay are not started yet,Les réservations pour le séjour ne sont pas encore commencées,Die Reservierung für den Aufenthalt wurde noch nicht begonnen
+stay,res_tool,,Reservatietool,Reservation tool,Outil de réservation,Reservierungstool
 ,{{first_name}} {{last_name}} is an adult at the start of the tournament. For adults we need following information.,1,{{first_name}} {{last_name}} is een volwassene bij het begin van het toernooi.\nVoor volwassenen hebben we de volgende informatie nodig.,{{first_name}} {{last_name}} is an adult at the start of the tournament. For adults we need following information.,"{{first_name}} {{last_name}} est un adulte au début du tournoi. Pour les adultes, il nous faudrait les informations suivantes",{{first_name}} {{last_name}} ist ein Erwachsener zu Beginn des Turniers. Für Erwachsene benötigen wir folgende Informationen
 ,{{first_name}} is a minor at the start of a tournament. For minors we need following information.,1,{{first_name}} is nog minderjarig bij de start van het toernooi. Voor minderjarigen hebben we het volgende nodig.,{{first_name}} is a minor at the start of a tournament. For minors we need following information.,"{{first_name}} {{last_name}} est toujours mineur au début du tournoi. Pour les mineurs, il nous faudrait les informations suivantes.",{{first_name}} {{last_name}} ist zu Beginn des Turniers noch minderjährig. Bei Minderjährige benötigen wir folgende Informationen
 ,A parent is present at site,,Een ouder is ter plaatse.,About Bycco,Un parent sur place pendant le tournoi,Ein Elternteil ist vor Ort
 ,A photo for your badge,,Een foto voor je badge,Accomodation,Une photo pour le badge,Ein Foto für Ihren Badge
 ,About Bycco,,Over Bycco,"accomodation details, start date and end date",Concernant Bycco,Über Bycco
-,Accomodation,,Accomodatie,Additional Fields,Logement,Unterkunft
-,"accomodation details, start date and end date",,"Verblijfdetails, startdatum en einddatum",Address,"Détails du séjour, date de début et de fin","Angaben zur Unterkunft, Start- und Enddatum"
 ,Additional Fields,,Bijkomende velden,Address is required,Champs supplémentaires,Weitere Felder
 ,Address,,Adres,Address,Adresse,Adress
 ,Address is required,,Adres is vereist,Address is required,l'adresse est obligatoire,die Adresse ist erforderlich
@@ -92,7 +111,6 @@ enrollvk,tool,,Inschrijvingsmodule,Enrollment tool,,
 ,Apartment with 1 room (4 or 5 pers),,Appartement met 1 kamer (4 of 5 pers),Apartment with 1 room (4 or 5 pers),Appartement avec 1 chambre (4 ou 5 personnes),Appartement mit 1 Schlafzimmer (4 oder 5 Personen)
 ,Apartment with 2 rooms (6 or 7 pers),,Appartement met 2 kamers (6 of 7 pers),Apartment with 2 rooms (6 or 7 pers),Appartement avec 2 chambres (6 ou 7 personnes),Appartement mit 2 Schlafzimmer (6 oder 7 Personen)
 ,Arrival date,,Aankomstdatum,Arrival date,Date d'arrivée,Anreisedatum
-,"As a default all guests stay the full period in the accomodation.  If this it not the case, please provide the any deviation form the default in the remarks field below.",,"Standaard verblijven alle gasten de volledige periode in de accommodatie. Als dit niet het geval is, geef dan de eventuele afwijking van de standaard aan in het opmerkingenveld hieronder.","As a default all guests stay the full period in the accomodation.  If this it not the case, please provide the any deviation form the default in the remarks field below.","De façon standard, toutes les personnes séjournent au même logement pendant toute la période. Si cela n'est pas le cas, veuillez indiquer l'éventuelle dérogation dans la case à remarques ci-dessous.","Standardmäßig bleiben alle Gäste für den gesamten Zeitraum in der Unterkunft. Wenn dies nicht der Fall ist, geben Sie bitte jede Abweichung im Feld Bemerkungen hierunten an."
 ,Back,,Terug,Back,Retour,Zurück
 ,Badge image,,Badgefoto,Badge image,Photo du badge,Foto des Badges
 ,BEL rating,,BEL rating,BEL rating,Elo BEL,Elo BEL
@@ -106,6 +124,7 @@ enrollvk,tool,,Inschrijvingsmodule,Enrollment tool,,
 ,black,,zwart,black,Noirs,Schwarz
 ,Boys,,Jongens,Boys,Garçons,Jungen
 ,BYC 2024,,BJK 2024,BYC 2024,CBJ 2024,BJLM 2024
+,BYC 2025,,BJK 2025,BYC 2025,CBJ 2025,BJLM 2025
 ,Bycco is taking overview photos/videos of the championships and can publish these photos/videos on its website and on social media,,Bycco neemt overzichtsfoto's en -video's tijdens het kampioenschap en publiceert deze op de website en op sociale media.,Bycco is taking overview photos/videos of the championships and can publish these photos/videos on its website and on social media,Bycco prend des photos / fait des vidéos d’ensemble lors des championnats et peut publier ces photos / vidéos sur le site web et sur les médias sociaux,Bycco nimmt Gesamtaufnahmen der Meisterschaften und kann diese Fotos / Videos auf seiner Webseite und in sozialen Medien veröffentlichen.
 ,Bycco will use all personal data like mobile numbers and email addresses for internal purposes only.,,Bycco zal alle persoonlijke data zoals GSM en E-mail enkel voor intern gebruik aanwenden.,Bycco will use all personal data like mobile numbers and email addresses for internal purposes only.,"Bycco n'utilisera les données privées, telles que le numéro de GSM et l'adresse mail, qu'à des fins internes.",Bycco verwendet alle persönlichen Daten wie Handynummern und E-Mail Adressen nur für interne Zwecke.
 ,Calendar,,Agenda,Calendar,Calendrier,Agenda
@@ -127,7 +146,6 @@ enrollvk,tool,,Inschrijvingsmodule,Enrollment tool,,
 ,Details,,Details,Details,Détails,Details
 ,Details player,,Spelerdetails,Details player,Détails du joueur,Spieler Details
 ,Document for School,,Schooldocument,Document for School,Document pour l'école,Dokument für die Schule
-,"Don't forget to mention the details of requester, in case he/she stays in this lodging.",,"Vergeet de gegevens van de aanvrager niet te vermelden, voor het geval hij/zij in deze accommodatie verblijft.","Don't forget to mention the details of requester, in case he/she stays in this lodging.","N'oubliez pas de mentionner les coordonnées du demandeur, s'il séjourne dans ce logement.","Vergessen Sie nicht, die Daten des Antragstellers anzugeben, falls er/sie in dieser Unterkunft bleibt."
 ,Double hotel room (2 or 3 pers),,2-persoonskamer hotel (2 of 3 pers),Double hotel room (2 or 3 pers),chambre d'hôtel 2 personnes (2 ou 3 personnes),2-Personenzimmer Hotel (2 oder 3 Personen)
 ,Email,,e-mail,Email,e-mail,E-Mail
 ,Email address,,E-mailadres,Email address,Adresse e-mail,E-Mail-Adresse
@@ -155,8 +173,8 @@ enrollvk,tool,,Inschrijvingsmodule,Enrollment tool,,
 ,Full name,,Volledige naam,Full name,Nom complet,Vollständiger Name
 ,Full name parent,,Volledige naam ouder,Full name parent,Nom complet du parent,Vollständiger Name Elternteil
 ,Full name representative,,Volledige naam verantwoordelijke,Full name representative,Nom complet du responsable,Vollständiger Name Vertreter
-,Games,,Partijen,Games,Parties,Parteien
 ,Game schedule,,Speelschema,Game Schedule,Calendrier,Spielplan
+,Games,,Partijen,Games,Parties,Parteien
 ,GDPR,,GDPR,GDPR,RGDP,GDPR
 ,Gender,,Geslacht,Gender,Sexe,Geschlecht
 ,Girls,,Meisjes,Girls,Filles,Mädchen
@@ -165,10 +183,8 @@ enrollvk,tool,,Inschrijvingsmodule,Enrollment tool,,
 ,GSM player,,GSM speler,GSM player,Numéro GSM du joueur,Handynummer Spieler
 ,GSM representative,,GSM nummer verantwoordelijke,GSM representative,Numéro GSM du responsable,Handynummer Vertreter
 ,Guest list,,Gastenlijst,Guest list,Liste des invités,Gäste
-,Guests,,Gasten,Guests,Invités,Gäste
 ,Half boarding,,Halfpension,Half boarding,Demi-pension,Halbpension
 ,Home,,Home,Home,Accueil,Startseite
-enroll,late,,Je kan echter nog steeds een e-mail sturen naar {email} met het verzoek om een laattijdige inschrijving.,"However, you can still send en email to { email }, requesting for an late enrollment.","Cependant, vous pouvez toujours envoyer un e-mail à { email }, demandant une inscription tardive.",Sie können jedoch immer noch eine E-Mail an { email } senden und um eine spätere Anmeldung bitten.
 ,I agree,,Ik ben het eens.,I agree,Je suis d’accord.,Ich stimme zu.
 ,ID Club,,Clubnummer,ID Club,ID cercle,Club-ID
 ,ID number,,Stamnummer,ID number,Matricule,ID-Nummer
@@ -177,8 +193,6 @@ enroll,late,,Je kan echter nog steeds een e-mail sturen naar {email} met het ver
 ,"If you want to make a new reservation, click the button below",,"Wilt u een nieuwe reservering maken, klik dan op onderstaande knop","If you want to make a new reservation, click the button below","Si vous souhaitez effectuer une nouvelle réservation, cliquez sur le bouton ci-dessous","Wenn Sie eine neue Reservierung vornehmen möchten, klicken Sie auf die Schaltfläche unten"
 ,Important information,,Belangrijke informatie,Important information,Renseignements importants,Wichtige Informationen
 ,"In case you do not have an id number of the RBCF, please contact your chess club, which can provide it.",,"In het geval dat je nog geen stamnummer van de KBSB hebt, dien je contact op te nemen met jouw club die het nodige zal doen.","In case you do not have an id number of the RBCF, please contact your chess club, which can provide it.","Dans le cas où vous n’avez pas de matricule auprès de la FRBE, vous devez contacter votre club qui fera le nécessaire.","Falls Sie keine ID-Nummer beim KSB haben, wenden sie sich an einen Verantwortlichen Ihres Vereins um diese anzufordern."
-,In order to make a reservation you need to provide the following elements:,,Je hebt de volgende zaken nodig om een verblijf te reserveren,In order to make a reservation you need to provide the following elements:,Il vous faut les éléments suivants pour réserver un séjour:,"Um Ihren Aufenthalt zu buchen, benötigen Sie Folgendes"
-,Indicate which guests will participate in the tournament,,Geef aan welke gasten zullen deelnemen aan het toernooi,Indicate which guests will participate in the tournament,Indiquez quels invités participeront au tournoi,"Geben Sie an, welche Gäste an dem Turnier teilnehmen werden"
 ,Info about adult representative at site,,Info over de afgevaardigde ter plaatse,Info about adult representative at site,Information sur le responsable sur place,Info über erwachsene Vertreter vor Ort
 ,Info about attendant on site,,Info begeleider ter plaatse,Info about attendant on site,Infos sur l'accompagnateur sur place,Infos über Betreuer vor Ort
 ,Info about parent,,Info over ouder,Info about parent,Information sur le parent,Info über Eltern
@@ -251,11 +265,9 @@ enroll,late,,Je kan echter nog steeds een e-mail sturen naar {email} met het ver
 ,Price VAT excluded,,Prijs excl. BTW,Price VAT excluded,Prix TVA exclusif.,Preis exklusive Mehrwertsteuer  
 ,Price VAT included,,Prijs incl. BTW,Price VAT included,Prix TVA inclus,Preis inklusive Mehrwertsteuer  
 ,Privacy rules,,Privacyregels,Privacy rules,Confidentialité des données,Datenschutzregeln
-,"Provide for any guest, the name, first name, birthdate. Indicate if a guest intends to particpatte to the tournament.",,"Geef voor iedere gast op: voornaam, achternaam, geboortedatum. Duid aan als een gast aan het toernooi deelneemt","Provide for any guest, the name, first name, birthdate. Indicate if a guest intends to particpatte to the tournament.","Indiquez pour chaque invité: le prénom, le nom de famille, la date de naissance. Indiquez si l'invité participe au tournoi.","Bitte geben Sie für jeden Gast ein: Vorname, Nachname, Geburtsdatum. Geben Sie an, ob ein Gast an dem Turnier teilnimmt"
 ,Read more,,Lees verder,Read more,En savoir plus,Weiter lesen
 ,Remarks,,Opmerkingen,Remarks,Remarques,Bemerkungen
 ,Reservation,,Reservering,Reservation,Réservation,Reservierung
-,Reservation tool,,Reservatietool,Reservation tool,Outil de réservation,Reservierungstool
 ,Reservation wizard,,Reserveringswizard,Reservation wizard,Assistant de réservation,Reservierungsassistent
 ,Responsible of the reservation,,Verantwoordelijke reservatie,Responsible of the reservation,Responsable de la réservation,Verantwortliche(r) der Reservierung
 ,Resulting photo,,Resultaatfoto,Resulting photo,La photo résultante,Ergebnisbild
@@ -279,13 +291,9 @@ enroll,late,,Je kan echter nog steeds een e-mail sturen naar {email} met het ver
 ,Subscription for,,Inschrijving voor,Registration for,Inscription pour,Registrierung für
 ,Subscription successful,,Registratie geslaagd,Registration successful,Enregistrement réussi,Registrierung erfolgreich
 ,The arbiters,,De scheidrechters,The arbiters,Les arbitres,Die Schiedsrichter
-,the details of every guest,,De details van de gasten,The details of the giuests,Les détails des invités,Die Details der Gäste
-,the details of the adult responsible for the reservation,,De details van de verantwoordelijke voor deze reservering,the details of the adult responsible for the reservation,Les détails du responsable adulte de cette résevation,"Die Details der Person, die für diese Reservierung verantwortlich ist"
 ,"The information requested below, is optional but it is highly recommended to provide it",,"De informatie hieronder is optioneel, maar het is aangeraden om die toch te geven.","The information requested below, is optional but it is highly recommended to provide it","Les informations ci-dessous sont optionnelles, mais il est conseillé de nous les fournir.","Die unten angeforderten Informationen sind optional, aber es wird empfohlen, sie zur Verfügung zu stellen."
-,the meals,,De maaltijden,the meals,Les repas,Die Mahlzeiten
 ,The organisation will let you know if it still can accept late enrollemnts.,,De organisatie laat je dan weten of ze nog laattijdige inschrijvingen kan accepteren.,The organisation will let you know if it still can accept late enrollemnts.,L'organisation vous indiquera si les inscriptions tardives peuvent ëtre acceptées.,"Die Organisation teilt Ihnen mit, ob sie spätere Anmeldungen noch akzeptieren kann."
 ,The organizers,,De organisatoren,The organizers,Les organisateurs,Die Organisatoren
-,"The reservation is done per room.  If you want to book two rooms, you have to run this tools twice.",,De reservering wordt per kamer gedaan.  Wilt u meer dan 1 reservering dan moet deze wizard meerdere keren gebruiken,"The reservation is done per room. If you want to book two rooms, you have to run this tool twice.","La réservation se fait par chambre. Si vous souhaitez réserver davantage de chambres, il faudre passer plusieurs fois par le présent assistant.","Die Reservierung wird pro Zimmer vorgenommen.  Wenn Sie mehr als 1 Reservierung wünschen, müssen Sie diesen Assistenten mehrfach verwenden"
 ,The subscription fee is 35 Euro.,,Het inschrijvingsgeld bedraagt ​​35 euro.,The registration fee is 35 Euro.,Le droit d'inscription est de 35 euros.,Die Anmeldegebühr beträgt 35 Euro.
 ,The team,,Het team,The team,L' équipe,Das Team
 ,This player is already registered,,Deze speler is reeds geregistreerd,This player is already registered,Ce joueur est déjà enregistré,Dieser Spieler ist bereits registriert
@@ -302,7 +310,6 @@ enroll,late,,Je kan echter nog steeds een e-mail sturen naar {email} met het ver
 ,VAT,,BTW,VAT,TVA,MwSt.
 ,VAT number,,BTW number,VAT number,Numéro de TVA,MwSt-Nummer
 ,was not found.,,kon niet gevonden worden,was not found,n'est pas trouvée,werde nicht gefunden
-,which guests are participants to the tournament,,welke gasten zijn deelnemers aan het toernooi,which guests are participants to the tournament,quels invités participent au tournoi,welche Gäste nehmen am Turnier teil
 ,white,,wit,white,Blancs,Weiss
 ,Yes,,Ja,Yes,Oui,Ja
 ,"You can still enroll, but an adminstrative cost of 10 Euro will be charged.",,"Inschrijven kan nog wel, maar er wordt wel 10 euro administratiekost aangerekend.","You can still enroll, but an adminstrative cost of 10 Euro will be charged.","Vous pouvez toujours vous inscrire, mais des frais administratifs de 10 euros vous seront facturés.","Sie können sich trotzdem anmelden, es wird jedoch eine Verwaltungsgebühr von 10 Euro erhoben."
