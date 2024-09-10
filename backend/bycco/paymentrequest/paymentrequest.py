@@ -10,7 +10,7 @@ from bycco.core.mail import MailParams, sendemail_no_attachments
 from . import PaymentRequest, PaymentRequestItem, DbPayrequest
 from bycco.core.counter import DbCounter
 from bycco.core.common import get_common
-from bycco.lodging import get_lodging, update_lodging, Lodging
+from bycco.stay import get_stay, update_stay, Stay
 from bycco.participant import (
     get_participant_bjk,
     get_participant_vk,
@@ -113,11 +113,11 @@ def getPaymessage(n) -> str:
     return f"+++{p1:03d}/{p2:04d}/{p3:03d}{p4:02d}+++"
 
 
-# lodging
+# stay
 
 
-def calc_pricedetails_lodging(
-    rsv: Lodging,
+def calc_pricedetails_stay(
+    rsv: Stay,
     reductionamount: str | None = None,
     reductionpct: str | None = None,
 ):
@@ -237,9 +237,9 @@ def calc_pricedetails_lodging(
     return (details, totalprice)
 
 
-async def create_pr_lodging(rsvid: str) -> str:
+async def create_pr_stay(rsvid: str) -> str:
 
-    rsv = await get_lodging(rsvid)
+    rsv = await get_stay(rsvid)
     assert rsv.guestlist
     pr: Dict[str, Any] = {
         "address": rsv.address,
@@ -252,24 +252,24 @@ async def create_pr_lodging(rsvid: str) -> str:
         "locale": rsv.locale,
         "mobile": rsv.mobile,
         "paystatus": False,
-        "reason": "lodging",
+        "reason": "stay",
     }
-    pr["details"], pr["totalprice"] = calc_pricedetails_lodging(rsv)
+    pr["details"], pr["totalprice"] = calc_pricedetails_stay(rsv)
     pr["number"] = await DbCounter.next("paymentrequest")
     pr["paymessage"] = getPaymessage(20240000 + pr["number"])
     pr["guests"] = ", ".join([f"{g.first_name} {g.last_name}" for g in rsv.guestlist])
     id = await create_payment_request(pr)
-    await update_lodging(rsvid, Lodging(payment_id=id))
+    await update_stay(rsvid, Stay(payment_id=id))
     return id
 
 
-async def delete_pr_lodging(rsvid: str) -> None:
-    from bycco.lodging import get_lodging, update_lodging
+async def delete_pr_stay(rsvid: str) -> None:
+    from bycco.stay import get_stay, update_stay
 
-    rsv = await get_lodging(rsvid)
+    rsv = await get_stay(rsvid)
     payment_id = rsv.payment_id
     assert payment_id
-    await update_lodging(rsvid, Lodging(payment_id=None))
+    await update_stay(rsvid, Stay(payment_id=None))
     try:
         await delete_payment_request(payment_id)
     except:
@@ -277,11 +277,11 @@ async def delete_pr_lodging(rsvid: str) -> None:
         pass
 
 
-async def update_pr_lodging(id: str, prqin: PaymentRequest) -> None:
+async def update_pr_stay(id: str, prqin: PaymentRequest) -> None:
     exprq = await get_payment_request(id)
-    assert exprq.reason == "lodging"
-    rsv = await get_lodging(exprq.link_id)
-    (details, totalprice) = calc_pricedetails_lodging(
+    assert exprq.reason == "stay"
+    rsv = await get_stay(exprq.link_id)
+    (details, totalprice) = calc_pricedetails_stay(
         rsv, prqin.reductionamount, prqin.reductionpct
     )
     prqdict = prqin.model_dump(exclude_unset=True)
@@ -290,19 +290,19 @@ async def update_pr_lodging(id: str, prqin: PaymentRequest) -> None:
     await DbPayrequest.update(id, prqdict, {"_model": PaymentRequest})
 
 
-async def email_pr_lodging(prqid) -> None:
+async def email_pr_stay(prqid) -> None:
     prq = await get_payment_request(prqid)
     assert prq.email and prq.locale
     mp = MailParams(
         subject="Floreal 2023",
         sender=settings.EMAIL["sender"],
         receiver=prq.email,
-        template="pr_lodging_mail_{locale}.md",
+        template="pr_stay_mail_{locale}.md",
         locale=prq.locale,
         attachments=[],
         bcc=settings.EMAIL["bcc_reservation"],
     )
-    sendemail_no_attachments(mp, prq.model_dump(), "payment request lodging")
+    sendemail_no_attachments(mp, prq.model_dump(), "payment request stay")
     await update_payment_request(
         prqid, PaymentRequest(sentdate=date.today().isoformat())
     )
@@ -520,7 +520,7 @@ async def delete_pr_participant_bjk(parid: str) -> None:
     await update_participant_bjk(parid, ParticipantVK(payment_id=None))
     try:
         await delete_payment_request(payment_id)
-    except:
+    except Exception:
         logger.info("Could not delete linked payment request")
         pass
 
@@ -557,7 +557,7 @@ async def email_pr_participant_bjk(prqid) -> None:
 # more general
 
 emailfunctions = {
-    "lodging": email_pr_lodging,
+    "stay": email_pr_stay,
     "vk2024": email_pr_participant_vk,
     "bjk2024": email_pr_participant_bjk,
 }

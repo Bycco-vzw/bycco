@@ -1,19 +1,19 @@
-import axios from 'axios'
+import axios from "axios"
 
-const prefix = '/api/v1/lodging'
-const roomprefix = '/api/v1/room'
+const prefix = "/api/v1/stay"
+const roomprefix = "/api/v1/room"
 
 export default {
   make_reservation: async function (options) {
-    const { lodgingIn } = options
-    return await axios.post(`${prefix}/cmd/make_reservation`, lodgingIn)
+    const { stayIn } = options
+    return await axios.post(`${prefix}/cmd/make_reservation`, stayIn)
   },
   mgmt_assign_room: async function (options) {
     const { token, id, roomnr } = options
     return await axios.post(`${prefix}/cmd/assignroom/${id}/${roomnr}`, {
       headers: {
         Authorization: "Bearer " + token,
-      }
+      },
     })
   },
   mgmt_unassign_room: async function (options) {
@@ -21,7 +21,7 @@ export default {
     return await axios.delete(`${prefix}/cmd/assignroom/${id}/${roomnr}`, {
       headers: {
         Authorization: "Bearer " + token,
-      }
+      },
     })
   },
   mgmt_get_reservations: async function (options) {
@@ -29,7 +29,7 @@ export default {
     return await axios.get(`${prefix}/reservation`, {
       headers: {
         Authorization: "Bearer " + token,
-      }
+      },
     })
   },
   mgmt_get_reservation: async function (options) {
@@ -37,7 +37,7 @@ export default {
     return await axios.get(`${prefix}/reservation/${id}`, {
       headers: {
         Authorization: "Bearer " + token,
-      }
+      },
     })
   },
   mgmt_update_reservation: async function (options) {
@@ -45,7 +45,7 @@ export default {
     return await axios.put(`${prefix}/reservation/${id}`, reservation, {
       headers: {
         Authorization: "Bearer " + token,
-      }
+      },
     })
   },
   mgmt_get_free_rooms: async function (options) {
@@ -53,7 +53,7 @@ export default {
     return await axios.get(`${roomprefix}/freeroom/${roomtype}`, {
       headers: {
         Authorization: "Bearer " + token,
-      }
+      },
     })
   },
   mgmt_xls_lodgings: async function (options) {
@@ -61,7 +61,7 @@ export default {
     return await axios.get(`${prefix}/cmd/xls_lodgings`, {
       headers: {
         Authorization: "Bearer " + token,
-      }
+      },
     })
   },
 }

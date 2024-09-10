@@ -16,7 +16,7 @@ class Guest(BaseModel):
     last_name: str | None
     meals: List[str] | None = None
     meals_wishes: str | None = None
-    lodging: str | None = None
+    stay: str | None = None
 
 
 class Assignment(BaseModel):
@@ -26,9 +26,9 @@ class Assignment(BaseModel):
     assignmentdate: datetime
 
 
-class LodgingDB(BaseModel):
+class StayDB(BaseModel):
     """
-    the reservation model as used in the database
+    the stay model as used in the database
     is normally not exposed
     """
 
@@ -42,7 +42,7 @@ class LodgingDB(BaseModel):
     first_name: str
     guestlist: List[Guest]
     locale: str
-    lodging: str
+    stay: str
     logging: List[str]
     last_name: str
     meals: str  # comma separated list of MMDD-BLD
@@ -58,9 +58,9 @@ class LodgingDB(BaseModel):
     _modificationtime: datetime
 
 
-class Lodging(BaseModel):
+class Stay(BaseModel):
     """
-    Lodging model, all fields optional
+    Stay model, all fields optional
     """
 
     address: str | None = None
@@ -75,7 +75,7 @@ class Lodging(BaseModel):
     id: str | None = None
     last_name: str | None = None
     locale: str | None = None
-    lodging: str | None = None
+    stay: str | None = None
     logging: List[str] | None = None
     meals: str | None = None
     mobile: str | None = None
@@ -90,7 +90,7 @@ class Lodging(BaseModel):
     _modificationtime: datetime | None = None
 
 
-class LodgingIn(BaseModel):
+class StayIn(BaseModel):
     address: str | None = ""
     checkindate: str | None
     checkoutdate: str | None
@@ -99,17 +99,17 @@ class LodgingIn(BaseModel):
     guestlist: List[Guest]
     last_name: str
     locale: str | None
-    lodging: str | None
+    stay: str | None
     meals: str | None
     mobile: str
     organizers: bool | None = None
 
 
-class LodgingList(BaseModel):
-    reservations: List[Any]
+class StayList(BaseModel):
+    stays: List[Any]
 
 
-class DbLodging(DbBase):
-    COLLECTION = "by_lodging"
+class DbStay(DbBase):
+    COLLECTION = "stay2025"
     VERSION = 1
     IDGENERATOR = "uuid"

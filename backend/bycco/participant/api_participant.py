@@ -3,13 +3,12 @@
 
 import logging
 from typing import List
-from fastapi import HTTPException, BackgroundTasks, Depends, APIRouter
+from fastapi import HTTPException, Depends, APIRouter
 from fastapi.responses import HTMLResponse, Response
 from fastapi.security import HTTPAuthorizationCredentials
 from reddevil.core import RdException, bearer_schema
 from reddevil.core import validate_token
 
-router = APIRouter(prefix="/api/v1/participant")
 
 from . import (
     ParticipantBJKItem,
@@ -36,6 +35,7 @@ from . import (
     upload_photo_bjk,
 )
 
+router = APIRouter(prefix="/api/v1/participant")
 logger = logging.getLogger(__name__)
 
 # vk
@@ -47,7 +47,7 @@ async def api_get_participants_vk():
         return await get_participants_vk()
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
-    except:
+    except Exception:
         logger.exception("failed api call get_particpants_vk")
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
@@ -61,7 +61,7 @@ async def api_mgmt_get_participants_vk(
         return await get_participant_vk(id)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
-    except:
+    except Exception:
         logger.exception("failed api call get_particpant_vk")
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
@@ -77,7 +77,7 @@ async def api_mgmt_update_participants_vk(
         await update_participant_vk(id, participant)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
-    except:
+    except Exception:
         logger.exception("failed api call get_particpant_vk")
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
@@ -91,7 +91,7 @@ async def api_mgmt_import_enrollments_vk(
         await import_participants_vk()
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
-    except:
+    except Exception:
         logger.exception("failed api call mgmt_import_enrollments_vk")
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
