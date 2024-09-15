@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "bycco"
-version = "3.0.0"
+version = "3.0.1"
 description = "Bycco backend"
 authors = ["Ruben Decrop <ruben.decrop@bycco.be>"]
 
