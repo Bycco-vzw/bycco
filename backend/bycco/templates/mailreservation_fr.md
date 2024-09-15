@@ -29,7 +29,7 @@ _L'équipe Bycco_
 
 ### Détails hébergement et restauration
 
-- Type : {{ lodging}}
+- Type : {{ stay }}
 - Date d'arrivée : {{ checkindate[0:10] }}
 - Date de départ : {{ checkoutdate[0:10] }}
 - Repas : {{ meals }}

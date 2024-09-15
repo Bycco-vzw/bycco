@@ -1,8 +1,8 @@
 <script setup>
-import { ref } from 'vue'
-import { parse } from 'yaml'
-import ProgressLoading from '@/components/ProgressLoading.vue'
-import SnackbarMessage from '@/components/SnackbarMessage.vue'
+import { ref } from "vue"
+import { parse } from "yaml"
+import ProgressLoading from "@/components/ProgressLoading.vue"
+import SnackbarMessage from "@/components/SnackbarMessage.vue"
 import { useMgmtTokenStore } from "@/store/mgmttoken"
 import { usePersonStore } from "@/store/person"
 import { storeToRefs } from "pinia"
@@ -21,14 +21,14 @@ let showLoading
 // stores
 const mgmtstore = useMgmtTokenStore()
 const { token: mgmttoken } = storeToRefs(mgmtstore)
-const personstore = usePersonStore();
+const personstore = usePersonStore()
 const { person } = storeToRefs(personstore)
 
 // datamodel
 const assignment = ref({
-  roomtype: '',
-  roomnr: '',
-  modroomtype: null
+  roomtype: "",
+  roomnr: "",
+  modroomtype: null,
 })
 const idreservation = route.query.id
 const newguest = ref({})
@@ -37,7 +37,7 @@ const roomnrs = ref([])
 const rsv = ref({ payment_id: "" })
 
 definePageMeta({
-  layout: 'mgmt',
+  layout: "mgmt",
 })
 
 function addGuest() {
@@ -45,7 +45,7 @@ function addGuest() {
     last_name: newguest.value.last_name,
     first_name: newguest.value.first_name,
     birthdate: newguest.value.birthdate,
-    player: newguest.value.player || false
+    player: newguest.value.player || false,
   })
   newguest.value = {}
 }
@@ -55,14 +55,14 @@ function back() {
 }
 
 async function checkAuth() {
-  console.log('checking if auth is already set', mgmttoken.value)
+  console.log("checking if auth is already set", mgmttoken.value)
   if (mgmttoken.value) return
   if (person.value.credentials.length === 0) {
-    router.push('/mgmt')
+    router.push("/mgmt")
     return
   }
-  if (!person.value.email.endsWith('@bycco.be')) {
-    router.push('/mgmt')
+  if (!person.value.email.endsWith("@bycco.be")) {
+    router.push("/mgmt")
     return
   }
   let reply
@@ -70,16 +70,14 @@ async function checkAuth() {
   // now login using the Google auth token
   try {
     reply = await $backend("accounts", "login", {
-      logintype: 'google',
+      logintype: "google",
       token: person.value.credentials,
       username: null,
       password: null,
     })
-  }
-  catch (error) {
-    navigateTo('/mgmt')
-  }
-  finally {
+  } catch (error) {
+    navigateTo("/mgmt")
+  } finally {
     showLoading(false)
   }
   mgmtstore.updateToken(reply.data)
@@ -89,50 +87,46 @@ async function confirm_assignment() {
   let reply
   showLoading(true)
   try {
-    reply = await $backend("lodging", "mgmt_assign_room", {
+    reply = await $backend("stay", "mgmt_assign_room", {
       id: idreservation,
       roomnr: assignment.value.roomnr,
-      token: mgmttoken.value
+      token: mgmttoken.value,
     })
     readReservation(reply.data)
-  }
-  catch (error) {
-    console.error('getting assigning room', error)
+  } catch (error) {
+    console.error("getting assigning room", error)
     if (error.code == 401) {
-      router.push('/mgmt')
+      router.push("/mgmt")
     } else {
-      showSnackbar('Assigning room failed: ' + error.detail)
+      showSnackbar("Assigning room failed: " + error.detail)
     }
     return
-  }
-  finally {
+  } finally {
     showLoading(false)
   }
-  showSnackbar('Room number assigned OK')
+  showSnackbar("Room number assigned OK")
 }
 
 async function create_pr() {
   let reply
   showLoading(true)
   try {
-    reply = await $backend("payment", "mgmt_create_lodging_pr", {
+    reply = await $backend("payment", "mgmt_create_stay_pr", {
       id: idreservation,
-      token: mgmttoken.value
+      token: mgmttoken.value,
     })
-  }
-  catch (error) {
-    console.error('creating payment request', error)
+  } catch (error) {
+    console.error("creating payment request", error)
     if (error.code === 401) {
-      router.push('/mgmt')
+      router.push("/mgmt")
     } else {
-      showSnackbar('Creating paymentrequesr failed: ' + error.detail)
+      showSnackbar("Creating paymentrequesr failed: " + error.detail)
     }
     return
-  }
-  finally {
+  } finally {
     showLoading(false)
   }
-  router.push('/mgmt/paymentrequest_edit?id=' + reply.data)
+  router.push("/mgmt/paymentrequest_edit?id=" + reply.data)
 }
 
 function deleteGuest(ix) {
@@ -141,24 +135,22 @@ function deleteGuest(ix) {
 
 async function delete_pr() {
   let reply
-  if (confirm('Are you sure to delete the linked payment request')) {
+  if (confirm("Are you sure to delete the linked payment request")) {
     showLoading(true)
     try {
-      reply = await $backend("payment", "mgmt_delete_lodging_pr", {
+      reply = await $backend("payment", "mgmt_delete_stay_pr", {
         id: idreservation,
-        token: mgmttoken.value
+        token: mgmttoken.value,
       })
-    }
-    catch (error) {
-      console.error('deleting linked payment request', error)
+    } catch (error) {
+      console.error("deleting linked payment request", error)
       if (error.code === 401) {
-        router.push('/mgmt')
+        router.push("/mgmt")
       } else {
-        showSnackbar('Deleting Paymentrequest failed' + error.detail)
+        showSnackbar("Deleting Paymentrequest failed" + error.detail)
       }
       return
-    }
-    finally {
+    } finally {
       showLoading(false)
     }
     await getReservation()
@@ -169,23 +161,20 @@ async function deleteAssignment(ix) {
   let reply
   showLoading(true)
   try {
-    reply = await $backend("lodging", "mgmt_unassign_room", {
+    reply = await $backend("stay", "mgmt_unassign_room", {
       id: idreservation,
       roomnr: rsv.value.assignments[ix].roomnr,
-      token: mgmttoken.value
+      token: mgmttoken.value,
     })
     readReservation(reply.data)
-  }
-  catch (error) {
-    console.error('getting unassigning room', error)
+  } catch (error) {
+    console.error("getting unassigning room", error)
     if (error.code === 401) {
-      router.push('/mgmt')
+      router.push("/mgmt")
+    } else {
+      showSnackbar("Assigning room failed" + error.detail)
     }
-    else {
-      showSnackbar('Assigning room failed' + error.detail)
-    }
-  }
-  finally {
+  } finally {
     showLoading(false)
   }
 }
@@ -194,52 +183,47 @@ async function getReservation() {
   let reply
   showLoading(true)
   try {
-    reply = await $backend('lodging', "mgmt_get_reservation", {
+    reply = await $backend("stay", "mgmt_get_reservation", {
       id: idreservation,
-      token: mgmttoken.value
+      token: mgmttoken.value,
     })
     readReservation(reply.data)
-  }
-  catch (error) {
-    console.error('getting reservation failed', error)
+  } catch (error) {
+    console.error("getting reservation failed", error)
     if (error.code === 401) {
-      router.push('/mgmt')
+      router.push("/mgmt")
+    } else {
+      showSnackbar("Getting reservation failed")
     }
-    else {
-      showSnackbar('Getting reservation failed')
-    }
-  }
-  finally {
+  } finally {
     showLoading(false)
   }
 }
 
 async function gotoPaymentrequest(id) {
-  console.log('going to payment request', id)
-  router.push('/mgmt/paymentrequest_edit?id=' + id)
+  console.log("going to payment request", id)
+  router.push("/mgmt/paymentrequest_edit?id=" + id)
 }
 
 function readReservation(reservation) {
   rsv.value = { ...reservation }
-  assignment.value = { roomtype: '', roomnr: '' }
+  assignment.value = { roomtype: "", roomnr: "" }
 }
 
 async function get_free_rooms() {
   let reply
   showLoading(true)
   try {
-    reply = await $backend("lodging", "mgmt_get_free_rooms", {
-      roomtype: assignment.value.roomtype
+    reply = await $backend("stay", "mgmt_get_free_rooms", {
+      roomtype: assignment.value.roomtype,
     })
-  }
-  catch (error) {
-    console.error('getting free rooms', error.response)
-  }
-  finally {
+  } catch (error) {
+    console.error("getting free rooms", error.response)
+  } finally {
     showLoading(false)
   }
   const rooms = reply.data
-  console.log('returned rooms', rooms)
+  console.log("returned rooms", rooms)
 }
 
 async function parseYaml(group, name) {
@@ -250,14 +234,13 @@ async function parseYaml(group, name) {
       return null
     }
     return parse(yamlcontent)
-  }
-  catch (error) {
-    console.error('cannot parse yaml', error)
+  } catch (error) {
+    console.error("cannot parse yaml", error)
   }
 }
 
 async function processCommon() {
-  const cm = await parseYaml("data", "common.yaml")
+  const cm = await parseYaml("data", "common.yml")
   roomtypes.value = []
   cm.mgmtroomtypes.forEach((rt) => {
     roomtypes.value.push({
@@ -267,78 +250,69 @@ async function processCommon() {
   })
 }
 
-
 async function readBucket(group, name) {
   try {
-    const reply = await $backend('filestore', 'anon_get_file', {
+    const reply = await $backend("filestore", "anon_get_file", {
       group,
       name,
     })
     return reply.data
-  }
-  catch (error) {
-    console.error('failed to fetch file from bucket')
+  } catch (error) {
+    console.error("failed to fetch file from bucket")
     return null
   }
 }
-
 
 async function roomtypeSelected() {
   let reply
   showLoading(true)
   try {
-    reply = await $backend("lodging", "mgmt_get_free_rooms", {
+    reply = await $backend("stay", "mgmt_get_free_rooms", {
       token: mgmttoken.value,
       roomtype: assignment.value.roomtype,
     })
-  }
-  catch (error) {
-    console.error('getting free rooms', error.response)
-    showSnackbar('Cannot get room numbers')
+  } catch (error) {
+    console.error("getting free rooms", error.response)
+    showSnackbar("Cannot get room numbers")
     return
-  }
-  finally {
+  } finally {
     showLoading(false)
   }
   const rooms = reply.data
-  roomnrs.value = Array.from(Object.keys(rooms), x => rooms[x].number)
+  roomnrs.value = Array.from(Object.keys(rooms), (x) => rooms[x].number)
 }
 
 async function saveGuestlist() {
   let reply
   showLoading(true)
   try {
-    await $backend("lodging", "mgmt_update_reservation", {
+    await $backend("stay", "mgmt_update_reservation", {
       id: idreservation,
       reservation: {
-        guestlist: rsv.value.guestlist
+        guestlist: rsv.value.guestlist,
       },
-      token: mgmttoken.value
+      token: mgmttoken.value,
     })
-  }
-  catch (error) {
-    console.error('getting getReservations', error)
+  } catch (error) {
+    console.error("getting getReservations", error)
     if (error.code === 401) {
-      router.push('/mgmt')
-    }
-    else {
-      showSnackbar('Saving reservation failed: ' + error.detail)
+      router.push("/mgmt")
+    } else {
+      showSnackbar("Saving reservation failed: " + error.detail)
     }
     return
-  }
-  finally {
+  } finally {
     showLoading(false)
   }
-  console.log('save successful')
-  showSnackbar('Reservation saved')
+  console.log("save successful")
+  showSnackbar("Reservation saved")
 }
-
 
 async function saveProperties() {
   let reply
   showLoading(true)
   try {
-    await $backend("lodging", "mgmt_update_reservation", {
+    await $backend("stay", "mgmt_update_reservation", {
       id: idreservation,
       reservation: {
         address: rsv.value.address,
@@ -350,30 +324,27 @@ async function saveProperties() {
         first_name: rsv.value.first_name,
         last_name: rsv.value.last_name,
         locale: rsv.value.locale,
-        lodging: rsv.value.lodging,
+        stay: rsv.value.stay,
         meals: rsv.value.meals,
         mobile: rsv.value.mobile,
         organizers: rsv.value.organizers,
-        remarks: rsv.value.remarks
+        remarks: rsv.value.remarks,
       },
-      token: mgmttoken.value
+      token: mgmttoken.value,
     })
-  }
-  catch (error) {
-    console.error('getting getReservations', error)
+  } catch (error) {
+    console.error("getting getReservations", error)
     if (error.code === 401) {
-      router.push('/mgmt')
-    }
-    else {
-      showSnackbar('Saving reservation failed: ' + error.detail)
+      router.push("/mgmt")
+    } else {
+      showSnackbar("Saving reservation failed: " + error.detail)
     }
     return
-  }
-  finally {
+  } finally {
     showLoading(false)
   }
-  console.log('save successful')
-  showSnackbar('Reservation saved')
+  console.log("save successful")
+  showSnackbar("Reservation saved")
 }
 
 onMounted(async () => {
@@ -383,12 +354,10 @@ onMounted(async () => {
   await checkAuth()
   await getReservation()
 })
-
 </script>
 
 <template>
   <v-container>
-
     <SnackbarMessage ref="refsnackbar" />
     <ProgressLoading ref="refloading" />
 
@@ -406,9 +375,7 @@ onMounted(async () => {
     </v-row>
 
     <v-card class="my-3">
-      <v-card-title>
-        Properties
-      </v-card-title>
+      <v-card-title> Properties </v-card-title>
       <v-card-text>
         <v-row>
           <v-col cols="12" sm="6">
@@ -427,15 +394,13 @@ onMounted(async () => {
             <v-text-field v-model="rsv.mobile" label="Mobile" />
             <v-textarea v-model="rsv.remarks" label="Customer Remarks" />
             <v-text-field v-model="rsv.locale" label="Language" />
-            <v-text-field v-model="rsv.lodging" label="Requested accomodation" />
+            <v-text-field v-model="rsv.stay" label="Requested accomodation" />
             <v-text-field v-model="rsv.meals" label="Requested meals" />
           </v-col>
         </v-row>
       </v-card-text>
       <v-card-actions>
-        <v-btn @click="saveProperties">
-          Save
-        </v-btn>
+        <v-btn @click="saveProperties"> Save </v-btn>
       </v-card-actions>
     </v-card>
 
@@ -483,9 +448,7 @@ onMounted(async () => {
         </v-row>
       </v-card-text>
       <v-card-actions>
-        <v-btn @click="saveGuestlist">
-          Save
-        </v-btn>
+        <v-btn @click="saveGuestlist"> Save </v-btn>
       </v-card-actions>
     </v-card>
 
@@ -494,12 +457,20 @@ onMounted(async () => {
       <v-card-text>
         <v-row>
           <v-col cols="3">
-            <v-select v-model="assignment.roomtype" :items="roomtypes" label="Select roomtype"
-              @update:model-value="roomtypeSelected" />
+            <v-select
+              v-model="assignment.roomtype"
+              :items="roomtypes"
+              label="Select roomtype"
+              @update:model-value="roomtypeSelected"
+            />
           </v-col>
           <v-col cols="3">
-            <v-select v-model="assignment.roomnr" :items="roomnrs" label="Select room number"
-              :disabled="!assignment.roomtype.length" />
+            <v-select
+              v-model="assignment.roomnr"
+              :items="roomnrs"
+              label="Select room number"
+              :disabled="!assignment.roomtype.length"
+            />
           </v-col>
           <v-col cols="3">
             <v-btn :disabled="!assignment.roomnr.length" @click="confirm_assignment">
@@ -510,30 +481,21 @@ onMounted(async () => {
         <h4>Existing Assignments</h4>
         <div v-for="(a, ix) in rsv.assignments" :key="ix">
           {{ a.roomnr }} {{ a.roomtype }} &nbsp;&nbsp;&nbsp;
-          <v-btn @click="deleteAssignment(ix)">
-            Delete
-          </v-btn>
+          <v-btn @click="deleteAssignment(ix)"> Delete </v-btn>
         </div>
       </v-card-text>
     </v-card>
 
     <v-card>
-      <v-card-title class="mt-2">
-        Payment Request
-      </v-card-title>
+      <v-card-title class="mt-2"> Payment Request </v-card-title>
       <v-card-actions>
-        <v-btn v-if="!rsv.payment_id" @click="create_pr">
-          Create
-        </v-btn>
+        <v-btn v-if="!rsv.payment_id" @click="create_pr"> Create </v-btn>
         <v-btn v-if="rsv.payment_id" @click="gotoPaymentrequest(rsv.payment_id)">
           Show
         </v-btn>
-        <v-btn v-if="rsv.payment_id" @click="delete_pr">
-          Delete
-        </v-btn>
+        <v-btn v-if="rsv.payment_id" @click="delete_pr"> Delete </v-btn>
       </v-card-actions>
     </v-card>
-
   </v-container>
 </template>
 

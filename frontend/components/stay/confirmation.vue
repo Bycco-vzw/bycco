@@ -20,6 +20,7 @@ const { $backend } = useNuxtApp()
 
 // datamodel
 const stay = ref({})
+const common = ref(null)
 const confirmed = ref(false)
 const noerror = ref(true)
 
@@ -60,9 +61,10 @@ function restart() {
   emit("changeStep", 1)
 }
 
-function setup(l) {
-  console.log("setup confirmation", l)
-  stay.value = { ...l }
+function setup(stay_, common_) {
+  console.log("setup confirmation", stay_, common_)
+  common.value = common_
+  stay.value = { ...stay_ }
 }
 
 function updateStay() {

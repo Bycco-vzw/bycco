@@ -11,7 +11,9 @@ const emit = defineEmits(["changeStep", "updateStay"])
 defineExpose({ setup })
 
 // datamodel
+const common = ref(null)
 const guestlist = ref([])
+const stay = ref({})
 const remarks = ref("")
 const formvalid = ref(false)
 
@@ -23,25 +25,30 @@ function deleteGuest(ix) {
 
 function next() {
   updateStay()
-  emit("changeStep", 4)
+  emit("changeStep", 5)
 }
 
 function prev() {
+  validateStay()
   updateStay()
-  emit("changeStep", 2)
+  emit("changeStep", 3)
 }
 
-function setup(l) {
-  console.log("setup guests", l)
-  guestlist.value = [...l.guestlist]
-  lastguestempty()
-  remarks.value = l.remarks || "" + ""
-}
-
-function lastguestempty() {
-  const lastguest = guestlist.value[guestlist.value.length - 1]
-  console.log("lastguest", lastguest)
-  if (!lastguest || lastguest.first_name || lastguest.last_name) {
+function set_guestlist() {
+  let maxpers = 1
+  common.value.rooms.forEach((r) => {
+    if (stay.value.accomodation == r.name) {
+      maxpers = r.maxpers
+    }
+  })
+  console.log("maxpers", maxpers, stay.value.accomodation)
+  guestlist.value = []
+  stay.value.guestlist.forEach((g, ix) => {
+    if (ix < maxpers) {
+      guestlist.value.push(g)
+    }
+  })
+  for (let i = guestlist.value.length; i < maxpers; i++) {
     guestlist.value.push({
       first_name: "",
       last_name: "",
@@ -49,16 +56,32 @@ function lastguestempty() {
       player: false,
     })
   }
+  console.log("guestlist", guestlist.value)
+}
+
+async function setup(stay_, common_) {
+  console.log("setup guests", stay_, common_)
+  stay.value = stay_
+  common.value = common_
+  set_guestlist()
+  remarks.value = stay_.remarks || "" + ""
 }
 
 function updateStay() {
-  guestlist.value.length--
-  console.log("guestwithoutlast", guestlist.value)
+  let gl = []
+  guestlist.value.forEach((g) => {
+    if (g.first_name && g.last_name) {
+      gl.push(g)
+    }
+  })
+  console.log("guestlist without empty", gl)
   emit("updateStay", {
-    guestlist: guestlist.value,
+    guestlist: gl,
     remarks: remarks.value,
   })
 }
+
+function validateStay() {}
 </script>
 
 <template>
@@ -75,20 +98,10 @@ function updateStay() {
     <v-form v-model="formvalid" class="pt-2">
       <v-row v-for="(g, ix) in guestlist" :key="ix">
         <v-col cols="12" sm="6" md="3">
-          <v-text-field
-            dense
-            v-model="g.first_name"
-            :label="t('First name')"
-            @update:focused="lastguestempty"
-          />
+          <v-text-field dense v-model="g.first_name" :label="t('First name')" />
         </v-col>
         <v-col cols="12" sm="6" md="3">
-          <v-text-field
-            dense
-            v-model="g.last_name"
-            :label="t('Last name')"
-            @update:focused="lastguestempty"
-          />
+          <v-text-field dense v-model="g.last_name" :label="t('Last name')" />
         </v-col>
         <v-col cols="12" sm="6" md="3">
           <v-text-field

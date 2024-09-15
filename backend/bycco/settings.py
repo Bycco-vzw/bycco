@@ -1,7 +1,8 @@
 # Copyright 2022-2024 Chessdevil Consulting
 # Copyright 2015-2024 Ruben Decrop
 
-import os, os.path
+import os
+import os.path
 import logging
 from pathlib import Path
 
@@ -17,7 +18,6 @@ EMAIL = {
     # "gmail_file": os.environ.get("GMAIL_FILE", "chessdevil-gmail.json"),
     "account": "ruben.decrop@bycco.be",
 }
-
 
 FILESTORE = {
     "manager": "google",
@@ -114,12 +114,12 @@ ls = "No local settings found"
 
 if BYCCO_MODE == "local":
     ls = "importing local settings"
-    from env_local import *
+    from env_local import *  # noqa: F403
 
 
 if BYCCO_MODE == "prodtest":
     ls = "importing prodtest settings"
-    from env_prodtest import *
+    from env_prodtest import *  # noqa: F403
 
 if COLORLOG:
     LOG_CONFIG["handlers"]["console"]["formatter"] = "color"  # type: ignore
