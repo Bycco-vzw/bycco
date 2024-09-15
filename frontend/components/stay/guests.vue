@@ -111,11 +111,6 @@ function validateStay() {}
             type="date"
           />
         </v-col>
-        <v-col cols="4" sm="2" md="1">
-          <v-btn fab small @click="deleteGuest(ix)">
-            <v-icon>mdi-delete</v-icon>
-          </v-btn>
-        </v-col>
       </v-row>
       <div v-show="guestlist.length > 1">
         <h3 class="mt-3">
