@@ -3,13 +3,21 @@
 ## Front End
 
 - cd bycco_frontend
-- tarn dev
+- yarn dev
+
+deployment
+
 - `API_URL=https://www.bycco.be/ yarn generate`
+- `gcloud app deploy`
 
 ## Back End
 
 - cd bycco_backend
 - ./launchlocal
+
+deployment
+
+`gcloud pp deploy`
 
 ## Integration
 

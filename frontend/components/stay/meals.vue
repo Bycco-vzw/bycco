@@ -12,6 +12,7 @@ const ts = {
   // full: 'Full boarding',
   half: "Half boarding",
   no: "No meals",
+  breakfast: "Breakfast",
 }
 
 // communication with manager
@@ -19,8 +20,11 @@ const emit = defineEmits(["changeStep", "updateStay"])
 defineExpose({ setup })
 
 // datamodel
+const common = ref(null)
+const stay = ref(null)
 const meals = ref("")
 const remarks = ref("")
+const breakfast = ref(false)
 const formvalid = ref(false)
 
 function next() {
@@ -33,10 +37,25 @@ function prev() {
   emit("changeStep", 4)
 }
 
-function setup(l) {
-  console.log("setup meals", l)
-  meals.value = l.meals ? l.meals + "" : "half"
-  remarks.value = l.remarks ? l.remarks + "" : ""
+function set_meals() {
+  common.value.rooms.forEach((r) => {
+    if (r.name == stay.value.accomodation) {
+      breakfast.value = !!r.breakfast
+    }
+  })
+  if (!stay.value.meals) {
+    meals.value = breakfast.value ? "breakfast" : "half"
+  } else {
+    meals.value = stay.value.meals + ""
+  }
+}
+
+function setup(stay_, common_) {
+  console.log("setup meals", stay_, common_)
+  common.value = common_
+  stay.value = stay_
+  set_meals()
+  remarks.value = stay_.remarks ? stay_.remarks + "" : ""
 }
 
 function updateStay() {
@@ -53,7 +72,8 @@ function updateStay() {
       <div class="mt-2 mb-2">
         {{ $t(ts.intro) }}
         <v-radio-group v-model="meals" :rules="[v_required]">
-          <v-radio :label="$t(ts.no)" value="no" />
+          <v-radio :label="$t(ts.no)" value="no" v-if="!breakfast" />
+          <v-radio :label="$t(ts.breakfast)" value="no" v-if="breakfast" />
           <v-radio :label="$t(ts.half)" value="half" />
           <!-- <v-radio :label="$t(t.full)" value="full" /> -->
         </v-radio-group>

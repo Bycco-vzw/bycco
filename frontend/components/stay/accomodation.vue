@@ -27,6 +27,7 @@ const daybefore = ref(false)
 const dayafter = ref(false)
 const formvalid = ref(false)
 const startday = computed(() => {
+  console.log("startday common", common.value)
   if (!common.value) return null
   return new Date(common.value.trndates.startdate)
 })
@@ -51,67 +52,41 @@ const roomtypes = ref([])
 
 function next() {
   updateStay()
-  emit("changeStep", 5)
+  emit("changeStep", 4)
 }
 
 function prev() {
   updateStay()
-  emit("changeStep", 3)
+  emit("changeStep", 2)
 }
 
-async function parseYaml(group, name) {
-  try {
-    const yamlcontent = await readBucket(group, name)
-    if (!yamlcontent) {
-      return null
-    }
-    return parse(yamlcontent)
-  } catch (error) {
-    console.error("cannot parse yaml", yamlcontent)
-  }
-}
-
-async function processCommon() {
-  console.log("process Common")
-  common.value = await parseYaml("data", "common.yml")
-  console.log("common", common.value)
+function setupRoomtypes() {
   roomtypes.value = []
-  common.value.roomtypes.forEach((rt) => {
-    roomtypes.value.push({
-      title: common.value.i18n[rt][locale.value],
-      value: rt,
-    })
+  common.value.rooms.forEach((r) => {
+    if (r.available) {
+      roomtypes.value.push({
+        value: r.name,
+        title: r[locale.value],
+      })
+    }
   })
 }
 
-async function readBucket(group, name) {
-  try {
-    const reply = await $backend("filestore", "anon_get_file", {
-      group,
-      name,
-    })
-    return reply.data
-  } catch (error) {
-    console.error("failed to fetch file from bucket")
-    return null
-  }
-}
-
-async function setup(l) {
-  console.log("setup accomodation", l)
-  await processCommon()
-  console.log("zzzz")
-  accomodation.value = l.accomodation
-  daybefore.value = !!l.daybefore
-  dayafter.value = !!l.dayafter
-  remarks.value = l.remarks
+async function setup(stay_, common_) {
+  console.log("setup accomodation", stay_, common_)
+  common.value = common_
+  setupRoomtypes()
+  accomodation.value = stay_.accomodation
+  daybefore.value = !!stay_.daybefore
+  dayafter.value = !!stay_.dayafter
+  remarks.value = stay_.remarks
 }
 
 function updateStay() {
   let description
-  roomtypes.value.forEach((x) => {
-    if (x.value == accomodation.value) {
-      description = x.title
+  common.value.rooms.forEach((r) => {
+    if (r.name == accomodation.value) {
+      description = r[locale.value]
     }
   })
   emit("updateStay", {

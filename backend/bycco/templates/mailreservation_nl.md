@@ -29,7 +29,7 @@ _Het Bycco team_
 
 ### Details accomodatie en catering
 
-- Type: {{ lodging}}
+- Type: {{ stay }}
 - Aankomstdatum: {{ checkindate[0:10] }}
 - Vertrekdatum:  {{ checkoutdate[0:10] }}
 - Maaltijden: {{ meals }}

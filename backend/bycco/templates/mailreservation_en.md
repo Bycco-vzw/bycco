@@ -29,7 +29,7 @@ _The Bycco team_
 
 ### Details accommodation and catering
 
-- Type: {{ lodging}}
+- Type: {{ stay }}
 - Arrival date: {{ checkindate[0:10] }}
 - Departure date: {{ checkoutdate[0:10] }}
 - Meals: {{ meals }}
