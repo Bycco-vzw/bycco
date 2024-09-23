@@ -114,7 +114,7 @@ def sendemail_reservation(ldg: Stay):
         sender = settings.EMAIL["sender"]
         receiver = ldg.email
         msg = MIMEMultipart("related")
-        msg["Subject"] = "Floreal 2023"
+        msg["Subject"] = "Floreal 2025"
         msg["From"] = sender
         msg["To"] = receiver
         if settings.EMAIL.get("bcc_reservation"):
@@ -134,7 +134,6 @@ def sendemail_reservation(ldg: Stay):
 
 
 async def make_reservation(d: StayIn, bt: BackgroundTasks) -> str:
-
     rd = d.model_dump()
     logger.info(f"rd {rd}")
     rd["locale"] = rd.get("locale") or "nl"
