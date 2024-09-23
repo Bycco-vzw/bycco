@@ -4,7 +4,7 @@ import showdown from "showdown"
 import { useI18n } from "vue-i18n"
 const { t, locale } = useI18n()
 
-const mdConverter = new showdown.Converter()
+const mdConverter = new showdown.Converter({ tables: true })
 
 const { $backend } = useNuxtApp()
 const metadata = ref(null)
