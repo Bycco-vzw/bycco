@@ -16,6 +16,7 @@ const guestlist = ref([])
 const stay = ref({})
 const remarks = ref("")
 const formvalid = ref(false)
+const errmsg = ref(null)
 
 // methods
 
@@ -24,12 +25,12 @@ function deleteGuest(ix) {
 }
 
 function next() {
+  if (!validateStay()) return
   updateStay()
   emit("changeStep", 5)
 }
 
 function prev() {
-  validateStay()
   updateStay()
   emit("changeStep", 3)
 }
@@ -81,7 +82,18 @@ function updateStay() {
   })
 }
 
-function validateStay() {}
+function validateStay() {
+  guestlist.value.forEach((g, ix) => {
+    if (g.first_name && g.last_name) {
+      if (!g.birthdate) {
+        formvalid.value =false
+        errmsg = t(stay.inv_birthdate)
+      }
+    }
+  })
+  return formvalid.value
+}
+
 </script>
 
 <template>
@@ -95,7 +107,7 @@ function validateStay() {}
         {{ t("stay.guest_requester") }}
       </b>
     </div>
-    <v-form v-model="formvalid" class="pt-2">
+    <v-form class="pt-2">
       <v-row v-for="(g, ix) in guestlist" :key="ix">
         <v-col cols="12" sm="6" md="3">
           <v-text-field dense v-model="g.first_name" :label="t('First name')" />
@@ -112,6 +124,7 @@ function validateStay() {}
           />
         </v-col>
       </v-row>
+      <v-alert v-show="!formvalid && errmsg" :text="errmsg" outlined type="error" />
       <div v-show="guestlist.length > 1">
         <h3 class="mt-3">
           {{ t("Participants") }}
