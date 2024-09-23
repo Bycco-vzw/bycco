@@ -15,7 +15,7 @@ const refconfirmation = ref(null)
 
 // data model
 const stay = ref({ guestlist: [] })
-const common = ref(null)
+const common = ref({})
 const status = ref("closed")
 const { t } = useI18n()
 
@@ -45,16 +45,16 @@ function changeStep(s) {
       refresponsible.value.setup(stay.value)
       break
     case 3:
-      refaccomodation.value.setup(stay.value, common.value)
+      refguests.value.setup(stay.value)
       break
     case 4:
-      refguests.value.setup(stay.value, common.value)
+      refaccomodation.value.setup(stay.value)
       break
     case 5:
-      refmeals.value.setup(stay.value, common.value)
+      refmeals.value.setup(stay.value)
       break
     case 6:
-      refconfirmation.value.setup(stay.value, common.value)
+      refconfirmation.value.setup(stay.value)
       break
   }
 }
@@ -83,6 +83,7 @@ async function readBucket(group, name) {
       group,
       name,
     })
+    console.log("reading bucket", reply.data.substring(0, 80))
     return reply.data
   } catch (error) {
     console.error("failed to fetch file from bucket")
@@ -138,11 +139,11 @@ onMounted(async () => {
       <v-card class="my-2">
         <v-card-title class="text-h5 py-2 mb-2 bottomline">
           <v-chip>3</v-chip>
-          {{ t("Accomodation") }}
+          {{ t("Guest list") }}
         </v-card-title>
         <v-card-text v-show="step == 3">
-          <Stay-Accomodation
-            ref="refaccomodation"
+          <Stay-Guests
+            ref="refguests"
             @change-step="changeStep"
             @update-stay="updateStay"
           />
@@ -151,11 +152,11 @@ onMounted(async () => {
       <v-card class="my-2">
         <v-card-title class="text-h5 py-2 mb-2 bottomline">
           <v-chip>4</v-chip>
-          {{ t("Guest list") }}
+          {{ t("Accomodation") }}
         </v-card-title>
         <v-card-text v-show="step == 4">
-          <Stay-Guests
-            ref="refguests"
+          <Stay-Accomodation
+            ref="refaccomodation"
             @change-step="changeStep"
             @update-stay="updateStay"
           />
