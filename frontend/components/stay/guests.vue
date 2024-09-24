@@ -83,17 +83,17 @@ function updateStay() {
 }
 
 function validateStay() {
+  formvalid.value = true
   guestlist.value.forEach((g, ix) => {
     if (g.first_name && g.last_name) {
       if (!g.birthdate) {
-        formvalid.value =false
-        errmsg = t(stay.inv_birthdate)
+        formvalid.value = false
+        errmsg.value = "Invalid birthdate"
       }
     }
   })
   return formvalid.value
 }
-
 </script>
 
 <template>
@@ -152,7 +152,7 @@ function validateStay() {
           <v-btn color="primary" @click="prev" class="mr-2">
             {{ t("Back") }}
           </v-btn>
-          <v-btn color="primary" :disabled="!formvalid" @click="next">
+          <v-btn color="primary" @click="next">
             {{ t("Continue") }}
           </v-btn>
         </div>

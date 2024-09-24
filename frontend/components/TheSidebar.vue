@@ -67,7 +67,6 @@ function rules_bjk() {
         <v-list-item to="/stay" :title="t('stay.stay')" />
         <v-list-item to="/catering" :title="t('stay.catering')" />
         <v-list-item to="/reservation" :title="t('stay.reservation')" />
-        <v-list-item to="/rsv25wizatd"" :title="t('stay.wizard')" />
         <!-- <v-list-item @click="livegames_" title="Live" /> -->
       </v-list-group>
     </v-list>
