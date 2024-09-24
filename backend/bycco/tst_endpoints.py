@@ -18,6 +18,6 @@ def hello():
     return "hello world"
 
 @app.get("/api/testmail", include_in_schema=False)
-def hello():
+def test_mail():
     test_mail()
     return "Mail sent"
