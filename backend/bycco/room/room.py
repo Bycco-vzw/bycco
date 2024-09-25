@@ -7,14 +7,14 @@ import io, csv
 from typing import cast, List
 
 from .md_room import DbRoom, Room, RoomItem, RoomDB
-from bycco.core.common import get_common
+from bycco.core.common import load_common
 from reddevil.core import RdBadRequest, get_settings
 
 logger = logging.getLogger(__name__)
 settings = get_settings()
-common = get_common()
-roomtypes = common["roomtypes"]
-mgmtroomtypes = common["mgmtroomtypes"]
+# common = load_common()
+# roomtypes = common["roomtypes"]
+# mgmtroomtypes = common["mgmtroomtypes"]
 
 
 async def get_room(id: str, options: dict = {}) -> Room:
@@ -62,19 +62,20 @@ async def get_free_rooms(roomtype: str) -> List[RoomItem]:
     """
     get list of free rooms
     """
-    if roomtype not in mgmtroomtypes:
-        logger.error(f"Unknown roomtype {roomtype}")
-        raise RdBadRequest()
-    rooms = await get_rooms(
-        {
-            "roomtype": roomtype,
-            "blocked": False,
-            "enabled": True,
-            "reservation_id": None,
-            "_model": RoomItem,
-        }
-    )
-    return rooms
+    pass
+    # if roomtype not in mgmtroomtypes:
+    #     logger.error(f"Unknown roomtype {roomtype}")
+    #     raise RdBadRequest()
+    # rooms = await get_rooms(
+    #     {
+    #         "roomtype": roomtype,
+    #         "blocked": False,
+    #         "enabled": True,
+    #         "reservation_id": None,
+    #         "_model": RoomItem,
+    #     }
+    # )
+    # return rooms
 
 
 async def get_csv_rooms() -> str:

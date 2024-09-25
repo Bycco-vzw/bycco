@@ -10,17 +10,13 @@ from pathlib import Path
 from weasyprint import HTML, CSS
 from reddevil.core import get_settings
 from reddevil.mail.md_mail import MailParams
-
 from bycco.core.mailbackend import backends
-from bycco.core.common import get_common
 
 
 logger = logging.getLogger(__name__)
 settings = get_settings()
 md = Markdown(extras=["tables"])
 env = Environment(loader=FileSystemLoader(settings.TEMPLATES_PATH), trim_blocks=True)
-common = get_common()
-i18n = common["i18n"]
 
 
 markdownstyle = """

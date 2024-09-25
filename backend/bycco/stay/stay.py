@@ -2,7 +2,7 @@
 # copyright Chessdevil Consulting BVBA 2015 - 2019
 
 import logging
-from typing import cast, Optional, List
+from typing import cast, List
 from datetime import date, datetime, timezone, timedelta
 from fastapi import BackgroundTasks
 from tempfile import NamedTemporaryFile
@@ -13,7 +13,7 @@ import openpyxl
 
 from reddevil.core import get_settings, RdBadRequest, RdInternalServerError
 from bycco.core.counter import DbCounter
-from bycco.core.common import get_common
+from bycco.core.common import load_common
 
 
 from . import (
@@ -27,12 +27,13 @@ from bycco.room import Room, get_room_by_number, update_room
 
 logger = logging.getLogger(__name__)
 settings = get_settings()
-common = get_common()
-startdate = common["period"]["startdate"]
-enddate = common["period"]["enddate"]
-m3y = date(startdate.year - 3, startdate.month, startdate.day)
-m12y = date(startdate.year - 12, startdate.month, startdate.day)
-m18y = date(startdate.year - 18, startdate.month, startdate.day)
+
+common = None
+startdate = None
+enddate = None
+m3y = None
+m12y = None
+m18y = None
 
 
 async def get_stay(id: str, options: dict = {}) -> Stay:
@@ -91,28 +92,32 @@ def calcmeals(cid: date, cod: date, meals: str):
     return ml
 
 
-def sendemail_reservation(ldg: Stay):
+def sendemail_reservation(stay: Stay):
     from bycco.core.mail import (
         backends,
         env,
-        i18n,
         md,
         markdownstyle,
     )
 
-    logger.info(f"sending reservation email {ldg}")
-    tmpl = env.get_template(f"mailreservation_{ldg.locale}.md")
-    context = ldg.model_dump()
+    logger.info(f"sending reservation email {stay}")
+    tmpl = env.get_template(f"mailreservation_{stay.locale}.md")
+    context = stay.model_dump()
+    logger.info(f"context: {context}")
     # translate
-    context["stay"] = i18n[context["stay"]][context["locale"]]
-    context["meals"] = i18n[context["meals"]][context["locale"]]
+    for r in common["rooms"]:
+        if r["name"] == stay.stay:
+            break
+    context["stay"] = r[stay.locale]
+    i18n = common["i18n"]
+    context["meals"] = i18n[stay.meals][stay.locale]
     # render the content using jinja2 templating giving markdown text
     markdowntext = tmpl.render(**context)
     # convert markdown text to html
     htmltext = f"{markdownstyle} {md.convert(markdowntext)}"
     try:
         sender = settings.EMAIL["sender"]
-        receiver = ldg.email
+        receiver = stay.email
         msg = MIMEMultipart("related")
         msg["Subject"] = "Floreal 2025"
         msg["From"] = sender
@@ -133,7 +138,19 @@ def sendemail_reservation(ldg: Stay):
         logger.exception("failed")
 
 
+async def setup_globals():
+    global common, startdate, enddate, m12y, m3y, m18y
+    if not common:
+        common = await load_common()
+        startdate = common["trndates"]["startdate"]
+        enddate = common["trndates"]["enddate"]
+        m3y = date(startdate.year - 3, startdate.month, startdate.day)
+        m12y = date(startdate.year - 12, startdate.month, startdate.day)
+        m18y = date(startdate.year - 18, startdate.month, startdate.day)
+
+
 async def make_reservation(d: StayIn, bt: BackgroundTasks) -> str:
+    await setup_globals()
     rd = d.model_dump()
     logger.info(f"rd {rd}")
     rd["locale"] = rd.get("locale") or "nl"
@@ -168,7 +185,7 @@ async def make_reservation(d: StayIn, bt: BackgroundTasks) -> str:
     logger.info(f"call add Reservation {rd}")
     try:
         id = await DbStay.add(rd)
-    except:
+    except Exception:
         logger.exception("Cannot add rsv")
         raise RdInternalServerError("Cannot add rsv")
     logger.info(
@@ -177,7 +194,7 @@ async def make_reservation(d: StayIn, bt: BackgroundTasks) -> str:
     try:
         ldg = await get_stay(id)
         logger.info(f"saved stay {ldg}")
-    except:
+    except Exception:
         logger.exception("Cannot get stay")
         raise RdInternalServerError("Cannot get added rsv")
     logger.info("calling sendReservation")
@@ -192,7 +209,7 @@ async def assign_room(
     """
     assign a room to a reservation
     """
-
+    await setup_globals()
     reservation = await get_stay(id)
     room = await get_room_by_number(roomnr)
     if room.reservation_id is not None:
@@ -224,7 +241,7 @@ async def unassign_room(id: str, roomnr: str) -> Stay:
     """
     unassign a room to a reservation
     """
-
+    await setup_globals()
     reservation = await get_stay(id)
     room = await get_room_by_number(roomnr)
     now = datetime.now(tz=timezone.utc)
@@ -240,6 +257,7 @@ async def xls_stays() -> bytes:
     """
     get all reservations in xls format
     """
+    await setup_globals()
     docs = await DbStay.find_multiple({"_model": Stay})
     wb = openpyxl.Workbook()
     ws = wb.active

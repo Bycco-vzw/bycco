@@ -9,7 +9,7 @@ from bycco.core.mail import MailParams, sendemail_no_attachments
 
 from . import PaymentRequest, PaymentRequestItem, DbPayrequest
 from bycco.core.counter import DbCounter
-from bycco.core.common import get_common
+from bycco.core.common import load_common
 from bycco.stay import get_stay, update_stay, Stay
 from bycco.participant import (
     get_participant_bjk,
@@ -20,21 +20,18 @@ from bycco.participant import (
     update_participant_vk,
     ParticipantBJKDetail,
     ParticipantVKDetail,
-    ParticipantBJK,
     ParticipantVK,
 )
 
 logger = logging.getLogger(__name__)
-
 settings = get_settings()
-common = get_common()
-i18n = common["i18n"]
-prices = common["prices"]
-startdate = common["period"]["startdate"]
-enddate = common["period"]["enddate"]
-m3y = date(startdate.year - 3, startdate.month, startdate.day)
-m12y = date(startdate.year - 12, startdate.month, startdate.day)
-m18y = date(startdate.year - 18, startdate.month, startdate.day)
+common = None
+startdate = None
+enddate = None
+m3y = None
+m12y = None
+m18y = None
+
 i18n_enrollment_vk = {
     "nl": "Inschrijving VK2024",
     "en": "Enrollment VK2024",
@@ -81,7 +78,7 @@ async def get_payment_request(id: str, options: Dict[str, Any] = {}) -> PaymentR
 
 
 async def get_payment_requests(
-    options: Dict[str, Any] = {}
+    options: Dict[str, Any] = {},
 ) -> List[PaymentRequestItem]:
     """
     get paymentrequests
@@ -104,6 +101,17 @@ async def update_payment_request(id: str, pr: PaymentRequest, options={}) -> Non
 
 
 # app routines
+
+
+async def setup_globals():
+    global common, startdate, enddate, m12y, m3y, m18y
+    if not common:
+        common = await load_common()
+        startdate = common["trndates"]["startdate"]
+        enddate = common["trndates"]["enddate"]
+        m3y = date(startdate.year - 3, startdate.month, startdate.day)
+        m12y = date(startdate.year - 12, startdate.month, startdate.day)
+        m18y = date(startdate.year - 18, startdate.month, startdate.day)
 
 
 def getPaymessage(n) -> str:
@@ -134,7 +142,6 @@ def calc_pricedetails_stay(
     logger.info(f"prices {prices}")
     hotel = False
     for ass in rsv.assignments:
-
         details.append(
             {
                 "description": i18n[ass.roomtype][rsv.locale],
@@ -238,7 +245,6 @@ def calc_pricedetails_stay(
 
 
 async def create_pr_stay(rsvid: str) -> str:
-
     rsv = await get_stay(rsvid)
     assert rsv.guestlist
     pr: Dict[str, Any] = {
