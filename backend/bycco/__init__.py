@@ -1,6 +1,5 @@
 import toml
 
-
 def read_version():
     with open("pyproject.toml") as f:
         mt = toml.load(f)
