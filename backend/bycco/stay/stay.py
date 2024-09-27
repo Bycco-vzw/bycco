@@ -152,7 +152,6 @@ async def setup_globals():
 async def make_reservation(d: StayIn, bt: BackgroundTasks) -> str:
     await setup_globals()
     rd = d.model_dump()
-    logger.info(f"rd {rd}")
     rd["locale"] = rd.get("locale") or "nl"
     rd["stay"] = rd.get("stay") or settings.DEFAULT_LODGING
     rd["meals"] = rd.get("meals") or settings.DEFAULT_MEALS
@@ -182,7 +181,6 @@ async def make_reservation(d: StayIn, bt: BackgroundTasks) -> str:
     rd["enabled"] = True
     rd["organizers"] = False if rd.get("organizers") is None else rd["organizers"]
     rd["number"] = await DbCounter.next("reservation")
-    logger.info(f"call add Reservation {rd}")
     try:
         id = await DbStay.add(rd)
     except Exception:

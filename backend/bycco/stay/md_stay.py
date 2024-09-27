@@ -103,6 +103,7 @@ class StayIn(BaseModel):
     meals: str | None
     mobile: str
     organizers: bool | None = None
+    remarks: str | None
 
 
 class StayList(BaseModel):
