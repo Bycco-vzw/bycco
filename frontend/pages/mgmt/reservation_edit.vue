@@ -210,6 +210,8 @@ async function gotoPaymentrequest(id) {
 
 function readReservation(reservation) {
   rsv.value = { ...reservation }
+  rsv.value.checkindate = rsv.value.checkindate.substring(0, 10)
+  rsv.value.checkoutdate = rsv.value.checkoutdate.substring(0, 10)
   assignment.value = { roomtype: "", roomnr: "" }
 }
 
@@ -333,7 +335,7 @@ async function saveProperties() {
         organizers: rsv.value.organizers,
         remarks: rsv.value.remarks,
       },
-      token: mgmttoken.value,
+      token: token.value,
     })
   } catch (error) {
     console.error("getting getReservations", error)
