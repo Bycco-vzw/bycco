@@ -38,7 +38,7 @@ settings = get_settings()
 
 
 @router.get("/pr/{prqid}", response_model=PaymentRequest)
-async def api_mgmt_get_paymentrequests(
+async def api_mgmt_get_paymentrequest(
     prqid: str,
     auth: HTTPAuthorizationCredentials = Depends(bearer_schema),
 ):
@@ -47,7 +47,7 @@ async def api_mgmt_get_paymentrequests(
         return await get_payment_request(prqid)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
-    except:
+    except Exception:
         logger.exception("failed api call get_payment_request")
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
@@ -61,7 +61,7 @@ async def api_mgmt_get_paymentrequests(
         return await get_payment_requests()
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
-    except:
+    except Exception:
         logger.exception("failed api call get_payment_request")
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
@@ -77,7 +77,7 @@ async def api_update_paymentrequest(
         return await update_payment_request(id, prq)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
-    except:
+    except Exception:
         logger.exception("failed api call update payment_request")
         raise HTTPException(status_code=500)
 
@@ -92,13 +92,13 @@ async def api_email_paymentrequest(
         await email_paymentrequest(id)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
-    except:
+    except Exception:
         logger.exception("failed api call create_pr_reservation")
         raise HTTPException(status_code=500)
 
 
 @router.post("/email_pr")
-async def api_email_paymentrequest(
+async def api_email_paymentrequests(
     auth: HTTPAuthorizationCredentials = Depends(bearer_schema),
 ):
     try:
@@ -106,7 +106,7 @@ async def api_email_paymentrequest(
         await email_paymentrequests(id)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
-    except:
+    except Exception:
         logger.exception("failed api call create_pr_reservation")
         raise HTTPException(status_code=500)
 
@@ -114,7 +114,7 @@ async def api_email_paymentrequest(
 # stay
 
 
-@router.post("/stay_pr/{id}", response_model=str)
+@router.post("/stay/{id}", response_model=str)
 async def api_create_pr_stay(
     id: str,
     auth: HTTPAuthorizationCredentials = Depends(bearer_schema),
@@ -124,12 +124,12 @@ async def api_create_pr_stay(
         return await create_pr_stay(id)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
-    except:
+    except Exception:
         logger.exception("failed api call create_pr_reservation")
         raise HTTPException(status_code=500)
 
 
-@router.put("/stay_pr/{id}")
+@router.put("/stay/{id}")
 async def api_update_pr_stay(
     id: str,
     prq: PaymentRequest,
@@ -140,12 +140,12 @@ async def api_update_pr_stay(
         await update_pr_stay(id, prq)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
-    except:
+    except Exception:
         logger.exception("failed api call update_pr_reservation")
         raise HTTPException(status_code=500)
 
 
-@router.delete("/stay_pr/{id}")
+@router.delete("/stay/{id}")
 async def api_delete_pr_stay(
     id: str,
     auth: HTTPAuthorizationCredentials = Depends(bearer_schema),
@@ -155,7 +155,7 @@ async def api_delete_pr_stay(
         await delete_pr_stay(id)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
-    except:
+    except Exception:
         logger.exception("failed api call delete_pr_reservation")
         raise HTTPException(status_code=500)
 
@@ -173,7 +173,7 @@ async def api_create_pr_participant_vk(
         return await create_pr_participant_vk(id)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
-    except:
+    except Exception:
         logger.exception("failed api call create_pr_reservation")
         raise HTTPException(status_code=500)
 
@@ -187,7 +187,7 @@ async def api_create_pr_participant_vk(
         await create_pr_participants_vk()
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
-    except:
+    except Exception:
         logger.exception("failed api call create_pr_reservation")
         raise HTTPException(status_code=500)
 
@@ -203,7 +203,7 @@ async def api_update_pr_participant_vk(
         await update_pr_participant_vk(id, prq)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
-    except:
+    except Exception:
         logger.exception("failed api call update_pr_reservation")
         raise HTTPException(status_code=500)
 
@@ -218,7 +218,7 @@ async def api_delete_pr_participant_vk(
         await delete_pr_participant_vk(id)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
-    except:
+    except Exception:
         logger.exception("failed api call delete_pr_reservation")
         raise HTTPException(status_code=500)
 
@@ -236,7 +236,7 @@ async def api_create_pr_participant_bjk(
         return await create_pr_participant_bjk(id)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
-    except:
+    except Exception:
         logger.exception("failed api call create_pr_reservation")
         raise HTTPException(status_code=500)
 
@@ -250,7 +250,7 @@ async def api_create_pr_participant_bjk(
         await create_pr_participants_bjk()
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
-    except:
+    except Exception:
         logger.exception("failed api call create_pr_reservation")
         raise HTTPException(status_code=500)
 
@@ -266,7 +266,7 @@ async def api_update_pr_participant_bjk(
         await update_pr_participant_bjk(id, prq)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
-    except:
+    except Exception:
         logger.exception("failed api call update_pr_reservation")
         raise HTTPException(status_code=500)
 
@@ -281,6 +281,6 @@ async def api_delete_pr_participant_bjk(
         await delete_pr_participant_bjk(id)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
-    except:
+    except Exception:
         logger.exception("failed api call delete_pr_reservation")
         raise HTTPException(status_code=500)

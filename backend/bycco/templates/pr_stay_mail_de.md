@@ -14,6 +14,10 @@ Check-out Datum: {{ checkoutdate}}
 
 {{ guests }}
 
+Kommentare: {{ reservationremarks or "" }}
+
+Aufgrund eines technischen Fehlers wurden die von Ihnen bei der Reservierung abgegebenen Kommentare möglicherweise nicht registriert. Bitte senden Sie diese Kommentare als Antwort auf diese E-Mail
+
 ### Reserverung
 
 | Bezeichnung | Anzahl | Preis | Summe |
@@ -22,12 +26,13 @@ Check-out Datum: {{ checkoutdate}}
 | {{ d.description }} | {{ d.quantity or "" }} | {{ d. unitprice + " €" if d.unitprice }} | {{ d.totalprice }} € |
 {% endfor %}
 
+{{ reductionremark or "" }}
+
 ### Zahlung
 
-Bitte überweisen Sie vor dem 15. Februar 2024 den Betrag von {{ totalprice }} € auf das Konto von Bycco
+Bitte überweisen Sie innerhalb von 14 Tagen den Betrag von {{ totalprice }} € auf das Konto von Bycco
 BE33 0017 5924 5146 mit der strukturierten Kommunikation {{ paymessage }}
 
-Nach dem 15. Februar fallen Stornokosten an.
 
 Nach der Zahlung ist die Reservierung des Aufenthalts endgültig bestätigt.
 
