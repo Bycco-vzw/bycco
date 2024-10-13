@@ -3,9 +3,7 @@
 
 from datetime import datetime
 from typing import Any, List
-from decimal import Decimal
-from enum import Enum
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 from reddevil.core import DbBase
 
 
@@ -40,6 +38,7 @@ class PaymentRequestDB:
     paystatus: bool
     reductionamount: str
     reductionpct: str
+    reductionremark: str
     remarks: str
     reason: str
     totalprice: float
@@ -75,6 +74,7 @@ class PaymentRequest(BaseModel):
     reason: str | None = None
     reductionamount: str | None = None
     reductionpct: str | None = None
+    reductionremark: str | None = None
     remarks: str | None = None
     paydate: str | None = None  # format YYYY-MM-DD
     paymessage: str | None = None  # '+++NNN-NNNN-NNNNN+++'
@@ -89,7 +89,7 @@ class PaymentRequest(BaseModel):
 
 class PaymentRequestItem(BaseModel):
     """
-    validator for list of paymentrequest( lodging and enrollment)
+    validator for list of paymentrequest( stay and registration)
     """
 
     first_name: str
@@ -125,6 +125,7 @@ class PaymentRequestUpdate(BaseModel):
     mobile: str | None = None
     reductionamount: str | None = None
     reductionpct: str | None = None
+    reductionremark: str | None = None
     remarks: str | None = None
     lodging_id: str | None = None
     room: str | None = None

@@ -1,8 +1,8 @@
 <script setup>
-import { ref } from 'vue'
-import { parse } from 'yaml'
-import ProgressLoading from '@/components/ProgressLoading.vue'
-import SnackbarMessage from '@/components/SnackbarMessage.vue'
+import { ref } from "vue"
+import { parse } from "yaml"
+import ProgressLoading from "@/components/ProgressLoading.vue"
+import SnackbarMessage from "@/components/SnackbarMessage.vue"
 import { useMgmtTokenStore } from "@/store/mgmttoken"
 import { usePersonStore } from "@/store/person"
 import { storeToRefs } from "pinia"
@@ -20,12 +20,12 @@ let showLoading
 
 // stores
 const mgmtstore = useMgmtTokenStore()
-const { token: mgmttoken } = storeToRefs(mgmtstore)
-const personstore = usePersonStore();
+const { token } = storeToRefs(mgmtstore)
+const personstore = usePersonStore()
 const { person } = storeToRefs(personstore)
 
 // datamodel
-const assignment = ref({ roomtype: '', roomnumber: '' })
+const assignment = ref({ roomtype: "", roomnumber: "" })
 const dialogDelete = ref(false)
 const idpaymentrequest = route.query.id
 const newguest = ref({})
@@ -35,7 +35,7 @@ const roomnumbers = ref([])
 const prq = ref({})
 
 definePageMeta({
-  layout: 'mgmt',
+  layout: "mgmt",
 })
 
 function back() {
@@ -43,14 +43,14 @@ function back() {
 }
 
 async function checkAuth() {
-  console.log('checking if auth is already set', mgmttoken.value)
-  if (mgmttoken.value) return
+  console.log("checking if auth is already set", token.value)
+  if (token.value) return
   if (person.value.credentials.length === 0) {
-    router.push('/mgmt')
+    router.push("/mgmt")
     return
   }
-  if (!person.value.email.endsWith('@bycco.be')) {
-    router.push('/mgmt')
+  if (!person.value.email.endsWith("@bycco.be")) {
+    router.push("/mgmt")
     return
   }
   let reply
@@ -58,16 +58,14 @@ async function checkAuth() {
   // now login using the Google auth token
   try {
     reply = await $backend("accounts", "login", {
-      logintype: 'google',
+      logintype: "google",
       token: person.value.credentials,
       username: null,
       password: null,
     })
-  }
-  catch (error) {
-    navigateTo('/mgmt')
-  }
-  finally {
+  } catch (error) {
+    navigateTo("/mgmt")
+  } finally {
     showLoading(false)
   }
   mgmtstore.updateToken(reply.data)
@@ -79,20 +77,17 @@ async function email() {
   try {
     reply = await $backend("payment", "mgmt_email_pr", {
       id: idpaymentrequest,
-      token: mgmttoken.value,
+      token: token.value,
     })
-  }
-  catch (error) {
-    console.error('email payment request failed', error)
+  } catch (error) {
+    console.error("email payment request failed", error)
     if (error.code == 401) {
-      router.push('/mgmt')
+      router.push("/mgmt")
     } else {
-      showSnackbar('Email payment request failed: ' + error.detail)
+      showSnackbar("Email payment request failed: " + error.detail)
     }
     return
-  }
-  finally {
-
+  } finally {
   }
   await get_paymentrequest()
 }
@@ -101,24 +96,21 @@ async function get_paymentrequest() {
   let reply
   showLoading(true)
   try {
-    reply = await $backend('payment', "mgmt_get_paymentrequest", {
+    reply = await $backend("payment", "mgmt_get_paymentrequest", {
       id: idpaymentrequest,
-      token: mgmttoken.value
+      token: token.value,
     })
     prq.value = reply.data
     prq.value.totalprice = prq.value.totalprice.toFixed(2)
-  }
-  catch (error) {
-    console.error('getting payment request failed', error)
+  } catch (error) {
+    console.error("getting payment request failed", error)
     if (error.code === 401) {
-      router.push('/mgmt')
-    }
-    else {
-      showSnackbar('Getting paymentrequest failed: ' + error.detail)
+      router.push("/mgmt")
+    } else {
+      showSnackbar("Getting paymentrequest failed: " + error.detail)
     }
     return
-  }
-  finally {
+  } finally {
     showLoading(false)
   }
 }
@@ -132,23 +124,20 @@ async function registerPayment() {
       prq: {
         remarks: prq.value.remarks,
         paystatus: prq.value.paystatus,
-        paydate: (new Date()).toISOString().substring(0, 10),
+        paydate: new Date().toISOString().substring(0, 10),
       },
-      token: mgmttoken.value,
+      token: token.value,
     })
     showSnackbar("Payment registered")
-  }
-  catch (error) {
-    console.error('register payment failed', error)
+  } catch (error) {
+    console.error("register payment failed", error)
     if (error.code === 401) {
-      router.push('/mgmt')
-    }
-    else {
-      showSnackbar('Registering payment failed: ' + error.detail)
+      router.push("/mgmt")
+    } else {
+      showSnackbar("Registering payment failed: " + error.detail)
     }
     return
-  }
-  finally {
+  } finally {
     showLoading(false)
   }
   await get_paymentrequest()
@@ -159,8 +148,8 @@ async function saveProperties() {
   showLoading(true)
   try {
     switch (prq.value.reason) {
-      case "lodging":
-        reply = await $backend("payment", "mgmt_update_lodging_pr", {
+      case "stay":
+        reply = await $backend("payment", "mgmt_update_stay_pr", {
           id: idpaymentrequest,
           prq: {
             address: prq.value.address,
@@ -178,9 +167,10 @@ async function saveProperties() {
             organizers: prq.value.organizers,
             remarks: prq.value.remarks,
             reductionamount: prq.value.reductionamount,
-            reductionpct: prq.value.reductionpct
+            reductionpct: prq.value.reductionpct,
+            reductionremark: prq.value.reductionremark,
           },
-          token: mgmttoken.value,
+          token: token.value,
         })
         break
       case "bjk2024":
@@ -195,23 +185,20 @@ async function saveProperties() {
             last_name: prq.value.last_name,
             locale: prq.value.locale,
           },
-          token: mgmttoken.value,
+          token: token.value,
         })
         break
     }
     showSnackbar("PR saved")
-  }
-  catch (error) {
-    console.error('saving pr failed', error)
+  } catch (error) {
+    console.error("saving pr failed", error)
     if (error.code === 401) {
-      router.push('/mgmt')
-    }
-    else {
-      showSnackbar('Saving pr failed: ' + error.detail)
+      router.push("/mgmt")
+    } else {
+      showSnackbar("Saving pr failed: " + error.detail)
     }
     return
-  }
-  finally {
+  } finally {
     showLoading(false)
   }
   await get_paymentrequest()
@@ -223,12 +210,10 @@ onMounted(async () => {
   await checkAuth()
   await get_paymentrequest()
 })
-
 </script>
 
 <template>
   <v-container>
-
     <SnackbarMessage ref="refsnackbar" />
     <ProgressLoading ref="refloading" />
 
@@ -237,7 +222,14 @@ onMounted(async () => {
       <v-spacer />
       <v-tooltip bottom>
         <template #activator="{ on }">
-          <v-btn slot="activator" outlined fab color="deep-purple" v-on="on" @click="back()">
+          <v-btn
+            slot="activator"
+            outlined
+            fab
+            color="deep-purple"
+            v-on="on"
+            @click="back()"
+          >
             <v-icon>mdi-arrow-left</v-icon>
           </v-btn>
         </template>
@@ -245,7 +237,14 @@ onMounted(async () => {
       </v-tooltip>
       <v-tooltip bottom>
         <template #activator="{ on }">
-          <v-btn slot="activator" outlined fab color="deep-purple" v-on="on" @click="email()">
+          <v-btn
+            slot="activator"
+            outlined
+            fab
+            color="deep-purple"
+            v-on="on"
+            @click="email()"
+          >
             <v-icon>mdi-email</v-icon>
           </v-btn>
         </template>
@@ -253,23 +252,17 @@ onMounted(async () => {
       </v-tooltip>
     </v-row>
     <v-card class="my-3">
-      <v-card-title>
-        Register payment
-      </v-card-title>
+      <v-card-title> Register payment </v-card-title>
       <v-card-text>
         <v-switch v-model="prq.paystatus" label="Paid" color="deep-purple" />
         <v-textarea v-model="prq.remarks" rows="2" label="Remarks" />
       </v-card-text>
       <v-card-actions>
-        <v-btn @click="registerPayment">
-          Register Payment
-        </v-btn>
+        <v-btn @click="registerPayment"> Register Payment </v-btn>
       </v-card-actions>
     </v-card>
     <v-card class="my-3">
-      <v-card-title>
-        Properties
-      </v-card-title>
+      <v-card-title> Properties </v-card-title>
       <v-card-text>
         <v-row>
           <v-col cols="12" sm="6">
@@ -280,19 +273,20 @@ onMounted(async () => {
             <v-textarea v-model="prq.address" label="Address" />
           </v-col>
           <v-col cols="12" sm="6">
-            <p>Total cost: <b>{{ prq.totalprice }} €</b></p>
+            <p>
+              Total cost: <b>{{ prq.totalprice }} €</b>
+            </p>
             <p v-if="prq.reason == 'lodging'">Guests: {{ prq.guests }}</p>
             <v-text-field v-model="prq.email" label="E-mail" />
             <v-text-field v-model="prq.locale" label="Language" />
             <v-text-field v-model="prq.reductionamount" label="Reduction fixed amount" />
             <v-text-field v-model="prq.reductionpct" label="Reduction pct" />
+            <v-text-field v-model="prq.reductionremark" label="Reduction remark" />
           </v-col>
         </v-row>
       </v-card-text>
       <v-card-actions>
-        <v-btn @click="saveProperties">
-          Save
-        </v-btn>
+        <v-btn @click="saveProperties"> Save </v-btn>
       </v-card-actions>
     </v-card>
     <v-card class="my-3">
@@ -311,16 +305,13 @@ onMounted(async () => {
           <v-col cols="4" sm="4" md="2" class="text-right">
             {{ d.quantity }}
           </v-col>
-          <v-col cols="4" sm="4" md="2" class="text-right">
-            {{ d.totalprice }} €
-          </v-col>
+          <v-col cols="4" sm="4" md="2" class="text-right"> {{ d.totalprice }} € </v-col>
         </v-row>
       </v-card-text>
       <v-card-actions />
     </v-card>
   </v-container>
 </template>
-
 
 <style scoped>
 .bordermd {

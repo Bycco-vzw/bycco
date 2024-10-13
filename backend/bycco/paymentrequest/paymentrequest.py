@@ -26,19 +26,16 @@ from bycco.participant import (
 logger = logging.getLogger(__name__)
 settings = get_settings()
 common = None
+rooms = None
 startdate = None
 enddate = None
 m3y = None
 m12y = None
 m18y = None
 
-i18n_enrollment_vk = {
-    "nl": "Inschrijving VK2024",
-    "en": "Enrollment VK2024",
-}
 i18n_enrollment_bjk = {
     "nl": "Inschrijving BJK 2024",
-    "en": "Enrollment BYCC 2024",
+    "en": "Regoistration BYCC 2024",
     "fr": "Enregistrement CBJ 2024",
     "de": "Anmeldung BJLM 2024",
 }
@@ -104,7 +101,7 @@ async def update_payment_request(id: str, pr: PaymentRequest, options={}) -> Non
 
 
 async def setup_globals():
-    global common, startdate, enddate, m12y, m3y, m18y
+    global common, startdate, enddate, m12y, m3y, m18y, rooms, i18n
     if not common:
         common = await load_common()
         startdate = common["trndates"]["startdate"]
@@ -112,6 +109,8 @@ async def setup_globals():
         m3y = date(startdate.year - 3, startdate.month, startdate.day)
         m12y = date(startdate.year - 12, startdate.month, startdate.day)
         m18y = date(startdate.year - 18, startdate.month, startdate.day)
+        rooms = {x["name"]: x for x in common["rooms"]}
+        i18n = common["i18n"]
 
 
 def getPaymessage(n) -> str:
@@ -124,7 +123,7 @@ def getPaymessage(n) -> str:
 # stay
 
 
-def calc_pricedetails_stay(
+async def calc_pricedetails_stay(
     rsv: Stay,
     reductionamount: str | None = None,
     reductionpct: str | None = None,
@@ -134,23 +133,24 @@ def calc_pricedetails_stay(
     """
     assert rsv.assignments and rsv.checkindate and rsv.checkoutdate
     assert rsv.guestlist
+    await setup_globals()
+    prices = common["prices"]
+    logger.info(f"rooms keys {rooms.keys()}")
 
     details = []
     totalprice = 0.0
-    checkroom18 = False
     ndays = int(rsv.checkoutdate[8:10]) - int(rsv.checkindate[8:10])
-    logger.info(f"prices {prices}")
     hotel = False
     for ass in rsv.assignments:
         details.append(
             {
-                "description": i18n[ass.roomtype][rsv.locale],
+                "description": rooms[ass.roomtype][rsv.locale],
                 "quantity": ndays,
-                "unitprice": format(prices[ass.roomtype]["day"], ">6.2f"),
-                "totalprice": format(prices[ass.roomtype]["day"] * ndays, ">6.2f"),
+                "unitprice": format(rooms[ass.roomtype]["day"], ">6.2f"),
+                "totalprice": format(rooms[ass.roomtype]["day"] * ndays, ">6.2f"),
             }
         )
-        totalprice += prices[ass.roomtype]["day"] * ndays
+        totalprice += rooms[ass.roomtype]["day"] * ndays
         if ass.roomtype in ["SH", "DH", "TH"]:
             # checkroom18 = True
             hotel = True
@@ -159,8 +159,8 @@ def calc_pricedetails_stay(
                 {
                     "description": i18n["cleaning"][rsv.locale],
                     "quantity": 1,
-                    "unitprice": format(prices[ass.roomtype]["clean"], ">6.2f"),
-                    "totalprice": format(prices[ass.roomtype]["clean"], ">6.2f"),
+                    "unitprice": format(rooms[ass.roomtype]["clean"], ">6.2f"),
+                    "totalprice": format(rooms[ass.roomtype]["clean"], ">6.2f"),
                 }
             )
             totalprice += prices[ass.roomtype]["clean"]
@@ -178,9 +178,6 @@ def calc_pricedetails_stay(
     #                 }
     #             )
     #             totalprice += prices["ROOM_18"]["day"] * ndays
-    if rsv.meals == "no" and hotel:
-        #  hotel guests must have at least breakfast
-        rsv.meals = "breakfast"
     if rsv.meals != "no":
         for g in rsv.guestlist:
             assert g.birthdate
@@ -260,9 +257,9 @@ async def create_pr_stay(rsvid: str) -> str:
         "paystatus": False,
         "reason": "stay",
     }
-    pr["details"], pr["totalprice"] = calc_pricedetails_stay(rsv)
+    pr["details"], pr["totalprice"] = await calc_pricedetails_stay(rsv)
     pr["number"] = await DbCounter.next("paymentrequest")
-    pr["paymessage"] = getPaymessage(20240000 + pr["number"])
+    pr["paymessage"] = getPaymessage(20250000 + pr["number"])
     pr["guests"] = ", ".join([f"{g.first_name} {g.last_name}" for g in rsv.guestlist])
     id = await create_payment_request(pr)
     await update_stay(rsvid, Stay(payment_id=id))
@@ -287,7 +284,7 @@ async def update_pr_stay(id: str, prqin: PaymentRequest) -> None:
     exprq = await get_payment_request(id)
     assert exprq.reason == "stay"
     rsv = await get_stay(exprq.link_id)
-    (details, totalprice) = calc_pricedetails_stay(
+    (details, totalprice) = await calc_pricedetails_stay(
         rsv, prqin.reductionamount, prqin.reductionpct
     )
     prqdict = prqin.model_dump(exclude_unset=True)
@@ -298,9 +295,11 @@ async def update_pr_stay(id: str, prqin: PaymentRequest) -> None:
 
 async def email_pr_stay(prqid) -> None:
     prq = await get_payment_request(prqid)
+    stay = await get_stay(prq.link_id)
     assert prq.email and prq.locale
+    logger.info(f"remarks {prq.remarks}, reductionremark: {prq.reductionremark}  ")
     mp = MailParams(
-        subject="Floreal 2023",
+        subject="Floreal 2025",
         sender=settings.EMAIL["sender"],
         receiver=prq.email,
         template="pr_stay_mail_{locale}.md",
@@ -308,7 +307,9 @@ async def email_pr_stay(prqid) -> None:
         attachments=[],
         bcc=settings.EMAIL["bcc_reservation"],
     )
-    sendemail_no_attachments(mp, prq.model_dump(), "payment request stay")
+    ctx = prq.model_dump()
+    ctx["reservationremarks"] = stay.remarks
+    sendemail_no_attachments(mp, ctx, "payment request stay")
     await update_payment_request(
         prqid, PaymentRequest(sentdate=date.today().isoformat())
     )
@@ -575,7 +576,7 @@ async def email_paymentrequest(prqid) -> None:
         await emailfunctions[prq.reason](prqid)
     else:
         logger.info(f"reason not implemented: {prq.reason}")
-        raise NotImplemented
+        raise NotImplementedError
 
 
 async def email_paymentrequests(prqid) -> None:
@@ -590,4 +591,4 @@ async def email_paymentrequests(prqid) -> None:
             await emailfunctions[prq.reason](prq.id)
         else:
             logger.info(f"reason not implemented: {prq.reason}")
-            raise NotImplemented
+            raise NotImplementedError

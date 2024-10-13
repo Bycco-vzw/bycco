@@ -14,6 +14,10 @@ Checkout date: {{ checkoutdate}}
 
 {{ guests }}
 
+Comments: {{ reservationremarks or "" }}
+
+Due to a technical error, the comments you provided during the reservation may not have been registered. Please send these comments as a reply to this email
+
 ### Reservation
 
 | Description | Quantity | Unit | Total |
@@ -22,11 +26,12 @@ Checkout date: {{ checkoutdate}}
 | {{ d.description }} | {{ d.quantity or "" }} | {{ d. unitprice + " €" if d.unitprice }} | {{ d.totalprice }} € |
 {% endfor %}
 
+{{ reductionremark or "" }}
+
 ### Payment
 
 Please transfer the amount of {{ totalprice }} € to the account of Bycco
-BE33 0017 5924 5146 with the structured communication {{ paymessage }} before the 15th
-of February.
+BE33 0017 5924 5146 with the structured communication {{ paymessage }} within 14 days.
 
 After the 15th of February there are cancellation costs.
 

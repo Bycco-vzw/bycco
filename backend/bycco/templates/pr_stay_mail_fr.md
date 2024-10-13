@@ -14,7 +14,11 @@ Date checkout: {{ checkoutdate}}
 
 {{ guests }}
 
-### Reservation 2022
+Remarques:  {{ reservationremarks or "" }}
+
+En raison d'une erreur technique, les commentaires que vous avez fournis lors de la réservation peuvent ne pas avoir été enregistrés. Veuillez envoyer ces commentaires en réponse à cet e-mail
+
+### Reservation
 
 | Description | Nombre | Prix un. | Total |
 |:-------------|:------:|--------:|--------:|
@@ -22,12 +26,12 @@ Date checkout: {{ checkoutdate}}
 | {{ d.description }} | {{ d.quantity or "" }} | {{ d. unitprice + " €" if d.unitprice }} | {{ d.totalprice }} € |
 {% endfor %}
 
+{{ reductionremark or "" }}
+
 ### Paiement
 
 Veuillez virer le montant de {{ totalprice }} € sur le compte de Bycco
-BE33 0017 5924 5146 avec la communication structurée {{ paymessage }} avant le 15 février 2024.
-
-Après le 15 février il y a coûts d'annulation.
+BE33 0017 5924 5146 avec la communication structurée {{ paymessage }} dans les 14 jours.
 
 Après paiement, la réservation du séjour est définitivement confirmée.
 

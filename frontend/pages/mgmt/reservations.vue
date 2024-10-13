@@ -34,6 +34,12 @@ const headers = [
   { title: "room", value: "room" },
   { title: "Actions", value: "action", sortable: false },
 ]
+const itemsPerPage = 50
+const itemsPerPageOptions = [
+  { value: 50, title: "50" },
+  { value: 150, title: "150" },
+  { value: -1, title: "All" },
+]
 
 definePageMeta({
   layout: "mgmt",
@@ -156,6 +162,8 @@ onMounted(async () => {
       :headers="headers"
       :items="reservations"
       :item-class="lightgreyRow"
+      :items-per-page="itemsPerPage"
+      :items-per-page-options="itemsPerPageOptions"
       :footer-props="footerProps"
       class="elevation-1"
       :sort-by="['name', 'modified']"

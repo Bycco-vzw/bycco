@@ -6,7 +6,7 @@ from fastapi import HTTPException, Depends, APIRouter
 from fastapi.security import HTTPAuthorizationCredentials
 from reddevil.core import RdException, bearer_schema, validate_token
 from typing import List
-from bycco.room.md_room import Room, RoomDB, RoomItem, DbRoom
+from bycco.room.md_room import Room, RoomItem
 from bycco.room.room import get_rooms, get_room, get_free_rooms, roominit
 
 router = APIRouter(prefix="/api/v1/room")
@@ -23,7 +23,7 @@ async def api_get_rooms(
         return await get_rooms()
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
-    except:
+    except Exception:
         logger.exception("failed api call get_rooms")
         raise HTTPException(status_code=500)
 
@@ -38,7 +38,7 @@ async def api_get_room(
         return await get_room(id)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
-    except:
+    except Exception:
         logger.exception("failed api call get_room")
         raise HTTPException(status_code=500)
 
@@ -48,10 +48,10 @@ async def api_roominit(
     auth: HTTPAuthorizationCredentials = Depends(bearer_schema),
 ):
     try:
-        return await roominit("room2024.csv")
+        return await roominit("room2025.csv")
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
-    except:
+    except Exception:
         logger.exception("failed api call get_room")
         raise HTTPException(status_code=500)
 
@@ -62,6 +62,6 @@ async def api_get_free_rooms(roomtype: str):
         return await get_free_rooms(roomtype)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
-    except:
+    except Exception:
         logger.exception("failed api call get_free_rooms")
         raise HTTPException(status_code=500)

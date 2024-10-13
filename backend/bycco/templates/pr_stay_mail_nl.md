@@ -14,6 +14,10 @@ Checkoutdatum: {{ checkoutdate}}
 
 {{ guests }}
 
+Opmerkingen: {{ reservationremarks or "" }}
+
+Door een technische fout kan het zijn dat de opmerkingen die je hebt opgegeven tijdens de reservatie,  niet geregistreerd werden.   Gelieve deze opmerkingen als antwoord op deze mail op te sturen
+
 ### Reservering
 
 | Omschrijving | Aantal | Eenheid | Totaal |
@@ -22,12 +26,12 @@ Checkoutdatum: {{ checkoutdate}}
 | {{ d.description }} | {{ d.quantity or "" }} | {{ d. unitprice + " €" if d.unitprice }} | {{ d.totalprice }} € |
 {% endfor %}
 
+{{ reductionremark or "" }}
+
 ### Betaling
 
-Gelieve voor 15 februari 2024 het bedrag van {{ totalprice }} € te storten op de rekening van Bycco
+Gelieve voor binnen de 14 dagen het bedrag van {{ totalprice }} € te storten op de rekening van Bycco
 BE33 0017 5924 5146  met de gestructureerde mededeling {{ paymessage }}.
-
-Na 15 februari zijn er annulatiekosten.
 
 Na de betaling is de reservering van het verblijf definitief bevestigd.
 

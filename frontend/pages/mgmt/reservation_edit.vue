@@ -87,49 +87,49 @@ async function checkAuth() {
 }
 
 async function confirm_assignment() {
-  // let reply
-  // showLoading(true)
-  // try {
-  //   reply = await $backend("stay", "mgmt_assign_room", {
-  //     id: idreservation,
-  //     roomnr: assignment.value.roomnr,
-  //     token: mgmttoken.value,
-  //   })
-  //   readReservation(reply.data)
-  // } catch (error) {
-  //   console.error("getting assigning room", error)
-  //   if (error.code == 401) {
-  //     router.push("/mgmt")
-  //   } else {
-  //     showSnackbar("Assigning room failed: " + error.detail)
-  //   }
-  //   return
-  // } finally {
-  //   showLoading(false)
-  // }
-  // showSnackbar("Room number assigned OK")
+  let reply
+  showLoading(true)
+  try {
+    reply = await $backend("stay", "mgmt_assign_room", {
+      id: idreservation,
+      roomnr: assignment.value.roomnr,
+      token: token.value,
+    })
+    readReservation(reply.data)
+  } catch (error) {
+    console.error("getting assigning room", error)
+    if (error.code == 401) {
+      router.push("/mgmt")
+    } else {
+      showSnackbar("Assigning room failed: " + error.detail)
+    }
+    return
+  } finally {
+    showLoading(false)
+  }
+  showSnackbar("Room number assigned OK")
 }
 
 async function create_pr() {
-  // let reply
-  // showLoading(true)
-  // try {
-  //   reply = await $backend("payment", "mgmt_create_stay_pr", {
-  //     id: idreservation,
-  //     token: mgmttoken.value,
-  //   })
-  // } catch (error) {
-  //   console.error("creating payment request", error)
-  //   if (error.code === 401) {
-  //     router.push("/mgmt")
-  //   } else {
-  //     showSnackbar("Creating paymentrequesr failed: " + error.detail)
-  //   }
-  //   return
-  // } finally {
-  //   showLoading(false)
-  // }
-  // router.push("/mgmt/paymentrequest_edit?id=" + reply.data)
+  let reply
+  showLoading(true)
+  try {
+    reply = await $backend("payment", "mgmt_create_stay_pr", {
+      id: idreservation,
+      token: token.value,
+    })
+  } catch (error) {
+    console.error("creating payment request", error)
+    if (error.code === 401) {
+      router.push("/mgmt")
+    } else {
+      showSnackbar("Creating paymentrequesr failed: " + error.detail)
+    }
+    return
+  } finally {
+    showLoading(false)
+  }
+  router.push("/mgmt/paymentrequest_edit?id=" + reply.data)
 }
 
 function deleteGuest(ix) {
@@ -137,49 +137,49 @@ function deleteGuest(ix) {
 }
 
 async function delete_pr() {
-  // let reply
-  // if (confirm("Are you sure to delete the linked payment request")) {
-  //   showLoading(true)
-  //   try {
-  //     reply = await $backend("payment", "mgmt_delete_stay_pr", {
-  //       id: idreservation,
-  //       token: mgmttoken.value,
-  //     })
-  //   } catch (error) {
-  //     console.error("deleting linked payment request", error)
-  //     if (error.code === 401) {
-  //       router.push("/mgmt")
-  //     } else {
-  //       showSnackbar("Deleting Paymentrequest failed" + error.detail)
-  //     }
-  //     return
-  //   } finally {
-  //     showLoading(false)
-  //   }
-  //   await getReservation()
-  // }
+  let reply
+  if (confirm("Are you sure to delete the linked payment request")) {
+    showLoading(true)
+    try {
+      reply = await $backend("payment", "mgmt_delete_stay_pr", {
+        id: idreservation,
+        token: token.value,
+      })
+    } catch (error) {
+      console.error("deleting linked payment request", error)
+      if (error.code === 401) {
+        router.push("/mgmt")
+      } else {
+        showSnackbar("Deleting Paymentrequest failed" + error.detail)
+      }
+      return
+    } finally {
+      showLoading(false)
+    }
+    await getReservation()
+  }
 }
 
 async function deleteAssignment(ix) {
-  // let reply
-  // showLoading(true)
-  // try {
-  //   reply = await $backend("stay", "mgmt_unassign_room", {
-  //     id: idreservation,
-  //     roomnr: rsv.value.assignments[ix].roomnr,
-  //     token: mgmttoken.value,
-  //   })
-  //   readReservation(reply.data)
-  // } catch (error) {
-  //   console.error("getting unassigning room", error)
-  //   if (error.code === 401) {
-  //     router.push("/mgmt")
-  //   } else {
-  //     showSnackbar("Assigning room failed" + error.detail)
-  //   }
-  // } finally {
-  //   showLoading(false)
-  // }
+  let reply
+  showLoading(true)
+  try {
+    reply = await $backend("stay", "mgmt_unassign_room", {
+      id: idreservation,
+      roomnr: rsv.value.assignments[ix].roomnr,
+      token: token.value,
+    })
+    readReservation(reply.data)
+  } catch (error) {
+    console.error("getting unassigning room", error)
+    if (error.code === 401) {
+      router.push("/mgmt")
+    } else {
+      showSnackbar("Assigning room failed" + error.detail)
+    }
+  } finally {
+    showLoading(false)
+  }
 }
 
 async function getReservation() {
@@ -204,8 +204,8 @@ async function getReservation() {
 }
 
 async function gotoPaymentrequest(id) {
-  // console.log("going to payment request", id)
-  // router.push("/mgmt/paymentrequest_edit?id=" + id)
+  console.log("going to payment request", id)
+  router.push("/mgmt/paymentrequest_edit?id=" + id)
 }
 
 function readReservation(reservation) {
@@ -216,19 +216,19 @@ function readReservation(reservation) {
 }
 
 async function get_free_rooms() {
-  // let reply
-  // showLoading(true)
-  // try {
-  //   reply = await $backend("stay", "mgmt_get_free_rooms", {
-  //     roomtype: assignment.value.roomtype,
-  //   })
-  // } catch (error) {
-  //   console.error("getting free rooms", error.response)
-  // } finally {
-  //   showLoading(false)
-  // }
-  // const rooms = reply.data
-  // console.log("returned rooms", rooms)
+  let reply
+  showLoading(true)
+  try {
+    reply = await $backend("stay", "mgmt_get_free_rooms", {
+      roomtype: assignment.value.name,
+    })
+  } catch (error) {
+    console.error("getting free rooms", error.response)
+  } finally {
+    showLoading(false)
+  }
+  const rooms = reply.data
+  console.log("returned rooms", rooms)
 }
 
 async function parseYaml(group, name) {
@@ -246,13 +246,13 @@ async function parseYaml(group, name) {
 
 async function processCommon() {
   const cm = await parseYaml("data", "common.yml")
-  // roomtypes.value = []
-  // cm.mgmtroomtypes.forEach((rt) => {
-  //   roomtypes.value.push({
-  //     title: cm.i18n[rt].nl,
-  //     value: rt,
-  //   })
-  // })
+  roomtypes.value = []
+  cm.rooms.forEach((r) => {
+    roomtypes.value.push({
+      title: r.nl,
+      value: r.name,
+    })
+  })
 }
 
 async function readBucket(group, name) {
@@ -269,22 +269,23 @@ async function readBucket(group, name) {
 }
 
 async function roomtypeSelected() {
-  // let reply
-  // showLoading(true)
-  // try {
-  //   reply = await $backend("stay", "mgmt_get_free_rooms", {
-  //     token: mgmttoken.value,
-  //     roomtype: assignment.value.roomtype,
-  //   })
-  // } catch (error) {
-  //   console.error("getting free rooms", error.response)
-  //   showSnackbar("Cannot get room numbers")
-  //   return
-  // } finally {
-  //   showLoading(false)
-  // }
-  // const rooms = reply.data
-  // roomnrs.value = Array.from(Object.keys(rooms), (x) => rooms[x].number)
+  console.log("roomtypeSelected", assignment.value)
+  let reply
+  showLoading(true)
+  try {
+    reply = await $backend("stay", "mgmt_get_free_rooms", {
+      token: token.value,
+      roomtype: assignment.value.roomtype,
+    })
+  } catch (error) {
+    console.error("getting free rooms", error.response)
+    showSnackbar("Cannot get room numbers")
+    return
+  } finally {
+    showLoading(false)
+  }
+  const rooms = reply.data
+  roomnrs.value = Array.from(Object.keys(rooms), (x) => rooms[x].number)
 }
 
 async function saveGuestlist() {
