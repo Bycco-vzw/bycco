@@ -26,7 +26,7 @@ Due to a technical error, the comments you provided during the reservation may n
 | {{ d.description }} | {{ d.quantity or "" }} | {{ d. unitprice + " €" if d.unitprice }} | {{ d.totalprice }} € |
 {% endfor %}
 
-{{ reductionremark or "" }}
+Note discount: {{ reductionremark or "none" }}
 
 ### Payment
 

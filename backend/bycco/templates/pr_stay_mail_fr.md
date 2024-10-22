@@ -26,7 +26,7 @@ En raison d'une erreur technique, les commentaires que vous avez fournis lors de
 | {{ d.description }} | {{ d.quantity or "" }} | {{ d. unitprice + " €" if d.unitprice }} | {{ d.totalprice }} € |
 {% endfor %}
 
-{{ reductionremark or "" }}
+Commentaire sur la réduction: {{ reductionremark or "aucun" }}
 
 ### Paiement
 

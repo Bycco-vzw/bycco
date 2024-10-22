@@ -26,7 +26,7 @@ Door een technische fout kan het zijn dat de opmerkingen die je hebt opgegeven t
 | {{ d.description }} | {{ d.quantity or "" }} | {{ d. unitprice + " €" if d.unitprice }} | {{ d.totalprice }} € |
 {% endfor %}
 
-{{ reductionremark or "" }}
+Opmerking korting: {{ reductionremark or "geen" }}
 
 ### Betaling
 

@@ -163,7 +163,7 @@ async def calc_pricedetails_stay(
                     "totalprice": format(rooms[ass.roomtype]["clean"], ">6.2f"),
                 }
             )
-            totalprice += prices[ass.roomtype]["clean"]
+            totalprice += rooms[ass.roomtype]["clean"]
     # if checkroom18:
     #     for g in rsv.guestlist:
     #         assert g.birthdate
