@@ -26,7 +26,7 @@ Aufgrund eines technischen Fehlers wurden die von Ihnen bei der Reservierung abg
 | {{ d.description }} | {{ d.quantity or "" }} | {{ d. unitprice + " €" if d.unitprice }} | {{ d.totalprice }} € |
 {% endfor %}
 
-{{ reductionremark or "" }}
+Bemerkung Rabatt: {{ reductionremark or "keine" }}
 
 ### Zahlung
 
