@@ -99,7 +99,7 @@ SECRETS = {
 
 SECRETS_PATH = Path(os.environ.get("SECRETS_PATH", ""))
 
-SHARED_PATH = Path(os.environ.get("SHARED_PATH", "../share"))
+SHARED_PATH = Path(os.environ.get("SHARED_PATH", "./share"))
 
 TEMPLATES_PATH = Path(os.environ.get("TEMPLATES_PATH", "./bycco/templates"))
 

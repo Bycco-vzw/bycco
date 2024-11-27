@@ -3,6 +3,9 @@ name = "bycco"
 version = "3.2.1"
 description = "Bycco backend"
 authors = ["Ruben Decrop <ruben.decrop@bycco.be>"]
+packages = [
+    { include = "bycco", from = "backend" }
+]
 
 [tool.poetry.dependencies]
 python = "^3.11"
@@ -22,3 +25,6 @@ toml = "^0.10.2"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poe.tasks]
+launch = "poetry run uvicorn bycco.main:app --reload"

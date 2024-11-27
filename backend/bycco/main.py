@@ -96,8 +96,8 @@ app.include_router(api_tournament.router)
 logger.info(f"Api's loaded")
 
 # static files
-app.mount("/css", StaticFiles(directory="css"), name="css")
-app.mount("/img", StaticFiles(directory="img"), name="img")
+app.mount("/css", StaticFiles(directory="public/css"), name="css")
+app.mount("/img", StaticFiles(directory="public/img"), name="img")
 
 # fetch the common
 
