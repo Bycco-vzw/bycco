@@ -96,8 +96,11 @@ app.include_router(api_tournament.router)
 logger.info(f"Api's loaded")
 
 # static files
-app.mount("/css", StaticFiles(directory="public/css"), name="css")
-app.mount("/img", StaticFiles(directory="public/img"), name="img")
+app.mount("/css", StaticFiles(directory="dist/css"), name="css")
+app.mount("/img", StaticFiles(directory="dist/img"), name="img")
+
+logger.info(f"statics loaded")
+
 
 # fetch the common
 
@@ -107,5 +110,9 @@ for route in app.routes:
     if isinstance(route, APIRoute):
         route.operation_id = route.name[4:]
 
+logger.info(f"routes adapted")
+
 # importing test endpoints
 import bycco.tst_endpoints
+
+logger.info(f"test endpoints loaded")

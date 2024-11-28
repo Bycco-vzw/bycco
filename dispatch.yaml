@@ -1,3 +1,3 @@
 dispatch:
-  - url: "*/api*"
-    service: bycco-api
+  # - url: "*/api*"
+  #   service: bycco-api
