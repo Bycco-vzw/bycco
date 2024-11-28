@@ -26,5 +26,19 @@ toml = "^0.10.2"
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
-[tool.poe.tasks]
-launch = "poetry run uvicorn bycco.main:app --reload"
+[tool.poe.tasks.launch]
+cmd = "uvicorn bycco.main:app --reload"
+help = "Run the backend uvicorn server"
+
+[tool.poe.tasks.yarn]
+shell = """
+    pushd frontend
+    yarn $yarncmd
+    popd
+"""
+help = "run yarn in frontend directory"
+
+    [tool.poe.tasks.yarn.args.yarncmd]
+    positional = true
+    help = "run yarn command"
+
