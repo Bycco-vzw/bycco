@@ -59,7 +59,7 @@ logger.info("loading api_filestore")
 from reddevil.filestore import api_filestore  # noqa E402
 
 logger.info("loading api_enrollment")
-from bycco.enrollment import api_enrollment  # noqa E402
+from backend.bycco.registration import api_registration  # noqa E402
 
 logger.info("loading api_stay")
 from bycco.stay import api_stay  # noqa E402
@@ -84,7 +84,7 @@ from bycco.tournament import api_tournament  # noqa E402
 
 app.include_router(api_account.router)
 app.include_router(api_attendee.router)
-app.include_router(api_enrollment.router)
+app.include_router(api_registration.router)
 app.include_router(api_filestore.router)
 app.include_router(api_stay.router)
 app.include_router(api_room.router)

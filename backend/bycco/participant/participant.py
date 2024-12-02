@@ -26,7 +26,7 @@ from bycco.participant import (
     DbParticpantBJK,
     Gender,
 )
-from bycco.enrollment import (
+from bycco.registration import (
     Enrollment,
     get_enrollment_bjk,
     get_enrollment_vk,
