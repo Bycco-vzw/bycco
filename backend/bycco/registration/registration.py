@@ -14,13 +14,13 @@ from httpx import (
 )
 
 from reddevil.core import get_settings, RdBadRequest, RdNotFound
-from bycco.enrollment import (
-    DbEnrollment,
-    Enrollment,
-    EnrollmentIn,
-    EnrollmentItem,
-    EnrollmentUpdate,
-    EnrollmentVkIn,
+from bycco.registration import (
+    DbRegistration,
+    Registration,
+    RegistrationIn,
+    RegistrationItem,
+    RegistrationUpdate,
+    RegistrationVkIn,
     IdReply,
     NatStatus,
 )
@@ -35,71 +35,73 @@ api_fideis2belid = "/api/v1/member/anon/fideid2belid/{id}"
 # crud operations
 
 
-async def add_enrollment(edict: dict) -> str:
+async def add_registration(edict: dict) -> str:
     """
-    add an enrollment
+    add an registration
     """
-    id = await DbEnrollment.add(edict)
+    id = await DbRegistration.add(edict)
     return id
 
 
-async def get_enrollments_bjk(options: dict = {}) -> List[EnrollmentItem]:
+async def get_registrations_bjk(options: dict = {}) -> List[RegistrationItem]:
     """
-    get enrollments
+    get registrations
     """
     filter = options.copy()
-    filter["_model"] = filter.pop("_model", EnrollmentItem)
+    filter["_model"] = filter.pop("_model", RegistrationItem)
     filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
     filter["event"] = "bjk2024"
-    return [cast(EnrollmentItem, x) for x in await DbEnrollment.find_multiple(filter)]
+    return [
+        cast(RegistrationItem, x) for x in await DbRegistration.find_multiple(filter)
+    ]
 
 
-async def get_enrollments_vk(options: dict = {}) -> List[EnrollmentItem]:
+# async def get_registrations_vk(options: dict = {}) -> List[RegistrationItem]:
+#     """
+#     get registrations
+#     """
+#     filter = options.copy()
+#     filter["_model"] = filter.pop("_model", RegistrationItem)
+#     filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
+#     filter["event"] = "VK2024"
+#     logger.info(f"filter registrations vk: {filter}")
+#     return [cast(RegistrationItem, x) for x in await DbRegistration.find_multiple(filter)]
+
+
+async def get_registration_bjk(id: str, options: dict = {}) -> Registration:
     """
-    get enrollments
+    get registrations
     """
     filter = options.copy()
-    filter["_model"] = filter.pop("_model", EnrollmentItem)
-    filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
-    filter["event"] = "VK2024"
-    logger.info(f"filter enrollments vk: {filter}")
-    return [cast(EnrollmentItem, x) for x in await DbEnrollment.find_multiple(filter)]
-
-
-async def get_enrollment_bjk(id: str, options: dict = {}) -> Enrollment:
-    """
-    get enrollments
-    """
-    filter = options.copy()
-    filter["_model"] = filter.pop("_model", Enrollment)
+    filter["_model"] = filter.pop("_model", Registration)
     filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
     filter["id"] = id
     filter["event"] = "bjk2024"
-    enr = cast(Enrollment, await DbEnrollment.find_single(filter))
+    enr = cast(Registration, await DbRegistration.find_single(filter))
     return enr
 
 
-async def get_enrollment_vk(id: str, options: dict = {}) -> Enrollment:
-    """
-    get enrollments
-    """
-    filter = options.copy()
-    filter["_model"] = filter.pop("_model", Enrollment)
-    filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
-    filter["id"] = id
-    filter["event"] = "VK2024"
-    enr = cast(Enrollment, await DbEnrollment.find_single(filter))
-    return enr
+# async def get_registration_vk(id: str, options: dict = {}) -> Registration:
+#     """
+#     get registrations
+#     """
+#     filter = options.copy()
+#     filter["_model"] = filter.pop("_model", Registration)
+#     filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
+#     filter["id"] = id
+#     filter["event"] = "VK2024"
+#     enr = cast(Registration, await DbRegistration.find_single(filter))
+#     return enr
 
 
-async def update_enrollment(
-    id: str, eu: EnrollmentUpdate, options: dict = {}
-) -> Enrollment:
+async def update_registration(
+    id: str, eu: RegistrationUpdate, options: dict = {}
+) -> Registration:
     """
-    update an enrollment
+    update an registration
     """
     filter = options.copy()
-    filter["_model"] = filter.pop("_model", Enrollment)
+    filter["_model"] = filter.pop("_model", Registration)
     eudict = eu.model_dump(exclude_unset=True)
     if "representative" in eudict:
         eudict["representative"] = {
@@ -111,8 +113,8 @@ async def update_enrollment(
             "mobileparent": eudict.pop("mobileparent", ""),
         }
     mo = cast(
-        Enrollment,
-        await DbEnrollment.update(id, eudict, filter),
+        Registration,
+        await DbRegistration.update(id, eudict, filter),
     )
     mo.badgeimage = None
     return mo
@@ -121,31 +123,31 @@ async def update_enrollment(
 # business methods
 
 
-async def get_enrollments_vk(options: dict = {}) -> List[EnrollmentItem]:
+async def get_registrations_vk(options: dict = {}) -> List[RegistrationItem]:
     filter = options.copy()
-    filter["_model"] = filter.pop("_model", EnrollmentItem)
+    filter["_model"] = filter.pop("_model", RegistrationItem)
     filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
     filter["event"] = "VK2024"
-    docs = await DbEnrollment.find_multiple(filter)
-    return [cast(EnrollmentItem, x) for x in docs]
+    docs = await DbRegistration.find_multiple(filter)
+    return [cast(RegistrationItem, x) for x in docs]
 
 
-async def get_enrollment_vk(id: str, options: dict = {}) -> Enrollment:
+async def get_registration_vk(id: str, options: dict = {}) -> Registration:
     filter = options.copy()
-    filter["_model"] = filter.pop("_model", Enrollment)
+    filter["_model"] = filter.pop("_model", Registration)
     filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
     filter["id"] = id
-    enr = cast(Enrollment, await DbEnrollment.find_single(filter))
+    enr = cast(Registration, await DbRegistration.find_single(filter))
     enr.badgeimage = None
     logger.info(f"emf {enr}")
     return enr
 
 
-async def create_enrollment_vk(ei: EnrollmentVkIn) -> str:
-    logger.info(f"create an enrollment for VK {ei}")
+async def create_registration_vk(ei: RegistrationVkIn) -> str:
+    logger.info(f"create an registration for VK {ei}")
 
     if ei.idsub:
-        eu = EnrollmentUpdate(
+        eu = RegistrationUpdate(
             category=ei.category,
             emailplayer=ei.emailplayer,
             idbel=ei.idbel,
@@ -153,13 +155,13 @@ async def create_enrollment_vk(ei: EnrollmentVkIn) -> str:
             locale=ei.locale,
             mobileplayer=ei.mobileplayer,
         )
-        enrid = (await update_enrollment(ei.idsub, eu)).id
+        enrid = (await update_registration(ei.idsub, eu)).id
     else:
         eidict = ei.model_dump()
         eidict.pop("idsub", None)
         eidict["event"] = "VK2024"
-        enrid = await add_enrollment(eidict)
-    meu = EnrollmentUpdate()
+        enrid = await add_registration(eidict)
+    meu = RegistrationUpdate()
     if ei.idbel:
         try:
             pl = await lookup_idbel(ei.idbel)
@@ -185,15 +187,15 @@ async def create_enrollment_vk(ei: EnrollmentVkIn) -> str:
             meu.ratingfide = pl.ratingfide
         except Exception as e:
             logger.info(f"lookup idfide failed {e}")
-    await update_enrollment(enrid, meu)
+    await update_registration(enrid, meu)
     return enrid
 
 
-async def create_enrollment_bjk(ei: EnrollmentIn) -> str:
-    logger.info(f"create an enrollment for BJK {ei}")
+async def create_registration_bjk(ei: RegistrationIn) -> str:
+    logger.info(f"create an registration for BJK {ei}")
 
     if ei.idsub:
-        eu = EnrollmentUpdate(
+        eu = RegistrationUpdate(
             category=ei.category,
             emailattendant=ei.emailattendant,
             emailparent=ei.emailparent,
@@ -207,7 +209,7 @@ async def create_enrollment_bjk(ei: EnrollmentIn) -> str:
             mobileparent=ei.mobileparent,
             mobileplayer=ei.mobileplayer,
         )
-        enrid = (await update_enrollment(ei.idsub, eu)).id
+        enrid = (await update_registration(ei.idsub, eu)).id
     else:
         eidict = ei.model_dump()
         eidict.pop("idsub", None)
@@ -220,8 +222,8 @@ async def create_enrollment_bjk(ei: EnrollmentIn) -> str:
             "mobileattendant": eidict.pop("mobileattendant", ""),
             "mobileparent": eidict.pop("mobileparent", ""),
         }
-        enrid = await add_enrollment(eidict)
-    meu = EnrollmentUpdate()
+        enrid = await add_registration(eidict)
+    meu = RegistrationUpdate()
     try:
         pl = await lookup_idbel(ei.idbel)
         meu.birthyear = pl.birthyear
@@ -235,7 +237,7 @@ async def create_enrollment_bjk(ei: EnrollmentIn) -> str:
         meu.ratingbel = pl.ratingbel
     except Exception as e:
         logger.info(f"lookup idbel failed {e}")
-    await update_enrollment(enrid, meu)
+    await update_registration(enrid, meu)
     return enrid
 
 
@@ -329,27 +331,29 @@ async def upload_photo(id: str, photo: str) -> None:
     try:
         header, data = photo.split(",")
         imagedata = a2b_base64(data)
-        su = EnrollmentUpdate(
+        su = RegistrationUpdate(
             badgemimetype=header.split(":")[1].split(";")[0],
             badgeimage=imagedata,
             badgelength=len(cast(str, imagedata)),
         )
     except:
         raise RdBadRequest(description="BadPhotoData")
-    await update_enrollment(id, su)
+    await update_registration(id, su)
 
 
-async def confirm_enrollment(id: str, bt: BackgroundTasks) -> None:
-    su = EnrollmentUpdate(confirmed=True, registrationtime=datetime.now(), enabled=True)
-    enr = await update_enrollment(id, su)
+async def confirm_registration(id: str, bt: BackgroundTasks) -> None:
+    su = RegistrationUpdate(
+        confirmed=True, registrationtime=datetime.now(), enabled=True
+    )
+    enr = await update_registration(id, su)
     if enr.event == "bjk2024":
-        sendemail_enrollment_bjk(enr)
+        sendemail_registration_bjk(enr)
     else:
-        sendemail_enrollment_vk(enr)
+        sendemail_registration_vk(enr)
 
 
 async def get_photo(id: str):
-    photo = await DbEnrollment.find_single(
+    photo = await DbRegistration.find_single(
         {
             "id": id,
             "_fieldlist": ["badgeimage", "badgemimetype"],
@@ -358,7 +362,7 @@ async def get_photo(id: str):
     return Response(content=photo["badgeimage"], media_type=photo["badgemimetype"])
 
 
-def sendemail_enrollment_vk(enr: Enrollment) -> None:
+def sendemail_registration_vk(enr: Registration) -> None:
     from bycco.core.mail import MailParams, sendemail_no_attachments
 
     settings = get_settings()
@@ -367,17 +371,17 @@ def sendemail_enrollment_vk(enr: Enrollment) -> None:
         subject="VK 2024",
         sender=settings.EMAIL["sender"],
         receiver=",".join(emails),
-        template="mailenrollment_vk_{locale}.md",
+        template="mailregistration_vk_{locale}.md",
         locale=enr.locale,
         attachments=[],
-        bcc=settings.EMAIL["bcc_enrollment"],
+        bcc=settings.EMAIL["bcc_registration"],
     )
     edict = enr.model_dump()
     edict["category"] = edict["category"].value
-    sendemail_no_attachments(mp, edict, "confirmation enrollment")
+    sendemail_no_attachments(mp, edict, "confirmation registration")
 
 
-def sendemail_enrollment_bjk(enr: Enrollment) -> None:
+def sendemail_registration_bjk(enr: Registration) -> None:
     from bycco.core.mail import MailParams, sendemail_no_attachments
 
     settings = get_settings()
@@ -388,10 +392,10 @@ def sendemail_enrollment_bjk(enr: Enrollment) -> None:
         subject="BJK 2024 / CBJ 2024 / BJLM 2024",
         sender=settings.EMAIL["sender"],
         receiver=",".join(em1 + em2 + em3),
-        template="mailenrollment_bjk_{locale}.md",
+        template="mailregistration_bjk_{locale}.md",
         locale=enr.locale,
         attachments=[],
-        bcc=settings.EMAIL["bcc_enrollment"],
+        bcc=settings.EMAIL["bcc_registration"],
     )
     edict = enr.model_dump()
     edict["category"] = edict["category"].value
@@ -399,10 +403,10 @@ def sendemail_enrollment_bjk(enr: Enrollment) -> None:
         edict["natstatus"] = 0 if enr.nationalityfide == "BEL" else 1
     else:
         edict["natstatus"] = 2
-    sendemail_no_attachments(mp, edict, "confirmation enrollment")
+    sendemail_no_attachments(mp, edict, "confirmation registration")
 
 
-def sendemail_confirmationreq_vk(enr: Enrollment) -> None:
+def sendemail_confirmationreq_vk(enr: Registration) -> None:
     from bycco.core.mail import MailParams, sendemail_no_attachments
 
     settings = get_settings()
@@ -411,22 +415,22 @@ def sendemail_confirmationreq_vk(enr: Enrollment) -> None:
         subject="VK 2024",
         sender=settings.EMAIL["sender"],
         receiver=",".join(emails),
-        template="mailenrollment_vk_{locale}.md",
+        template="mailregistration_vk_{locale}.md",
         locale=enr.locale,
         attachments=[],
-        bcc=settings.EMAIL["bcc_enrollment"],
+        bcc=settings.EMAIL["bcc_registration"],
     )
     edict = enr.model_dump()
     edict["category"] = edict["category"].value
-    sendemail_no_attachments(mp, edict, "confirmation enrollment")
+    sendemail_no_attachments(mp, edict, "confirmation registration")
 
 
 async def send_notconfirmed_vk() -> None:
     """
-    get a list of all enrollments of an event that are not confirmed
+    get a list of all registrations of an event that are not confirmed
     and sends a requestConfirmation email to them
     """
-    for enr in await get_enrollments_vk(
+    for enr in await get_registrations_vk(
         {
             "confirmed": {"$eq": None},
             "enabled": True,

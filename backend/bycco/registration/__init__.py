@@ -1,4 +1,4 @@
-from .md_enrollment import (
+from .md_registration import (
     DbEnrollment,
     Enrollment,
     EnrollmentCategory,
@@ -11,7 +11,7 @@ from .md_enrollment import (
     IdReply,
     NatStatus,
 )
-from .enrollment import (
+from .registration import (
     confirm_enrollment,
     create_enrollment_bjk,
     create_enrollment_vk,

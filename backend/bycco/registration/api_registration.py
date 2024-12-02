@@ -10,7 +10,7 @@ from reddevil.core import validate_token
 
 router = APIRouter(prefix="/api/v1/enrollment")
 
-from bycco.enrollment import (
+from bycco.registration import (
     EnrollmentVkIn,
     Enrollment,
     EnrollmentIn,

@@ -8,7 +8,7 @@ from pydantic import BaseModel, Field
 from reddevil.core import DbBase
 
 
-class EnrollmentCategory(str, Enum):
+class RegistrationCategory(str, Enum):
     U8 = "U8"
     U10 = "U10"
     U12 = "U12"
@@ -19,9 +19,9 @@ class EnrollmentCategory(str, Enum):
     ARB = "ARB"
     ORG = "ORG"
     OTHER = "OTH"
-    VK2024 = "VK"
-    SEN2024 = "SEN"
-    EXP2024 = "EXP"
+    # VK2024 = "VK"
+    # SEN2024 = "SEN"
+    # EXP2024 = "EXP"
 
 
 class Gender(str, Enum):
@@ -35,7 +35,7 @@ class NatStatus(str, Enum):
     unknown = "Unknown"
 
 
-class EnrollmentRepresentative(BaseModel):
+class RegistrationRepresentative(BaseModel):
     emailattendant: str | None
     emailparent: str | None
     fullnameattendant: str
@@ -44,9 +44,9 @@ class EnrollmentRepresentative(BaseModel):
     mobileparent: str
 
 
-class EnrollmentDB(BaseModel):
+class RegistrationDB(BaseModel):
     """
-    the enrollment model as used in the database
+    the registration model as used in the database
     is normally not exposed
     """
 
@@ -54,7 +54,7 @@ class EnrollmentDB(BaseModel):
     badgeimage: bytes
     badgelength: int
     birthyear: int
-    category: EnrollmentCategory
+    category: RegistrationCategory
     chesstitle: str
     confirmed: bool
     confirmation_email: datetime | None = None
@@ -79,7 +79,7 @@ class EnrollmentDB(BaseModel):
     ratingbel: int
     ratingfide: int
     registrationtime: datetime | None = None
-    representative: EnrollmentRepresentative | None
+    representative: RegistrationRepresentative | None
     remarks: str
     _id: str
     _version: int
@@ -88,9 +88,9 @@ class EnrollmentDB(BaseModel):
     _modificationtime: datetime
 
 
-class EnrollmentIn(BaseModel):
+class RegistrationIn(BaseModel):
     """
-    the model to create a enrollment
+    the model to create a registration
     """
 
     category: str
@@ -108,9 +108,9 @@ class EnrollmentIn(BaseModel):
     mobileplayer: str
 
 
-class EnrollmentVkIn(BaseModel):
+class RegistrationVkIn(BaseModel):
     """
-    the model to create a enrollment
+    the model to create a registration
     """
 
     category: str
@@ -122,14 +122,14 @@ class EnrollmentVkIn(BaseModel):
     mobileplayer: str
 
 
-class EnrollmentItem(BaseModel):
+class RegistrationItem(BaseModel):
     """
-    validator for public view of a enrollment
+    validator for public view of a registration
     """
 
     badgelength: int | None = 0
     birthyear: int | None = 0
-    category: EnrollmentCategory | None = None
+    category: RegistrationCategory | None = None
     confirmed: bool | None = False
     chesstitle: str | None = None
     confirmation_email: datetime | None = None
@@ -147,7 +147,7 @@ class EnrollmentItem(BaseModel):
     registrationtime: datetime | None = None
 
 
-class EnrollmentUpdate(BaseModel):
+class RegistrationUpdate(BaseModel):
     """
     the generic model for updates
     """
@@ -157,7 +157,7 @@ class EnrollmentUpdate(BaseModel):
     badgelength: int | None = None
     birthday: str | None = None
     birthyear: int | None = None
-    category: Optional[EnrollmentCategory] = None
+    category: Optional[RegistrationCategory] = None
     chesstitle: str | None = None
     confirmed: bool | None = None
     custom: str | None = None
@@ -182,11 +182,11 @@ class EnrollmentUpdate(BaseModel):
     ratingbel: int | None = None
     ratingfide: int | None = None
     registrationtime: datetime | None = None
-    representative: EnrollmentRepresentative | None = None
+    representative: RegistrationRepresentative | None = None
     remarks: str | None = None
 
 
-class Enrollment(BaseModel):
+class Registration(BaseModel):
     """
     the internal model used everywhere
     """
@@ -196,7 +196,7 @@ class Enrollment(BaseModel):
     badgelength: int | None = None
     birthday: str | None = None
     birthyear: int | None = None
-    category: EnrollmentCategory | None = None
+    category: RegistrationCategory | None = None
     chesstitle: str | None = None
     confirmation_email: datetime | None = None
     confirmed: bool | None = None
@@ -223,7 +223,7 @@ class Enrollment(BaseModel):
     ratingbel: int | None = None
     ratingfide: int | None = None
     registrationtime: datetime | None = None
-    representative: EnrollmentRepresentative | None = None
+    representative: RegistrationRepresentative | None = None
     remarks: str | None = None
 
 
@@ -247,7 +247,7 @@ class IdReply(BaseModel):
     subid: str | None = None
 
 
-class DbEnrollment(DbBase):
-    COLLECTION = "enrollment"
-    DOCUMENTTYPE = "Enrollment"
+class DbRegistration(DbBase):
+    COLLECTION = "registration"
+    DOCUMENTTYPE = "Registration"
     VERSION = 1
