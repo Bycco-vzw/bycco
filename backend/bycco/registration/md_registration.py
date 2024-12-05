@@ -2,9 +2,8 @@
 # copyright Chessdevil Consulting BVBA 2015 - 2019
 
 from datetime import datetime
-from typing import Dict, Any, List, Optional, Type, Union
 from enum import Enum
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 from reddevil.core import DbBase
 
 
@@ -153,11 +152,11 @@ class RegistrationUpdate(BaseModel):
     """
 
     badgemimetype: str | None = None
-    badgeimage: Optional[bytes] = None
+    badgeimage: bytes | None = None
     badgelength: int | None = None
     birthday: str | None = None
     birthyear: int | None = None
-    category: Optional[RegistrationCategory] = None
+    category: RegistrationCategory | None = None
     chesstitle: str | None = None
     confirmed: bool | None = None
     custom: str | None = None
@@ -170,6 +169,46 @@ class RegistrationUpdate(BaseModel):
     idbel: str | None = None
     idclub: str | None = None
     idfide: str | None = None
+    last_name: str | None = None
+    locale: str | None = None
+    mobileplayer: str | None = None
+    nationalitybel: str | None = None
+    nationalityfide: str | None = None
+    natstatus: str | None = NatStatus.unknown.value
+    payment_id: str | None = None
+    present: datetime | None = None
+    rating: int | None = None
+    ratingbel: int | None = None
+    ratingfide: int | None = None
+    registrationtime: datetime | None = None
+    representative: RegistrationRepresentative | None = None
+    remarks: str | None = None
+
+
+class RegistrationNoBadge(BaseModel):
+    """
+    the internal model used everywhere
+    """
+
+    badgemimetype: str | None = None
+    badgelength: int | None = None
+    birthday: str | None = None
+    birthyear: int | None = None
+    category: RegistrationCategory | None = None
+    chesstitle: str | None = None
+    confirmation_email: datetime | None = None
+    confirmed: bool | None = None
+    custom: str | None = None
+    emailplayer: str | None = None
+    enabled: bool | None = True
+    event: str | None = None
+    federation: str | None = None
+    first_name: str | None = None
+    gender: str | None = None
+    idbel: str | None = None
+    idclub: str | None = None
+    idfide: str | None = None
+    id: str
     last_name: str | None = None
     locale: str | None = None
     mobileplayer: str | None = None

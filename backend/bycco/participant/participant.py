@@ -18,20 +18,20 @@ from bycco.participant import (
     ParticipantBJKDB,
     ParticipantBJK,
     DbParticpantBJK,
-    ParticipantVKCategory,
-    ParticipantVKDetail,
-    ParticipantVKItem,
-    ParticipantVK,
-    DbParticpantVK,
+    # ParticipantVKCategory,
+    # ParticipantVKDetail,
+    # ParticipantVKItem,
+    # ParticipantVK,
+    # DbParticpantVK,
     DbParticpantBJK,
     Gender,
 )
 from bycco.registration import (
     Registration,
     get_registration_bjk,
-    get_registration_vk,
+    # get_registration_vk,
     get_registrations_bjk,
-    get_registrations_vk,
+    # get_registrations_vk,
     lookup_idbel,
     lookup_idfide,
 )
@@ -44,187 +44,187 @@ env = Environment(loader=FileSystemLoader("bycco/templates"), trim_blocks=True)
 # vk
 
 
-async def get_participants_vk(options: dict = {}) -> List[ParticipantVKItem]:
-    filter = options.copy()
-    filter["_model"] = filter.pop("_model", ParticipantVKItem)
-    filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
-    return [
-        cast(ParticipantVKItem, x) for x in await DbParticpantVK.find_multiple(filter)
-    ]
+# async def get_participants_vk(options: dict = {}) -> List[ParticipantVKItem]:
+#     filter = options.copy()
+#     filter["_model"] = filter.pop("_model", ParticipantVKItem)
+#     filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
+#     return [
+#         cast(ParticipantVKItem, x) for x in await DbParticpantVK.find_multiple(filter)
+#     ]
 
 
-async def get_participant_vk(id: str) -> ParticipantVKDetail:
-    filter = {"_model": ParticipantVKDetail}
-    filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
-    filter["id"] = id
-    return await DbParticpantVK.find_single(filter)
+# async def get_participant_vk(id: str) -> ParticipantVKDetail:
+#     filter = {"_model": ParticipantVKDetail}
+#     filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
+#     filter["id"] = id
+#     return await DbParticpantVK.find_single(filter)
 
 
-async def get_participant_vk_by_idbel(idbel: str) -> ParticipantVKItem:
-    filter = {"_model": ParticipantVKItem}
-    filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
-    filter["idbel"] = idbel
-    return await DbParticpantVK.find_single(filter)
+# async def get_participant_vk_by_idbel(idbel: str) -> ParticipantVKItem:
+#     filter = {"_model": ParticipantVKItem}
+#     filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
+#     filter["idbel"] = idbel
+#     return await DbParticpantVK.find_single(filter)
 
 
-async def get_participant_vk_by_idfide(idfide: str) -> ParticipantVKItem:
-    filter = {"_model": ParticipantVKItem}
-    filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
-    filter["idfide"] = idfide
-    return await DbParticpantVK.find_single(filter)
+# async def get_participant_vk_by_idfide(idfide: str) -> ParticipantVKItem:
+#     filter = {"_model": ParticipantVKItem}
+#     filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
+#     filter["idfide"] = idfide
+#     return await DbParticpantVK.find_single(filter)
 
 
-async def import_participant_vk(idenr) -> str:
-    """
-    import an enrollemnt and create a participant
-    return the id of the participant
-    """
-    enr = cast(Registration, await get_registration_vk(idenr))
-    # solving transitional issue with chesstitle
-    chesstitle = enr.chesstitle or ""
-    return await DbParticpantVK.add(
-        {
-            "badgeimage": enr.badgeimage,
-            "badgemimetype": enr.badgemimetype,
-            "badgelength": enr.badgelength,
-            "birthyear": enr.birthyear,
-            "category": ParticipantVKCategory(enr.category.value),
-            "chesstitle": chesstitle,
-            "enabled": True,
-            "emails": enr.emailplayer.split(","),
-            "first_name": enr.first_name,
-            "gender": Gender(enr.gender),
-            "idbel": enr.idbel,
-            "idclub": enr.idclub,
-            "idfide": enr.idfide,
-            "locale": enr.locale,
-            "last_name": enr.last_name,
-            "nationalityfide": enr.nationalityfide,
-            "present": None,
-            "ratingbel": enr.ratingbel or 0,
-            "ratingfide": enr.ratingfide or 0,
-            "remarks": "",
-        }
-    )
+# async def import_participant_vk(idenr) -> str:
+#     """
+#     import an enrollemnt and create a participant
+#     return the id of the participant
+#     """
+#     enr = cast(Registration, await get_registration_vk(idenr))
+#     # solving transitional issue with chesstitle
+#     chesstitle = enr.chesstitle or ""
+#     return await DbParticpantVK.add(
+#         {
+#             "badgeimage": enr.badgeimage,
+#             "badgemimetype": enr.badgemimetype,
+#             "badgelength": enr.badgelength,
+#             "birthyear": enr.birthyear,
+#             "category": ParticipantVKCategory(enr.category.value),
+#             "chesstitle": chesstitle,
+#             "enabled": True,
+#             "emails": enr.emailplayer.split(","),
+#             "first_name": enr.first_name,
+#             "gender": Gender(enr.gender),
+#             "idbel": enr.idbel,
+#             "idclub": enr.idclub,
+#             "idfide": enr.idfide,
+#             "locale": enr.locale,
+#             "last_name": enr.last_name,
+#             "nationalityfide": enr.nationalityfide,
+#             "present": None,
+#             "ratingbel": enr.ratingbel or 0,
+#             "ratingfide": enr.ratingfide or 0,
+#             "remarks": "",
+#         }
+#     )
 
 
-async def import_participants_vk():
-    """
-    import all registration for the vk 2024
-    check doubles
-    retain most recent registration for the same person
-    """
-    enrs = await get_registrations_vk({"confirmed": True})
-    idbels = {}
-    idfides = {}
-    for enr in enrs:
-        if enr.idbel and enr.idbel != "0" and enr.idbel in idbels:
-            # we have a double detected via idbel
-            if enr.registrationtime > idbels[enr.idbel].registrationtime:
-                idbels[enr.idbel] = enr
-        elif enr.idfide and enr.idfide != "0" and enr.idfide in idfides:
-            # we have a double detected via idfide
-            if enr.registrationtime > idfides[enr.idfide].registrationtime:
-                idfides[enr.idfide] = enr
-        else:
-            if enr.idbel:
-                idbels[enr.idbel] = enr
-            if enr.idfide:
-                idfides[enr.idfide] = enr
-    # first process the participants with an idbel
-    for idbel, enr in idbels.items():
-        try:
-            par = await get_participant_vk_by_idbel(idbel)
-        except RdNotFound:
-            par = None
-        if par is None:
-            await import_participant_vk(enr.id)
-    # now process the participants with the idfides but without idbel
-    for idfide, enr in idfides.items():
-        if enr.idbel:
-            continue
-        try:
-            par = await get_participant_vk_by_idfide(idfide)
-        except RdNotFound:
-            par = None
-        if par is None:
-            await import_participant_vk(enr.id)
+# async def import_participants_vk():
+#     """
+#     import all registration for the vk 2024
+#     check doubles
+#     retain most recent registration for the same person
+#     """
+#     enrs = await get_registrations_vk({"confirmed": True})
+#     idbels = {}
+#     idfides = {}
+#     for enr in enrs:
+#         if enr.idbel and enr.idbel != "0" and enr.idbel in idbels:
+#             # we have a double detected via idbel
+#             if enr.registrationtime > idbels[enr.idbel].registrationtime:
+#                 idbels[enr.idbel] = enr
+#         elif enr.idfide and enr.idfide != "0" and enr.idfide in idfides:
+#             # we have a double detected via idfide
+#             if enr.registrationtime > idfides[enr.idfide].registrationtime:
+#                 idfides[enr.idfide] = enr
+#         else:
+#             if enr.idbel:
+#                 idbels[enr.idbel] = enr
+#             if enr.idfide:
+#                 idfides[enr.idfide] = enr
+#     # first process the participants with an idbel
+#     for idbel, enr in idbels.items():
+#         try:
+#             par = await get_participant_vk_by_idbel(idbel)
+#         except RdNotFound:
+#             par = None
+#         if par is None:
+#             await import_participant_vk(enr.id)
+#     # now process the participants with the idfides but without idbel
+#     for idfide, enr in idfides.items():
+#         if enr.idbel:
+#             continue
+#         try:
+#             par = await get_participant_vk_by_idfide(idfide)
+#         except RdNotFound:
+#             par = None
+#         if par is None:
+#             await import_participant_vk(enr.id)
 
 
-async def update_participant_vk(
-    id: str, par: ParticipantVK, options: dict = {}
-) -> ParticipantVK:
-    opt = options.copy()
-    opt["_model"] = opt.pop("_model", ParticipantVK)
-    return cast(
-        ParticipantVK,
-        await DbParticpantVK.update(id, par.model_dump(exclude_unset=True), opt),
-    )
+# async def update_participant_vk(
+#     id: str, par: ParticipantVK, options: dict = {}
+# ) -> ParticipantVK:
+#     opt = options.copy()
+#     opt["_model"] = opt.pop("_model", ParticipantVK)
+#     return cast(
+#         ParticipantVK,
+#         await DbParticpantVK.update(id, par.model_dump(exclude_unset=True), opt),
+#     )
 
 
-async def update_elo_vk() -> None:
-    """
-    update the elo of all participants
-    """
-    prts = await get_participants_vk()
-    for pr in prts:
-        upd = ParticipantVK()
-        if pr.idbel:
-            try:
-                pl = await lookup_idbel(pr.idbel)
-                upd.ratingbel = pl.ratingbel
-            except Exception as e:
-                logger.info(f"lookup idbel failed {e}")
-        if pr.idfide:
-            try:
-                pl = await lookup_idfide(pr.idfide)
-                upd.ratingfide = pl.ratingfide
-            except Exception as e:
-                logger.info(f"lookup idfide failed {e}")
-        if upd:
-            await update_participant_vk(pr.id, upd)
+# async def update_elo_vk() -> None:
+#     """
+#     update the elo of all participants
+#     """
+#     prts = await get_participants_vk()
+#     for pr in prts:
+#         upd = ParticipantVK()
+#         if pr.idbel:
+#             try:
+#                 pl = await lookup_idbel(pr.idbel)
+#                 upd.ratingbel = pl.ratingbel
+#             except Exception as e:
+#                 logger.info(f"lookup idbel failed {e}")
+#         if pr.idfide:
+#             try:
+#                 pl = await lookup_idfide(pr.idfide)
+#                 upd.ratingfide = pl.ratingfide
+#             except Exception as e:
+#                 logger.info(f"lookup idfide failed {e}")
+#         if upd:
+#             await update_participant_vk(pr.id, upd)
 
 
-async def generate_namecards_vk(cat: str, ids: str):
-    """
-    get the Namecards for the vk by categorie or by ids
-    ids: comma separated ids
-    """
-    filter: Dict[str, Any] = {"enabled": True}
-    logger.info(f"filter {filter}")
-    if cat:
-        prts = await get_participants_vk({"category": cat})
-    else:
-        prts = await get_participants_vk({"idbel": {"$in": ids.split(",")}})
-    logger.info(f"nr of participants {len(prts)}")
-    pages = []
-    cards = []
-    j = 0
-    sorteddocs = sorted(prts, key=lambda x: f"{x.last_name}, {x.first_name}")
-    for ix, p in enumerate(sorteddocs):
-        rix = j % 2 + 1
-        ct = ""
-        # ct = p.chesstitle + " " if p.chesstitle else ""
-        card = {
-            "fullname": "{0}{1} {2}".format(ct, p.last_name, p.first_name),
-            "natrating": p.ratingbel or 0,
-            "fiderating": p.ratingfide or 0,
-            "category": p.category.value,
-            "nationalityfide": p.nationalityfide,
-            # 'photourl': '/photo/{0}'.format(p.id),
-            "positionclass": "card_1{0}".format(rix),
-            "ix": ix,
-        }
-        cards.append(card)
-        j += 1
-        if j == 2:
-            j = 0
-            pages.append(cards)
-            cards = []
-    if j > 0:
-        pages.append(cards)
-    tmpl = env.get_template("printnamecard_vk.j2")
-    return tmpl.render({"pages": pages})
+# async def generate_namecards_vk(cat: str, ids: str):
+#     """
+#     get the Namecards for the vk by categorie or by ids
+#     ids: comma separated ids
+#     """
+#     filter: Dict[str, Any] = {"enabled": True}
+#     logger.info(f"filter {filter}")
+#     if cat:
+#         prts = await get_participants_vk({"category": cat})
+#     else:
+#         prts = await get_participants_vk({"idbel": {"$in": ids.split(",")}})
+#     logger.info(f"nr of participants {len(prts)}")
+#     pages = []
+#     cards = []
+#     j = 0
+#     sorteddocs = sorted(prts, key=lambda x: f"{x.last_name}, {x.first_name}")
+#     for ix, p in enumerate(sorteddocs):
+#         rix = j % 2 + 1
+#         ct = ""
+#         # ct = p.chesstitle + " " if p.chesstitle else ""
+#         card = {
+#             "fullname": "{0}{1} {2}".format(ct, p.last_name, p.first_name),
+#             "natrating": p.ratingbel or 0,
+#             "fiderating": p.ratingfide or 0,
+#             "category": p.category.value,
+#             "nationalityfide": p.nationalityfide,
+#             # 'photourl': '/photo/{0}'.format(p.id),
+#             "positionclass": "card_1{0}".format(rix),
+#             "ix": ix,
+#         }
+#         cards.append(card)
+#         j += 1
+#         if j == 2:
+#             j = 0
+#             pages.append(cards)
+#             cards = []
+#     if j > 0:
+#         pages.append(cards)
+#     tmpl = env.get_template("printnamecard_vk.j2")
+#     return tmpl.render({"pages": pages})
 
 
 # bjk

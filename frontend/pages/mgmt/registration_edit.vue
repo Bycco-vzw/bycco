@@ -26,7 +26,7 @@ const { person } = storeToRefs(personstore)
 
 // datamodel
 const idregistration = route.query.id
-const reg = ref({ payment_id: "" })
+const reg = ref({ representative: {}, payment_id: "" })
 
 definePageMeta({
   layout: "mgmt",
@@ -118,7 +118,7 @@ async function getRegistration() {
   let reply
   showLoading(true)
   try {
-    reply = await $backend("registration", "mgmt_get_registration", {
+    reply = await $backend("registration", "mgmt_get_registration_bjk", {
       id: idregistration,
       token: token.value,
     })
@@ -148,23 +148,32 @@ async function saveRegistration() {
   let reply
   showLoading(true)
   try {
-    await $backend("stay", "mgmt_update_registration", {
+    await $backend("registration", "mgmt_update_registration_bjk", {
       id: idregistration,
-      registration: {
-        address: reg.value.address,
-        bycco_remarks: reg.value.bycco_remarks,
-        checkindate: reg.value.checkindate,
-        checkoutdate: reg.value.checkoutdate,
-        email: reg.value.email,
-        enabled: reg.value.enabled,
+      reg: {
         first_name: reg.value.first_name,
         last_name: reg.value.last_name,
+        idbel: reg.value.idbel,
+        idfide: reg.value.idfide,
+        category: reg.value.category,
+        gender: reg.value.gender,
+        birthyear: reg.value.birthyear,
         locale: reg.value.locale,
-        stay: reg.value.stay,
-        meals: reg.value.meals,
-        mobile: reg.value.mobile,
-        organizers: reg.value.organizers,
+        confirmed: reg.value.confirmed,
         remarks: reg.value.remarks,
+        enabled: reg.value.enabled,
+        ratingbel: reg.value.ratingbel,
+        ratingfide: reg.value.ratingfide,
+        emailplayer: reg.value.emailplayer,
+        mobileplayer: reg.value.mobileplayer,
+        representative: {
+          fullnameparent: reg.value.representative.fullnameparent,
+          emailparent: reg.value.representative.emailparent,
+          mobileparent: reg.value.representative.mobileparent,
+          fullnameattendant: reg.value.representative.fullnameattendant,
+          emailattendant: reg.value.representative.emailattendant,
+          mobileattendant: reg.value.representative.mobileattendant,
+        },
       },
       token: token.value,
     })
@@ -218,21 +227,42 @@ onMounted(async () => {
           <v-col cols="12" sm="6">
             <v-text-field v-model="reg.last_name" label="Last name" />
             <v-text-field v-model="reg.first_name" label="First name" />
-            <v-textarea v-model="reg.address" label="Address" />
-            <v-textarea v-model="reg.bycco_remarks" label="Remarks from Bycco" />
-            <v-text-field v-model="reg.checkindate" label="Checkin Date" />
-            <v-text-field v-model="reg.checkoutdate" label="Checkout Date" />
+            <v-text-field v-model="reg.idbel" label="ID Bel" />
+            <v-text-field v-model="reg.idfide" label="ID Fide" />
+            <v-text-field v-model="reg.category" label="Category" />
+            <v-text-field v-model="reg.gender" label="Gender" />
+            <v-textarea v-model="reg.birthyear" label="Birthyear" />
+            <v-text-field v-model="reg.locale" label="Locale" />
+            <v-text-field v-model="reg.confirmed" label="Confirmed" />
+            <v-textarea v-model="reg.remarks" label="Remarks from Bycco" />
           </v-col>
           <v-col cols="12" sm="6">
             <v-switch v-model="reg.enabled" label="Enabled" color="deep-purple" />
-            <p>Registration created: {{ reg._creationtime }}</p>
-            <p>Registration modified: {{ reg._modificationtime }}</p>
-            <v-text-field v-model="reg.email" label="E-mail" />
-            <v-text-field v-model="reg.mobile" label="Mobile" />
-            <v-textarea v-model="reg.remarks" label="Customer Remarks" />
-            <v-text-field v-model="reg.locale" label="Language" />
-            <v-text-field v-model="reg.stay" label="Requested accomodation" />
-            <v-text-field v-model="reg.meals" label="Requested meals" />
+            <v-text-field v-model="reg.ratingbel" label="Rating BEL" />
+            <v-text-field v-model="reg.ratingfide" label="Rating FIDE" />
+            <v-text-field v-model="reg.emailplayer" label="E-mail player" />
+            <v-text-field v-model="reg.mobileplayer" label="Mobile player" />
+            <v-text-field
+              v-model="reg.representative.fullnameparent"
+              label="Full name parent"
+            />
+            <v-text-field
+              v-model="reg.representative.emailparent"
+              label="E-mail parent"
+            />
+            <v-text-field v-model="reg.representative.mobileparent" label="GSM parent" />
+            <v-text-field
+              v-model="reg.representative.fullnameattendant"
+              label="Full name attendant"
+            />
+            <v-text-field
+              v-model="reg.representative.emailattendant"
+              label="E-mail attendant"
+            />
+            <v-text-field
+              v-model="reg.representative.mobileattendant"
+              label="GSM attendant"
+            />
           </v-col>
         </v-row>
       </v-card-text>

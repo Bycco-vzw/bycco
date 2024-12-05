@@ -19,8 +19,8 @@ from bycco.registration import (
     Registration,
     RegistrationIn,
     RegistrationItem,
+    RegistrationNoBadge,
     RegistrationUpdate,
-    RegistrationVkIn,
     IdReply,
     NatStatus,
 )
@@ -56,42 +56,17 @@ async def get_registrations_bjk(options: dict = {}) -> List[RegistrationItem]:
     ]
 
 
-# async def get_registrations_vk(options: dict = {}) -> List[RegistrationItem]:
-#     """
-#     get registrations
-#     """
-#     filter = options.copy()
-#     filter["_model"] = filter.pop("_model", RegistrationItem)
-#     filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
-#     filter["event"] = "VK2024"
-#     logger.info(f"filter registrations vk: {filter}")
-#     return [cast(RegistrationItem, x) for x in await DbRegistration.find_multiple(filter)]
-
-
-async def get_registration_bjk(id: str, options: dict = {}) -> Registration:
+async def get_registration_bjk(id: str, options: dict = {}) -> RegistrationNoBadge:
     """
     get registrations
     """
     filter = options.copy()
-    filter["_model"] = filter.pop("_model", Registration)
+    filter["_model"] = filter.pop("_model", RegistrationNoBadge)
     filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
     filter["id"] = id
     filter["event"] = "bjk2025"
-    enr = cast(Registration, await DbRegistration.find_single(filter))
-    return enr
-
-
-# async def get_registration_vk(id: str, options: dict = {}) -> Registration:
-#     """
-#     get registrations
-#     """
-#     filter = options.copy()
-#     filter["_model"] = filter.pop("_model", Registration)
-#     filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
-#     filter["id"] = id
-#     filter["event"] = "VK2024"
-#     enr = cast(Registration, await DbRegistration.find_single(filter))
-#     return enr
+    reg = cast(RegistrationNoBadge, await DbRegistration.find_single(filter))
+    return reg
 
 
 async def update_registration(
@@ -121,74 +96,6 @@ async def update_registration(
 
 
 # business methods
-
-
-async def get_registrations_vk(options: dict = {}) -> List[RegistrationItem]:
-    filter = options.copy()
-    filter["_model"] = filter.pop("_model", RegistrationItem)
-    filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
-    filter["event"] = "VK2024"
-    docs = await DbRegistration.find_multiple(filter)
-    return [cast(RegistrationItem, x) for x in docs]
-
-
-async def get_registration_vk(id: str, options: dict = {}) -> Registration:
-    filter = options.copy()
-    filter["_model"] = filter.pop("_model", Registration)
-    filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
-    filter["id"] = id
-    enr = cast(Registration, await DbRegistration.find_single(filter))
-    enr.badgeimage = None
-    logger.info(f"emf {enr}")
-    return enr
-
-
-async def create_registration_vk(ei: RegistrationVkIn) -> str:
-    logger.info(f"create an registration for VK {ei}")
-
-    if ei.idsub:
-        eu = RegistrationUpdate(
-            category=ei.category,
-            emailplayer=ei.emailplayer,
-            idbel=ei.idbel,
-            idfide=ei.idfide,
-            locale=ei.locale,
-            mobileplayer=ei.mobileplayer,
-        )
-        enrid = (await update_registration(ei.idsub, eu)).id
-    else:
-        eidict = ei.model_dump()
-        eidict.pop("idsub", None)
-        eidict["event"] = "VK2024"
-        enrid = await add_registration(eidict)
-    meu = RegistrationUpdate()
-    if ei.idbel:
-        try:
-            pl = await lookup_idbel(ei.idbel)
-            meu.birthyear = pl.birthyear
-            meu.gender = pl.gender
-            meu.first_name = pl.first_name
-            meu.idclub = pl.idclub
-            meu.last_name = pl.last_name
-            meu.nationalitybel = pl.nationalitybel
-            meu.natstatus = pl.natstatus
-            meu.ratingbel = pl.ratingbel
-        except Exception as e:
-            logger.info(f"lookup idbel failed {e}")
-    if ei.idfide:
-        try:
-            pl = await lookup_idfide(ei.idfide)
-            meu.birthyear = pl.birthyear
-            meu.gender = pl.gender
-            meu.first_name = pl.first_name
-            meu.last_name = pl.last_name
-            meu.nationalityfide = pl.nationalityfide
-            meu.natstatus = pl.natstatus
-            meu.ratingfide = pl.ratingfide
-        except Exception as e:
-            logger.info(f"lookup idfide failed {e}")
-    await update_registration(enrid, meu)
-    return enrid
 
 
 async def create_registration_bjk(ei: RegistrationIn) -> str:
@@ -362,25 +269,6 @@ async def get_photo(id: str):
     return Response(content=photo["badgeimage"], media_type=photo["badgemimetype"])
 
 
-def sendemail_registration_vk(enr: Registration) -> None:
-    from bycco.core.mail import MailParams, sendemail_no_attachments
-
-    settings = get_settings()
-    emails = [enr.emailplayer]
-    mp = MailParams(
-        subject="VK 2024",
-        sender=settings.EMAIL["sender"],
-        receiver=",".join(emails),
-        template="mailregistration_vk_{locale}.md",
-        locale=enr.locale,
-        attachments=[],
-        bcc=settings.EMAIL["bcc_registration"],
-    )
-    edict = enr.model_dump()
-    edict["category"] = edict["category"].value
-    sendemail_no_attachments(mp, edict, "confirmation registration")
-
-
 def sendemail_registration_bjk(enr: Registration) -> None:
     from bycco.core.mail import MailParams, sendemail_no_attachments
 
@@ -404,37 +292,3 @@ def sendemail_registration_bjk(enr: Registration) -> None:
     else:
         edict["natstatus"] = 2
     sendemail_no_attachments(mp, edict, "confirmation registration")
-
-
-def sendemail_confirmationreq_vk(enr: Registration) -> None:
-    from bycco.core.mail import MailParams, sendemail_no_attachments
-
-    settings = get_settings()
-    emails = [enr.emailplayer]
-    mp = MailParams(
-        subject="VK 2024",
-        sender=settings.EMAIL["sender"],
-        receiver=",".join(emails),
-        template="mailregistration_vk_{locale}.md",
-        locale=enr.locale,
-        attachments=[],
-        bcc=settings.EMAIL["bcc_registration"],
-    )
-    edict = enr.model_dump()
-    edict["category"] = edict["category"].value
-    sendemail_no_attachments(mp, edict, "confirmation registration")
-
-
-async def send_notconfirmed_vk() -> None:
-    """
-    get a list of all registrations of an event that are not confirmed
-    and sends a requestConfirmation email to them
-    """
-    for enr in await get_registrations_vk(
-        {
-            "confirmed": {"$eq": None},
-            "enabled": True,
-            "confirmation_email": {"$eq": None},
-        }
-    ):
-        pass

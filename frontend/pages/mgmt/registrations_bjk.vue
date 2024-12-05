@@ -87,7 +87,7 @@ async function getRegistrations() {
   try {
     reply = await $backend("registration", "get_registrations_bjk")
     registrations.value = reply.data
-    console.log("enrs", registrations.value)
+    console.log("regs", registrations.value)
   } catch (error) {
     console.error("getting registrations failed", error)
     showSnackbar("Getting registrations failed")

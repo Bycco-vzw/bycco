@@ -53,8 +53,8 @@ export default {
     })
   },
   mgmt_update_registration_bjk: async function (options) {
-    const { id, enr, token } = options
-    return await axios.put(`${prefix}/bjk/${id}`, enr, {
+    const { id, reg, token } = options
+    return await axios.put(`${prefix}/bjk/${id}`, reg, {
       headers: {
         Authorization: "Bearer " + token,
       },
