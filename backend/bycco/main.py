@@ -1,7 +1,8 @@
 # copyright Ruben Decrop 2012 - 2024
 # copyright Chessdevil Consulting 2015 - 2024
 
-import logging, logging.config
+import logging
+import logging.config
 
 from fastapi import FastAPI
 from fastapi.routing import APIRoute
@@ -58,7 +59,7 @@ from bycco.attendee import api_attendee  # noqa E402
 logger.info("loading api_filestore")
 from reddevil.filestore import api_filestore  # noqa E402
 
-logger.info("loading api_enrollment")
+logger.info("loading api_registration")
 from backend.bycco.registration import api_registration  # noqa E402
 
 logger.info("loading api_stay")
@@ -93,26 +94,23 @@ app.include_router(api_paymentrequest.router)
 app.include_router(api_statamic.router)
 app.include_router(api_page.router)
 app.include_router(api_tournament.router)
-logger.info(f"Api's loaded")
+logger.info("Api's loaded")
 
-# static files
-app.mount("/css", StaticFiles(directory="dist/css"), name="css")
-app.mount("/img", StaticFiles(directory="dist/img"), name="img")
+# static files fro dev only
+if settings.BYCCO_MODE != "production":
+    app.mount("/css", StaticFiles(directory="frontend/public/css"), name="css")
+    app.mount("/img", StaticFiles(directory="frontend/public/img"), name="img")
+    logger.info("static dirs loaded")
 
-logger.info(f"statics loaded")
 
-
-# fetch the common
-
-#    Simplify operation IDs so that generated API clients have simpler function
-#    names.
+#    Simplify operation IDs so that generated API clients have simpler function names.
 for route in app.routes:
     if isinstance(route, APIRoute):
         route.operation_id = route.name[4:]
 
-logger.info(f"routes adapted")
+logger.info("routes adapted")
 
 # importing test endpoints
-import bycco.tst_endpoints
+import bycco.tst_endpoints  # noqa E402
 
-logger.info(f"test endpoints loaded")
+logger.info("test endpoints loaded")

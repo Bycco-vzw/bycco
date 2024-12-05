@@ -6,7 +6,7 @@ EMAIL = {
     "port": "1025",
     "sender": "noreply@bycco.be",
     "bcc_reservation": "ruben.decrop@gmail.com,floreal@bycco.be",
-    "bcc_enrollment": "ruben.decrop@gmail.com,luc.cornet@bycco.be",
+    "bcc_registration": "ruben.decrop@gmail.com,luc.cornet@bycco.be",
 }
 
 SECRETS = {
@@ -27,3 +27,5 @@ SECRETS = {
         "manager": "filejson",
     },
 }
+
+TEMPLATES_PATH = "./backend/bycco/templates"

@@ -27,11 +27,11 @@ from bycco.participant import (
     Gender,
 )
 from bycco.registration import (
-    Enrollment,
-    get_enrollment_bjk,
-    get_enrollment_vk,
-    get_enrollments_bjk,
-    get_enrollments_vk,
+    Registration,
+    get_registration_bjk,
+    get_registration_vk,
+    get_registrations_bjk,
+    get_registrations_vk,
     lookup_idbel,
     lookup_idfide,
 )
@@ -79,7 +79,7 @@ async def import_participant_vk(idenr) -> str:
     import an enrollemnt and create a participant
     return the id of the participant
     """
-    enr = cast(Enrollment, await get_enrollment_vk(idenr))
+    enr = cast(Registration, await get_registration_vk(idenr))
     # solving transitional issue with chesstitle
     chesstitle = enr.chesstitle or ""
     return await DbParticpantVK.add(
@@ -110,11 +110,11 @@ async def import_participant_vk(idenr) -> str:
 
 async def import_participants_vk():
     """
-    import all enrollment for the vk 2024
+    import all registration for the vk 2024
     check doubles
-    retain most recent enrollment for the same person
+    retain most recent registration for the same person
     """
-    enrs = await get_enrollments_vk({"confirmed": True})
+    enrs = await get_registrations_vk({"confirmed": True})
     idbels = {}
     idfides = {}
     for enr in enrs:
@@ -261,7 +261,7 @@ async def import_participant_bjk(idenr) -> str:
     import an enrollemnt and create a participant
     return the id of the participant
     """
-    enr = cast(Enrollment, await get_enrollment_bjk(idenr))
+    enr = cast(Registration, await get_registration_bjk(idenr))
     return await DbParticpantBJK.add(
         {
             "badgeimage": enr.badgeimage,
@@ -293,11 +293,11 @@ async def import_participant_bjk(idenr) -> str:
 
 async def import_participants_bjk():
     """
-    import all enrollment for the bjk 2024
+    import all registration for the bjk 2024
     check doubles
-    retain most recent enrollment for the same person
+    retain most recent registration for the same person
     """
-    enrs = await get_enrollments_bjk({"confirmed": True})
+    enrs = await get_registrations_bjk({"confirmed": True})
     idbels = {}
     for enr in enrs:
         if enr.idbel in idbels:

@@ -1,13 +1,13 @@
 <script setup>
-import { ref, computed } from 'vue'
-import { useI18n } from 'vue-i18n'
-import { categories } from '@/util/constants'
+import { ref, computed } from "vue"
+import { useI18n } from "vue-i18n"
+// import { categories } from "~/utils/constants"
 
-import ProgressLoading from '@/components/ProgressLoading.vue'
-import SnackbarMessage from '@/components/SnackbarMessage.vue'
+import ProgressLoading from "@/components/ProgressLoading.vue"
+import SnackbarMessage from "@/components/SnackbarMessage.vue"
 
 // communication
-const emit = defineEmits(['changeStep', 'updateEnrollment'])
+const emit = defineEmits(["changeStep", "updateRegistration"])
 defineExpose({ setup })
 const { $backend } = useNuxtApp()
 
@@ -24,20 +24,20 @@ const { t, locale } = useI18n()
 const apicat = computed(() => {
   if ([8, 10, 12, 14, 16, 18, 20].includes(category.value)) {
     return "U" + category.value
-  }
-  else return category.value
+  } else return category.value
 })
 const catitems = computed(() => {
   const cs = []
   categories.forEach((c) => {
-    if (c.year <= birthyear.value) { cs.push(c) }
+    if (c.year <= birthyear.value) {
+      cs.push(c)
+    }
   })
   return cs
 })
 const isAdult = computed(() => {
   return birthyear.value < categories[1].year
 })
-
 
 // datamodel member
 const birthyear = ref(0)
@@ -73,8 +73,8 @@ async function next() {
   let reply
   showLoading(true)
   try {
-    reply = await $backend("enrollment", "create_enrollment_bjk", {
-      enrollmentIn: {
+    reply = await $backend("registration", "create_registration_bjk", {
+      registrationIn: {
         category: apicat.value,
         emailattendant: emailattendant.value,
         emailparent: emailparent.value,
@@ -88,29 +88,27 @@ async function next() {
         mobileattendant: mobileattendant.value,
         mobileparent: mobileparent.value,
         mobileplayer: mobileplayer.value,
-      }
+      },
     })
-  }
-  catch (error) {
-    console.error('error', error)
+  } catch (error) {
+    console.error("error", error)
     showSnackbar(error.message)
     return
-  }
-  finally {
+  } finally {
     showLoading(false)
   }
   idsub.value = reply.data
-  updateEnrollment()
-  emit('changeStep', step + 1)
+  updateRegistration()
+  emit("changeStep", step + 1)
 }
 
 function prev() {
-  updateEnrollment()
-  emit('changeStep', step - 1)
+  updateRegistration()
+  emit("changeStep", step - 1)
 }
 
 function setup(e) {
-  console.log('setup details', e)
+  console.log("setup details", e)
   birthyear.value = e.birthyear
   category.value = e.category
   emailattendant.value = e.emailattendant || ""
@@ -128,15 +126,14 @@ function setup(e) {
   nationalityfide.value = e.nationalityfide
   if (!category.value) {
     categories.forEach((c) => {
-      if (c.year <= birthyear.value)
-        category.value = c.value
+      if (c.year <= birthyear.value) category.value = c.value
     })
   }
-  console.log('cy', categories[1].year, birthyear.value)
+  console.log("cy", categories[1].year, birthyear.value)
 }
 
-function updateEnrollment() {
-  emit('updateEnrollment', {
+function updateRegistration() {
+  emit("updateRegistration", {
     category: apicat.value,
     emailplayer: emailplayer.value,
     idsub: idsub.value,
@@ -146,24 +143,28 @@ function updateEnrollment() {
 
 function validate_form() {
   errorcode.value = false
-  console.log('isAdult', isAdult.value)
+  console.log("isAdult", isAdult.value)
   if (isAdult.value) {
     if (emailplayer.value.length < 2 && mobileplayer.value.length < 2) {
       errorcode.value = "playerdetailsnotvalid"
       return false
     }
-  }
-  else {
+  } else {
     if (isParentPresent.value) {
-      if (fullnameparent.value.length < 2 || emailparent.value.length < 2 ||
-        mobileparent.value.length < 2) {
+      if (
+        fullnameparent.value.length < 2 ||
+        emailparent.value.length < 2 ||
+        mobileparent.value.length < 2
+      ) {
         errorcode.value = "parentdetailsnotvalid"
         return false
       }
-    }
-    else {
-      if (fullnameattendant.value.length < 2 || emailattendant.value.length < 2 ||
-        mobileattendant.value.length < 2) {
+    } else {
+      if (
+        fullnameattendant.value.length < 2 ||
+        emailattendant.value.length < 2 ||
+        mobileattendant.value.length < 2
+      ) {
         errorcode.value = "attendantdetailsnotvalid"
         return false
       }
@@ -172,12 +173,10 @@ function validate_form() {
   return true
 }
 
-
 onMounted(() => {
   showSnackbar = refsnackbar.value.showSnackbar
   showLoading = refloading.value.showLoading
 })
-
 </script>
 <template>
   <v-form v-model="formvalid">
@@ -185,56 +184,58 @@ onMounted(() => {
       <SnackbarMessage ref="refsnackbar" />
       <ProgressLoading ref="refloading" />
       <v-row class="mt-2">
-        <h2>{{ $t('enrollvk.det_title') }}</h2>
+        <h2>{{ $t("enrollvk.det_title") }}</h2>
       </v-row>
       <v-row>
         <v-col cols="12" md="6" class="pa-1">
           <div>
-            {{ $t('First name') }}: <b>{{ first_name }}</b>
+            {{ $t("First name") }}: <b>{{ first_name }}</b>
           </div>
         </v-col>
         <v-col cols="12" md="6" class="pa-1">
           <div>
-            {{ $t('Last name') }}: <b>{{ last_name }}</b>
+            {{ $t("Last name") }}: <b>{{ last_name }}</b>
           </div>
         </v-col>
         <v-col cols="12" md="6" class="pa-1">
           <div>
-            {{ $t('Birthyear') }}: <b>{{ birthyear }}</b>
+            {{ $t("Birthyear") }}: <b>{{ birthyear }}</b>
           </div>
         </v-col>
         <v-col cols="12" md="6" class="pa-1">
           <div>
-            {{ $t('FIDE nationality') }}: <b>{{ nationalityfide }}</b>
+            {{ $t("FIDE nationality") }}: <b>{{ nationalityfide }}</b>
           </div>
         </v-col>
         <v-col cols="12" md="6" class="pa-1">
           <div>
-            {{ $t('Gender') }}: <b>{{ gender }}</b>
+            {{ $t("Gender") }}: <b>{{ gender }}</b>
           </div>
         </v-col>
       </v-row>
       <v-row>
-
-        <h3 class="my-2">{{ $t('enroll.det_more') }}</h3>
-        <p class="my-2">{{ $t('enroll.det_requiredinfo') }}</p>
+        <h3 class="my-2">{{ $t("enroll.det_more") }}</h3>
+        <p class="my-2">{{ $t("enroll.det_requiredinfo") }}</p>
       </v-row>
       <v-row>
         <v-col cols="12" md="6" class="pa-1">
-          <h4>{{ $t('Info participant') }}</h4>
+          <h4>{{ $t("Info participant") }}</h4>
           <v-select v-model="category" :label="$t('Category')" :items="catitems" />
           <v-text-field v-model="emailplayer" :label="$t('Email player')" />
           <v-text-field v-model="mobileplayer" :label="$t('GSM player')" />
         </v-col>
         <v-col cols="12" md="6" class="pa-1">
-          <h4>{{ $t('Info about parent') }}</h4>
-          <v-checkbox v-model="isParentPresent" :label="$t('A parent is present at site')" />
+          <h4>{{ $t("Info about parent") }}</h4>
+          <v-checkbox
+            v-model="isParentPresent"
+            :label="$t('A parent is present at site')"
+          />
           <v-text-field v-model="fullnameparent" :label="$t('Full name')" />
           <v-text-field v-model="emailparent" :label="$t('Email parent')" />
           <v-text-field v-model="mobileparent" :label="$t('GSM parent')" />
         </v-col>
         <v-col cols="12" md="6" class="pa-1" v-show="!isParentPresent">
-          <h4>{{ $t('Info about attendant on site') }}</h4>
+          <h4>{{ $t("Info about attendant on site") }}</h4>
           <div>
             <v-text-field v-model="fullnameattendant" :label="$t('Full name')" />
             <v-text-field v-model="emailattendant" :label="$t('Email')" />
@@ -244,22 +245,22 @@ onMounted(() => {
       </v-row>
       <v-alert v-show="errorcode" type="error" class="mt-2" closable>
         <div v-show="errorcode == 'playerdetailsnotvalid'">
-          <div>{{ t('enroll.det_playerdetailsnotvalid') }}</div>
+          <div>{{ t("enroll.det_playerdetailsnotvalid") }}</div>
         </div>
         <div v-show="errorcode == 'parentdetailsnotvalid'">
-          <div>{{ t('enroll.det_parentdetailsnotvalid') }}</div>
+          <div>{{ t("enroll.det_parentdetailsnotvalid") }}</div>
         </div>
         <div v-show="errorcode == 'attendantdetailsnotvalid'">
-          <div>{{ t('enroll.det_attendantdetailsnotvalid') }}</div>
+          <div>{{ t("enroll.det_attendantdetailsnotvalid") }}</div>
         </div>
       </v-alert>
       <v-row class="mt-4">
         <div class="mt-2">
           <v-btn class="ml-2" @click="prev" color="primary">
-            {{ $t('Back') }}
+            {{ $t("Back") }}
           </v-btn>
           <v-btn class="ml-2" color="primary" @click="next">
-            {{ $t('Continue') }}
+            {{ $t("Continue") }}
           </v-btn>
         </div>
       </v-row>

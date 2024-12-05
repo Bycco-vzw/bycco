@@ -1,6 +1,6 @@
-import axios from 'axios'
+import axios from "axios"
 
-const prefix = '/api/v1/enrollment'
+const prefix = "/api/v1/registration"
 
 export default {
   lookup_idbel: async function (options) {
@@ -11,15 +11,15 @@ export default {
     const { idfide } = options
     return await axios.get(`${prefix}/idfide/${idfide}`)
   },
-  create_enrollment_vk: async function (options) {
-    const { enrollmentVkIn } = options
-    return await axios.post(`${prefix}/vk`, enrollmentVkIn)
+  create_registration_vk: async function (options) {
+    const { registrationVkIn } = options
+    return await axios.post(`${prefix}/vk`, registrationVkIn)
   },
-  create_enrollment_bjk: async function (options) {
-    const { enrollmentIn } = options
-    return await axios.post(`${prefix}/bjk`, enrollmentIn)
+  create_registration_bjk: async function (options) {
+    const { registrationIn } = options
+    return await axios.post(`${prefix}/bjk`, registrationIn)
   },
-  confirm_enrollment: async function (options) {
+  confirm_registration: async function (options) {
     const { idsub } = options
     return await axios.post(`${prefix}/confirm/${idsub}`)
   },
@@ -27,45 +27,45 @@ export default {
     const { idsub, photo } = options
     return await axios.post(`${prefix}/photo/${idsub}`, { photo })
   },
-  get_enrollments_vk: async function () {
+  get_registrations_vk: async function () {
     return await axios.get(`${prefix}/vk`)
   },
-  get_enrollments_vk: async function () {
+  get_registrations_vk: async function () {
     return await axios.get(`${prefix}/vk`)
   },
-  get_enrollments_bjk: async function () {
+  get_registrations_bjk: async function () {
     return await axios.get(`${prefix}/bjk`)
   },
-  mgmt_get_enrollment_bjk: async function (options) {
+  mgmt_get_registration_bjk: async function (options) {
     const { id, token } = options
     return await axios.get(`${prefix}/bjk/${id}`, {
       headers: {
         Authorization: "Bearer " + token,
-      }
+      },
     })
   },
-  mgmt_get_enrollment_vk: async function (options) {
+  mgmt_get_registration_vk: async function (options) {
     const { id, token } = options
     return await axios.get(`${prefix}/vk/${id}`, {
       headers: {
         Authorization: "Bearer " + token,
-      }
+      },
     })
   },
-  mgmt_update_enrollment_bjk: async function (options) {
+  mgmt_update_registration_bjk: async function (options) {
     const { id, enr, token } = options
     return await axios.put(`${prefix}/bjk/${id}`, enr, {
       headers: {
         Authorization: "Bearer " + token,
-      }
+      },
     })
   },
-  mgmt_update_enrollment_vk: async function (options) {
+  mgmt_update_registration_vk: async function (options) {
     const { id, enr, token } = options
     return await axios.put(`${prefix}/vk/${id}`, enr, {
       headers: {
         Authorization: "Bearer " + token,
-      }
+      },
     })
   },
 }

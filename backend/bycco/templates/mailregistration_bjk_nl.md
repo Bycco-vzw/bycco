@@ -1,4 +1,4 @@
-## Bevestiging inschrijving B 2024
+## Bevestiging inschrijving BJK 2025
 
 ### Details deelnemer
 

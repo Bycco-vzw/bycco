@@ -1,7 +1,6 @@
 <script setup>
-import { ref, computed } from 'vue'
-import { useI18n } from 'vue-i18n'
-
+import { ref, computed } from "vue"
+import { useI18n } from "vue-i18n"
 
 // communication with stepped children
 const step = ref(1)
@@ -13,63 +12,59 @@ const refnat = ref(null)
 const refconfirmation = ref(null)
 const today = new Date()
 
-// 7th of May
-const active = today.getMonth() < 5 && today.getDate() < 7
-
+// cutoff after 2nd of February 2025
+const cutoffdate = new Date(2025, 1, 3)
+const active = cutoffdate.valueOf() > today.valueOf()
 
 // data model
-const enrollment = ref({})
-
+const registration = ref({})
 
 // i18n
 const { t } = useI18n()
 
 function changeStep(s) {
-  console.log('receive update step', s)
+  console.log("receive update step", s)
   step.value = s
   switch (s) {
     case 1:
-      refintro.value.setup(enrollment.value)
+      refintro.value.setup(registration.value)
       break
     case 2:
-      refidnumber.value.setup(enrollment.value)
+      refidnumber.value.setup(registration.value)
       break
     case 3:
-      refdetails.value.setup(enrollment.value)
+      refdetails.value.setup(registration.value)
       break
     case 4:
-      refphoto.value.setup(enrollment.value)
+      refphoto.value.setup(registration.value)
       break
     case 5:
-      refnat.value.setup(enrollment.value)
+      refnat.value.setup(registration.value)
       break
     case 6:
-      refconfirmation.value.setup(enrollment.value)
+      refconfirmation.value.setup(registration.value)
       break
   }
 }
 
-function updateEnrollment(l) {
-  console.log('enrollment updated', l)
-  Object.assign(enrollment.value, l)
+function updateRegistration(l) {
+  console.log("registration updated", l)
+  Object.assign(registration.value, l)
 }
 
 function restart() {
-  enrollment.value = {}
+  registration.value = {}
   step.value = 1
 }
-
 </script>
 
 <template>
   <v-container fluid>
-    <h1 class="my-2">
-      {{ t('enroll.tool') }}
-    </h1>
+    <h1 class="my-2">{{ t("enroll.tool") }} {{ t("BYC 2025") }}</h1>
     <div v-if="!active">
       <p class="mt-5">Inschrijvingen afgesloten</p>
       <p class="mt-5">Enregistrements clôturés</p>
-      <p class="mt-5">Enrollments closed</p>
+      <p class="mt-5">Registrations closed</p>
       <p class="mt-5">Anmeldungen geschlossen</p>
     </div>
     <div v-if="active">
@@ -79,57 +74,80 @@ function restart() {
           Intro
         </v-card-title>
         <v-card-text>
-          <EnrollmentIntro_bjk v-show="step == 1" ref="refintro" @change-step="changeStep" />
+          <RegistrationIntro_bjk
+            v-show="step == 1"
+            ref="refintro"
+            @change-step="changeStep"
+          />
         </v-card-text>
       </v-card>
       <v-card class="my-2">
         <v-card-title class="text-h5 py-2 mb-2 bottomline">
           <v-chip>2</v-chip>
-          {{ t('ID number') }}
+          {{ t("ID number") }}
         </v-card-title>
         <v-card-text>
-          <EnrollmentIdnumber_bjk v-show="step == 2" ref="refidnumber" @change-step="changeStep"
-            @update-enrollment="updateEnrollment" />
+          <RegistrationIdnumber_bjk
+            v-show="step == 2"
+            ref="refidnumber"
+            @change-step="changeStep"
+            @update-registration="updateRegistration"
+          />
         </v-card-text>
       </v-card>
       <v-card class="my-2">
         <v-card-title class="text-h5 py-2 mb-2 bottomline">
           <v-chip>3</v-chip>
-          {{ t('Details') }}
+          {{ t("Details") }}
         </v-card-title>
         <v-card-text>
-          <EnrollmentDetails_bjk v-show="step == 3" ref="refdetails" @change-step="changeStep"
-            @update-enrollment="updateEnrollment" />
+          <RegistrationDetails_bjk
+            v-show="step == 3"
+            ref="refdetails"
+            @change-step="changeStep"
+            @update-registration="updateRegistration"
+          />
         </v-card-text>
       </v-card>
       <v-card class="my-2">
         <v-card-title class="text-h5 py-2 mb-2 bottomline">
           <v-chip>4</v-chip>
-          {{ t('Photo') }}
+          {{ t("Photo") }}
         </v-card-title>
         <v-card-text v-show="step == 4">
-          <EnrollmentPhoto ref="refphoto" @change-step="changeStep"
-            @update-enrollment="updateEnrollment" />
+          <RegistrationPhoto
+            ref="refphoto"
+            @change-step="changeStep"
+            @update-registration="updateRegistration"
+          />
         </v-card-text>
       </v-card>
       <v-card class="my-2">
         <v-card-title class="text-h5 py-2 mb-2 bottomline">
           <v-chip>5</v-chip>
-          {{ t('Nationality') }}
+          {{ t("Nationality") }}
         </v-card-title>
         <v-card-text>
-          <EnrollmentNationality v-show="step == 5" ref="refnat" @change-step="changeStep"
-            @update-enrollment="updateEnrollment" />
+          <RegistrationNationality
+            v-show="step == 5"
+            ref="refnat"
+            @change-step="changeStep"
+            @update-registration="updateRegistration"
+          />
         </v-card-text>
       </v-card>
       <v-card class="my-2">
         <v-card-title class="text-h5 py-2 mb-2 bottomline">
           <v-chip>6</v-chip>
-          {{ t('Confirmation') }}
+          {{ t("Confirmation") }}
         </v-card-title>
         <v-card-text>
-          <EnrollmentConfirmation_bjk v-show="step == 6" ref="refconfirmation"
-            @change-step="changeStep" @restart="restart" />
+          <RegistrationConfirmation_bjk
+            v-show="step == 6"
+            ref="refconfirmation"
+            @change-step="changeStep"
+            @restart="restart"
+          />
         </v-card-text>
       </v-card>
     </div>

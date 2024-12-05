@@ -1,13 +1,13 @@
 <script setup>
-import { ref, computed } from 'vue'
-import { useI18n } from 'vue-i18n'
-import VueCropper from 'vue-cropperjs'
-import 'cropperjs/dist/cropper.css';
-import ProgressLoading from '@/components/ProgressLoading.vue'
-import SnackbarMessage from '@/components/SnackbarMessage.vue'
+import { ref, computed } from "vue"
+import { useI18n } from "vue-i18n"
+import VueCropper from "vue-cropperjs"
+import "cropperjs/dist/cropper.css"
+import ProgressLoading from "@/components/ProgressLoading.vue"
+import SnackbarMessage from "@/components/SnackbarMessage.vue"
 
 // communication
-const emit = defineEmits(['changeStep', 'updateEnrollment'])
+const emit = defineEmits(["changeStep", "updateRegistration"])
 defineExpose({ setup })
 const { $backend } = useNuxtApp()
 
@@ -33,17 +33,16 @@ async function uploadPhoto() {
   let reply
   showLoading(true)
   photo.value = photosrc.value.getCroppedCanvas({ width: 160 }).toDataURL()
+  console.log("uploading idsub", idsub, idsub.value)
   try {
-    reply = await $backend("enrollment", "upload_photo", {
+    reply = await $backend("registration", "upload_photo", {
       photo: photo.value,
-      idsub: idsub.value
+      idsub: idsub.value,
     })
-    emit('changeStep', step + 1)
-  }
-  catch (error) {
+    emit("changeStep", step + 1)
+  } catch (error) {
     showSnackbar(error.message)
-  }
-  finally {
+  } finally {
     showLoading(false)
   }
 }
@@ -53,51 +52,46 @@ function handleFile(event) {
   reader.onload = (event) => {
     photosrc.value.replace(event.target.result)
   }
-  reader.readAsDataURL(event[0])
+  console.log("file", event)
+  reader.readAsDataURL(event)
 }
-
 
 function next() {
   uploadPhoto()
 }
 
 function prev() {
-  emit('changeStep', step - 1)
+  emit("changeStep", step - 1)
 }
 
 function setup(e) {
-  console.log('setup photo', e)
+  console.log("setup photo", e)
   first_name.value = e.first_name
   last_name.value = e.last_name
   idsub.value = e.idsub
 }
 
-
 function tValidator(f) {
   // returns a new function that translates the outcome of a validator
   function tf(v) {
     let s = f(v)
-    if (typeof (s) === "string" || s instanceof String) {
+    if (typeof s === "string" || s instanceof String) {
       return t(s)
-    }
-    else {
+    } else {
       return s
     }
   }
   return tf
 }
 
-function updateEnrollment() {
-  emit('updateEnrollment', {
-
-  })
+function updateRegistration() {
+  emit("updateRegistration", {})
 }
 
 onMounted(() => {
   showSnackbar = refsnackbar.value.showSnackbar
   showLoading = refloading.value.showLoading
 })
-
 </script>
 <template>
   <v-form>
@@ -105,14 +99,14 @@ onMounted(() => {
       <SnackbarMessage ref="refsnackbar" />
       <ProgressLoading ref="refloading" />
       <v-row class="mt-2">
-        <h2>{{ $t('Photo') }}</h2>
+        <h2>{{ $t("Photo") }}</h2>
       </v-row>
       <v-row class="my-2">
-        <div class="my-2">{{ $t('enrollvk.pho_upload') }}</div>
+        <div class="my-2">{{ $t("enrollvk.pho_upload") }}</div>
       </v-row>
       <v-row class="my-2">
         <v-col cols="12">
-          <div class="my-2">{{ $t('enrollvk.pho_browse') }}</div>
+          <div class="my-2">{{ $t("enrollvk.pho_browse") }}</div>
         </v-col>
         <v-col cols="12">
           <v-file-input label="Badge" v-model="photo" @update:modelValue="handleFile" />
@@ -120,14 +114,23 @@ onMounted(() => {
       </v-row>
       <v-row class="my-2">
         <v-col cols="12">
-          <div>{{ $t('enrollvk.pho_crop') }}</div>
+          <div>{{ $t("enrollvk.pho_crop") }}</div>
         </v-col>
-        <vue-cropper ref="photosrc" :view-mode="2" drag-mode="crop" :auto-crop-area="0.5"
-          :background="true" src="" alt=" " :aspect-ratio="0.8" preview="#photoresult"
-          :img-style="{ height: '400px' }" />
+        <vue-cropper
+          ref="photosrc"
+          :view-mode="2"
+          drag-mode="crop"
+          :auto-crop-area="0.5"
+          :background="true"
+          src=""
+          alt=" "
+          :aspect-ratio="0.8"
+          preview="#photoresult"
+          :img-style="{ height: '400px' }"
+        />
       </v-row>
       <v-row class="my-2">
-        <h4>{{ $t('enrollvk.pho_result') }}</h4>
+        <h4>{{ $t("enrollvk.pho_result") }}</h4>
       </v-row>
       <v-row class="my-2">
         <div id="photoresult" ref="photoresult" class="photoresult" />
@@ -135,10 +138,10 @@ onMounted(() => {
       <v-row class="mt-4">
         <div>
           <v-btn class="ml-2" @click="prev" color="primary">
-            {{ $t('Back') }}
+            {{ $t("Back") }}
           </v-btn>
           <v-btn class="ml-2" color="primary" @click="next">
-            {{ $t('Continue') }}
+            {{ $t("Continue") }}
           </v-btn>
         </div>
       </v-row>

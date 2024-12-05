@@ -1,4 +1,4 @@
-## Bestätigung Registrierung BJLM 2024
+## Bestätigung Registrierung BJLM 2025
 
 ### Teilnehmerdetails
 

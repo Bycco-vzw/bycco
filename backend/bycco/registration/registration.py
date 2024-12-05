@@ -50,7 +50,7 @@ async def get_registrations_bjk(options: dict = {}) -> List[RegistrationItem]:
     filter = options.copy()
     filter["_model"] = filter.pop("_model", RegistrationItem)
     filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
-    filter["event"] = "bjk2024"
+    filter["event"] = "bjk2025"
     return [
         cast(RegistrationItem, x) for x in await DbRegistration.find_multiple(filter)
     ]
@@ -76,7 +76,7 @@ async def get_registration_bjk(id: str, options: dict = {}) -> Registration:
     filter["_model"] = filter.pop("_model", Registration)
     filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
     filter["id"] = id
-    filter["event"] = "bjk2024"
+    filter["event"] = "bjk2025"
     enr = cast(Registration, await DbRegistration.find_single(filter))
     return enr
 
@@ -213,7 +213,7 @@ async def create_registration_bjk(ei: RegistrationIn) -> str:
     else:
         eidict = ei.model_dump()
         eidict.pop("idsub", None)
-        eidict["event"] = "bjk2024"
+        eidict["event"] = "bjk2025"
         eidict["representative"] = {
             "emailattendant": eidict.pop("emailattendant", ""),
             "emailparent": eidict.pop("emailparent", ""),
@@ -346,7 +346,7 @@ async def confirm_registration(id: str, bt: BackgroundTasks) -> None:
         confirmed=True, registrationtime=datetime.now(), enabled=True
     )
     enr = await update_registration(id, su)
-    if enr.event == "bjk2024":
+    if enr.event == "bjk2025":
         sendemail_registration_bjk(enr)
     else:
         sendemail_registration_vk(enr)
@@ -389,7 +389,7 @@ def sendemail_registration_bjk(enr: Registration) -> None:
     em2 = enr.representative.emailattendant.split(",")
     em3 = enr.representative.emailparent.split(",")
     mp = MailParams(
-        subject="BJK 2024 / CBJ 2024 / BJLM 2024",
+        subject="BJK 2025 / CBJ 2025 / BJLM 2025",
         sender=settings.EMAIL["sender"],
         receiver=",".join(em1 + em2 + em3),
         template="mailregistration_bjk_{locale}.md",

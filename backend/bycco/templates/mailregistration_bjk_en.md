@@ -1,4 +1,4 @@
-## Confirmation registration BYCC 2024
+## Confirmation registration BYCC 2025
 
 ### Participant Details
 

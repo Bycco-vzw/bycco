@@ -1,12 +1,12 @@
 <script setup>
-import { ref } from 'vue'
-import { useI18n } from 'vue-i18n'
-import ProgressLoading from '@/components/ProgressLoading.vue'
-import SnackbarMessage from '@/components/SnackbarMessage.vue'
-import { categories } from '@/util/constants'
+import { ref } from "vue"
+import { useI18n } from "vue-i18n"
+import ProgressLoading from "@/components/ProgressLoading.vue"
+import SnackbarMessage from "@/components/SnackbarMessage.vue"
+import { categories } from "~/utils/constants"
 
 // communication
-const emit = defineEmits(['changeStep', 'updateEnrollment'])
+const emit = defineEmits(["changeStep", "updateRegistration"])
 defineExpose({ setup })
 const { $backend } = useNuxtApp()
 
@@ -39,24 +39,21 @@ const isFidePlayerFound = ref(false)
 const errorcode = ref(null)
 const step = 2
 
-
 async function lookup_bel() {
   let member
   errorcode.value = null
   showLoading(true)
   try {
-    const reply = await $backend('enrollment', 'lookup_idbel', {
-      idbel: idbel.value.trim()
+    const reply = await $backend("registration", "lookup_idbel", {
+      idbel: idbel.value.trim(),
     })
     console.log("bel member", reply.data)
     member = reply.data
-  }
-  catch (error) {
-    console.error('lookup_bel failed', error)
+  } catch (error) {
+    console.error("lookup_bel failed", error)
     errorcode.value = "notfound"
     return
-  }
-  finally {
+  } finally {
     showLoading(false)
   }
   isBelPlayerFound.value = member.belfound
@@ -65,7 +62,7 @@ async function lookup_bel() {
   first_name.value = member.first_name
   gender.value = member.gender
   idclub.value = member.idclub
-  idfide.value = member.idfide + ''
+  idfide.value = member.idfide + ""
   last_name.value = member.last_name
   nationalitybel.value = member.nationalitybel
   nationalityfide.value = member.nationalityfide
@@ -80,13 +77,13 @@ async function lookup_bel() {
 }
 
 function next() {
-  updateEnrollment()
-  emit('changeStep', step + 1)
+  updateRegistration()
+  emit("changeStep", step + 1)
 }
 
 function prev() {
-  updateEnrollment()
-  emit('changeStep', step - 1)
+  updateRegistration()
+  emit("changeStep", step - 1)
 }
 
 function restart() {
@@ -100,15 +97,14 @@ function restart() {
 function setup(e) {
   idbel.value = e.idbel
   idfide.value = e.idfide
-  first_name.value = e.first_name + ''
-  last_name.value = e.last_name + ''
+  first_name.value = e.first_name + ""
+  last_name.value = e.last_name + ""
   ratingbel.value = e.ratingbel + 0
   ratingfide.value = e.ratingfide + 0
-
 }
 
-function updateEnrollment() {
-  emit('updateEnrollment', {
+function updateRegistration() {
+  emit("updateRegistration", {
     birthyear: birthyear.value,
     first_name: first_name.value,
     gender: gender.value,
@@ -127,17 +123,16 @@ onMounted(() => {
   showSnackbar = refsnackbar.value.showSnackbar
   showLoading = refloading.value.showLoading
 })
-
 </script>
 <template>
   <v-container>
     <SnackbarMessage ref="refsnackbar" />
     <ProgressLoading ref="refloading" />
     <v-row class="my-2">
-      <h2>{{ t('enroll.idn_title') }}</h2>
+      <h2>{{ t("enroll.idn_title") }}</h2>
     </v-row>
     <v-row class="mt-2">
-      <div>{{ t('enroll.idn_enter') }}</div>
+      <div>{{ t("enroll.idn_enter") }}</div>
     </v-row>
     <v-row>
       <v-col cols="12" md="6">
@@ -145,37 +140,37 @@ onMounted(() => {
       </v-col>
       <v-col cols="12" md="6">
         <v-btn color="primary" @click="lookup_bel()">
-          {{ t('Lookup') }}
+          {{ t("Lookup") }}
         </v-btn>
       </v-col>
     </v-row>
     <v-alert v-show="errorcode" type="error" class="mt-2" closable>
       <div v-show="errorcode == 'notfound'">
-        <div>{{ t('enroll.idn_notfound') }}</div>
+        <div>{{ t("enroll.idn_notfound") }}</div>
       </div>
       <div v-show="errorcode == 'alreadyregistered'">
-        {{ t('enroll.idn_alreadyregistered') }}
+        {{ t("enroll.idn_alreadyregistered") }}
       </div>
       <div v-show="errorcode == 'noyouth'">
-        {{ t('enroll.idn_noyouth') }}
+        {{ t("enroll.idn_noyouth") }}
       </div>
       <div v-show="errorcode == 'unknown'">
-        {{ t('UnknownError') }}
+        {{ t("UnknownError") }}
       </div>
     </v-alert>
     <div class="mt-4">
       <div v-show="isBelPlayerFound">
-        {{ t('enroll.idn_playerfound') }} {{ first_name }} {{ last_name }}
+        {{ t("enroll.idn_playerfound") }} {{ first_name }} {{ last_name }}
       </div>
       <div class="mt-2">
         <v-btn class="ml-2" @click="prev" color="primary">
-          {{ t('Back') }}
+          {{ t("Back") }}
         </v-btn>
         <v-btn :disabled="!isBelPlayerFound" class="ml-2" color="primary" @click="next">
-          {{ t('Continue') }}
+          {{ t("Continue") }}
         </v-btn>
         <v-btn class="ml-2" @click="restart">
-          {{ t('Other player') }}
+          {{ t("Other player") }}
         </v-btn>
       </div>
     </div>
