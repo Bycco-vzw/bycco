@@ -134,7 +134,12 @@ async def create_registration_bjk(ei: RegistrationIn) -> str:
         enrid = await add_registration(eidict)
     meu = RegistrationUpdate()
     try:
-        pl = await lookup_idbel(ei.idbel)
+        if ei.idfide:
+            pl = await lookup_idfide(ei.idfide)
+            meu.ratingfide = pl.ratingfide
+        else:
+            pl = await lookup_idbel(ei.idbel)
+            meu.ratingfide = 0
         meu.birthyear = pl.birthyear
         meu.gender = pl.gender
         meu.first_name = pl.first_name
