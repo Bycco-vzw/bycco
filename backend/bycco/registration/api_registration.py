@@ -3,14 +3,10 @@
 
 import logging
 
-
-from fastapi import HTTPException, BackgroundTasks, Depends, APIRouter
-from fastapi.security import HTTPAuthorizationCredentials
-from reddevil.core import RdException, bearer_schema
-from reddevil.core import validate_token
+from fastapi import HTTPException, BackgroundTasks, APIRouter
+from reddevil.core import RdException
 
 from bycco.registration import (
-    Registration,
     RegistrationIn,
     RegistrationItem,
     RegistrationNoBadge,
@@ -28,7 +24,6 @@ from bycco.registration import (
 )
 
 logger = logging.getLogger(__name__)
-logger.info("running api_registration.py AHA")
 
 router = APIRouter(prefix="/api/v1/registration")
 

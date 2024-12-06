@@ -42,3 +42,11 @@ help = "run yarn in frontend directory"
     positional = true
     help = "run yarn command"
 
+
+[tool.poe.tasks.generate]
+shell = """
+    pushd frontend
+    API_URL=https://www.bycco.be yarn generate
+    popd
+"""
+help = "generate frontend distribution"

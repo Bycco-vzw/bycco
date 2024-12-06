@@ -28,6 +28,8 @@ from bycco.registration import (
 
 logger = logging.getLogger(__name__)
 
+logger.info("loading registration code")
+
 api_lookupbel = "/api/v1/member/anon/member/{id}"
 api_lookupfide = "/api/v1/member/anon/fidemember/{id}"
 api_fideis2belid = "/api/v1/member/anon/fideid2belid/{id}"

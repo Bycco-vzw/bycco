@@ -59,9 +59,6 @@ from bycco.attendee import api_attendee  # noqa E402
 logger.info("loading api_filestore")
 from reddevil.filestore import api_filestore  # noqa E402
 
-logger.info("loading api_registration")
-from backend.bycco.registration import api_registration  # noqa E402
-
 logger.info("loading api_stay")
 from bycco.stay import api_stay  # noqa E402
 
@@ -77,17 +74,21 @@ from bycco.participant import api_participant  # noqa E402
 logger.info("loading api_paymentrequest")
 from bycco.paymentrequest import api_paymentrequest  # noqa E402
 
+logger.info("loading api_registration")
+from bycco.registration import api_registration  # noqa E402
+
 logger.info("loading api_statamic")
 from bycco.statamic import api_statamic  # noqa E402
 
 logger.info("loading api_tournament")
 from bycco.tournament import api_tournament  # noqa E402
 
+
 app.include_router(api_account.router)
 app.include_router(api_attendee.router)
-app.include_router(api_registration.router)
 app.include_router(api_filestore.router)
 app.include_router(api_stay.router)
+app.include_router(api_registration.router)
 app.include_router(api_room.router)
 app.include_router(api_participant.router)
 app.include_router(api_paymentrequest.router)
@@ -95,6 +96,7 @@ app.include_router(api_statamic.router)
 app.include_router(api_page.router)
 app.include_router(api_tournament.router)
 logger.info("Api's loaded")
+
 
 # static files fro dev only
 if settings.BYCCO_MODE != "production":
