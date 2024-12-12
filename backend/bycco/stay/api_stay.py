@@ -16,7 +16,7 @@ from bycco.stay.stay import (
     get_stays,
     unassign_room,
     update_stay,
-    xls_stays,
+    xls_stay,
 )
 from bycco.stay.md_stay import (
     Stay,
@@ -99,13 +99,13 @@ async def api_unassign_room(id: str, roomnr: str):
         raise HTTPException(status_code=500)
 
 
-@router.get("/cmd/xls_stays")
+@router.get("/cmd/xls_stay")
 async def api_xls_stays(
     auth: HTTPAuthorizationCredentials = Depends(bearer_schema),
 ):
     await validate_token(auth)
     try:
-        xlsfile = await xls_stays()
+        xlsfile = await xls_stay()
         return {"xls64": base64.b64encode(xlsfile)}
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)

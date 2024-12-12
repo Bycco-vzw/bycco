@@ -251,7 +251,7 @@ async def unassign_room(id: str, roomnr: str) -> Stay:
     return await update_stay(id, Stay(assignments=assignments, logging=logging))
 
 
-async def xls_stays() -> bytes:
+async def xls_stay() -> bytes:
     """
     get all reservations in xls format
     """

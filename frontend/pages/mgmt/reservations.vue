@@ -81,7 +81,7 @@ async function downloadReservations() {
   let reply, xls
   showLoading(true)
   try {
-    reply = await $backend("stay", "mgmt_xls_stays", {
+    reply = await $backend("stay", "mgmt_xls_stay", {
       token: token.value,
     })
     console.log("xls reply", reply)
