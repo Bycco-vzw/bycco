@@ -51,6 +51,7 @@ function rules_bjk() {
           <v-list-item v-bind="props" :title="t('BYC 2025')" />
         </template>
         <v-list-item to="schedule" :title="t('Game schedule')" />
+        <v-list-item to="/registration_bjk" :title="t('enroll.tool')" />
         <!-- <v-list-item @click="rules_bjk" :title="t('Tournament Rules')" />
         <v-list-item to="/trn_u8" title="U8" />
         <v-list-item to="/trn_u10" title="U10" />

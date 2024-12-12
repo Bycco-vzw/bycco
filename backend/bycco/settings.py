@@ -14,7 +14,7 @@ EMAIL = {
     "backend": os.environ.get("EMAIL_BACKEND", "GMAIL"),
     "sender": "ruben.decrop@bycco.be",
     "bcc_reservation": "ruben.decrop@gmail.com,floreal@bycco.be",
-    "bcc_enrollment": "ruben.decrop@gmail.com,luc.cornet@bycco.be",
+    "bcc_registration": "ruben.decrop@gmail.com,luc.cornet@bycco.be",
     # "gmail_file": os.environ.get("GMAIL_FILE", "chessdevil-gmail.json"),
     "account": "ruben.decrop@bycco.be",
 }
@@ -99,7 +99,7 @@ SECRETS = {
 
 SECRETS_PATH = Path(os.environ.get("SECRETS_PATH", ""))
 
-SHARED_PATH = Path(os.environ.get("SHARED_PATH", "../share"))
+SHARED_PATH = Path(os.environ.get("SHARED_PATH", "./share"))
 
 TEMPLATES_PATH = Path(os.environ.get("TEMPLATES_PATH", "./bycco/templates"))
 

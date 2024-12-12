@@ -1,6 +1,6 @@
 runtime: python311
 entrypoint: gunicorn bycco.main:app --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT
-service: bycco-api
+
 
 env_variables:
   FILESTORE_BUCKET: byccowebsiteprod.appspot.com
@@ -9,6 +9,26 @@ env_variables:
 
 
 handlers:
-  - url: /.*
+  - url: /api/.*
     script: auto
+    secure: always
+
+  - url: /(.*\..+)$
+    static_files: dist/\1
+    upload: dist/(.*\..+)$
+    secure: always
+
+  - url: /
+    static_files: dist/index.html
+    secure: always
+    upload: dist/index.html
+
+  - url: /([^\.]*)$
+    static_files: dist/\1/index.html
+    upload: dist/([^\.]*)/index.html
+    secure: always
+
+  - url: /.*
+    static_files: dist/index.html
+    upload: dist/index.html
     secure: always

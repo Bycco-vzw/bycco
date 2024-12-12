@@ -1,7 +1,8 @@
 # copyright Ruben Decrop 2012 - 2024
 # copyright Chessdevil Consulting 2015 - 2024
 
-import logging, logging.config
+import logging
+import logging.config
 
 from fastapi import FastAPI
 from fastapi.routing import APIRoute
@@ -58,9 +59,6 @@ from bycco.attendee import api_attendee  # noqa E402
 logger.info("loading api_filestore")
 from reddevil.filestore import api_filestore  # noqa E402
 
-logger.info("loading api_enrollment")
-from bycco.enrollment import api_enrollment  # noqa E402
-
 logger.info("loading api_stay")
 from bycco.stay import api_stay  # noqa E402
 
@@ -76,36 +74,45 @@ from bycco.participant import api_participant  # noqa E402
 logger.info("loading api_paymentrequest")
 from bycco.paymentrequest import api_paymentrequest  # noqa E402
 
+logger.info("loading api_registration")
+from bycco.registration import api_registration  # noqa E402
+
 logger.info("loading api_statamic")
 from bycco.statamic import api_statamic  # noqa E402
 
 logger.info("loading api_tournament")
 from bycco.tournament import api_tournament  # noqa E402
 
+
 app.include_router(api_account.router)
 app.include_router(api_attendee.router)
-app.include_router(api_enrollment.router)
 app.include_router(api_filestore.router)
 app.include_router(api_stay.router)
+app.include_router(api_registration.router)
 app.include_router(api_room.router)
 app.include_router(api_participant.router)
 app.include_router(api_paymentrequest.router)
 app.include_router(api_statamic.router)
 app.include_router(api_page.router)
 app.include_router(api_tournament.router)
-logger.info(f"Api's loaded")
+logger.info("Api's loaded")
 
-# static files
-app.mount("/css", StaticFiles(directory="css"), name="css")
-app.mount("/img", StaticFiles(directory="img"), name="img")
 
-# fetch the common
+# static files fro dev only
+if settings.BYCCO_MODE != "production":
+    app.mount("/css", StaticFiles(directory="frontend/public/css"), name="css")
+    app.mount("/img", StaticFiles(directory="frontend/public/img"), name="img")
+    logger.info("static dirs loaded")
 
-#    Simplify operation IDs so that generated API clients have simpler function
-#    names.
+
+#    Simplify operation IDs so that generated API clients have simpler function names.
 for route in app.routes:
     if isinstance(route, APIRoute):
         route.operation_id = route.name[4:]
 
+logger.info("routes adapted")
+
 # importing test endpoints
-import bycco.tst_endpoints
+import bycco.tst_endpoints  # noqa E402
+
+logger.info("test endpoints loaded")

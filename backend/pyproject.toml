@@ -1,8 +1,11 @@
 [tool.poetry]
 name = "bycco"
-version = "3.2.1"
+version = "3.3.0"
 description = "Bycco backend"
 authors = ["Ruben Decrop <ruben.decrop@bycco.be>"]
+packages = [
+    { include = "bycco", from = "backend" }
+]
 
 [tool.poetry.dependencies]
 python = "^3.11"
@@ -11,7 +14,7 @@ gunicorn = "^21.2.0"
 python-dotenv = "^1.0.1"
 openpyxl = "^3.1.2"
 asyncssh = "^2.14.2"
-reddevil = {path = "libs/reddevil-3.3.8-py3-none-any.whl"}
+reddevil = {path = "backend/libs/reddevil-3.3.8-py3-none-any.whl"}
 
 [tool.poetry.group.dev.dependencies]
 black = "^23"
@@ -22,3 +25,44 @@ toml = "^0.10.2"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poe.tasks.launch]
+cmd = "uvicorn bycco.main:app --reload"
+help = "Run the backend uvicorn server"
+
+[tool.poe.tasks.yarn]
+shell = """
+    pushd frontend
+    yarn $yarncmd
+    popd
+"""
+help = "run yarn in frontend directory"
+
+    [tool.poe.tasks.yarn.args.yarncmd]
+    positional = true
+    help = "run yarn command"
+
+
+[tool.poe.tasks.generate]
+shell = """
+    pushd frontend
+    API_URL=https://www.bycco.be yarn generate
+    popd
+"""
+help = "generate frontend distribution"
+
+[tool.poe.tasks.deploy]
+shell = """
+    pushd backend
+    gcloud app deploy --quiet
+    popd
+"""
+help = "deploy app on google cloud"
+
+[tool.poe.tasks.i18n]
+shell = """
+    pushd backend
+    python -m bycco.scripts.i18n
+    popd
+"""
+help = "regenerate tranlstalstion"

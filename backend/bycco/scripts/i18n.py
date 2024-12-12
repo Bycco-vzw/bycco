@@ -1,7 +1,7 @@
 import csv
 from pathlib import Path
 
-rootdir = Path("..")
+rootdir = Path(__file__).parent.parent.parent.parent
 
 
 def process_i18n():

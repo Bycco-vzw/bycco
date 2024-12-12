@@ -3,7 +3,7 @@ import accounts from "@/api/accounts"
 import attendee from "@/api/attendee"
 import filestore from "@/api/filestore"
 import stay from "@/api/stay"
-import enrollment from "@/api/enrollment"
+import registration from "@/api/registration"
 import page from "@/api/page"
 import participant from "@/api/participant"
 import payment from "@/api/payment"
@@ -66,12 +66,12 @@ axios.interceptors.response.use(
 const factories = {
   accounts,
   attendee,
-  enrollment,
   filestore,
   stay,
   page,
   participant,
   payment,
+  registration,
   tournament,
 }
 
