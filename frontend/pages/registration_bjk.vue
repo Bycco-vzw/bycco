@@ -74,7 +74,7 @@ function restart() {
           Intro
         </v-card-title>
         <v-card-text>
-          <RegistrationIntro_bjk
+          <RegistrationIntro
             v-show="step == 1"
             ref="refintro"
             @change-step="changeStep"
@@ -87,7 +87,7 @@ function restart() {
           {{ t("ID number") }}
         </v-card-title>
         <v-card-text>
-          <RegistrationIdnumber_bjk
+          <RegistrationIdnumber
             v-show="step == 2"
             ref="refidnumber"
             @change-step="changeStep"
@@ -101,7 +101,7 @@ function restart() {
           {{ t("Details") }}
         </v-card-title>
         <v-card-text>
-          <RegistrationDetails_bjk
+          <RegistrationDetails
             v-show="step == 3"
             ref="refdetails"
             @change-step="changeStep"
@@ -142,7 +142,7 @@ function restart() {
           {{ t("Confirmation") }}
         </v-card-title>
         <v-card-text>
-          <RegistrationConfirmation_bjk
+          <RegistrationConfirmation
             v-show="step == 6"
             ref="refconfirmation"
             @change-step="changeStep"

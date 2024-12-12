@@ -1,11 +1,17 @@
 ctx,key,server,nl,en,fr,de
 enroll,cfm_champion,,Kan Belgisch kampioen worden,Can become Belgian champion,Peut devenir champion de Belgique,Kann belgischer Meister werden
+enroll,cfm_confirm,,Bevestigen,Confirm,Confirmer,Bestätigen
+enroll,cfm_confirmed,,Bevestigd,Confirmed,Confirm,Bestätigt
+enroll,cfm_new,,Nieuwe inschrijving,New enrollment,Nouvel enregistrement,Neue Anmeldung
+enroll,cfm_paymentinstructions,,Je zal een aparte email ontvangen met de betaalinstructies,You will receive a separate email with payment instructions,Vous recevrez un e-mail séparé avec les instructions de paiement,Sie erhalten eine separate E-Mail mit den Zahlungsanweisungen
+enroll,cfm_title,,Bevestiging,Confirmation,Confirmation,Bestätigung
 enroll,closed,,De inschrijvingen zijn officieel gesloten.,The enrollments are officially closed.,Les inscriptions sont officiellement terminées.,Die Anmeldungen sind offiziell geschlossen.
 enroll,det_attendantdetailsnotvalid,,"De naame, het emailadres of het GSM nummer van de begeleider is ongeldig","The attendant's name, email address or mobile number is invalid","Le nom, l'adresse email ou le numéro de GSM de l'accompagnateur n'est pas valide","Der Name, die E-Mail-Adresse oder Handynummer des Begleiters ist ungültig"
 enroll,det_more,,Extra informatie,Extra information,Informations supplémentaires,Zusatzinformation
 enroll,det_parentdetailsnotvalid,,"De naam, het emailadres of het GSM nummer van de ouder is ongeldig","The parent's name, email address or mobile number is invalid","Le nom, l'adresse email ou le numéro de GSM du parent n'est pas valide","Der Name, die E-Mail-Adresse oder Handynummer des Elterteils ist ungültiger "
 enroll,det_playerdetailsnotvalid,,Het emailadres of het GSM nummer van de deelnemer is ongeldig,The participant's email address or mobile number is invalid,L'adresse email ou le numéro de GSM du participant n'est pas valide,Die E-Mail-Adresse oder Handynummer des Teilnehmers ist ungültig
 enroll,det_requiredinfo,,"Voor niet-meerderjarige deelnemers hebben we de coördinaten nodig van een aanwezige ouder en of een aanwezige begeleider. Voor meerderjarigen hebben we het e-mailadres en gsm nummer. Alle overige velden zijn optioneel, maar we vragen toch om die in te vullen.","For non-adult participants, we need the coordinates of a parent and/or attendant present. For adults we have the e-mail address and mobile number. All other fields are optional, but we ask you to fill them in anyway.","Pour les participants non adultes, nous avons besoin des coordonnées d'un parent et/ou d'un accompagnateur présent. Pour les adultes nous disposons de l'adresse e-mail et du numéro de GSM. Tous les autres champs sont facultatifs, mais nous vous demandons de les remplir quand même.","Für nicht volljährige Teilnehmer benötigen wir die Koordinaten eines anwesenden Elternteils und/oder Begleiters. Für Erwachsene haben wir die E-Mail-Adresse und die Handynummer. Alle anderen Felder sind optional, wir bitten Sie jedoch, diese trotzdem auszufüllen."
+enroll,det_title,,Details Inschrijving,Details registration,Détails enregistrement,Details zur Anmeldung
 enroll,gdpr_1,,Je geeft Bycco het recht om jouw persoonlijke data te gebruiken verzameld via dit inschrijvingsformulier.,You give Bycco the right to use the personal data collected in this subscription form.,Vous donnez à Bycco le droit d’utiliser les données collectionnées par ce formulaire d’inscription.,"Sie geben Bycco das Recht, die gesammelten personenbezogenen Daten des Anmeldeformulars zu verwenden."
 enroll,gdpr_2,,Bycco zal de data enkel gebruiken binnen het kader van dit kampioenschap.,Bycco will only use the data for the organisation of this tournament,Bycco n’utilisera ces données que pour l’organisation du championnat.,Bycco wird diese Daten nur zur Organisation dieser Meisterschaften verwenden.
 enroll,gdpr_3,,In geen geval zal Bycco persoonlijke data aan derden geven,In any case Bycco will not leak any personal information to third parties.,"En aucun cas, Bycco mettra les données personnelles à disposition de tierces personnes",In jedem Fall wird Bycco keine persönlichen Informationen an Dritte weitergeben.
@@ -37,47 +43,7 @@ enroll,pho_upload,,"We hebben een foto nodig voor de toernooibadge. Je kiest jou
 enroll,photo_select,,"Eenmaal de foto gekozen, kan je de hendels met de muis verplaatsen om de foto aan te passen. Zorg ervoor dat het gezicht voldoende groot zichtbaar. Wanneer de bewerkte foto OK is, klik op verder","Once the photo is selected, you can move the selector handles with your mouse in order to adjust the photo. Please make sure that the face of player fills the resulting image. When the resulting image seems OK, click continue.","Une fois la photo choisie, vous pouvez déplacer les poignées avec la souris pour ajuster la photo. Veillez à ce que le visage soit suffisamment visible. Lorsque la photo éditée est en ordre, cliquez sur continuer.","Sobald das Foto ausgewählt ist, können Sie die Griffe mit der Maus bewegen, um das Foto anzupassen. Stellen Sie bitte sicher, dass das Gesicht des Spielers das Bild füllt. Klicken Sie auf Weiter, wenn das resultierende Bild korrekt angezeigt wird."
 enroll,SubConf2,,Betaal het bedrag op rekening BE33 0017 5924 5146 van Bycco met de volgende gestructureerde mededeling:,,Veuillez payer le montant au compte BE33 0017 5924 5146 avec le message structuré: ,Überweisen Sie den Betrag auf das Konto BE33 0017 5924 5146 von Bycco mit der strukturierten Mitteilung:
 enroll,SubDetail6,,We hebben authenticatieproblemen vastgesteld toen er data naar de server werd gestuurd. \nWaarschijnlijk bevind je je achter een firewall die de trafiek blokkeert. Probeer de inschrijving\nopnieuw via een rechtstreeks verbinding met het Internet,,Nous rencontrons des problèmes d’authentification lors de l’envoi des données au serveur. \nProbablement vous êtes derrière un firewall qui bloque le trafic. Réessayez en utilisant une connexion directe à l’Internet.,"Bei dem Senden der Daten an den Server treten Probleme bei der Authentifizierung auf. Wahrscheinlich sind Sie hinter einer Firewall, die den Verkehr blockiert. Versuchen Sie es erneut mit einer direkten Verbindung zum Internet."
-enrollvk,cfm_confirm,,Bevestigen,Confirm,,
-enrollvk,cfm_confirmed,,Jouw inschrijving is bevestigd,Confirm,,
-enrollvk,cfm_new,,Nieuwe inschrijving,New enrollment,,
-enrollvk,cfm_paymentinstructions,,Je zal een aparte email ontvangen met de betaalinstructies,You will receive a separate email with payment instructions,,
-enrollvk,cfm_title,,Bevestiging,Confirmation,,
-enrollvk,det_details,,Gelieve de volgende details te voorzien,Please provide the following details,,
-enrollvk,det_experten,,Gesloten expertentoernooi,Closed experts group,,
-enrollvk,det_expremark,,"Voor de gesloten expertengroep, moet je aangewezen zijn. Als een toegewezen expert moet je toch deze inschrijvingsmodule doorlopen voor je badge","Voor de closed experts group, you have to been assigned.  As a chosen expert, you still have to use this enrollment tool for your badge",,
-enrollvk,det_requiredinfo,,Nodige informatie,Required information,,
-enrollvk,det_senioren,,Seniorentoernooi (+50),Senior Torunament (+50),,
-enrollvk,det_title,,Details Inschrijving,Details Enrollment,,
-enrollvk,det_tournament,,Selecteer toernooi,Select tournament,,
-enrollvk,gdpr_1,,Je geeft Bycco het recht om jouw persoonlijke data te gebruiken verzameld via dit inschrijvingsformulier.,You authorize Bycco to use you personal data collected in thos enrollment form,,
-enrollvk,gdpr_2,,Bycco zal de data enkel gebruiken binnen het kader van dit toernooi.,Bycco will  use the data for tournament purposes only,,
-enrollvk,gdpr_3,,Bycco gebruikt jouw profielfoto voor een badge en voor de identificatie op de website.,Bycco will use the profile picture for a badge and for identification on the website.,,
-enrollvk,gdpr_4,,In geen geval zal Bycco persoonlijke data aan derden geven,In any case Bycco will not leak any personal information to third parties.,,
-enrollvk,gdpr_5,,Bycco neemt overzichtsfoto's en -video's tijdens het kampioenschap en publiceert deze op de website en op sociale media.,Bycco is taking overview photos/videos of the championships and can publish these photos/videos on its website and on social media,,
-enrollvk,gdpr_6,,"Indien een close-up van een speler genomen wordt, zal Bycco expliciete toestemming vragen om te publiceren.","If Bycco is taking a close-up photos/video of a player, Bycco will explicitly ask permission to publish",,
-enrollvk,gdpr_agree,,genoteerd,noted,,
-enrollvk,gdpr_title,,GDPR Regels,GDPR rules,,
-enrollvk,idn_alreadyregistered,,Deze speler is al geregistreerd.,This player is already registered.,,
-enrollvk,idn_beldescription,,Geef je stamnummer van de KBSB op,Provide your ID number of the Royal Belgian Chess Federation,,
-enrollvk,idn_fidedescription,,Geef je stamnummer van de FIDE op,Provide your ID number of the FIDE,,
-enrollvk,idn_idbel,,Stamnummer KBSB,ID number RBCF,,
-enrollvk,idn_idfide,,Stamnummer FIDE,ID muber FIDE,,
-enrollvk,idn_idnumber,,Stamnummer,ID number,,
-enrollvk,idn_notfound,,Het stamnummer werd niet gevonden.,The id number could not be found.,,
-enrollvk,idn_otherplayer,,Andere speler,Other player,,
-enrollvk,idn_playerfound,,Speler gevonden:,Player found:,,
-enrollvk,idn_title,,Stamnummer,ID number,,
-enrollvk,intro_intro,,"Om in te schrijven in voor het Vlaams kampioenschap of het seniorentoernooi, heb je de volgende zaken nodig:","In order to enroll in the Flemisch Championshp or the seniors tournament, you need to provide the following elements:",,
-enrollvk,intro_needbelid,,je stamnummer van de KBSB,your ID number from the RBCF,,
-enrollvk,intro_needfideid,,"of, indien je geen belgisch stamnummer hebt, je FIDE ID","or, if you don't have your Belgian ID number, your FIDE ID number",,
-enrollvk,intro_needphoto,,een recente foto voor je badge,a recent photo for your badge,,
-enrollvk,intro_noid,,"Als je geen enkele ID hebt, moet je je tot je schaakclub wenden","If you have no ID at all, please contact your chess club",,
-enrollvk,pho_browse,,Upload een foto door op het icoontje te klikken,Upload a photo by clicking on the icon,,
-enrollvk,pho_crop,,Je gezicht moet centraal staan en minstens de heflt van de foto innnemen,Your face should be centralized and should take at least half of the image,,
-enrollvk,pho_result,,Het resultaatbeeld,The resulting image,,
-enrollvk,pho_upload,,We hebben een foto nodig voor je badge,We need a photo for your badge,,
-enrollvk,tool,,Inschrijvingsmodule,Enrollment tool,,
-enroll,tool,,Inschrijvingsmodule,Enrollment tool,Module d'inscription,Modul Anmeldung
+enroll,tool,,Inschrijvingsmodule,Registation tool,Module d'inscription,Modul Anmeldung
 stay,acc_changedate,,Je kan ervoor opteren om een dag vroeger toe te komen of een dag later te vertrekken,You can choose to arrive a day earlier or leave a day later,Vous pouvez choisir d'arriver un jour plus tôt ou de partir un jour plus tard,"Sie können wählen, ob Sie einen Tag früher anreisen oder einen Tag später abreisen möchten"
 stay,acc_from,,van,from,du,von
 stay,acc_normal,,Normaal gezien is je verblijf van start tot einde van het toernooi,Normally your stay is from the start to the end of the tournament,Normalement votre séjour s'étend du début à la fin du tournoi,Normalerweise dauert Ihr Aufenthalt vom Beginn bis zum Ende des Turniers
@@ -96,10 +62,10 @@ stay,intro_multiple,,De reservering wordt per kamer gedaan.  Wilt u meer dan 1 r
 stay,intro_participant,,welke gasten zijn deelnemers aan het toernooi,which guests are participants to the tournament,quels invités participent au tournoi,welche Gäste nehmen am Turnier teil
 stay,intro_requirements,,Je hebt de volgende zaken nodig om een verblijf te reserveren,In order to make a reservation you need to provide the following elements:,Il vous faut les éléments suivants pour réserver un séjour:,"Um Ihren Aufenthalt zu buchen, benötigen Sie Folgendes"
 stay,intro_responsible,,De details van de verantwoordelijke voor deze reservering,the details of the adult responsible for the reservation,Les détails du responsable adulte de cette résevation,"Die Details der Person, die für diese Reservierung verantwortlich ist"
-stay,reservation,,Reservering,Reservation,Réservation,Reservierung
 stay,res_closed,,"Reservaties via Bycco zijn afgesloten, je kan enkel nog rechtstreeks bij de Floréal reserveren","Reservations via Bycco are closed, you can only directly via the Floreal","Les réservations via Bycco sont clôturées, vous ne pouvez réserver que directement auprès de Floréal","Reservierungen über Bycco wurden geschlossen, Sie können nur direkt bei Floréal buchen"
 stay,res_notstarted,,Reserveringen voor het verblijf zijn nog niet gestart,Reservation for the stay are not started yet,Les réservations pour le séjour ne sont pas encore commencées,Die Reservierung für den Aufenthalt wurde noch nicht begonnen
 stay,res_tool,,Reservatietool,Reservation tool,Outil de réservation,Reservierungstool
+stay,reservation,,Reservering,Reservation,Réservation,Reservierung
 stay,stay,,Verblijf,Stay,Séjour,Unterkunft
 ,{{first_name}} {{last_name}} is an adult at the start of the tournament. For adults we need following information.,1,{{first_name}} {{last_name}} is een volwassene bij het begin van het toernooi.\nVoor volwassenen hebben we de volgende informatie nodig.,{{first_name}} {{last_name}} is an adult at the start of the tournament. For adults we need following information.,"{{first_name}} {{last_name}} est un adulte au début du tournoi. Pour les adultes, il nous faudrait les informations suivantes",{{first_name}} {{last_name}} ist ein Erwachsener zu Beginn des Turniers. Für Erwachsene benötigen wir folgende Informationen
 ,{{first_name}} is a minor at the start of a tournament. For minors we need following information.,1,{{first_name}} is nog minderjarig bij de start van het toernooi. Voor minderjarigen hebben we het volgende nodig.,{{first_name}} is a minor at the start of a tournament. For minors we need following information.,"{{first_name}} {{last_name}} est toujours mineur au début du tournoi. Pour les mineurs, il nous faudrait les informations suivantes.",{{first_name}} {{last_name}} ist zu Beginn des Turniers noch minderjährig. Bei Minderjährige benötigen wir folgende Informationen

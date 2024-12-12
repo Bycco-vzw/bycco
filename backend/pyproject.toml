@@ -14,7 +14,7 @@ gunicorn = "^21.2.0"
 python-dotenv = "^1.0.1"
 openpyxl = "^3.1.2"
 asyncssh = "^2.14.2"
-reddevil = {path = "libs/reddevil-3.3.8-py3-none-any.whl"}
+reddevil = {path = "backend/libs/reddevil-3.3.8-py3-none-any.whl"}
 
 [tool.poetry.group.dev.dependencies]
 black = "^23"
@@ -50,3 +50,19 @@ shell = """
     popd
 """
 help = "generate frontend distribution"
+
+[tool.poe.tasks.deploy]
+shell = """
+    pushd backend
+    gcloud app deploy --quiet
+    popd
+"""
+help = "deploy app on google cloud"
+
+[tool.poe.tasks.i18n]
+shell = """
+    pushd backend
+    python -m bycco.scripts.i18n
+    popd
+"""
+help = "regenerate tranlstalstion"

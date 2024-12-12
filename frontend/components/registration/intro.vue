@@ -25,17 +25,19 @@ function setup(l) {
     </v-row>
     <v-row>
       <div class="mt-2">
-        {{ t('enrollvk.intro_intro') }}
+        {{ t('enroll.intro_intro') }}
         <ul>
-          <li>{{ t('enrollvk.intro_needbelid') }}</li>
-          <li>{{ t('enrollvk.intro_needfideid') }}</li>
-          <li>{{ t('enrollvk.intro_needphoto') }}</li>
+          <li>{{ t('enroll.intro_needbelid') }}</li>
+          <li>{{ t('enroll.intro_needphoto') }}</li>
         </ul>
       </div>
     </v-row>
     <v-row>
       <div class="mt-2">
-        {{ t('enrollvk.intro_noid') }}
+        {{ t('enroll.intro_noid') }}
+      </div>
+      <div class="mt-2">
+        {{ t('enroll.intro_new') }}
       </div>
     </v-row>
     <v-row>

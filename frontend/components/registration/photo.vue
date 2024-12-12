@@ -65,7 +65,7 @@ function prev() {
 }
 
 function setup(e) {
-  console.log("setup photo", e)
+  console.log("setup photo1", e.first_name)
   first_name.value = e.first_name
   last_name.value = e.last_name
   idsub.value = e.idsub
@@ -98,53 +98,32 @@ onMounted(() => {
     <v-container>
       <SnackbarMessage ref="refsnackbar" />
       <ProgressLoading ref="refloading" />
-      <v-row class="mt-2">
-        <h2>{{ $t("Photo") }}</h2>
-      </v-row>
-      <v-row class="my-2">
-        <div class="my-2">{{ $t("enrollvk.pho_upload") }}</div>
-      </v-row>
-      <v-row class="my-2">
-        <v-col cols="12">
-          <div class="my-2">{{ $t("enrollvk.pho_browse") }}</div>
-        </v-col>
-        <v-col cols="12">
-          <v-file-input label="Badge" v-model="photo" @update:modelValue="handleFile" />
-        </v-col>
-      </v-row>
-      <v-row class="my-2">
-        <v-col cols="12">
-          <div>{{ $t("enrollvk.pho_crop") }}</div>
-        </v-col>
-        <vue-cropper
-          ref="photosrc"
-          :view-mode="2"
-          drag-mode="crop"
-          :auto-crop-area="0.5"
-          :background="true"
-          src=""
-          alt=" "
-          :aspect-ratio="0.8"
-          preview="#photoresult"
-          :img-style="{ height: '400px' }"
-        />
-      </v-row>
-      <v-row class="my-2">
-        <h4>{{ $t("enrollvk.pho_result") }}</h4>
-      </v-row>
-      <v-row class="my-2">
-        <div id="photoresult" ref="photoresult" class="photoresult" />
-      </v-row>
-      <v-row class="mt-4">
-        <div>
-          <v-btn class="ml-2" @click="prev" color="primary">
-            {{ $t("Back") }}
-          </v-btn>
-          <v-btn class="ml-2" color="primary" @click="next">
-            {{ $t("Continue") }}
-          </v-btn>
-        </div>
-      </v-row>
+      <h2>{{ $t("Photo") }}</h2>
+      <div class="my-2">{{ $t("enroll.pho_browse") }}</div>
+      <v-file-input label="Badge" v-model="photo" @update:modelValue="handleFile" />
+      <div>{{ $t("enroll.pho_crop") }}</div>
+      <vue-cropper
+        ref="photosrc"
+        :view-mode="2"
+        drag-mode="crop"
+        :auto-crop-area="0.5"
+        :background="true"
+        src=""
+        alt=" "
+        :aspect-ratio="0.8"
+        preview="#photoresult"
+        :img-style="{ height: '400px' }"
+      />
+      <h4 class="mt-2">{{ $t("enroll.pho_result") }}</h4>
+      <div id="photoresult" ref="photoresult" class="photoresult" />
+      <div class="mt-2">
+        <v-btn class="ml-2" @click="prev" color="primary">
+          {{ $t("Back") }}
+        </v-btn>
+        <v-btn class="ml-2" color="primary" @click="next">
+          {{ $t("Continue") }}
+        </v-btn>
+      </div>
     </v-container>
   </v-form>
 </template>

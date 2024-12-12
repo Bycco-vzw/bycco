@@ -1,11 +1,12 @@
 <script setup>
-import { ref } from 'vue'
-import { useI18n } from 'vue-i18n'
-import ProgressLoading from '@/components/ProgressLoading.vue'
-import SnackbarMessage from '@/components/SnackbarMessage.vue'
+import { ref } from "vue"
+import { useI18n } from "vue-i18n"
+import ProgressLoading from "@/components/ProgressLoading.vue"
+import SnackbarMessage from "@/components/SnackbarMessage.vue"
+import { categories } from "~/utils/constants"
 
 // communication
-const emit = defineEmits(['changeStep', 'updateEnrollment'])
+const emit = defineEmits(["changeStep", "updateRegistration"])
 defineExpose({ setup })
 const { $backend } = useNuxtApp()
 
@@ -38,24 +39,21 @@ const isFidePlayerFound = ref(false)
 const errorcode = ref(null)
 const step = 2
 
-
 async function lookup_bel() {
   let member
   errorcode.value = null
   showLoading(true)
   try {
-    const reply = await $backend('enrollment', 'lookup_idbel', {
-      idbel: idbel.value
+    const reply = await $backend("registration", "lookup_idbel", {
+      idbel: idbel.value.trim(),
     })
     console.log("bel member", reply.data)
     member = reply.data
-  }
-  catch (error) {
-    console.error('lookup_bel failed', error)
+  } catch (error) {
+    console.error("lookup_bel failed", error)
     errorcode.value = "notfound"
     return
-  }
-  finally {
+  } finally {
     showLoading(false)
   }
   isBelPlayerFound.value = member.belfound
@@ -64,7 +62,7 @@ async function lookup_bel() {
   first_name.value = member.first_name
   gender.value = member.gender
   idclub.value = member.idclub
-  idfide.value = member.idfide + ''
+  idfide.value = member.idfide + ""
   last_name.value = member.last_name
   nationalitybel.value = member.nationalitybel
   nationalityfide.value = member.nationalityfide
@@ -73,54 +71,19 @@ async function lookup_bel() {
   if (!isBelPlayerFound.value) {
     errorcode.value = "notfound"
   }
-}
-
-async function lookup_fide() {
-  let member
-  errorcode.value = null
-  showLoading(true)
-  try {
-    const reply = await $backend('enrollment', 'lookup_idfide', {
-      idfide: idfide.value
-    })
-    console.log("fide member", reply.data)
-    member = reply.data
-  }
-  catch (error) {
-    console.error('lookup_fide failed', error)
-    errorcode.value = "notfound"
-    return
-  }
-  finally {
-    showLoading(false)
-  }
-  isBelPlayerFound.value = member.belfound
-  isFidePlayerFound.value = true
-  birthyear.value = member.birthyear
-  first_name.value = member.first_name
-  gender.value = member.gender
-  idclub.value = member.idclub
-  idbel.value = member.idbel + ''
-  last_name.value = member.last_name
-  nationalitybel.value = member.nationalitybel
-  nationalityfide.value = member.nationalityfide
-  natstatus.value = member.natstatus
-  ratingbel.value = member.ratingbel
-  ratingfide.value = member.ratingfide
-  if (!isFidePlayerFound.value) {
-    errorcode.value = "notfound"
+  if (birthyear.value < categories[0].year) {
+    errorcode.value = "noyouth"
   }
 }
-
 
 function next() {
-  updateEnrollment()
-  emit('changeStep', step + 1)
+  updateRegistration()
+  emit("changeStep", step + 1)
 }
 
 function prev() {
-  updateEnrollment()
-  emit('changeStep', step - 1)
+  updateRegistration()
+  emit("changeStep", step - 1)
 }
 
 function restart() {
@@ -134,19 +97,18 @@ function restart() {
 function setup(e) {
   idbel.value = e.idbel
   idfide.value = e.idfide
-  first_name.value = e.first_name + ''
-  last_name.value = e.last_name + ''
+  first_name.value = e.first_name + ""
+  last_name.value = e.last_name + ""
   ratingbel.value = e.ratingbel + 0
   ratingfide.value = e.ratingfide + 0
-
 }
 
-function updateEnrollment() {
-  emit('updateEnrollment', {
+function updateRegistration() {
+  emit("updateRegistration", {
     birthyear: birthyear.value,
     first_name: first_name.value,
     gender: gender.value,
-    idbel: idbel.value,
+    idbel: idbel.value.trim(),
     idclub: idclub.value,
     idfide: idfide.value,
     last_name: last_name.value,
@@ -161,68 +123,54 @@ onMounted(() => {
   showSnackbar = refsnackbar.value.showSnackbar
   showLoading = refloading.value.showLoading
 })
-
 </script>
 <template>
   <v-container>
     <SnackbarMessage ref="refsnackbar" />
     <ProgressLoading ref="refloading" />
     <v-row class="my-2">
-      <h2>{{ t('enrollvk.idn_title') }}</h2>
+      <h2>{{ t("enroll.idn_title") }}</h2>
     </v-row>
     <v-row class="mt-2">
-      <div>{{ t('enrollvk.idn_beldescription') }}</div>
+      <div>{{ t("enroll.idn_enter") }}</div>
     </v-row>
     <v-row>
       <v-col cols="12" md="6">
-        <v-text-field v-model="idbel" :label="t('enrollvk.idn_idbel')" :disabled="isFidePlayerFound"
-          required />
+        <v-text-field v-model="idbel" :label="t('enroll.idn_title')" required />
       </v-col>
       <v-col cols="12" md="6">
-        <v-btn color="primary" @click="lookup_bel()" :disabled="isFidePlayerFound">
-          {{ t('Lookup') }}
-        </v-btn>
-      </v-col>
-    </v-row>
-    <v-row class="mt-2">
-      <div>{{ t('enrollvk.idn_fidedescription') }}</div>
-    </v-row>
-    <v-row>
-      <v-col cols="12" md="6">
-        <v-text-field v-model="idfide" :disabled="isBelPlayerFound" :label="t('enrollvk.idn_idfide')"
-          required />
-      </v-col>
-      <v-col cols="12" md="6">
-        <v-btn color="primary" @click="lookup_fide()" :disabled="isBelPlayerFound">
-          {{ t('Lookup') }}
+        <v-btn color="primary" @click="lookup_bel()">
+          {{ t("Lookup") }}
         </v-btn>
       </v-col>
     </v-row>
     <v-alert v-show="errorcode" type="error" class="mt-2" closable>
       <div v-show="errorcode == 'notfound'">
-        <div>{{ t('enrollvk.idn_notfound') }}</div>
+        <div>{{ t("enroll.idn_notfound") }}</div>
       </div>
       <div v-show="errorcode == 'alreadyregistered'">
-        {{ t('enrollvk.idn_alreadyregistered') }}
+        {{ t("enroll.idn_alreadyregistered") }}
+      </div>
+      <div v-show="errorcode == 'noyouth'">
+        {{ t("enroll.idn_noyouth") }}
       </div>
       <div v-show="errorcode == 'unknown'">
-        {{ t('UnknownError') }}
+        {{ t("UnknownError") }}
       </div>
     </v-alert>
     <div class="mt-4">
-      <div v-show="isBelPlayerFound || isFidePlayerFound">
-        {{ t('enrollvk.idn_playerfound') }} {{ first_name }} {{ last_name }}
+      <div v-show="isBelPlayerFound">
+        {{ t("enroll.idn_playerfound") }} {{ first_name }} {{ last_name }}
       </div>
       <div class="mt-2">
         <v-btn class="ml-2" @click="prev" color="primary">
-          {{ t('Back') }}
+          {{ t("Back") }}
         </v-btn>
-        <v-btn :disabled="!isBelPlayerFound && !isFidePlayerFound" class="ml-2" color="primary"
-          @click="next">
-          {{ t('Continue') }}
+        <v-btn :disabled="!isBelPlayerFound" class="ml-2" color="primary" @click="next">
+          {{ t("Continue") }}
         </v-btn>
         <v-btn class="ml-2" @click="restart">
-          {{ t('Other player') }}
+          {{ t("Other player") }}
         </v-btn>
       </div>
     </div>
