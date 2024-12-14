@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "bycco"
-version = "3.3.0"
+version = "3.3.2"
 description = "Bycco backend"
 authors = ["Ruben Decrop <ruben.decrop@bycco.be>"]
 packages = [
@@ -30,17 +30,13 @@ build-backend = "poetry.core.masonry.api"
 cmd = "uvicorn bycco.main:app --reload"
 help = "Run the backend uvicorn server"
 
-[tool.poe.tasks.yarn]
+[tool.poe.tasks.yarndev]
 shell = """
     pushd frontend
-    yarn $yarncmd
+    yarn dev
     popd
 """
-help = "run yarn in frontend directory"
-
-    [tool.poe.tasks.yarn.args.yarncmd]
-    positional = true
-    help = "run yarn command"
+help = "yarn dev in frontend"
 
 
 [tool.poe.tasks.generate]
@@ -49,7 +45,7 @@ shell = """
     API_URL=https://www.bycco.be yarn generate
     popd
 """
-help = "generate frontend distribution"
+help = "yarn generate in frontend"
 
 [tool.poe.tasks.deploy]
 shell = """
