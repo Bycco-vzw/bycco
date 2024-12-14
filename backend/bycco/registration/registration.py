@@ -101,8 +101,9 @@ async def update_registration(
 
 
 async def create_registration_bjk(ei: RegistrationIn) -> str:
-    logger.info(f"create an registration for BJK {ei}")
-
+    logger.info(f"create an registration for BJK {ei.idbel} {ei.idfide}")
+    if ei.idfide == "0":
+        ei.idfide = ""
     if ei.idsub:
         eu = RegistrationUpdate(
             category=ei.category,
@@ -260,10 +261,7 @@ async def confirm_registration(id: str, bt: BackgroundTasks) -> None:
         confirmed=True, registrationtime=datetime.now(), enabled=True
     )
     enr = await update_registration(id, su)
-    if enr.event == "bjk2025":
-        sendemail_registration_bjk(enr)
-    else:
-        sendemail_registration_vk(enr)
+    sendemail_registration_bjk(enr)
 
 
 async def get_photo(id: str):
