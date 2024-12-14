@@ -10,6 +10,7 @@
 - Kann belgischer Meister werden: {{ ['Ja', 'Nein', 'zu bestätigen'][natstatus] }}
 - Geschlecht: {{ gender }}
 - Kategorie: {{ category }}
+- Bemerkungen: {{ (remarks if remarks else "Keine Bemerkungen") | replace("\n", "<br>")}}
 
 Mit freundlichen Grüßen.
 

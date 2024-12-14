@@ -10,6 +10,7 @@
 - Can become Belgian champion: {{ ['Yes', 'No', 'to be confirmed'][natstatus] }}
 - Gender: {{ gender }}
 - Category: {{ category }}
+- Remarks: {{ (remarks if remarks else "No remarks") | replace("\n", "<br>")}}
 
 Greetings.
 
