@@ -56,9 +56,9 @@ export default {
       },
     })
   },
-  mgmt_xls_lodgings: async function (options) {
+  mgmt_xls_stay: async function (options) {
     const { token } = options
-    return await axios.get(`${prefix}/cmd/xls_lodgings`, {
+    return await axios.get(`${prefix}/cmd/xls_stay`, {
       headers: {
         Authorization: "Bearer " + token,
       },

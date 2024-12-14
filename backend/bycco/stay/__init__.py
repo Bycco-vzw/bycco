@@ -4,5 +4,5 @@ from .stay import (
     get_stays,
     get_room_by_number,
     update_stay,
-    xls_stays,
+    xls_stay,
 )

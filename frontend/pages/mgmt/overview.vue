@@ -46,7 +46,7 @@ onMounted(() => {
     <ul>
       <li>
         Managing the
-        <NuxtLink to="/mgmt/registrations_bjk">Registrations BJK2025</NuxtLink>
+        <NuxtLink to="/mgmt/registrations_bjk">Registrations BJK 2025</NuxtLink>
       </li>
       <li>
         Managing the <NuxtLink to="/mgmt/participants_bjk">Participants BJK2025</NuxtLink>
