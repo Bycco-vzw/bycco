@@ -10,6 +10,8 @@
 - Peut devenir champion de Belgique : {{ ['Oui', 'Non', 'à confirmer'][natstatus] }}
 - Sexe : {{ gender }}
 - Catégorie : {{ category }}
+- Remarques: {{ (remarks if remarks else "Pas de remarques") | replace("\n", "<br>")}}
+
 
 Cordialement.
 
