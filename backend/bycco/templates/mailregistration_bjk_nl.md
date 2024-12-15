@@ -10,7 +10,8 @@
 - Kan Belgisch kampioen worden: {{ ['Ja', 'Neen', 'Te bevestigen'][natstatus] }}
 - Geslacht: {{ gender }}
 - Categorie: {{ category }}
-- Opemerkingen: {{ (remarks if remarks else "Geen opmerkingen")  | replace("\n", "<br>")}}
+- Opmerkingen: {{ (remarks if remarks else "Geen opmerkingen")  | replace("\n", "<br>")}}
+
 
 met vriendelijke groeten.
 
