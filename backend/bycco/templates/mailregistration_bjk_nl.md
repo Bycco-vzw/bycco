@@ -12,6 +12,7 @@
 - Categorie: {{ category }}
 - Opmerkingen: {{ (remarks if remarks else "Geen opmerkingen")  | replace("\n", "<br>")}}
 
+
 met vriendelijke groeten.
 
 _Het Bycco team_
