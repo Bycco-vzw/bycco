@@ -1,0 +1,40 @@
+tasks:
+  be_run:
+    cmd: poetry run uvicorn bycco.main:app --reload
+    help: run the backend uvicorn server
+  deploy:
+    shell: |
+      pushd backend
+      gcloud app deploy --quiet
+      popd
+    help: deploy app on google cloud
+  fe_build:
+    shell: | 
+      pushd frontend
+      yarn
+      popd
+    help: update frontend installation    
+  fe_generate:
+    shell: | 
+      pushd frontend
+      API_URL=https://www.bycco.be yarn generate
+      popd
+    help: generate static frontend    
+  fe_run:
+    shell: | 
+      pushd frontend
+      yarn dev
+      popd
+    help: run yarn dev in frontend
+  gcp_auth:
+    cmd: gcloud auth application-default login
+    help: activate application default credentials
+  gcp_init:
+    cmd: gcloud config configurations activate byccoprod
+    help: activate the gcloud byccoprod configuration
+  i18n:
+    shell: |
+      pushd backend
+      python -m bycco.scripts.i18n
+      popd
+    help: regenerate i18n files
