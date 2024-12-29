@@ -27,39 +27,13 @@ toml = "^0.10.2"
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
-[tool.poe.tasks.launch]
-cmd = "uvicorn bycco.main:app --reload"
-help = "Run the backend uvicorn server"
+[tool.ruff]
+line-length = 88
+indent-width = 4
 
-[tool.poe.tasks.yarndev]
-shell = """
-    pushd frontend
-    yarn dev
-    popd
-"""
-help = "yarn dev in frontend"
+[tool.ruff.lint]
+fixable = ["ALL"]
+unfixable = []
 
-
-[tool.poe.tasks.generate]
-shell = """
-    pushd frontend
-    API_URL=https://www.bycco.be yarn generate
-    popd
-"""
-help = "yarn generate in frontend"
-
-[tool.poe.tasks.deploy]
-shell = """
-    pushd backend
-    gcloud app deploy --quiet
-    popd
-"""
-help = "deploy app on google cloud"
-
-[tool.poe.tasks.i18n]
-shell = """
-    pushd backend
-    python -m bycco.scripts.i18n
-    popd
-"""
-help = "regenerate tranlstalstion"
+[tool.ruff.lint.per-file-ignores]
+"**/__init__.py" = ["E402"]
