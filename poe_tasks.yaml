@@ -35,6 +35,6 @@ tasks:
   i18n:
     shell: |
       pushd backend
-      python -m bycco.scripts.i18n
+      poetry run python -m bycco.scripts.i18n
       popd
     help: regenerate i18n files

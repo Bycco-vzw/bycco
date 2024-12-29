@@ -216,7 +216,6 @@
 "Page": "Seite",
 "Page not found": "Seite nicht gefunden",
 "Pairings": "Paarungen",
-"Participants": "Teilnehmer",
 "Pay the amount to account BE33 0017 5924 5146 before the 25th of October with the structured message:": "Zahlen Sie bitte den Betrag vor dem 25. Oktober  auf das Konto BE33 0017 5924 5146: mit der strukturierten Nachricht:",
 "Payment": "Zahlung",
 "Payment date": "Zahlungsdatum",
@@ -285,5 +284,6 @@
 "You need your id number of the Royal Belgian Chess Federation in order to subscribe to the Belgian Chess Championships.": "Sie benötigen Ihre ID-Nummer beim KSB für die Registrierung zur Belgischen Jugend-Schachmeisterschaft.",
 "Your enrollment is confirmed": "Ihre Registrierung ist bestätigt",
 "Your request for a reservation is confirmed. We will inform you by e-mail about the next steps in the reservation process.": "Ihre Reservierungsanfrage ist bestätigt. Wir informieren Sie per E-Mail über die nächsten Schritte im Reservierungsprozess.",
+"trn.partcp": "Teilnehmer",
 "ZZZ": "ZZZ"
 }

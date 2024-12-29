@@ -216,7 +216,6 @@
 "Page": "Page",
 "Page not found": "Page non trouvée",
 "Pairings": "Appariements",
-"Participants": "Participants",
 "Pay the amount to account BE33 0017 5924 5146 before the 25th of October with the structured message:": "Veuillez payer le montant au compte BE33 0017 5924 5146 avant le 25 octobre avec la communication structurée:",
 "Payment": "Paiement",
 "Payment date": "Date de paiement",
@@ -285,5 +284,6 @@
 "You need your id number of the Royal Belgian Chess Federation in order to subscribe to the Belgian Chess Championships.": "Vous avez besoin du matricule de la FRBE pour l’enregistrement aux championnats belges.",
 "Your enrollment is confirmed": "Votre inscription est confirmée. ",
 "Your request for a reservation is confirmed. We will inform you by e-mail about the next steps in the reservation process.": "Votre demande de réservation est confirmée. Nous vous informerons par e-mail des prochaines étapes du processus de réservation.",
+"trn.partcp": "Participants",
 "ZZZ": "ZZZ"
 }

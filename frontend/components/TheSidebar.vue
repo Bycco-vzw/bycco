@@ -52,6 +52,7 @@ function rules_bjk() {
         </template>
         <v-list-item to="schedule" :title="t('Game schedule')" />
         <v-list-item to="/registration_bjk" :title="t('enroll.tool')" />
+        <v-list-item to="/participants_bjk" :title="t('trn.partcp')" />
         <!-- <v-list-item @click="rules_bjk" :title="t('Tournament Rules')" />
         <v-list-item to="/trn_u8" title="U8" />
         <v-list-item to="/trn_u10" title="U10" />
