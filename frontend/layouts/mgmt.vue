@@ -2,7 +2,7 @@
 import { ref } from "vue"
 
 const router = useRouter()
-const drawer = ref(false);
+const drawer = ref(false)
 
 async function goto(section) {
   const url = `/mgmt/${section}`
@@ -10,15 +10,10 @@ async function goto(section) {
 }
 
 useHead({
-  script: [
-    { src: 'https://accounts.google.com/gsi/client', defer: true }
-  ],
+  script: [{ src: "https://accounts.google.com/gsi/client", defer: true }],
 })
-
-
 </script>
-<script>
-</script>
+<script></script>
 <template>
   <VApp>
     <VNavigationDrawer v-model="drawer" color="deep-purple darken-1" dark>
@@ -30,18 +25,9 @@ useHead({
         <v-list-item @click="goto('paymentrequests')" title="Payment Requests" />
         <v-list-group no-action>
           <template #activator="{ props }">
-            <v-list-item v-bind="props" title="VK 2024" />
+            <v-list-item v-bind="props" title="BJK 2025" />
           </template>
-          <v-list-item @click="goto('enrollments_vk')" title="Enrollments" />
-          <v-list-item @click="goto('participants_vk')" title="Participants" />
-          <v-list-item @click="goto('tournament_vk')" title="Tournaments" />
-          <v-list-item @click="goto('attendee_vk')" title="Attendees" />
-        </v-list-group>
-        <v-list-group no-action>
-          <template #activator="{ props }">
-            <v-list-item v-bind="props" title="BJK 2024" />
-          </template>
-          <v-list-item @click="goto('enrollments_bjk')" title="Enrollments" />
+          <v-list-item @click="goto('enrollments_bjk')" title="Registrations" />
           <v-list-item @click="goto('participants_bjk')" title="Participants" />
           <v-list-item @click="goto('tournament_bjk')" title="Tournaments" />
           <v-list-item @click="goto('attendee_bjk')" title="Attendees" />

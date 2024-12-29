@@ -216,7 +216,6 @@
 "Page": "Pagina",
 "Page not found": "Pagina niet gevonden",
 "Pairings": "Paringen",
-"Participants": "Deelnemers",
 "Pay the amount to account BE33 0017 5924 5146 before the 25th of October with the structured message:": "Betaal het bedrag vóór 25 oktober op rekening BE33 0017 5924 5146 met de gestructureerde mededeling:",
 "Payment": "Betaling",
 "Payment date": "Betalingsdatum",
@@ -285,5 +284,6 @@
 "You need your id number of the Royal Belgian Chess Federation in order to subscribe to the Belgian Chess Championships.": "Je hebt je stamnummer bij de KBSB nodig om te schrijven voor het Belgisch jeugdkampioenschap.",
 "Your enrollment is confirmed": "Jouw inschrijving is bevestigd.",
 "Your request for a reservation is confirmed. We will inform you by e-mail about the next steps in the reservation process.": "Uw reserveringsaanvraag is bevestigd. Wij informeren u per e-mail over de vervolgstappen in het reserveringsproces.",
+"trn.partcp": "Deelnemers",
 "ZZZ": "ZZZ"
 }
