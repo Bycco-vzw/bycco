@@ -13,129 +13,6 @@ class Gender(str, Enum):
     F = "F"
 
 
-class ParticipantVKCategory(str, Enum):
-    VK2024 = "VK"
-    SEN2024 = "SEN"
-    EXP2024 = "EXP"
-
-
-class ParticipantVKDB(BaseModel):
-    """
-    the enrollment model as used in the database
-    is normally not exposed
-    """
-
-    badgemimetype: str
-    badgeimage: bytes
-    badgelength: int
-    birthyear: int
-    category: ParticipantVKCategory
-    chesstitle: str
-    enabled: bool
-    emails: List[str]
-    first_name: str
-    gender: Gender
-    idbel: str
-    idclub: str | None
-    idfide: str | None
-    locale: str
-    last_name: str
-    nationalityfide: str | None
-    payment_id: str | None = None
-    present: datetime | None
-    ratingbel: int
-    ratingfide: int
-    remarks: str
-    _id: str
-    _version: int
-    _documenttype: str
-    _creationtime: datetime
-    _modificationtime: datetime
-
-
-class ParticipantVKDetail(BaseModel):
-    """
-    the detailed participan model
-    """
-
-    badgemimetype: str
-    badgelength: int
-    birthyear: int
-    category: ParticipantVKCategory
-    chesstitle: str
-    enabled: bool
-    emails: List[str]
-    first_name: str
-    gender: Gender
-    id: str
-    idbel: str
-    idclub: str | None
-    idfide: str | None
-    locale: str
-    last_name: str
-    nationalityfide: str | None
-    payment_id: str | None = None
-    present: datetime | None
-    ratingbel: int
-    ratingfide: int
-    remarks: str
-
-
-class ParticipantVK(BaseModel):
-    """
-    the participant model
-    """
-
-    badgemimetype: str | None = None
-    badgelength: int | None = None
-    birthyear: int | None = None
-    category: ParticipantVKCategory | None = None
-    chesstitle: str | None = None
-    enabled: bool | None = None
-    emails: List[str] | None = None
-    first_name: str | None = None
-    gender: Gender | None = None
-    idbel: str | None = None
-    idclub: str | None = None
-    idfide: str | None = None
-    locale: str | None = None
-    last_name: str | None = None
-    nationalityfide: str | None = None
-    payment_id: str | None = None
-    present: datetime | None = None
-    ratingbel: int | None = None
-    ratingfide: int | None = None
-    remarks: str | None = None
-
-
-class ParticipantVKItem(BaseModel):
-    """
-    validator for public view of a enrollment
-    """
-
-    badgelength: int | None = 0
-    birthyear: int
-    category: ParticipantVKCategory
-    chesstitle: str | None
-    first_name: str
-    gender: Gender
-    id: str
-    idbel: str
-    idclub: str | None
-    idfide: str | None
-    last_name: str
-    nationalityfide: str | None = "BEL"
-    payment_id: str | None = None
-    ratingbel: int | None = 0
-    ratingfide: int | None = 0
-
-
-class DbParticpantVK(DbBase):
-    COLLECTION = "participant_vk"
-    DOCUMENTTYPE = ParticipantVKDB
-    VERSION = 1
-
-
 ### BJK
 
 
@@ -282,12 +159,12 @@ class ParticipantBJKItem(BaseModel):
     """
 
     badgelength: int | None = 0
-    birthyear: int
+    birthyear: int | None = 0
     category: ParticipantBJKCategory
     chesstitle: str | None
     enabled: bool | None = True
     first_name: str
-    gender: Gender
+    gender: Gender | None = None
     id: str
     idbel: str
     idclub: str | None
