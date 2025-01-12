@@ -320,6 +320,10 @@ async def create_pr_participants_bjk() -> str:
     """
     ix = 0
     for par in await get_participants_bjk({"_model": ParticipantBJKDetail}):
+        if par.birthyear is None:
+            logger.info(f"par {par.first_name} {par.last_name} has no birthyear")
+        if par.gender is None:
+            logger.info(f"par {par.first_name} {par.last_name} has no gender")
         if par.payment_id:
             continue
         ix += 1
@@ -423,7 +427,7 @@ async def email_pr_participant_bjk(prqid) -> None:
     prq = await get_payment_request(prqid)
     assert prq.email and prq.locale
     mp = MailParams(
-        subject="BJK / CBJ / BJLM 2024",
+        subject="BJK / CBJ / BJLM 2025",
         sender=settings.EMAIL["sender"],
         receiver=prq.email,
         template="pr_part_bjk_mail_{locale}.md",
