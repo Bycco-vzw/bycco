@@ -1,9 +1,9 @@
 <script setup>
-import { ref, computed } from 'vue'
-import VueCropper from 'vue-cropperjs'
-import 'cropperjs/dist/cropper.css';
-import ProgressLoading from '@/components/ProgressLoading.vue'
-import SnackbarMessage from '@/components/SnackbarMessage.vue'
+import { ref, computed } from "vue"
+import VueCropper from "vue-cropperjs"
+import "cropperjs/dist/cropper.css"
+import ProgressLoading from "@/components/ProgressLoading.vue"
+import SnackbarMessage from "@/components/SnackbarMessage.vue"
 import { useMgmtTokenStore } from "@/store/mgmttoken"
 import { usePersonStore } from "@/store/person"
 import { storeToRefs } from "pinia"
@@ -22,7 +22,7 @@ let showLoading
 // stores
 const mgmtstore = useMgmtTokenStore()
 const { token: mgmttoken } = storeToRefs(mgmtstore)
-const personstore = usePersonStore();
+const personstore = usePersonStore()
 const { person } = storeToRefs(personstore)
 
 // datamodel
@@ -30,30 +30,29 @@ const idparticipant = route.query.id
 const par = ref({ payment_id: "" })
 const emails = ref("")
 const photourl = computed(() => {
-  return "https://www.bycco.be/api/v1/participant/photo/" + (par.value.id || "")
+  // return "https://www.bycco.be/api/v1/participant/photo/" + (par.value.id || "")
+  return "http://localhost:8000/api/v1/participant/photo/" + (par.value.id || "")
 })
 const photo = ref([])
 const photosrc = ref("")
 
-
 definePageMeta({
-  layout: 'mgmt',
+  layout: "mgmt",
 })
-
 
 function back() {
   router.go(-1)
 }
 
 async function checkAuth() {
-  console.log('checking if auth is already set', mgmttoken.value)
+  console.log("checking if auth is already set", mgmttoken.value)
   if (mgmttoken.value) return
   if (person.value.credentials.length === 0) {
-    router.push('/mgmt')
+    router.push("/mgmt")
     return
   }
-  if (!person.value.email.endsWith('@bycco.be')) {
-    router.push('/mgmt')
+  if (!person.value.email.endsWith("@bycco.be")) {
+    router.push("/mgmt")
     return
   }
   let reply
@@ -61,16 +60,14 @@ async function checkAuth() {
   // now login using the Google auth token
   try {
     reply = await $backend("accounts", "login", {
-      logintype: 'google',
+      logintype: "google",
       token: person.value.credentials,
       username: null,
       password: null,
     })
-  }
-  catch (error) {
-    navigateTo('/mgmt')
-  }
-  finally {
+  } catch (error) {
+    navigateTo("/mgmt")
+  } finally {
     showLoading(false)
   }
   mgmtstore.updateToken(reply.data)
@@ -82,44 +79,40 @@ async function create_pr() {
   try {
     reply = await $backend("payment", "mgmt_create_participant_bjk_pr", {
       id: idparticipant,
-      token: mgmttoken.value
+      token: mgmttoken.value,
     })
-  }
-  catch (error) {
-    console.error('creating payment request', error)
+  } catch (error) {
+    console.error("creating payment request", error)
     if (error.code === 401) {
-      router.push('/mgmt')
+      router.push("/mgmt")
     } else {
-      showSnackbar('Creating paymentrequesr failed: ' + error.detail)
+      showSnackbar("Creating paymentrequesr failed: " + error.detail)
     }
     return
-  }
-  finally {
+  } finally {
     showLoading(false)
   }
-  router.push('/mgmt/paymentrequest_edit?id=' + reply.data)
+  router.push("/mgmt/paymentrequest_edit?id=" + reply.data)
 }
 
 async function delete_pr() {
   let reply
-  if (confirm('Are you sure to delete the linked payment request')) {
+  if (confirm("Are you sure to delete the linked payment request")) {
     showLoading(true)
     try {
       reply = await $backend("payment", "mgmt_delete_participant_bjk_pr", {
         id: idparticipant,
-        token: mgmttoken.value
+        token: mgmttoken.value,
       })
-    }
-    catch (error) {
-      console.error('deleting linked payment request', error)
+    } catch (error) {
+      console.error("deleting linked payment request", error)
       if (error.code === 401) {
-        router.push('/mgmt')
+        router.push("/mgmt")
       } else {
-        showSnackbar('Deleting Paymentrequest failed' + error.detail)
+        showSnackbar("Deleting Paymentrequest failed" + error.detail)
       }
       return
-    }
-    finally {
+    } finally {
       showLoading(false)
     }
     await getParticipant()
@@ -130,36 +123,33 @@ async function getParticipant() {
   let reply
   // showLoading(true)
   try {
-    console.log('getting participant', idparticipant)
-    reply = await $backend('participant', "mgmt_get_participant_bjk", {
+    console.log("getting participant", idparticipant)
+    reply = await $backend("participant", "mgmt_get_participant_bjk", {
       id: idparticipant,
-      token: mgmttoken.value
+      token: mgmttoken.value,
     })
     readParticipant(reply.data)
-  }
-  catch (error) {
-    console.error('getting participant failed', error)
+  } catch (error) {
+    console.error("getting participant failed", error)
     if (error.code === 401) {
-      router.push('/mgmt')
+      router.push("/mgmt")
+    } else {
+      showSnackbar("Getting participant failed")
     }
-    else {
-      showSnackbar('Getting participant failed')
-    }
-  }
-  finally {
+  } finally {
     // showLoading(false)
   }
 }
 
 async function gotoPaymentrequest(id) {
-  console.log('going to payment request', id)
-  router.push('/mgmt/paymentrequest_edit?id=' + id)
+  console.log("going to payment request", id)
+  router.push("/mgmt/paymentrequest_edit?id=" + id)
 }
 
 function handleFile(event) {
   const reader = new FileReader()
   reader.onload = (event) => {
-    console.log('handle file onload', event, photo.value)
+    console.log("handle file onload", event, photo.value)
     photosrc.value.replace(event.target.result)
   }
   reader.readAsDataURL(event[0])
@@ -169,7 +159,6 @@ function readParticipant(participant) {
   par.value = { ...participant }
   emails.value = par.value.emails.join(",")
 }
-
 
 async function refresh() {
   await getParticipant()
@@ -189,47 +178,42 @@ async function saveParticipant() {
         ratingbel: par.value.ratingbel,
         ratingfide: par.value.ratingfide,
       },
-      token: mgmttoken.value
+      token: mgmttoken.value,
     })
-  }
-  catch (error) {
-    console.error('saving getParticipant', error)
+  } catch (error) {
+    console.error("saving getParticipant", error)
     if (error.code == 401) {
-      router.push('/mgmt')
-    }
-    else {
-      showSnackbar('Saving participant failed: ' + error.detail)
+      router.push("/mgmt")
+    } else {
+      showSnackbar("Saving participant failed: " + error.detail)
     }
     return
-  }
-  finally {
+  } finally {
     showLoading(false)
   }
-  console.log('save successful')
-  showSnackbar('Participant saved')
+  console.log("save successful")
+  showSnackbar("Participant saved")
 }
 
 async function upload_photo() {
   let reply, photodataurl
   showLoading(true)
   photodataurl = photosrc.value.getCroppedCanvas({ width: 160 }).toDataURL()
-  console.log('Uploading foto', photodataurl)
+  console.log("Uploading foto", photodataurl)
   try {
     reply = await $backend("participant", "upload_photo_bjk", {
       photo: photodataurl,
-      id: par.value.id
+      id: par.value.id,
     })
-    console.log('upload reply', reply)
-  }
-  catch (error) {
-    console.log('error reply', error)
+    console.log("upload reply", reply)
+  } catch (error) {
+    console.log("error reply", error)
     showSnackbar(error.message)
-  }
-  finally {
-    console.log('finally')
+  } finally {
+    console.log("finally")
     showLoading(false)
   }
-  console.log('uploaded')
+  console.log("uploaded")
   photo.value = []
   photosrc.value = ""
 }
@@ -240,12 +224,10 @@ onMounted(async () => {
   await checkAuth()
   await getParticipant()
 })
-
 </script>
 
 <template>
   <v-container>
-
     <SnackbarMessage ref="refsnackbar" />
     <ProgressLoading ref="refloading" />
 
@@ -263,7 +245,13 @@ onMounted(async () => {
       <v-tooltip location="bottom">
         Refresh
         <template #activator="{ props }">
-          <v-btn fab outlined color="deep-purple-lighten-1" v-bind="props" @click="refresh()">
+          <v-btn
+            fab
+            outlined
+            color="deep-purple-lighten-1"
+            v-bind="props"
+            @click="refresh()"
+          >
             <v-icon>mdi-refresh</v-icon>
           </v-btn>
         </template>
@@ -271,9 +259,7 @@ onMounted(async () => {
     </v-row>
 
     <v-card class="my-3">
-      <v-card-title>
-        Properties
-      </v-card-title>
+      <v-card-title> Properties </v-card-title>
       <v-card-text>
         <v-row>
           <v-col cols="12" sm="6">
@@ -286,62 +272,57 @@ onMounted(async () => {
             <v-text-field v-model="par.ratingbel" label="ELO BEL" />
             <v-text-field v-model="par.ratingfide" label="ELO FIDE" />
             <v-text-field v-model="par.category" label="Category" />
-            <div class="my-2">ID Bel {{ (par.idbel) }}</div>
+            <div class="my-2">ID Bel {{ par.idbel }}</div>
             <div class="my-2">Creation time {{ date2str(par._creationtime) }}</div>
           </v-col>
         </v-row>
       </v-card-text>
       <v-card-actions>
-        <v-btn @click="saveParticipant">
-          Save
-        </v-btn>
+        <v-btn @click="saveParticipant"> Save </v-btn>
       </v-card-actions>
     </v-card>
 
     <v-card class="my-3">
-      <v-card-title class="mt-2">
-        Photo
-      </v-card-title>
+      <v-card-title class="mt-2"> Photo </v-card-title>
       <v-card-text>
         <v-row>
           <v-col cols="2">
-            <img :src="photourl">
+            <img :src="photourl" />
           </v-col>
           <v-col cols="10">
             <v-file-input label="Badge" v-model="photo" @update:modelValue="handleFile" />
-            <vue-cropper ref="photosrc" :view-mode="2" drag-mode="crop" :auto-crop-area="0.5"
-              :background="true" src="" alt=" " :aspect-ratio="0.8" preview="#photoresult"
-              :img-style="{ height: '400px' }" />
+            <vue-cropper
+              ref="photosrc"
+              :view-mode="2"
+              drag-mode="crop"
+              :auto-crop-area="0.5"
+              :background="true"
+              src=""
+              alt=" "
+              :aspect-ratio="0.8"
+              preview="#photoresult"
+              :img-style="{ height: '400px' }"
+            />
             <h4>Result</h4>
             <div id="photoresult" ref="photoresult" class="photoresult" />
           </v-col>
         </v-row>
       </v-card-text>
       <v-card-actions>
-        <v-btn @click="upload_photo">
-          Upload
-        </v-btn>
+        <v-btn @click="upload_photo"> Upload </v-btn>
       </v-card-actions>
     </v-card>
 
-
     <v-card>
-      <v-card-title class="mt-2">
-        Payment Request
-      </v-card-title>
+      <v-card-title class="mt-2"> Payment Request </v-card-title>
       <v-card-actions>
-        <v-btn v-if="!par.payment_id" @click="create_pr">
-          Create
-        </v-btn>
+        <v-btn v-if="!par.payment_id" @click="create_pr"> Create </v-btn>
         <v-btn v-if="par.payment_id" @click="gotoPaymentrequest(par.payment_id)">
           Show
         </v-btn>
-        <v-btn v-if="par.payment_id" @click="delete_pr">
-          Delete
-        </v-btn>
+        <v-btn v-if="par.payment_id" @click="delete_pr"> Delete </v-btn>
       </v-card-actions>
     </v-card>
-
   </v-container>
 </template>
 

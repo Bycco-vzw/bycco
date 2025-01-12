@@ -3,26 +3,18 @@
 
 import logging
 from typing import cast, List, Dict, Any
-from datetime import datetime
 from binascii import a2b_base64
-from fastapi import BackgroundTasks, Response
+from fastapi import Response
 from jinja2 import FileSystemLoader, Environment
 
-from reddevil.core import get_settings, RdBadRequest, RdNotFound
+from reddevil.core import RdBadRequest, RdNotFound
 
 from bycco.participant import (
     ParticipantBJKCategory,
     ParticipantBJKDetail,
     ParticipantBJKItem,
     ParticipantBJKUpdate,
-    ParticipantBJKDB,
     ParticipantBJK,
-    DbParticpantBJK,
-    # ParticipantVKCategory,
-    # ParticipantVKDetail,
-    # ParticipantVKItem,
-    # ParticipantVK,
-    # DbParticpantVK,
     DbParticpantBJK,
     Gender,
 )
@@ -36,10 +28,8 @@ from bycco.registration import (
     lookup_idfide,
 )
 
-from reddevil.core import RdNotFound
-
 logger = logging.getLogger(__name__)
-env = Environment(loader=FileSystemLoader("bycco/templates"), trim_blocks=True)
+tmpl_env = Environment(loader=FileSystemLoader("bycco/templates"), trim_blocks=True)
 
 # bjk
 
@@ -208,7 +198,7 @@ async def generate_badges_bjk(cat: str, ids: str = ""):
             badges = []
     if j > 0:
         pages.append(badges)
-    tmpl = env.get_template("printbadge_bjk.j2")
+    tmpl = tmpl_env.get_template("printbadge_bjk.j2")
     return tmpl.render({"pages": pages})
 
 
@@ -249,7 +239,7 @@ async def generate_namecards_bjk(cat: str, ids: str = ""):
             cards = []
     if j > 0:
         pages.append(cards)
-    tmpl = env.get_template("printnamecard_bjk.j2")
+    tmpl = tmpl_env.get_template("printnamecard_bjk.j2")
     return tmpl.render({"pages": pages})
 
 
@@ -272,7 +262,7 @@ async def upload_photo_bjk(id: str, photo: str) -> None:
             badgeimage=imagedata,
             badgelength=len(cast(str, imagedata)),
         )
-    except:
+    except Exception:
         raise RdBadRequest(description="BadPhotoData")
     await update_participant_bjk(id, su)
 
@@ -405,5 +395,5 @@ async def generate_prizes_bjk():
                 cards = []
     if j > 0:
         pages.append(cards)
-    tmpl = env.get_template("printprize_bjk.j2")
+    tmpl = tmpl_env.get_template("printprize_bjk.j2")
     return tmpl.render({"pages": pages})
