@@ -326,6 +326,8 @@ async def create_pr_participants_bjk() -> str:
             logger.info(f"par {par.first_name} {par.last_name} has no gender")
         if par.payment_id:
             continue
+        if par.locale not in ["en", "nl", "fr", "de"]:
+            par.locale = "en"
         ix += 1
         if ix > 10:
             break
@@ -430,8 +432,8 @@ async def update_pr_participant_bjk(id: str, prqin: PaymentRequest) -> None:
 async def email_pr_participant_bjk(prqid) -> None:
     prq = await get_payment_request(prqid)
     assert prq.email
-    if par.locale not in ["en", "nl", "fr", "de"]:
-        par.locale = "en"
+    if prq.locale not in ["en", "nl", "fr", "de"]:
+        prq.locale = "en"
     mp = MailParams(
         subject="BJK / CBJ / BJLM 2025",
         sender=settings.EMAIL["sender"],
