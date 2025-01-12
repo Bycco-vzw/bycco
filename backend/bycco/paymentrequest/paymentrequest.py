@@ -350,6 +350,8 @@ async def create_pr_participant_bjk(parid: str) -> str:
     create payment request for participant
     """
     par = await get_participant_bjk(parid)
+    if par.locale not in ["en", "nl", "fr", "de"]:
+        par.locale = "en"
     pr: Dict[str, Any] = {
         "email": ",".join(par.emails),
         "first_name": par.first_name,
@@ -376,6 +378,8 @@ def calc_pricedetails_par_bjk(
     amount = 35
     admincost = 10
     total = amount
+    if par.locale not in ["en", "nl", "fr", "de"]:
+        par.locale = "en"
     details = [
         {
             "description": i18n_enrollment_bjk[par.locale],
@@ -425,7 +429,9 @@ async def update_pr_participant_bjk(id: str, prqin: PaymentRequest) -> None:
 
 async def email_pr_participant_bjk(prqid) -> None:
     prq = await get_payment_request(prqid)
-    assert prq.email and prq.locale
+    assert prq.email
+    if par.locale not in ["en", "nl", "fr", "de"]:
+        par.locale = "en"
     mp = MailParams(
         subject="BJK / CBJ / BJLM 2025",
         sender=settings.EMAIL["sender"],
