@@ -17,7 +17,7 @@ tasks:
   fe_generate:
     shell: | 
       pushd frontend
-      API_URL=https://www.bycco.be yarn generate
+      API_URL=https://www.bycco.be/ yarn generate
       popd
     help: generate static frontend    
   fe_run:

@@ -384,7 +384,7 @@ def calc_pricedetails_par_bjk(
         par.locale = "en"
     details = [
         {
-            "description": i18n_enrollment_bjk[par.locale],
+            "description": f"{i18n_enrollment_bjk[par.locale]} {par.first_name} {par.last_name}",
             "quantity": 1,
             "unitprice": format(amount, ">6.2f"),
             "totalprice": format(amount, ">6.2f"),

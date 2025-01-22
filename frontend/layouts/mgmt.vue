@@ -27,7 +27,7 @@ useHead({
           <template #activator="{ props }">
             <v-list-item v-bind="props" title="BJK 2025" />
           </template>
-          <v-list-item @click="goto('enrollments_bjk')" title="Registrations" />
+          <v-list-item @click="goto('registrations_bjk')" title="Registrations" />
           <v-list-item @click="goto('participants_bjk')" title="Participants" />
           <v-list-item @click="goto('tournament_bjk')" title="Tournaments" />
           <v-list-item @click="goto('attendee_bjk')" title="Attendees" />
