@@ -1,4 +1,4 @@
-## Betalingsaanvraag inschrijving BJK 2024
+## Betalingsaanvraag inschrijving BJK 2025
 
 
 ### Inschrijvinging

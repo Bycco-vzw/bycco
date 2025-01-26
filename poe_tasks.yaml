@@ -17,7 +17,7 @@ tasks:
   fe_generate:
     shell: | 
       pushd frontend
-      API_URL=https://www.bycco.be yarn generate
+      API_URL=https://www.bycco.be/ yarn generate
       popd
     help: generate static frontend    
   fe_run:
@@ -26,11 +26,10 @@ tasks:
       yarn dev
       popd
     help: run yarn dev in frontend
-  gcp_auth:
-    cmd: gcloud auth application-default login
-    help: activate application default credentials
   gcp_init:
-    cmd: gcloud config configurations activate byccoprod
+    shell: | 
+      gcloud config configurations activate byccoprod
+      gcloud auth application-default login
     help: activate the gcloud byccoprod configuration
   i18n:
     shell: |

@@ -74,6 +74,7 @@ function setup(e) {
   first_name.value = e.first_name
   nationalityfide.value = e.nationalityfide
   last_name.value = e.last_name
+  console.log("photourl", photourl.value)
 }
 
 onMounted(() => {

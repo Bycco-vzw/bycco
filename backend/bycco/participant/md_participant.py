@@ -74,13 +74,13 @@ class ParticipantBJKDetail(BaseModel):
 
     badgemimetype: str
     badgelength: int
-    birthyear: int
+    birthyear: int | None
     category: ParticipantBJKCategory
     chesstitle: str
     enabled: bool
     emails: List[str]
     first_name: str
-    gender: Gender
+    gender: Gender | None
     id: str
     idbel: str
     idclub: str | None

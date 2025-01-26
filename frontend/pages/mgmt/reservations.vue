@@ -157,7 +157,7 @@ onMounted(async () => {
   <v-container>
     <SnackbarMessage ref="refsnackbar" />
     <ProgressLoading ref="refloading" />
-    <h1>Management Reservations</h1>
+    <h1>Management Reservations BJK2025</h1>
     <v-data-table
       :headers="headers"
       :items="reservations"
