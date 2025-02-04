@@ -12,8 +12,8 @@ const refnat = ref(null)
 const refconfirmation = ref(null)
 const today = new Date()
 
-// cutoff after 2nd of February 2025
-const cutoffdate = new Date(2025, 1, 3)
+// cutoff after 23rd of February 2025
+const cutoffdate = new Date(2025, 1, 24)
 const active = cutoffdate.valueOf() > today.valueOf()
 
 // data model
