@@ -23,15 +23,10 @@ useHead({
         <v-list-item @click="goto('pages')" title="Pages" />
         <v-list-item @click="goto('reservations')" title="Reservations" />
         <v-list-item @click="goto('paymentrequests')" title="Payment Requests" />
-        <v-list-group no-action>
-          <template #activator="{ props }">
-            <v-list-item v-bind="props" title="BJK 2025" />
-          </template>
-          <v-list-item @click="goto('registrations_bjk')" title="Registrations" />
-          <v-list-item @click="goto('participants_bjk')" title="Participants" />
-          <v-list-item @click="goto('tournament_bjk')" title="Tournaments" />
-          <v-list-item @click="goto('attendee_bjk')" title="Attendees" />
-        </v-list-group>
+        <v-list-item @click="goto('tournament')" title="BJK 2025" />
+        <v-list-item @click="goto('registrations_bjk')" title="Registrations" />
+        <v-list-item @click="goto('participants_bjk')" title="Participants" />
+        <v-list-item @click="goto('attendee_bjk')" title="Attendees" />
         <v-list-item @click="goto('logout')" title="Logout" />
       </v-list>
     </VNavigationDrawer>

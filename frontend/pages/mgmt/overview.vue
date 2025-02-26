@@ -35,15 +35,12 @@ onMounted(() => {
     <ul>
       <li>
         Managing the
-        <NuxtLink to="/mgmt/reservations">Reservations for stay Floreal</NuxtLink>
+        <NuxtLink to="/mgmt/reservations">Reservations for stay Floreal 2025</NuxtLink>
       </li>
       <li>Managing the <NuxtLink to="/mgmt/pages">Pages</NuxtLink></li>
       <li>
         Managing the <NuxtLink to="/mgmt/paymentrequests">Payment Requests</NuxtLink>
       </li>
-    </ul>
-    <h3>BJK 2025</h3>
-    <ul>
       <li>
         Managing the
         <NuxtLink to="/mgmt/registrations_bjk">Registrations BJK 2025</NuxtLink>
@@ -52,7 +49,10 @@ onMounted(() => {
         Managing the <NuxtLink to="/mgmt/participants_bjk">Participants BJK2025</NuxtLink>
       </li>
       <li>
-        Managing the <NuxtLink to="/mgmt/tournament_bjk">Tournaments BJK 2025</NuxtLink>
+        Uploading <NuxtLink to="/mgmt/tournament">SWAR JSON files for BJK 2025</NuxtLink>
+      </li>
+      <li>
+        Entering unofficial <NuxtLink to="/mgmt/u_results">results for BJK 2025</NuxtLink>
       </li>
       <li>
         Managing the <NuxtLink to="/mgmt/attendee_bjk">Attendees BJK 2025</NuxtLink>
