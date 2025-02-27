@@ -46,7 +46,8 @@ const trn_u18 = ref({
 const trn_u20 = ref({
   name: "bjk_u20.json",
 })
-let activetrn = null
+let activetrn = {}
+const sortpairings = ref([])
 
 definePageMeta({
   layout: "mgmt",
@@ -84,18 +85,10 @@ async function checkAuth() {
   mgmtstore.updateToken(reply.data)
 }
 
-function handleFile(f) {
-  const reader = new FileReader()
-  reader.onload = (event) => {
-    activetrn.json = event.target.result
-  }
-  // reader.readAsDataURL(f)
-}
-
 async function getJsonFile() {
   let reply
   if (!category.value || !round.value) {
-    activetrn.json = {}
+    sortpairings.value = []
     return
   }
   const name = `bjk_${category.value.toLowerCase()}.json`
@@ -113,18 +106,11 @@ async function getJsonFile() {
   } finally {
     showLoading(false)
   }
-  swartrn.value = readSwarJson(reply.data)
-}
-
-function uploading(trn) {
-  console.log("uploading", trn)
-  activetrn = trn
-  handleFile(trn.file)
+  readSwarJson(reply.data)
 }
 
 function readSwarJson(swarjson) {
-  const pairings = [],
-    sortpairings = []
+  sortpairings.value = []
   const players = swarjson.Swar.Player
   players.forEach((p) => {
     if (!p.RoundArray) p.RoundArray = []
@@ -170,19 +156,18 @@ function readSwarJson(swarjson) {
   pairings.forEach((p, ix) => {
     p.games.sort((x, y) => x.boardnr - y.boardnr)
     if (ix > 0) {
-      sortpairings[maxround - ix] = {
+      sortpairings.value[maxround - ix] = {
         games: p.games,
         rnr: p.rnr,
       }
       if (p.bye) {
-        sortpairings[maxround - ix].games.push(p.bye)
+        sortpairings.value[maxround - ix].games.push(p.bye)
       }
       if (p.absent) {
-        sortpairings[maxround - ix].games.push(...p.absent)
+        sortpairings.value[maxround - ix].games.push(...p.absent)
       }
     }
   })
-  return sortpairings
 }
 
 async function uploadTrn() {

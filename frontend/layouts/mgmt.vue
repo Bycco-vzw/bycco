@@ -26,7 +26,7 @@ useHead({
         <v-list-item @click="goto('participants_bjk')" title="Participants" />
         <v-list-item @click="goto('attendee_bjk')" title="Attendees" />
         <v-list-item @click="goto('upload_json')" title="Upload JSON Swar" />
-        <v-list-item @click="goto('unonfficial_results')" title="Unofficial Results" />
+        <v-list-item @click="goto('unofficial_results')" title="Unofficial Results" />
       </v-list>
     </VNavigationDrawer>
     <VAppBar color="deep-purple darken-1" dark>

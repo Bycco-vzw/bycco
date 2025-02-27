@@ -34,10 +34,6 @@ definePageMeta({
   layout: "mgmt",
 })
 
-onMounted(() => {
-  checkAuth()
-  setupGoogle()
-})
 </script>
 
 <template>
@@ -54,6 +50,8 @@ onMounted(() => {
       </li>
       <li>Managing the <NuxtLink to="/mgmt/registrations">Registrations</NuxtLink></li>
       <li>Managing the <NuxtLink to="/mgmt/participants">Participants</NuxtLink></li>
+      <li>Uploading the <NuxtLink to="/mgmt/upload_json">SWAR JSON Files</Nuxtlink></li>
+      <li>Editing the <NuxtLink to="/mgmt/unofficial_results">Unofficial Results</Nuxtlink></li>
     </ul>
   </VContainer>
 </template>
