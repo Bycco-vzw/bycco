@@ -1,14 +1,14 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue'
-import { useI18n } from 'vue-i18n'
-import { useDisplay } from 'vuetify'
+import { ref, computed, onMounted } from "vue"
+import { useI18n } from "vue-i18n"
+import { useDisplay } from "vuetify"
 
 const { t } = useI18n()
 const { xs } = useDisplay()
 
 const tournament = {
   json_file: "bjk_u8.json",
-  category: "U8"
+  category: "U8",
 }
 const { $backend } = useNuxtApp()
 
@@ -22,47 +22,59 @@ async function getTournament(name) {
       group: "trn",
       name,
     })
-    console.log('getTournament success', reply.data)
+    console.log("getTournament success", reply.data)
   } catch (error) {
-    console.log('error', error)
+    console.log("error", error)
     return
-  }
-  finally {
+  } finally {
     console.log()
   }
   swartrn.value = processSwarJson(reply.data, xs.value, t)
 }
 
-
 onMounted(() => {
   getTournament(tournament.json_file)
 })
-
 </script>
 
 <template>
   <v-container class="mt-1">
-    <h1>{{ t('BYC 2024') }} {{ tournament.category }}</h1>
+    <h1>{{ t("BYC 2024") }} {{ tournament.category }}</h1>
     <v-tabs v-model="tab" show>
-      <v-tab>{{ t('Standings') }}</v-tab>
-      <v-tab>{{ t('Pairings') }}</v-tab>
+      <v-tab>{{ t("Standings") }}</v-tab>
+      <v-tab>{{ t("Pairings") }}</v-tab>
       <v-tab>Live</v-tab>
     </v-tabs>
     <v-window v-model="tab">
       <v-window-item>
-        <v-data-table :items="swartrn.standings" :headers="swartrn.st_headers" :items-per-page="50"
-          :hide-default-footer="true" mobile-breakpoint="0" density="compact" />
+        <v-data-table
+          :items="swartrn.standings"
+          :headers="swartrn.st_headers"
+          :items-per-page="50"
+          :hide-default-footer="true"
+          mobile-breakpoint="0"
+          density="compact"
+        />
       </v-window-item>
       <v-window-item>
         <div v-for="p in swartrn.sortpairings" :key="p.rnr" class="my-2">
-          <h2>{{ t('Round') }} {{ p.rnr }}</h2>
-          <v-data-table :items="p.games" :headers="swartrn.pr_headers" :items-per-page="50"
-            :hide-default-footer="true" mobile-breakpoint="0" density="compact" />
+          <h2>{{ t("Round") }} {{ p.rnr }}</h2>
+          <v-data-table
+            :items="p.games"
+            :headers="swartrn.pr_headers"
+            :items-per-page="50"
+            :hide-default-footer="true"
+            mobile-breakpoint="0"
+            density="compact"
+          />
         </div>
       </v-window-item>
       <v-window-item>
-        <a href="https://view.livechesscloud.com#4e2a1b92-a0bb-46f4-92bf-620041e14d2b"
-          target="live">Live Games</a>
+        <a
+          href="https://view.livechesscloud.com#4e2a1b92-a0bb-46f4-92bf-620041e14d2b"
+          target="live"
+          >Live Games</a
+        >
       </v-window-item>
     </v-window>
   </v-container>
