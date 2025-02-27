@@ -84,11 +84,48 @@ async function checkAuth() {
   mgmtstore.updateToken(reply.data)
 }
 
-function readSwarJson(swarjson, t) {
+function handleFile(f) {
+  const reader = new FileReader()
+  reader.onload = (event) => {
+    activetrn.json = event.target.result
+  }
+  // reader.readAsDataURL(f)
+}
+
+async function getJsonFile() {
+  let reply
+  if (!category.value || !round.value) {
+    activetrn.json = {}
+    return
+  }
+  const name = `bjk_${category.value.toLowerCase()}.json`
+  showLoading(true)
+  try {
+    reply = await $backend("filestore", "anon_get_file", {
+      group: "trn",
+      name,
+    })
+    console.log("getJsonFile success", reply.data)
+  } catch (error) {
+    console.log("error", error)
+    showSnackbar("Cannot get json file: " + error.detail)
+    return
+  } finally {
+    showLoading(false)
+  }
+  swartrn.value = readSwarJson(reply.data)
+}
+
+function uploading(trn) {
+  console.log("uploading", trn)
+  activetrn = trn
+  handleFile(trn.file)
+}
+
+function readSwarJson(swarjson) {
   const pairings = [],
     sortpairings = []
   const players = swarjson.Swar.Player
-  let st_headers = _st_headers
   players.forEach((p) => {
     if (!p.RoundArray) p.RoundArray = []
     p.RoundArray.forEach((r) => {
@@ -145,48 +182,7 @@ function readSwarJson(swarjson, t) {
       }
     }
   })
-  st_headers.forEach((h) => {
-    if (h.u_title) {
-      h.title = t(h.u_title)
-    }
-  })
-  pr_headers.forEach((h) => {
-    if (h.u_title) {
-      h.title = t(h.u_title)
-    }
-  })
   return sortpairings
-}
-
-function handleFile(f) {
-  const reader = new FileReader()
-  reader.onload = (event) => {
-    activetrn.json = event.target.result
-  }
-  // reader.readAsDataURL(f)
-}
-
-async function getTournament(name) {
-  let reply
-  try {
-    reply = await $backend("filestore", "anon_get_file", {
-      group: "trn",
-      name,
-    })
-    console.log("getTournament success", reply.data)
-  } catch (error) {
-    console.log("error", error)
-    return
-  } finally {
-    console.log()
-  }
-  swartrn.value = processSwarJson(reply.data, xs.value, t)
-}
-
-function uploading(trn) {
-  console.log("uploading", trn)
-  activetrn = trn
-  handleFile(trn.file)
 }
 
 async function uploadTrn() {
@@ -227,6 +223,7 @@ onMounted(async () => {
     <v-row>
       <v-col cols="6">
         <v-select
+          label="Category"
           v-model="category"
           :items="['U8', 'U10', 'U12', 'U14', 'U16', 'U18', 'U20']"
           @update:modelValue="getJsonFile"
@@ -234,6 +231,7 @@ onMounted(async () => {
       </v-col>
       <v-col cols="6">
         <v-select
+          label="Round"
           v-model="round"
           :items="[1, 2, 3, 4, 5, 6, 7, 8, 9]"
           @update:modelValue="getJsonFile"
