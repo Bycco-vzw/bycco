@@ -23,31 +23,19 @@ const personstore = usePersonStore()
 const { person } = storeToRefs(personstore)
 
 // datamodel
-const round = ref(null)
+const round = ref(1)
 const category = ref(null)
-const trn_u8 = ref({
-  name: "bjk_u8.json",
-})
-const trn_u10 = ref({
-  name: "bjk_u10.json",
-})
-const trn_u12 = ref({
-  name: "bjk_u12.json",
-})
-const trn_u14 = ref({
-  name: "bjk_u14.json",
-})
-const trn_u16 = ref({
-  name: "bjk_u16.json",
-})
-const trn_u18 = ref({
-  name: "bjk_u18.json",
-})
-const trn_u20 = ref({
-  name: "bjk_u20.json",
-})
-let activetrn = {}
-const sortpairings = ref([])
+const dlg_unofficial = ref(false)
+const game = ref({})
+const games = ref([])
+const act_result = ref("")
+const p_headers = [
+  { title: "Board", value: "boardnr" },
+  { title: "White", value: "white" },
+  { title: "Black", value: "black" },
+  { title: "Unof. Result", value: "unofficial_result" },
+  { title: "Action", value: "action", sortable: false },
+]
 
 definePageMeta({
   layout: "mgmt",
@@ -85,6 +73,12 @@ async function checkAuth() {
   mgmtstore.updateToken(reply.data)
 }
 
+async function editResult(item) {
+  console.log("editResult", item)
+  game.value = item
+  dlg_unofficial.value = true
+  act_result.value = item.uo_result + ""
+}
 async function getJsonFile() {
   let reply
   if (!category.value || !round.value) {
@@ -110,86 +104,52 @@ async function getJsonFile() {
 }
 
 function readSwarJson(swarjson) {
-  sortpairings.value = []
+  console.log("readSwarJson", swarjson)
+  games.value = []
   const players = swarjson.Swar.Player
   players.forEach((p) => {
-    if (!p.RoundArray) p.RoundArray = []
+    if (!p.RoundArray) return
+    console.log("player", p)
     p.RoundArray.forEach((r) => {
-      const rnr = r.RoundNr
-      const pr = pairings[rnr] || {
-        games: [],
-        bye: null,
-        absent: [],
-        rnr,
+      if (r.RoundNr != round.value) return
+      if (r.Color == "White") {
+        games.value.push({
+          white: p.Name,
+          black: r.OpponentName,
+          unofficial_result: r.UnofficialResult ? r.UnofficialResult : "",
+          boardnr: parseInt(r.Tabel),
+        })
       }
-      switch (r.Color) {
-        case "No Color":
-          if (r.Tabel === "BYE") {
-            pr.bye = {
-              white: p.Name,
-              black: "Bye",
-              result: "",
-            }
-          }
-          if (r.Tabel === "Absent") {
-            pr.absent.push({
-              white: p.Name,
-              black: t("Absent"),
-              result: "",
-            })
-          }
-          break
-        case "White":
-          let boardnr = parseInt(r.Tabel) - 1
-          pr.games.push({
-            white: p.Name,
-            black: r.OpponentName,
-            result: getWhiteResult(r.Result),
-            boardnr: boardnr + 1,
-          })
-          break
-      }
-      pairings[rnr] = pr
     })
   })
-  const maxround = pairings.length - 1
-  pairings.forEach((p, ix) => {
-    p.games.sort((x, y) => x.boardnr - y.boardnr)
-    if (ix > 0) {
-      sortpairings.value[maxround - ix] = {
-        games: p.games,
-        rnr: p.rnr,
-      }
-      if (p.bye) {
-        sortpairings.value[maxround - ix].games.push(p.bye)
-      }
-      if (p.absent) {
-        sortpairings.value[maxround - ix].games.push(...p.absent)
-      }
-    }
-  })
+  games.value.sort((x, y) => x.boardnr - y.boardnr)
 }
 
-async function uploadTrn() {
-  showLoading(true)
+async function saveUnofficial() {
+  let reply
+  console.log("saveUnofficial", act_result.value)
   try {
-    const reply = await $backend("tournament", "mgmt_upload_json", {
+    console.log(round.value)
+    console.log(game.value.boardnr)
+    console.log(act_result.value)
+    reply = await $backend("tournament", "mgmt_set_unofficial_result", {
       token: token.value,
-      trn: {
-        name: activetrn.name,
-        jsoncontent: activetrn.jsoncontent,
+      ur: {
+        name: `bjk_${category.value.toLowerCase()}.json`,
+        round: round.value,
+        boardnr: game.value.boardnr,
+        unofficial_result: act_result.value,
       },
     })
+    console.log(2)
+    game.value.unofficial_result = act_result.value
+    showSnackbar("Unofficial result saved")
   } catch (error) {
-    console.error("uploading json failed", error)
-    if (error.code === 401) {
-      router.push("/mgmt")
-    } else {
-      showSnackbar("Uploading json file failed: " + error.detail)
-    }
-    return
+    console.log("error")
+    showSnackbar("Cannot save unofficial result ")
   } finally {
     showLoading(false)
+    dlg_unofficial.value = false
   }
 }
 
@@ -223,5 +183,39 @@ onMounted(async () => {
         />
       </v-col>
     </v-row>
+    <v-row>
+      <v-data-table :items="games" :headers="p_headers" density="compact">
+        <template v-slot:item.action="{ item }">
+          <v-icon class="me-2" size="small" @click="editResult(item)">
+            mdi-pencil
+          </v-icon>
+        </template>
+      </v-data-table>
+    </v-row>
   </v-container>
+  <v-dialog v-model="dlg_unofficial" max-width="500px">
+    <v-card>
+      <v-card-title>
+        <span class="text-h5">Enter unofficial result</span>
+      </v-card-title>
+      <v-card-text>
+        White: {{ game.white }}<br />
+        Black: {{ game.black }}<br />
+        <v-select
+          label="Unofficial Result"
+          v-model="act_result"
+          :items="['', '1-0', '0-1', '½-½']"
+        />
+      </v-card-text>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn color="purple-darken-1" variant="text" @click="dlg_unofficial = false">
+          Cancel
+        </v-btn>
+        <v-btn color="purple-darken-1" variant="text" @click="saveUnofficial">
+          Save
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </template>
