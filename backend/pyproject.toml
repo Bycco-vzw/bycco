@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "bycco"
-version = "3.4.4"
+version = "3.5.1"
 
 description = "Bycco backend"
 authors = ["Ruben Decrop <ruben.decrop@bycco.be>"]
@@ -15,7 +15,7 @@ gunicorn = "^21.2.0"
 python-dotenv = "^1.0.1"
 openpyxl = "^3.1.2"
 asyncssh = "^2.14.2"
-reddevil = {path = "backend/libs/reddevil-3.3.8-py3-none-any.whl"}
+reddevil = {path = "libs/reddevil-3.3.8-py3-none-any.whl"}
 
 [tool.poetry.group.dev.dependencies]
 black = "^23"

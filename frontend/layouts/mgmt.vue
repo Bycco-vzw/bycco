@@ -19,15 +19,14 @@ useHead({
     <VNavigationDrawer v-model="drawer" color="deep-purple darken-1" dark>
       <VToolbar title="BYCCO Mgmt" color="deep-purple darken-3" dark />
       <v-list>
-        <v-list-item @click="goto('overview')" title="Overview" />
         <v-list-item @click="goto('pages')" title="Pages" />
         <v-list-item @click="goto('reservations')" title="Reservations" />
         <v-list-item @click="goto('paymentrequests')" title="Payment Requests" />
-        <v-list-item @click="goto('tournament')" title="BJK 2025" />
         <v-list-item @click="goto('registrations_bjk')" title="Registrations" />
         <v-list-item @click="goto('participants_bjk')" title="Participants" />
         <v-list-item @click="goto('attendee_bjk')" title="Attendees" />
-        <v-list-item @click="goto('logout')" title="Logout" />
+        <v-list-item @click="goto('upload_json')" title="Upload JSON Swar" />
+        <v-list-item @click="goto('unofficial_results')" title="Unofficial Results" />
       </v-list>
     </VNavigationDrawer>
     <VAppBar color="deep-purple darken-1" dark>

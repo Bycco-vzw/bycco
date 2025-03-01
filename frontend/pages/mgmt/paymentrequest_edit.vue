@@ -173,8 +173,8 @@ async function saveProperties() {
           token: token.value,
         })
         break
-      case "bjk2024":
-        console.log("updating pr bjk2024")
+      case "bjk2025":
+        console.log("updating pr bjk2025")
         reply = await $backend("payment", "mgmt_update_participant_bjk_pr", {
           id: idpaymentrequest,
           prq: {

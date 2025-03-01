@@ -251,7 +251,7 @@ async def upload_photo(id: str, photo: str) -> None:
             badgeimage=imagedata,
             badgelength=len(cast(str, imagedata)),
         )
-    except:
+    except Exception:
         raise RdBadRequest(description="BadPhotoData")
     await update_registration(id, su)
 

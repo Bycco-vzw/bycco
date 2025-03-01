@@ -28,7 +28,7 @@ async def api_get_file(
         return await get_file(rq)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
-    except:
+    except Exception:
         logger.exception("failed api call get_payment_request")
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
@@ -43,6 +43,6 @@ async def api_put_file(
         return await put_file(wr)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
-    except:
+    except Exception:
         logger.exception("failed api call get_payment_request")
         raise HTTPException(status_code=500, detail="Internal Server Error")

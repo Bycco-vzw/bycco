@@ -37,3 +37,4 @@ tasks:
       poetry run python -m bycco.scripts.i18n
       popd
     help: regenerate i18n files
+shell_interpreter: bash
