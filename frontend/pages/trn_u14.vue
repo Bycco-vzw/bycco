@@ -83,7 +83,6 @@ onMounted(() => {
           :items="swartrn.standings"
           :headers="swartrn.st_headers"
           :items-per-page="50"
-          :hide-default-footer="true"
           mobile-breakpoint="0"
           density="compact"
         />
@@ -95,7 +94,6 @@ onMounted(() => {
             :items="p.games"
             :headers="swartrn.pr_headers"
             :items-per-page="50"
-            :hide-default-footer="true"
             mobile-breakpoint="0"
             density="compact"
           />
@@ -119,7 +117,6 @@ onMounted(() => {
           :items="games"
           :headers="uo_headers"
           :items-per-page="50"
-          :hide-default-footer="true"
           mobile-breakpoint="0"
           density="compact"
         </v-data-table>
