@@ -26,7 +26,7 @@ async def api_checkin(
         await checkin(st_instance)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
-    except:
+    except Exception:
         logger.exception("failed api call bucket_to_statamic")
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
@@ -41,6 +41,6 @@ async def api_statamic_to_bucket(
         await checkout(st_instance)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
-    except:
+    except Exception:
         logger.exception("failed api call statamic_to_bucket")
         raise HTTPException(status_code=500, detail="Internal Server Error")

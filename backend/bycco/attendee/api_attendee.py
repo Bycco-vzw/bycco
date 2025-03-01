@@ -31,7 +31,7 @@ async def api_get_attendees_vk():
         return await get_attendees_vk()
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
-    except:
+    except Exception:
         logger.exception("failed api call get_attendees_vk")
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
@@ -42,7 +42,7 @@ async def api_get_attendees_vk(id: str):
         return await get_attendee_vk(id)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
-    except:
+    except Exception:
         logger.exception("failed api call get_attendees_vk")
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
@@ -54,7 +54,7 @@ async def api_add_attendee_vk(enr: Attendee):
         return id
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
-    except:
+    except Exception:
         logger.exception("failed api call add_attendee_vk")
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
@@ -66,7 +66,7 @@ async def api_update_attendee_vk(id: str, enr: Attendee):
         return id
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
-    except:
+    except Exception:
         logger.exception("failed api call create_attendee_vk")
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
@@ -77,6 +77,6 @@ async def api_generate_badges():
         return await generate_badges_vk()
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
-    except:
+    except Exception:
         logger.exception("failed api call generate_namecards")
         raise HTTPException(status_code=500, detail="Internal Server Error")

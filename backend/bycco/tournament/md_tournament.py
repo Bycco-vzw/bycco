@@ -7,3 +7,10 @@ from pydantic import BaseModel
 class TrnUpload(BaseModel):
     name: str
     jsoncontent: str
+
+
+class TrnUnofficialResult(BaseModel):
+    name: str
+    round: int
+    boardnr: int
+    unofficial_result: str
