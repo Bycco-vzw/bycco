@@ -35,10 +35,17 @@ const headers = [
   { title: "Elo FIDE", value: "ratingfide", sortable: true },
   { title: "Actions", value: "action" },
 ]
+const idbel = ref("")
+const category = ref("U8")
+const showAddParticipant = ref(false)
 
 definePageMeta({
   layout: "mgmt",
 })
+
+function addParticipant() {
+  showAddParticipant.value = true
+}
 
 async function checkAuth() {
   console.log("checking if auth is already set", token.value)
@@ -70,6 +77,31 @@ async function checkAuth() {
   }
   console.log("mgmttoken received", reply.data)
   mgmtstore.updateToken(reply.data)
+}
+
+async function doAddParticipant() {
+  let reply
+  showLoading(true)
+  try {
+    reply = await $backend("participant", "mgmt_add_participant_bjk", {
+      token: token.value,
+      idbel: idbel.value,
+      cat: category.value,
+    })
+    showAddParticipant.value = false
+    showSnackbar("Participant added")
+  } catch (error) {
+    console.error("adding participant failed", error)
+    if (error.code === 401) {
+      router.push("/mgmt")
+    } else {
+      showSnackbar("Adding participant failed: " + error.detail)
+    }
+    return
+  } finally {
+    showLoading(false)
+  }
+  await getParticipants()
 }
 
 async function create_prs() {
@@ -158,6 +190,12 @@ onMounted(async () => {
     <SnackbarMessage ref="refsnackbar" />
     <ProgressLoading ref="refloading" />
     <h1>Management Particpants BJK2025</h1>
+    <div v-if="showAddParticipant" class="mb-3">
+      <h4>Adding a participant</h4>
+      <v-text-field label="ID BEL" v-model="idbel" />
+      <v-text-field label="Category" v-model="category" />
+      <v-btn @click="doAddParticipant">Add</v-btn>
+    </div>
     <v-data-table
       :headers="headers"
       :items="participants"
@@ -221,6 +259,21 @@ onMounted(async () => {
                     @click="create_prs()"
                   >
                     <v-icon>mdi-currency-eur</v-icon>
+                  </v-btn>
+                </template>
+              </v-tooltip>
+              &nbsp;
+              <v-tooltip location="bottom">
+                Add participant
+                <template #activator="{ props }">
+                  <v-btn
+                    fab
+                    outlined
+                    color="deep-purple-lighten-1"
+                    v-bind="props"
+                    @click="addParticipant()"
+                  >
+                    <v-icon>mdi-plus</v-icon>
                   </v-btn>
                 </template>
               </v-tooltip>

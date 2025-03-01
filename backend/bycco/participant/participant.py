@@ -60,6 +60,36 @@ async def get_participant_bjk_by_idbel(idbel: str) -> ParticipantBJKItem:
     return await DbParticpantBJK.find_single(filter)
 
 
+async def create_participant_bjk(idbel: str, category: ParticipantBJKCategory) -> None:
+    """
+    create a participant
+    """
+    pl = await lookup_idbel(idbel)
+    return await DbParticpantBJK.add(
+        {
+            "badgemimetype": "",
+            "badglength": 0,
+            "badgeimage": None,
+            "birthyear": pl.birthyear,
+            "category": category,
+            "chesstitle": pl.chesstitle or "",
+            "enabled": True,
+            "emails": [],
+            "first_name": pl.first_name,
+            "gender": pl.gender,
+            "idbel": idbel,
+            "idclub": pl.idclub,
+            "idfide": pl.idfide,
+            "locale": "nl",
+            "last_name": pl.last_name,
+            "nationalityfide": pl.nationalityfide,
+            "ratingbel": pl.ratingbel,
+            "ratingfide": pl.ratingfide,
+            "remarks": "late registration",
+        }
+    )
+
+
 async def import_participant_bjk(idreg) -> str:
     """
     import an enrollemnt and create a participant

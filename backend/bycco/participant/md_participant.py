@@ -30,6 +30,9 @@ class ParticipantBJKCategory(str, Enum):
     U16 = "U16"
     U18 = "U18"
     U20 = "U20"
+    ORG = "ORG"
+    ARB = "ARB"
+    GUEST = "GUEST"
 
 
 class ParticipantBJKDB(BaseModel):
