@@ -5,7 +5,7 @@ import logging
 from typing import cast, List, Dict, Any
 from binascii import a2b_base64
 from fastapi import Response
-from jinja2 import FileSystemLoader, Environment
+from jinja2 import PackageLoader, Environment
 
 from reddevil.core import RdBadRequest, RdNotFound
 
@@ -29,7 +29,7 @@ from bycco.registration import (
 )
 
 logger = logging.getLogger(__name__)
-tmpl_env = Environment(loader=FileSystemLoader("bycco/templates"), trim_blocks=True)
+tmpl_env = Environment(loader=PackageLoader("bycco"), trim_blocks=True)
 
 # bjk
 
@@ -237,9 +237,8 @@ async def generate_namecards_bjk(cat: str, ids: str = ""):
     get the Namecards for the bjk by categorie or by ids
     ids: comma separated ids
     """
-    filter: Dict[str, Any] = {"enabled": True}
     if cat:
-        prts = await get_participants_bjk({"category": cat})
+        prts = await get_participants_bjk({"category": cat, "enabled": True})
     else:
         prts = await get_participants_bjk({"idbel": {"$in": ids.split(",")}})
     logger.info(f"nr of participants {len(prts)}")
