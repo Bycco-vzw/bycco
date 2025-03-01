@@ -14,13 +14,22 @@ const { $backend } = useNuxtApp()
 
 const swartrn = ref({})
 const tab = ref(0)
+const games = ref([])
+const round = ref(1)
 
-async function getTournament(name) {
+const uo_headers = [
+  { title: "Board", value: "boardnr" },
+  { title: "White", value: "white" },
+  { title: "Black", value: "black" },
+  { title: "Unof. Result", value: "unofficial_result" },
+]
+
+async function getTournament() {
   let reply
   try {
     reply = await $backend("filestore", "anon_get_file", {
       group: "trn",
-      name,
+      name: tournament.json_file,
     })
     console.log("getTournament success", reply.data)
   } catch (error) {
@@ -30,20 +39,43 @@ async function getTournament(name) {
     console.log()
   }
   swartrn.value = processSwarJson(reply.data, xs.value, t)
+  getUnofficialGames(reply.data)
 }
 
-onMounted(() => {
-  getTournament(tournament.json_file)
-})
+function getUnofficialGames(swarjson) {
+  console.log("readSwarJson", swarjson)
+  games.value = []
+  const players = swarjson.Swar.Player
+  players.forEach((p) => {
+    if (!p.RoundArray) return
+    p.RoundArray.forEach((r) => {
+      if (r.RoundNr != round.value) return
+      if (r.Color == "White") {
+        games.value.push({
+          white: p.Name,
+          black: r.OpponentName,
+          unofficial_result: r.UnofficialResult ? r.UnofficialResult : "",
+          boardnr: parseInt(r.Tabel),
+        })
+      }
+    })
+  })
+  games.value.sort((x, y) => x.boardnr - y.boardnr)
+}
+
+setInterval(getTournament, 60000)
+
+onMounted(() => getTournament())
 </script>
 
 <template>
   <v-container class="mt-1">
-    <h1>{{ t("BYC 2024") }} {{ tournament.category }}</h1>
+    <h1>{{ t("BYC 2025") }} {{ tournament.category }}</h1>
     <v-tabs v-model="tab" show>
       <v-tab>{{ t("Standings") }}</v-tab>
       <v-tab>{{ t("Pairings") }}</v-tab>
       <v-tab>Live</v-tab>
+      <v-tab>{{ t("Unofficial results") }}</v-tab>
     </v-tabs>
     <v-window v-model="tab">
       <v-window-item>
@@ -75,6 +107,22 @@ onMounted(() => {
           target="live"
           >Live Games</a
         >
+      </v-window-item>
+      <v-window-item>
+        <h2>{{ t("Unofficial results") }}</h2>
+        <div>
+          {{ t("uo_explanation") }}
+        </div>
+        <v-select v-model="round" label="Round" :items="[1, 2, 3, 4, 5, 6, 7, 8, 9]" max-width="10em" 
+         @update:modelValue="getTournament"  />
+        <v-data-table
+          :items="games"
+          :headers="uo_headers"
+          :items-per-page="50"
+          :hide-default-footer="true"
+          mobile-breakpoint="0"
+          density="compact"
+        </v-data-table>
       </v-window-item>
     </v-window>
   </v-container>

@@ -7,19 +7,14 @@ function setLocale(l) {
   locale.value = l
 }
 
-function livegames_vk() {
-  window.open(
-    "https://lichess.org/broadcast/flemish-championship-2024--closed/round-1/YKpRRcUf",
-    "_live"
-  )
-}
+const tournament_mode = true
 
-function rules_bjk() {
-  window.open(
-    "https://drive.google.com/file/d/1U7VycNN8ObdzqptAt1TrpIWJDPZoEo-q/view",
-    "_rules"
-  )
-}
+// function livegames() {
+//   window.open(
+//     "https://lichess.org/broadcast/flemish-championship-2024--closed/round-1/YKpRRcUf",
+//     "_live"
+//   )
+// }
 </script>
 
 <template>
@@ -46,21 +41,28 @@ function rules_bjk() {
     <v-list nav class="bm-blue-grey-darken-1">
       <v-list-item to="/" :title="t('Home')" />
 
-      <v-list-group no-action>
+      <v-list-group no-action v-if="!tournament_mode">
         <template #activator="{ props }">
           <v-list-item v-bind="props" :title="t('BYC 2025')" />
         </template>
         <v-list-item to="schedule" :title="t('Game schedule')" />
-        <!-- <v-list-item to="/registration_bjk" :title="t('enroll.tool')" /> -->
+        <v-list-item to="/registration_bjk" :title="t('enroll.tool')" />
         <v-list-item to="/participants_bjk" :title="t('trn.partcp')" />
         <v-list-item to="/rules" :title="t('Tournament Rules')" />
-        <!-- <v-list-item to="/trn_u8" title="U8" />
+      </v-list-group>
+      <v-list-group no-action v-if="tournament_mode">
+        <template #activator="{ props }">
+          <v-list-item v-bind="props" :title="t('BYC 2025')" />
+        </template>
+        <v-list-item to="schedule" :title="t('Game schedule')" />
+        <v-list-item to="/rules" :title="t('Tournament Rules')" />
+        <v-list-item to="/trn_u8" title="U8" />
         <v-list-item to="/trn_u10" title="U10" />
         <v-list-item to="/trn_u12" title="U12" />
         <v-list-item to="/trn_u14" title="U14" />
         <v-list-item to="/trn_u16" title="U16" />
         <v-list-item to="/trn_u18" title="U18" />
-        <v-list-item to="/trn_u20" title="U20" /> -->
+        <v-list-item to="/trn_u20" title="U20" />
       </v-list-group>
       <v-list-group no-action>
         <template #activator="{ props }">
@@ -69,7 +71,7 @@ function rules_bjk() {
         <v-list-item to="/stay" :title="t('stay.stay')" />
         <v-list-item to="/catering" :title="t('stay.catering')" />
         <v-list-item to="/reservation" :title="t('stay.reservation')" />
-        <!-- <v-list-item @click="livegames_" title="Live" /> -->
+        <!-- <v-list-item @click="livegames" title="Live" /> -->
       </v-list-group>
     </v-list>
   </div>

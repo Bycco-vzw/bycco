@@ -42,7 +42,7 @@ onMounted(() => {
 
 <template>
   <v-container class="mt-1">
-    <h1>{{ t('BYC 2024') }} {{ tournament.category }}</h1>
+    <h1>{{ t('BYC 2025') }} {{ tournament.category }}</h1>
     <v-tabs v-model="tab" show>
       <v-tab>{{ t('Standings') }}</v-tab>
       <v-tab>{{ t('Pairings') }}</v-tab>

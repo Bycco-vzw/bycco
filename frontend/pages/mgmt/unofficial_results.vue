@@ -204,7 +204,7 @@ onMounted(async () => {
         <v-select
           label="Unofficial Result"
           v-model="act_result"
-          :items="['', '1-0', '0-1', '½-½']"
+          :items="['', '1-0', '0-1', '½-½', '1-0 FF', '0-1 FF', '½-0', '0-½', '0-0 FF']"
         />
       </v-card-text>
       <v-card-actions>

@@ -235,7 +235,7 @@ async def api_generate_badges_cat(cat: str):
         return await generate_badges_bjk(cat)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
-    except:
+    except Exception:
         logger.exception("failed api call generate_namecards")
         raise HTTPException(status_code=500, detail="Internal Server Error")
 

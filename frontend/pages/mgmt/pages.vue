@@ -133,7 +133,7 @@ onMounted(() => {
     </P>
     <ul>
       <li><b>username:</b> info@bycco.be</li>
-      <li><b>password:</b> jeugd2024</li>
+      <li><b>password:</b> jeugd2025</li>
 
     </ul>
   </v-container>

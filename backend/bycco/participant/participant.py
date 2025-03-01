@@ -5,7 +5,7 @@ import logging
 from typing import cast, List, Dict, Any
 from binascii import a2b_base64
 from fastapi import Response
-from jinja2 import FileSystemLoader, Environment
+from jinja2 import PackageLoader, Environment
 
 from reddevil.core import RdBadRequest, RdNotFound
 
@@ -29,16 +29,16 @@ from bycco.registration import (
 )
 
 logger = logging.getLogger(__name__)
-tmpl_env = Environment(loader=FileSystemLoader("bycco/templates"), trim_blocks=True)
-
+tmpl_env = Environment(loader=PackageLoader("bycco"), trim_blocks=True)
 # bjk
 
 
-async def get_participants_bjk(options: dict = {}) -> List[ParticipantBJKItem]:
-    filter = options.copy()
+async def get_participants_bjk(options: dict | None = None) -> List[ParticipantBJKItem]:
+    filter = options.copy() if options else {}
     filter["_model"] = filter.pop("_model", ParticipantBJKItem)
     filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
     filter["_fieldlist"].append("_creationtime")
+    logger.info(f"get_participants_bjk {filter}")
     return [
         cast(ParticipantBJKItem, x) for x in await DbParticpantBJK.find_multiple(filter)
     ]
@@ -166,11 +166,13 @@ async def generate_badges_bjk(cat: str, ids: str = ""):
     cat: str
     ids: comma separated ids
     """
-    filter: Dict[str, Any] = {"enabled": True}
+    logger.info(f"generate_badges_bjk cat={cat} ids={ids}")
     if cat:
-        prts = await get_participants_bjk({"category": cat})
+        prts = await get_participants_bjk({"category": cat, "enabled": True})
     else:
-        prts = await get_participants_bjk({"idbel": {"$in": ids.split(",")}})
+        prts = await get_participants_bjk(
+            {"idbel": {"$in": ids.split(",")}, "enabled": True}
+        )
     logger.info(f"nr of participants {len(prts)}")
     pages = []
     badges = []
