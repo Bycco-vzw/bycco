@@ -105,7 +105,7 @@ logger = logging.getLogger(__name__)
 #         await update_elo_vk()
 #     except RdException as e:
 #         raise HTTPException(status_code=e.status_code, detail=e.description)
-#     except:
+#     except Exception:
 #         logger.exception("failed api call mgmt_update_elo_vk")
 #         raise HTTPException(status_code=500, detail="Internal Server Error")
 
@@ -116,7 +116,7 @@ logger = logging.getLogger(__name__)
 #         return await generate_namecards_vk(cat)
 #     except RdException as e:
 #         raise HTTPException(status_code=e.status_code, detail=e.description)
-#     except:
+#     except Exception:
 #         logger.exception("failed api call generate_namecards")
 #         raise HTTPException(status_code=500, detail="Internal Server Error")
 
@@ -127,7 +127,7 @@ logger = logging.getLogger(__name__)
 #         return await generate_namecards_vk(cat="", ids=ids)
 #     except RdException as e:
 #         raise HTTPException(status_code=e.status_code, detail=e.description)
-#     except:
+#     except Exception:
 #         logger.exception("failed api call generate_namecards")
 #         raise HTTPException(status_code=500, detail="Internal Server Error")
 
@@ -144,7 +144,7 @@ async def api_get_participants_bjk(enabled: str | None = None):
             return await get_participants_bjk()
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
-    except:
+    except Exception:
         logger.exception("failed api call get_particpants_bjk")
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
@@ -158,7 +158,7 @@ async def api_mgmt_get_participant_bjk(
         return await get_participant_bjk(id)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
-    except:
+    except Exception:
         logger.exception("failed api call get_particpant_bjk")
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
@@ -174,7 +174,7 @@ async def api_mgmt_update_participant_bjk(
         return await update_participant_bjk(id, participant)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
-    except:
+    except Exception:
         logger.exception("failed api call update_participant_bjk")
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
@@ -188,7 +188,7 @@ async def api_mgmt_import_enrollments_bjk(
         await import_participants_bjk()
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
-    except:
+    except Exception:
         logger.exception("failed api call mgmt_import_enrollments_bjk")
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
@@ -202,7 +202,7 @@ async def api_mgmt_update_elo_bjk(
         await update_elo_bjk()
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
-    except:
+    except Exception:
         logger.exception("failed api call mgmt_update_elo_vk")
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
@@ -213,7 +213,7 @@ async def api_generate_namecards_cat(cat: str):
         return await generate_namecards_bjk(cat)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
-    except:
+    except Exception:
         logger.exception("failed api call generate_namecards")
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
@@ -224,7 +224,7 @@ async def api_generate_namecards_ids(ids: str):
         return await generate_namecards_bjk(cat="", ids=ids)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
-    except:
+    except Exception:
         logger.exception("failed api call generate_namecards")
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
@@ -246,7 +246,7 @@ async def api_generate_badges_ids(ids: str):
         return await generate_badges_bjk(cat="", ids=ids)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
-    except:
+    except Exception:
         logger.exception("failed api call generate_namecards")
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
@@ -257,7 +257,7 @@ async def api_get_photo(id: str):
         return await get_photo(id)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
-    except:
+    except Exception:
         logger.exception("failed api call get_participant")
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
@@ -268,7 +268,7 @@ async def api_upload_photo_bjk(id: str, body: dict):
         return await upload_photo_bjk(id, body["photo"])
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
-    except:
+    except Exception:
         logger.exception("failed api call upload_photo_bjk")
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
@@ -279,6 +279,6 @@ async def api_generate_prizes():
         return await generate_prizes_bjk()
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
-    except:
+    except Exception:
         logger.exception("failed api call generate_prizes")
         raise HTTPException(status_code=500, detail="Internal Server Error")
