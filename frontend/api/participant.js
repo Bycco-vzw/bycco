@@ -18,6 +18,18 @@ export default {
       }
     )
   },
+  mgmt_add_guest: async function (options) {
+    const { token, first_name, last_name, cat } = options
+    return await axios.post(
+      `/api/v1/guest/${first_name}/${last_name}/${cat}`,
+      {},
+      {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      }
+    )
+  },
   get_participants_bjk: async function (options) {
     const { enabled } = options
     if (enabled) {

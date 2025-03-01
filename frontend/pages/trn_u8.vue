@@ -18,10 +18,10 @@ const games = ref([])
 const round = ref(1)
 
 const uo_headers = [
-  { title: "Board", value: "boardnr" },
-  { title: "White", value: "white" },
-  { title: "Black", value: "black" },
-  { title: "Unof. Result", value: "unofficial_result" },
+  { title: t("Board"), value: "boardnr" },
+  { title: t("White"), value: "white" },
+  { title: t("Black"), value: "black" },
+  { title: t("Result"), value: "unofficial_result" },
 ]
 
 async function getTournament() {
@@ -31,7 +31,6 @@ async function getTournament() {
       group: "trn",
       name: tournament.json_file,
     })
-    console.log("getTournament success", reply.data)
   } catch (error) {
     console.log("error", error)
     return
@@ -43,7 +42,6 @@ async function getTournament() {
 }
 
 function getUnofficialGames(swarjson) {
-  console.log("readSwarJson", swarjson)
   games.value = []
   const players = swarjson.Swar.Player
   players.forEach((p) => {
@@ -63,9 +61,12 @@ function getUnofficialGames(swarjson) {
   games.value.sort((x, y) => x.boardnr - y.boardnr)
 }
 
-setInterval(getTournament, 60000)
 
-onMounted(() => getTournament())
+onMounted(() => {
+  getTournament()
+  setInterval(getTournament, 60000)
+})
+
 </script>
 
 <template>

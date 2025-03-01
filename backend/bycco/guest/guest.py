@@ -20,6 +20,7 @@ async def add_guest(
     """
     create a participant
     """
+    logger.info("Adding guest")
     return await DbParticpantBJK.add(
         {
             "badgemimetype": "",
@@ -32,9 +33,9 @@ async def add_guest(
             "emails": [],
             "first_name": first_name,
             "gender": "M",
-            "idbel": 0,
-            "idclub": 0,
-            "idfide": 0,
+            "idbel": "",
+            "idclub": "",
+            "idfide": "",
             "locale": "nl",
             "last_name": last_name,
             "nationalityfide": "BEL",

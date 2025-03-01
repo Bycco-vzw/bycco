@@ -53,6 +53,7 @@ definePageMeta({
       <li>
         Editing the <NuxtLink to="/mgmt/unofficial_results">Unofficial Results</NuxtLink>
       </li>
+      <li>Managing the <NuxtLink to="/mgmt/guests">Guests</NuxtLink></li>
     </ul>
   </VContainer>
 </template>
