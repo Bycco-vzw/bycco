@@ -122,15 +122,12 @@
   display: none;
 }
 
-.badge_FULL {
-  background-color: #e8e131 !important;
-}
 
-.badge_HALF {
+.badge_HB {
   background-color: #8ad539 !important;
 }
 
-.badge_BREAKFAST {
+.badge_BO {
   background-color: #1ad7f2 !important;
 }
 

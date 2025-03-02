@@ -102,7 +102,7 @@ onMounted(() => {
       </v-window-item>
       <v-window-item>
         <a
-          href="https://view.livechesscloud.com#4e2a1b92-a0bb-46f4-92bf-620041e14d2b"
+          href="https://view.livechesscloud.com/#ad010d49-5bda-40ad-ad64-e770b9e98627"
           target="live"
           >Live Games</a
         >

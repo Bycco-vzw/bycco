@@ -149,10 +149,9 @@ async function gotoPaymentrequest(id) {
 function handleFile(event) {
   const reader = new FileReader()
   reader.onload = (event) => {
-    console.log("handle file onload", event, photo.value)
     photosrc.value.replace(event.target.result)
   }
-  reader.readAsDataURL(event[0])
+  reader.readAsDataURL(event)
 }
 
 function readParticipant(participant) {
@@ -167,7 +166,7 @@ async function refresh() {
 async function saveParticipant() {
   let reply
   showLoading(true)
-
+  console.log("saving participant", par.value)
   try {
     await $backend("participant", "mgmt_update_participant_bjk", {
       id: idparticipant,
@@ -175,11 +174,14 @@ async function saveParticipant() {
         category: par.value.category,
         emails: emails.value.split(","),
         enabled: par.value.enabled,
+        meals: par.value.meals,
         ratingbel: par.value.ratingbel,
         ratingfide: par.value.ratingfide,
       },
       token: mgmttoken.value,
     })
+    console.log("save successful")
+    showSnackbar("Participant saved")
   } catch (error) {
     console.error("saving getParticipant", error)
     if (error.code == 401) {
@@ -191,8 +193,6 @@ async function saveParticipant() {
   } finally {
     showLoading(false)
   }
-  console.log("save successful")
-  showSnackbar("Participant saved")
 }
 
 async function upload_photo() {
@@ -267,6 +267,7 @@ onMounted(async () => {
             <v-text-field v-model="par.first_name" label="First name" />
             <v-switch v-model="par.enabled" label="Enabled" color="deep-purple" />
             <v-text-field v-model="emails" label="Emails" />
+            <v-text-field v-model="par.meals" label="Meals (HB, BO)" />
           </v-col>
           <v-col cols="12" sm="6">
             <v-text-field v-model="par.ratingbel" label="ELO BEL" />

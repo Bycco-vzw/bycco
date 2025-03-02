@@ -126,7 +126,7 @@ async function create_prs() {
 }
 
 function editParticipant(item) {
-  router.push("/mgmt/participant_bjk_edit?id=" + item.id)
+  router.push("/mgmt/participant_edit?id=" + item.id)
 }
 
 async function getParticipants() {

@@ -56,10 +56,10 @@ class ParticipantBJKDB(BaseModel):
     idfide: str | None
     locale: str
     last_name: str
+    meals: str | None = None
     nationalityfide: str | None
     natstatus: NatStatus | None = NatStatus.unknown
     payment_id: str | None = None
-    present: datetime | None
     ratingbel: int
     ratingfide: int
     remarks: str
@@ -76,7 +76,7 @@ class ParticipantBJKDetail(BaseModel):
     """
 
     badgemimetype: str
-    badgelength: int
+    badgelength: int | None = 0
     birthyear: int | None
     category: ParticipantBJKCategory
     chesstitle: str
@@ -90,10 +90,10 @@ class ParticipantBJKDetail(BaseModel):
     idfide: str | None
     locale: str
     last_name: str
+    meals: str | None = None
     nationalityfide: str | None
     natstatus: NatStatus | None = NatStatus.unknown
     payment_id: str | None = None
-    present: datetime | None
     ratingbel: int
     ratingfide: int
     remarks: str
@@ -120,10 +120,10 @@ class ParticipantBJKUpdate(BaseModel):
     idfide: str | None = None
     locale: str | None = None
     last_name: str | None = None
+    meals: str | None = None
     nationalityfide: str | None = None
     natstatus: NatStatus | None = None
     payment_id: str | None = None
-    present: datetime | None = None
     ratingbel: int | None = None
     ratingfide: int | None = None
     remarks: str | None = None
@@ -148,6 +148,7 @@ class ParticipantBJK(BaseModel):
     idfide: str | None = None
     locale: str | None = None
     last_name: str | None = None
+    meals: str | None = None
     nationalityfide: str | None = None
     payment_id: str | None = None
     present: datetime | None = None
@@ -173,6 +174,7 @@ class ParticipantBJKItem(BaseModel):
     idclub: str | None
     idfide: str | None
     last_name: str
+    meals: str | None = None
     nationalityfide: str | None = "BEL"
     natstatus: NatStatus | None = NatStatus.unknown
     payment_id: str | None = None

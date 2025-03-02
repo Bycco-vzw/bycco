@@ -1,117 +1,115 @@
-
-
-
-
 const _st_headers = [
   {
     u_title: "Nb",
     sortable: false,
-    value: 'rank'
+    value: "rank",
   },
   {
-    u_title: 'Name',
+    u_title: "Name",
     sortable: false,
-    value: 'name'
+    value: "name",
   },
   {
-    title: 'Elo',
+    title: "Elo used",
     sortable: false,
-    value: 'elo'
+    value: "elo",
   },
   {
-    title: 'ID Bel',
+    title: "ID Bel",
     sortable: false,
-    value: 'idbel'
+    value: "idbel",
   },
   {
-    title: 'Gender',
+    title: "Gender",
     sortable: false,
-    value: 'gender'
+    value: "gender",
   },
   {
-    u_title: 'Games',
+    u_title: "Games",
     sortable: false,
     small: true,
-    value: 'ngames'
+    value: "ngames",
   },
   {
-    u_title: 'Points',
+    u_title: "Points",
     sortable: false,
-    value: 'points'
+    value: "points",
   },
   {
     title: "BC1",
     sortable: false,
     small: true,
-    value: 'tb1'
+    value: "tb1",
   },
   {
     title: "Buch",
     sortable: false,
     small: true,
-    value: 'tb2'
+    value: "tb2",
   },
   {
     title: "SB",
     sortable: false,
     small: true,
-    value: 'tb3'
+    value: "tb3",
   },
   {
     title: "Prog",
     sortable: false,
     small: true,
-    value: 'tb4'
+    value: "tb4",
   },
   {
     title: "DE",
     sortable: false,
     small: true,
-    value: 'tb5'
+    value: "tb5",
   },
 ]
 const pr_headers = [
   {
-    u_title: 'Nb',
+    u_title: "Nb",
     sortable: false,
-    value: 'boardnr'
+    value: "boardnr",
   },
   {
-    u_title: 'White',
+    u_title: "White",
     sortable: false,
-    value: 'white'
+    value: "white",
   },
   {
-    u_title: 'Result',
+    u_title: "Result",
     sortable: false,
-    value: 'result'
+    value: "result",
   },
   {
-    u_title: 'Black',
+    u_title: "Black",
     sortable: false,
-    value: 'black'
-  }
+    value: "black",
+  },
 ]
 
 function getWhiteResult(rescode) {
   switch (rescode) {
-    case '1':
-      return '1-0'
-    case '0':
-      return '0-1'
-    case '½':
-      return '½-½'
-    case '1FF':
-      return '1-0 FF'
-    case '0ff':
-      return '0-1 FF'
-    case '-':
-      return '-'
+    case "1":
+      return "1-0"
+    case "0":
+      return "0-1"
+    case "½":
+      return "½-½"
+    case "1FF":
+      return "1-0 FF"
+    case "0ff":
+      return "0-1 FF"
+    case "-":
+      return "-"
   }
 }
 
 function processSwarJson(swarjson, small, t) {
-  const standings = [], pairings = [], sortpairings = []
+  const standings = [],
+    pairings = [],
+    sortpairings = []
   const players = swarjson.Swar.Player
   let st_headers = _st_headers
   players.forEach((p) => {
@@ -119,7 +117,7 @@ function processSwarJson(swarjson, small, t) {
       id: p.NationalId,
       rank: p.Ranking,
       name: p.Name,
-      elo: p.FideElo,
+      elo: Math.max(p.FideElo, p.NationalElo),
       ngames: p.NbOfParts,
       points: parseFloat(p.Points),
       idbel: p.NationalId,
@@ -137,26 +135,26 @@ function processSwarJson(swarjson, small, t) {
         games: [],
         bye: null,
         absent: [],
-        rnr
+        rnr,
       }
       switch (r.Color) {
-        case 'No Color':
-          if (r.Tabel === 'BYE') {
+        case "No Color":
+          if (r.Tabel === "BYE") {
             pr.bye = {
               white: p.Name,
-              black: 'Bye',
-              result: ''
+              black: "Bye",
+              result: "",
             }
           }
-          if (r.Tabel === 'Absent') {
+          if (r.Tabel === "Absent") {
             pr.absent.push({
               white: p.Name,
-              black: t('Absent'),
-              result: ''
+              black: t("Absent"),
+              result: "",
             })
           }
           break
-        case 'White':
+        case "White":
           let boardnr = parseInt(r.Tabel) - 1
           pr.games.push({
             white: p.Name,
@@ -175,7 +173,7 @@ function processSwarJson(swarjson, small, t) {
     if (ix > 0) {
       sortpairings[maxround - ix] = {
         games: p.games,
-        rnr: p.rnr
+        rnr: p.rnr,
       }
       if (p.bye) {
         sortpairings[maxround - ix].games.push(p.bye)
@@ -196,7 +194,9 @@ function processSwarJson(swarjson, small, t) {
     }
   })
   if (small) {
-    st_headers = st_headers.filter((x) => { return !x.small })
+    st_headers = st_headers.filter((x) => {
+      return !x.small
+    })
   }
   return { standings, pairings, sortpairings, st_headers, pr_headers }
 }
