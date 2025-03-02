@@ -30,8 +30,7 @@ const idparticipant = route.query.id
 const par = ref({ payment_id: "" })
 const emails = ref("")
 const photourl = computed(() => {
-  // return "https://www.bycco.be/api/v1/participant/photo/" + (par.value.id || "")
-  return "http://localhost:8000/api/v1/participant/photo/" + (par.value.id || "")
+  return "https://www.bycco.be/api/v1/participant/photo/" + (par.value.id || "")
 })
 const photo = ref([])
 const photosrc = ref("")
