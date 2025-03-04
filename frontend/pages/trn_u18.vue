@@ -99,8 +99,9 @@ onMounted(() => {
         </div>
       </v-window-item>
       <v-window-item>
-        <a
-          href="https://view.livechesscloud.com/#2c59a2ce-c07d-4ef2-9e2d-a7aaafdf6528"
+          <!-- href="https://view.livechesscloud.com/#2c59a2ce-c07d-4ef2-9e2d-a7aaafdf6528" -->
+          <a
+          href="https://lichess.org/broadcast/u18-bjk-cjb-bljm-2025/xYfhE8Ym"
           target="live"
           >Live Games</a
         >

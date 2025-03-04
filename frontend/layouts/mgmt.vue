@@ -24,6 +24,7 @@ useHead({
         <v-list-item @click="goto('paymentrequests')" title="Payment Requests" />
         <v-list-item @click="goto('registrations')" title="Registrations" />
         <v-list-item @click="goto('participants')" title="Participants" />
+        <v-list-item @click="goto('guests')" title="Guests" />
         <v-list-item @click="goto('upload_json')" title="Upload JSON Swar" />
         <v-list-item @click="goto('unofficial_results')" title="Unofficial Results" />
       </v-list>
