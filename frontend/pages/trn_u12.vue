@@ -7,7 +7,7 @@ import { useStorage } from "@vueuse/core"
 const { t } = useI18n()
 const { xs, sm } = useDisplay()
 
-const stheaders_smartphone = ["rank", "name", "elo", "idbel", "points"]  
+const stheaders_smartphone = ["rank", "name", "elo", "gender", "points"]  
 const stheaders_tablet = ["rank", "name", "elo", "idbel", "points", "gender",  "clubname"]  
 const stheaders_pc = []  
 
