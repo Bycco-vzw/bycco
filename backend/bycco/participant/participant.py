@@ -284,6 +284,16 @@ async def get_photo(id: str) -> Response:
     return Response(content=photo["badgeimage"], media_type=photo["badgemimetype"])
 
 
+async def get_photo_bel(idbel: str) -> Response:
+    photo = await DbParticpantBJK.find_single(
+        {
+            "idbel": idbel,
+            "_fieldlist": ["badgeimage", "badgemimetype"],
+        }
+    )
+    return Response(content=photo["badgeimage"], media_type=photo["badgemimetype"])
+
+
 async def upload_photo_bjk(id: str, photo: str) -> None:
     try:
         header, data = photo.split(",")
