@@ -17,6 +17,7 @@ from .participant import (
     get_participants_bjk,
     get_participant_bjk,
     get_photo,
+    get_photo_bel,
     import_participant_bjk,
     import_participants_bjk,
     update_elo_bjk,

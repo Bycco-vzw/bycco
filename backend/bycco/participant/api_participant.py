@@ -21,6 +21,7 @@ from . import (
     get_participants_bjk,
     get_participant_bjk,
     get_photo,
+    get_photo_bel,
     import_participants_bjk,
     update_elo_bjk,
     update_participant_bjk,
@@ -167,6 +168,17 @@ async def api_generate_badges_ids(ids: str):
 async def api_get_photo(id: str):
     try:
         return await get_photo(id)
+    except RdException as e:
+        raise HTTPException(status_code=e.status_code, detail=e.description)
+    except Exception:
+        logger.exception("failed api call get_participant")
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+
+
+@router.get("/photo_bel/{idbel}", response_class=Response)
+async def api_get_photo_bel(idbel: str):
+    try:
+        return await get_photo_bel(idbel)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except Exception:

@@ -2,9 +2,28 @@
 import { ref, computed, onMounted } from "vue"
 import { useI18n } from "vue-i18n"
 import { useDisplay } from "vuetify"
+import { useStorage } from "@vueuse/core"
 
 const { t } = useI18n()
-const { xs } = useDisplay()
+const { xs, sm } = useDisplay()
+
+const stheaders_smartphone = ["rank", "name", "elo", "gender", "points"]  
+const stheaders_tablet = ["rank", "name", "elo", "idbel", "points", "gender",  "clubname"]  
+const stheaders_pc = []  
+
+const st_headers = computed(() => {
+  let dsp = stheaders_pc
+  if (xs.value) {
+    dsp =  stheaders_smartphone
+  }
+  if (sm.value)  {
+    dsp = stheaders_tablet
+  }
+  if (!dsp.length) return swartrn.value.st_headers
+  if (!swartrn.value.st_headers) return []
+  return swartrn.value.st_headers.filter((x) => dsp.includes(x.value))
+})
+
 
 const tournament = {
   json_file: "bjk_u8.json",
@@ -37,7 +56,7 @@ async function getTournament() {
   } finally {
     console.log()
   }
-  swartrn.value = processSwarJson(reply.data, xs.value, t)
+  swartrn.value = processSwarJson(reply.data, t)
   getUnofficialGames(reply.data)
 }
 
@@ -78,11 +97,11 @@ onMounted(() => {
       <v-tab>Live</v-tab>
       <v-tab>{{ t("Unofficial results") }}</v-tab>
     </v-tabs>
-    <v-window v-model="tab">
+    <v-window v-model="tab"  :touch="false">
       <v-window-item>
         <v-data-table
           :items="swartrn.standings"
-          :headers="swartrn.st_headers"
+          :headers="st_headers"
           :items-per-page="50"
           mobile-breakpoint="0"
           density="compact"
