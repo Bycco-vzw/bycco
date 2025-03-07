@@ -10,14 +10,24 @@ const _st_headers = [
     value: "name",
   },
   {
+    title: "ID Bel",
+    sortable: false,
+    value: "idbel",
+  },
+  {
     title: "Elo used",
     sortable: false,
     value: "elo",
   },
   {
-    title: "ID Bel",
+    u_title: "Points",
     sortable: false,
-    value: "idbel",
+    value: "points",
+  },
+  {
+    title: "Birth year",
+    sortable: false,
+    value: "birthyear",
   },
   {
     title: "Gender",
@@ -25,15 +35,30 @@ const _st_headers = [
     value: "gender",
   },
   {
+    title: "Bel. Elo",
+    sortable: false,
+    value: "ratingbel",
+  },
+  {
+    title: "FIDE Elo",
+    sortable: false,
+    value: "ratingfide",
+  },
+  {
+    title: "Club ID",
+    sortable: true,
+    value: "idclub",
+  },
+  {
+    title: "Club name",
+    sortable: true,
+    value: "clubname",
+  },
+  {
     u_title: "Games",
     sortable: false,
     small: true,
     value: "ngames",
-  },
-  {
-    u_title: "Points",
-    sortable: false,
-    value: "points",
   },
   {
     title: "BC1",
@@ -106,7 +131,7 @@ function getWhiteResult(rescode) {
   }
 }
 
-function processSwarJson(swarjson, small, t) {
+function processSwarJson(swarjson, t) {
   const standings = [],
     pairings = [],
     sortpairings = []
@@ -127,6 +152,11 @@ function processSwarJson(swarjson, small, t) {
       tb3: p.TieBreak[2].Points,
       tb4: p.TieBreak[3].Points,
       tb5: p.TieBreak[4].Points,
+      birthyear: p.BirthDate,
+      ratingbel: p.NationalElo,
+      ratingfide: p.FideElo,
+      idclub: p.ClubNumber,
+      clubname: p.ClubName,
     }
     if (!p.RoundArray) p.RoundArray = []
     p.RoundArray.forEach((r) => {
@@ -193,11 +223,6 @@ function processSwarJson(swarjson, small, t) {
       h.title = t(h.u_title)
     }
   })
-  if (small) {
-    st_headers = st_headers.filter((x) => {
-      return !x.small
-    })
-  }
   return { standings, pairings, sortpairings, st_headers, pr_headers }
 }
 

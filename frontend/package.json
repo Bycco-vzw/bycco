@@ -23,6 +23,8 @@
   "dependencies": {
     "@mdi/font": "^7.3.67",
     "@pinia/nuxt": "^0.5.1",
+    "@vueuse/core": "^12.8.2",
+    "@vueuse/nuxt": "^12.8.2",
     "axios": "^1.6.2",
     "front-matter": "^4.0.2",
     "jose": "^5.2.0",
