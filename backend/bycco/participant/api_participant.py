@@ -197,10 +197,10 @@ async def api_upload_photo_bjk(id: str, body: dict):
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.get("/prizes/bjk", response_class=HTMLResponse)
-async def api_generate_prizes():
+@router.get("/prizes/{cat}", response_class=HTMLResponse)
+async def api_generate_prizes(cat: str):
     try:
-        return await generate_prizes_bjk()
+        return await generate_prizes_bjk(cat)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except Exception:
