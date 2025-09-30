@@ -1,4 +1,4 @@
-runtime: python311
+runtime: python313
 entrypoint: gunicorn bycco.main:app --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT
 
 
@@ -6,6 +6,7 @@ env_variables:
   FILESTORE_BUCKET: byccowebsiteprod.appspot.com
   GOOGLE_PROJECT_ID: byccowebsiteprod
   GOOGLE_CLIENT_ID: 464711449307-7j2oecn3mkfs1eh3o7b5gh8np3ebhrdp.apps.googleusercontent.com
+  TZ: Europe/Brussels
 
 
 handlers:

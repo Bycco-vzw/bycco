@@ -7,7 +7,6 @@ from jinja2 import FileSystemLoader, Environment
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from pathlib import Path
-from weasyprint import HTML, CSS
 from reddevil.core import get_settings
 from reddevil.mail.md_mail import MailParams
 from bycco.core.mailbackend import backends

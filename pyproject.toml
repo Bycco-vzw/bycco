@@ -1,1 +1,35 @@
-backend/pyproject.toml
+[project]
+name = "bycco"
+version = "3.5.9"
+description = "Bycco website"
+authors = [
+    { name = "Ruben Decrop", email = "ruben.decrop@bycco.be" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "asyncssh>=2.21.1",
+    "fastapi[standard]>=0.118.0",
+    "gunicorn>=23.0.0",
+    "openpyxl>=3.1.5",
+    "python-dotenv>=1.1.1",
+    "reddevil",
+    "toml>=0.10.2",
+]
+
+[tool.ruff]
+line-length = 88
+indent-width = 4
+
+[tool.ruff.lint]
+fixable = ["ALL"]
+unfixable = []
+
+[tool.ruff.lint.per-file-ignores]
+"**/__init__.py" = ["E402"]
+
+[tool.uv.sources]
+reddevil = { path = "libs/reddevil-3.4.5-py3-none-any.whl" }
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
