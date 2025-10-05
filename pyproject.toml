@@ -1,6 +1,6 @@
 [project]
 name = "bycco"
-version = "3.5.9"
+version = "3.6.0"
 description = "Bycco website"
 authors = [
     { name = "Ruben Decrop", email = "ruben.decrop@bycco.be" }
@@ -14,6 +14,7 @@ dependencies = [
     "python-dotenv>=1.1.1",
     "reddevil",
     "toml>=0.10.2",
+    "uvicorn>=0.37.0",
 ]
 
 [tool.ruff]
@@ -29,6 +30,7 @@ unfixable = []
 
 [tool.uv.sources]
 reddevil = { path = "libs/reddevil-3.4.5-py3-none-any.whl" }
+
 
 [build-system]
 requires = ["hatchling"]

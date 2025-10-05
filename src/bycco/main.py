@@ -42,7 +42,11 @@ logger.info(f"Starting website bycco {version} ...")
 # add CORS middleware for dev only
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=[
+        "http://localhost:3000",
+        "https://www.bycco.be",
+        "*byccowebsiteprod.ew.r.appspot.com",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

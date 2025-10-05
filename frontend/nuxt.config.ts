@@ -47,8 +47,8 @@ export default defineNuxtConfig({
 
   nitro: {
     prerender: {
-      crawlLinks: false,
-      failOnError: true,
+      crawlLinks: true,
+      failOnError: false,
     }
   },
 
@@ -68,4 +68,5 @@ export default defineNuxtConfig({
     }
   },
 
+  compatibilityDate: '2025-10-04',
 })
