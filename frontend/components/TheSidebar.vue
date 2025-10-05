@@ -43,7 +43,7 @@ const tournament_mode = true
 
       <v-list-group no-action v-if="!tournament_mode">
         <template #activator="{ props }">
-          <v-list-item v-bind="props" :title="t('BYC 2025')" />
+          <v-list-item v-bind="props" :title="t('BYC 2026')" />
         </template>
         <v-list-item to="schedule" :title="t('Game schedule')" />
         <v-list-item to="/registration_bjk" :title="t('enroll.tool')" />
@@ -52,7 +52,7 @@ const tournament_mode = true
       </v-list-group>
       <v-list-group no-action v-if="tournament_mode">
         <template #activator="{ props }">
-          <v-list-item v-bind="props" :title="t('BYC 2025')" />
+          <v-list-item v-bind="props" :title="t('BYC 2026')" />
         </template>
         <v-list-item to="schedule" :title="t('Game schedule')" />
         <v-list-item to="/rules" :title="t('Tournament Rules')" />
@@ -71,6 +71,9 @@ const tournament_mode = true
         <v-list-item to="/stay" :title="t('stay.stay')" />
         <v-list-item to="/catering" :title="t('stay.catering')" />
         <v-list-item to="/reservation" :title="t('stay.reservation')" />
+        <v-list-item to="/rsv26wizard_notstarted" :title="t('stay.res_tool')" />
+        <!-- <v-list-item to="/rsv26wizard_open" :title="t('stay.res_tool')" />
+        <v-list-item to="/rsv26wizard_closed" :title="t('stay.res_tool')" /> -->
         <!-- <v-list-item @click="livegames" title="Live" /> -->
       </v-list-group>
     </v-list>

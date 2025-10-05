@@ -95,13 +95,13 @@ def calcmeals(cid: date, cod: date, meals: str):
 def sendemail_reservation(stay: Stay):
     from bycco.core.mail import (
         backends,
-        env,
+        get_template_env,
         md,
         markdownstyle,
     )
 
     logger.info(f"sending reservation email {stay}")
-    tmpl = env.get_template(f"mailreservation_{stay.locale}.md")
+    tmpl = get_template_env().get_template(f"mailreservation_{stay.locale}.md")
     context = stay.model_dump()
     logger.info(f"context: {context}")
     # translate

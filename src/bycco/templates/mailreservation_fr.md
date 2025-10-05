@@ -1,8 +1,8 @@
-## Confirmation de réservation pour le séjour CBJ 2025
+## Confirmation de réservation pour le séjour CBJ 2026   
 
 Cet e-mail a été envoyé automatiquement.
 
-Nous confirmons votre demande de séjour pendant le CBJ 2025.
+Nous confirmons votre demande de séjour pendant le CBJ 2026.
 
 S'il y a des erreurs dans les détails énumérés ci-dessous, veuillez nous contacter à <floreal@bycco.be> en indiquant votre numéro de GSM.
 

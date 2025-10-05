@@ -1,7 +1,6 @@
 <script setup>
 import { ref, computed } from "vue"
 import { useI18n } from "vue-i18n"
-import { parse } from "yaml"
 
 // communication with stepped children
 const { $backend } = useNuxtApp()
@@ -22,12 +21,13 @@ const { t } = useI18n()
 function calcStatus() {
   let now = new Date()
   let opendate = new Date(common.value.trndates.stayopen)
-  let closeddate = new Date(common.value.trndates.stayclosed)
+  let closedate = new Date(common.value.trndates.stayclose)
+  console.log(opendate, closedate, now)
   if (opendate.valueOf() > now.valueOf()) {
     status.value = "notyetopen"
     return
   }
-  if (closeddate.valueOf() < now.valueOf()) {
+  if (closedate.valueOf() < now.valueOf()) {
     status.value = "closed"
   } else {
     status.value = "open"
@@ -59,33 +59,12 @@ function changeStep(s) {
   }
 }
 
-async function parseYaml(group, name) {
+async function readCommon() {
   try {
-    const yamlcontent = await readBucket(group, name)
-    if (!yamlcontent) {
-      console.error("failing to read yaml")
-      return null
-    }
-    return parse(yamlcontent)
+    const reply = await $backend("stay", "get_common", {})
+    common.value = reply.data
   } catch (error) {
-    console.error("cannot parse yaml", yamlcontent)
-  }
-}
-
-async function processCommon() {
-  common.value = await parseYaml("data", "common.yml")
-  console.log("read common", common.value)
-}
-
-async function readBucket(group, name) {
-  try {
-    const reply = await $backend("filestore", "anon_get_file", {
-      group,
-      name,
-    })
-    return reply.data
-  } catch (error) {
-    console.error("failed to fetch file from bucket")
+    console.error("failed to fetch common", error)
     return null
   }
 }
@@ -96,7 +75,7 @@ function updateStay(l) {
 }
 
 onMounted(async () => {
-  await processCommon()
+  await readCommon()
   calcStatus()
 })
 </script>

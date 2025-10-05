@@ -37,7 +37,6 @@ export default defineNuxtConfig({
 
   modules: [
     '@pinia/nuxt',
-    '@vueuse/nuxt',
     'nuxt-vue3-google-signin',
     async (options, nuxt) => {
       nuxt.hooks.hook('vite:extendConfig',

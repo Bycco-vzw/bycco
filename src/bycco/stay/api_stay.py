@@ -22,6 +22,7 @@ from bycco.stay.md_stay import (
     Stay,
     StayIn,
 )
+from bycco.core.common import load_common
 
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/api/v1/stay")
@@ -112,3 +113,11 @@ async def api_xls_stays(
     except Exception:
         logger.exception("failed api call xls")
         raise HTTPException(status_code=500, detail="Internal Server Error")
+
+
+@router.get("/common", response_model=dict)
+async def api_load_common():
+    """
+    return the common data
+    """
+    return await load_common()

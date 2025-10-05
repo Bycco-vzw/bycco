@@ -1,8 +1,8 @@
-## Reservierungsbestätigung für den Aufenthalt BJLM 2025
+## Reservierungsbestätigung für den Aufenthalt BJLM 2026
 
 Diese E-Mail wurde automatisch gesendet.
 
-Wir bestätigen Ihre Bewerbung für einen Aufenthalt während der BJLM 2025.
+Wir bestätigen Ihre Bewerbung für einen Aufenthalt während der BJLM 2026.
 
 Bei Fehlern in den unten aufgeführten Angaben kontaktieren Sie uns bitte unter <floral@bycco.be> unter Angabe Ihrer Handynummer.
 

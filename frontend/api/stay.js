@@ -64,4 +64,7 @@ export default {
       },
     })
   },
+  get_common: async function () {
+    return await axios.get(`${prefix}/common`)
+  }
 }
