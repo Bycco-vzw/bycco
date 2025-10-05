@@ -71,9 +71,7 @@ const tournament_mode = true
         <v-list-item to="/stay" :title="t('stay.stay')" />
         <v-list-item to="/catering" :title="t('stay.catering')" />
         <v-list-item to="/reservation" :title="t('stay.reservation')" />
-        <v-list-item to="/rsv26wizard_notstarted" :title="t('stay.res_tool')" />
-        <!-- <v-list-item to="/rsv26wizard_open" :title="t('stay.res_tool')" />
-        <v-list-item to="/rsv26wizard_closed" :title="t('stay.res_tool')" /> -->
+        <v-list-item to="/rsv26wizard" :title="t('stay.res_tool')" />
         <!-- <v-list-item @click="livegames" title="Live" /> -->
       </v-list-group>
     </v-list>
