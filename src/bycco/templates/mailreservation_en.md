@@ -1,8 +1,8 @@
-## Confirmation reservation for a stay during the BYCC 2025
+## Confirmation reservation for a stay during the BYCC 2026
 
 This email was sent automatically.
 
-We will confirm your application for a stay during the BYCC 2025.
+We will confirm your application for a stay during the BYCC 2026.
 
 If there are any errors in the details listed below, please contact us at <floreal@bycco.be> adding your mobile phone number.
 

@@ -14,14 +14,14 @@ import logging
 
 
 app = FastAPI(
-    title="FRBE-KBSB-KSB",
-    description="Website Belgian Chess federation FRBE KBSB KSB",
+    title="Bycco",
+    description="Website Bycco",
     version="0",
 )
 load_dotenv()
-register_app(app=app, settingsmodule="kbsb.settings")
+register_app(app=app, settingsmodule="bycco.settings")
 settings = get_settings()
-logger = logging.getLogger("kbsb")
+logger = logging.getLogger("bycco")
 logger.info("Started")
 
 

@@ -3,11 +3,10 @@
 
 import logging
 from markdown2 import Markdown
-from jinja2 import FileSystemLoader, Environment
+from jinja2 import PackageLoader, Environment
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from pathlib import Path
-from weasyprint import HTML, CSS
 from reddevil.core import get_settings
 from reddevil.mail.md_mail import MailParams
 from bycco.core.mailbackend import backends
@@ -16,7 +15,6 @@ from bycco.core.mailbackend import backends
 logger = logging.getLogger(__name__)
 settings = get_settings()
 md = Markdown(extras=["tables"])
-env = Environment(loader=FileSystemLoader(settings.TEMPLATES_PATH), trim_blocks=True)
 
 
 markdownstyle = """
@@ -42,6 +40,15 @@ ul, ol, h2, h3 {
 }
 </style>
 """
+
+
+def get_template_env():
+    if not hasattr(get_template_env, "env"):
+        settings = get_settings()
+        get_template_env.env = Environment(
+            loader=PackageLoader(settings.TEMPLATES_MODULE), trim_blocks=True
+        )
+    return get_template_env.env
 
 
 def getCss():
@@ -78,6 +85,7 @@ def test_mail():
 
 
 def sendemail_no_attachments(mp: MailParams, context: dict, name: str = ""):
+    env = get_template_env()
     tmpl = env.get_template(mp.template.format(locale=context["locale"]))
     markdowntext = tmpl.render(**context)
     htmltext = f"{markdownstyle} {md.convert(markdowntext)}"

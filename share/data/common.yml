@@ -41,10 +41,10 @@ yesno:
     text: "No"
 
 trndates:
-  startdate: 2025-03-02
-  enddate: 2025-03-08
-  stayopen: 2024-08-30
-  stayclose: 2024-12-10
+  startdate: 2026-02-16
+  enddate: 2026-02-22
+  stayopen: 2025-10-04
+  stayclose: 2025-12-10
 
 rooms:
   - name: SH
@@ -57,7 +57,7 @@ rooms:
     de: Hotelzimmer 1 Person
     en: Hotel room 1 person
     available: 1
-    breakfast: 1    
+    breakfast: 1
   - name: DH
     minpers: 2
     maxpers: 2
@@ -67,19 +67,19 @@ rooms:
     fr: Chambre d'Hôtel 2 personnes
     de: Hotelzimmer 2 Personen
     en: Hotel room 2 persons
-    available: 1  
-    breakfast: 1    
-  - name: TH
-    minpers: 2
-    maxpers: 3
-    day: 165
-    clean: 0
-    nl: Hotelkamer 3 personen
-    fr: Chambre d'Hôtel 3 personnes
-    de: Hotelzimmer 3 Personen
-    en: Hotel room 3 persons
-    available: 1  
-    breakfast: 1    
+    available: 1
+    breakfast: 1
+  # - name: TH
+  #   minpers: 2
+  #   maxpers: 3
+  #   day: 165
+  #   clean: 0
+  #   nl: Hotelkamer 3 personen
+  #   fr: Chambre d'Hôtel 3 personnes
+  #   de: Hotelzimmer 3 Personen
+  #   en: Hotel room 3 persons
+  #   available: 1
+  #   breakfast: 1
   - name: SD
     minpers: 1
     maxpers: 3
@@ -88,42 +88,42 @@ rooms:
     nl: Studio 2 à 3 personen
     fr: Studio 2 à 3 personnes
     de: Studio 2 bis Personen
-    en: Studio 2 to 3 persons  
-    available: 1  
+    en: Studio 2 to 3 persons
+    available: 1
     breakfast: 0
   - name: AP4
     minpers: 2
     maxpers: 4
-    day: 130
+    day: 100
     clean: 49
     nl: Appartement 2 à 4 personen
     fr: Appartement 2 à 4 personnes
     de: Appartement 2 bis 4 Personen
-    en: Apartment 2 to 4 persons 
-    available: 1  
-    breakfast: 0  
+    en: Apartment 2 to 4 persons
+    available: 1
+    breakfast: 0
   - name: AP5
     minpers: 4
     maxpers: 5
-    day: 130
+    day: 100
     clean: 49
     nl: Appartement 4 à 5 personen
     fr: Appartement 4 à 5 personnes
     de: Appartement 4 bis 5 Personen
     en: Apartment 4 to 5 persons
-    available: 1  
-    breakfast: 0  
+    available: 1
+    breakfast: 0
   - name: AP6
     minpers: 5
     maxpers: 6
-    day: 145
+    day: 120
     clean: 60
     nl: Appartement 6 personen
     fr: Appartement 6 personnes
     de: Appartement 6 Personen
-    en: Apartment 6 persons 
-    available: 1  
-    breakfast: 0    
+    en: Apartment 6 persons
+    available: 1
+    breakfast: 0
   - name: AP7
     minpers: 6
     maxpers: 7
@@ -133,8 +133,9 @@ rooms:
     fr: Appartement 6 à 7 personnes
     de: Appartement 6 bis 7 Personen
     en: Apartment 6 to 7 persons
-    available: 0  
-    breakfast: 0  
+    available: 0
+    breakfast: 0
+    closed: yes
 
 catering:
   - "no"
@@ -205,20 +206,21 @@ i18n:
 
 prices:
   "+18":
-    half: 42
+    half: 46
     breakfast: 17
-    dinner: 25
+    dinner: 29
   "-18":
-    half: 24
-    breakfast: 11
-    dinner: 13
+    half: 30
+    breakfast: 13
+    dinner: 17
   "-12":
-    half: 22
-    breakfast: 10
-    dinner: 12
+    half: 26
+    breakfast: 11
+    dinner: 15
   "-3":
     half: 0
     breakfast: 0
     dinner: 0
 
 discount_hotel_min18: 25
+tourist_tax: 2

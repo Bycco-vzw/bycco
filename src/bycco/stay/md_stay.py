@@ -111,6 +111,6 @@ class StayList(BaseModel):
 
 
 class DbStay(DbBase):
-    COLLECTION = "stay2025"
+    COLLECTION = "stay2026"
     VERSION = 1
     IDGENERATOR = "uuid"

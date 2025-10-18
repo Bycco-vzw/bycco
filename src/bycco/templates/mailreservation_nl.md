@@ -1,8 +1,8 @@
-## Bevestiging reservatie voor verblijf BJK 2025
+## Bevestiging reservatie voor verblijf BJK 2026
 
 Deze email werd automatisch verstuurd.
 
-Wij bevestigen jouw aanvraag voor een verblijf tijdens het BJK 2025.
+Wij bevestigen jouw aanvraag voor een verblijf tijdens het BJK 2026.
 
 Als er hieronder fouten staan in de vermelde details, gelieve met ons contact op te nemen op <floreal@bycco.be> met de vermelding van je GSM nummer.
 

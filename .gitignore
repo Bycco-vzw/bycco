@@ -27,3 +27,6 @@ yarn.lock
 
 # share
 share/secrets
+__pycache__
+local_settings.py
+.env
