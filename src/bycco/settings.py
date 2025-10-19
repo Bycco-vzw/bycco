@@ -4,6 +4,7 @@
 import os
 import os.path
 import logging
+import logging.config
 from pathlib import Path
 
 BYCCO_MODE = os.environ.get("BYCCO_MODE", "production")

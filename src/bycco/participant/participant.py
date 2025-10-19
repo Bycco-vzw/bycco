@@ -2,7 +2,7 @@
 # copyright Chessdevil Consulting BVBA 2015 - 2019
 
 import logging
-from typing import cast, List, Dict, Any
+from typing import cast, List
 from binascii import a2b_base64
 from fastapi import Response
 from jinja2 import PackageLoader, Environment
@@ -178,13 +178,13 @@ async def update_elo_bjk() -> None:
             try:
                 pl = await lookup_idbel(pr.idbel)
                 upd.ratingbel = pl.ratingbel
-            except Exception as e:
+            except Exception:
                 logger.info(f"lookup idbel failed {pr.last_name} {pr.first_name}")
         if pr.idfide and pr.idfide != "0":
             try:
                 pl = await lookup_idfide(pr.idfide)
                 upd.ratingfide = pl.ratingfide
-            except Exception as e:
+            except Exception:
                 logger.info(f"lookup idfide failed {pr.last_name} {pr.first_name}")
         if upd:
             await update_participant_bjk(pr.id, upd)

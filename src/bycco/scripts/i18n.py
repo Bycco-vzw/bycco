@@ -14,17 +14,17 @@ def process_i18n():
             ctx = r["ctx"]
             ctxrows = allrows.setdefault(ctx, [])
             ctxrows.append(r)
-    for l in ["en", "fr", "nl", "de"]:
-        with (rootdir / "frontend" / "lang" / f"{l}.json").open(
+    for lang in ["en", "fr", "nl", "de"]:
+        with (rootdir / "frontend" / "lang" / f"{lang}.json").open(
             "w", encoding="utf8"
         ) as f:
             f.write("{\n")
             for ctx, ctxrows in allrows.items():
                 for r in ctxrows:
                     if not ctx:
-                        f.write(f'"{r["key"]}": "{r[l]}",\n')
+                        f.write(f'"{r["key"]}": "{r[lang]}",\n')
                     else:
-                        f.write(f'"{ctx}.{r["key"]}": "{r[l]}",\n')
+                        f.write(f'"{ctx}.{r["key"]}": "{r[lang]}",\n')
             f.write('"ZZZ": "ZZZ"\n')
             f.write("}\n")
 

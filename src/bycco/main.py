@@ -57,9 +57,6 @@ app.add_middleware(
 logger.info("loading api_account")
 from reddevil.account import api_account  # noqa E402
 
-logger.info("loading api_attendee")
-from bycco.attendee import api_attendee  # noqa E402
-
 logger.info("loading api_filestore")
 from reddevil.filestore import api_filestore  # noqa E402
 
@@ -92,7 +89,6 @@ from bycco.guest import api_guest  # noqa E402
 
 
 app.include_router(api_account.router)
-app.include_router(api_attendee.router)
 app.include_router(api_filestore.router)
 app.include_router(api_stay.router)
 app.include_router(api_registration.router)

@@ -2,7 +2,7 @@
 # copyright Chessdevil Consulting BVBA 2015 - 2019
 
 from datetime import datetime
-from typing import Dict, Any, List, Optional, Type, Union
+from typing import List, Optional
 from enum import Enum
 from pydantic import BaseModel, Field
 from reddevil.core import DbBase

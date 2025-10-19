@@ -1,0 +1,173 @@
+roomtype,florealtype,description,minpers,maxpers,roomnumber
+SH,C1,hotelkamer voor max. 1 persoon,1,1,401
+SH,C1,hotelkamer voor max. 1 persoon,1,1,402
+SH,C1,hotelkamer voor max. 1 persoon,1,1,403
+SH,C1,hotelkamer voor max. 1 persoon,1,1,404
+SH,C1,hotelkamer voor max. 1 persoon,1,1,409
+SH,C1,hotelkamer voor max. 1 persoon,1,1,410
+SH,C1,hotelkamer voor max. 1 persoon,1,1,411
+SH,C1,hotelkamer voor max. 1 persoon,1,1,412
+DH,C2,hotelkamer voor max. 2 persoon (small),1,2,308
+DH,C2,hotelkamer voor max. 2 persoon (small),1,2,318
+DH,C2,hotelkamer voor max. 2 persoon (small),1,2,406
+DH,C2,hotelkamer voor max. 2 persoon (small),1,2,407
+DH,C2,hotelkamer voor max. 2 persoon (small),1,2,408
+DH,C2,hotelkamer voor max. 2 persoon (small),1,2,414
+DH,C2,hotelkamer voor max. 2 persoon (standard),1,2,101
+DH,C2,hotelkamer voor max. 2 persoon (standard),1,2,102
+DH,C2,hotelkamer voor max. 2 persoon (standard),1,2,103
+DH,C2,hotelkamer voor max. 2 persoon (standard),1,2,104
+DH,C2,hotelkamer voor max. 2 persoon (standard),1,2,105
+DH,C2,hotelkamer voor max. 2 persoon (standard),1,2,106
+DH,C2,hotelkamer voor max. 2 persoon (standard),1,2,107
+DH,C2,hotelkamer voor max. 2 persoon (standard),1,2,108
+DH,C2,hotelkamer voor max. 2 persoon (standard),1,2,109
+DH,C2,hotelkamer voor max. 2 persoon (standard),1,2,110
+DH,C2,hotelkamer voor max. 2 persoon (standard),1,2,112
+DH,C2,hotelkamer voor max. 2 persoon (standard),1,2,113
+DH,C2,hotelkamer voor max. 2 persoon (standard),1,2,114
+DH,C2,hotelkamer voor max. 2 persoon (standard),1,2,117
+DH,C2,hotelkamer voor max. 2 persoon (standard),1,2,118
+DH,C2,hotelkamer voor max. 2 persoon (standard),1,2,120
+DH,C2,hotelkamer voor max. 2 persoon (standard),1,2,121
+DH,C2,hotelkamer voor max. 2 persoon (standard),1,2,122
+DH,C2,hotelkamer voor max. 2 persoon (standard),1,2,123
+DH,C2,hotelkamer voor max. 2 persoon (standard),1,2,124
+DH,C2,hotelkamer voor max. 2 persoon (standard),1,2,125
+DH,C2,hotelkamer voor max. 2 persoon (standard),1,2,126
+DH,C2,hotelkamer voor max. 2 persoon (standard),1,2,127
+DH,C2,hotelkamer voor max. 2 persoon (standard),1,2,128
+DH,C2,hotelkamer voor max. 2 persoon (standard),1,2,129
+DH,C2,hotelkamer voor max. 2 persoon (standard),1,2,130
+DH,C2,hotelkamer voor max. 2 persoon (standard),1,2,131
+DH,C2,hotelkamer voor max. 2 persoon (standard),1,2,134
+DH,C2,hotelkamer voor max. 2 persoon (standard),1,2,135
+DH,C2,hotelkamer voor max. 2 persoon (standard),1,2,136
+TH,C3,hotelkamer voor 2 à 3 personen (3 beds),2,3,115
+TH,C3,hotelkamer voor 2 à 3 personen (3 beds),2,3,116
+TH,C3,hotelkamer voor 2 à 3 personen (3 beds),2,3,119
+TH,C3,hotelkamer voor 2 à 3 personen (3 beds),2,3,132
+TH,C3,hotelkamer voor 2 à 3 personen (3 beds),2,3,133
+TH,C3,hotelkamer voor 2 à 3 personen (3 beds),2,3,137
+SD,ST2,studio voor 2 à 3  personen,2,3,142
+SD,ST2,studio voor 2 à 3  personen,2,3,145
+SD,ST2,studio voor 2 à 3  personen,2,3,148
+SD,ST2,studio voor 2 à 3  personen,2,3,162
+SD,ST2,studio voor 2 à 3  personen,2,3,165
+SD,ST2,studio voor 2 à 3  personen,2,3,168
+SD,ST2,studio voor 2 à 3  personen,2,3,209
+SD,ST2,studio voor 2 à 3  personen,2,3,219
+SD,ST2,studio voor 2 à 3  personen,2,3,242
+SD,ST2,studio voor 2 à 3  personen,2,3,245
+SD,ST2,studio voor 2 à 3  personen,2,3,248
+SD,ST2,studio voor 2 à 3  personen,2,3,262
+SD,ST2,studio voor 2 à 3  personen,2,3,265
+SD,ST2,studio voor 2 à 3  personen,2,3,268
+SD,ST2,studio voor 2 à 3  personen,2,3,309
+SD,ST2,studio voor 2 à 3  personen,2,3,319
+SD,ST2,studio voor 2 à 3  personen,2,3,342
+SD,ST2,studio voor 2 à 3  personen,2,3,345
+SD,ST2,studio voor 2 à 3  personen,2,3,348
+SD,ST2,studio voor 2 à 3  personen,2,3,362
+SD,ST2,studio voor 2 à 3  personen,2,3,365
+SD,ST2,studio voor 2 à 3  personen,2,3,368
+SD,ST2,studio voor 1 à 2  personen,1,2,140
+SD,ST2,studio voor 1 à 2  personen,1,2,141
+SD,ST2,studio voor 1 à 2  personen,1,2,151
+SD,ST2,studio voor 1 à 2  personen,1,2,154
+SD,ST2,studio voor 1 à 2  personen,1,2,160
+,ST2,studio voor 1 à 2  personen,1,2,161
+SD,ST2,studio voor 1 à 2  personen,1,2,171
+SD,ST2,studio voor 1 à 2  personen,1,2,174
+SD,ST2,studio voor 1 à 2  personen,1,2,208
+SD,ST2,studio voor 1 à 2  personen,1,2,218
+SD,ST2,studio voor 1 à 2  personen,1,2,251
+SD,ST2,studio voor 1 à 2  personen,1,2,254
+SD,ST2,studio voor 1 à 2  personen,1,2,271
+SD,ST2,studio voor 1 à 2  personen,1,2,274
+SD,ST2,studio voor 1 à 2  personen,1,2,351
+SD,ST2,studio voor 1 à 2  personen,1,2,354
+SD,ST2,studio voor 1 à 2  personen,1,2,371
+SD,ST2,studio voor 1 à 2  personen,1,2,374
+AP5,A2,"appartement met 1 kamer, voor 4 à 6 personen",4,6,146
+AP5,A2,"appartement met 1 kamer, voor 4 à 6 personen",4,6,147
+AP5,A2,"appartement met 1 kamer, voor 4 à 6 personen",4,6,152
+AP5,A2,"appartement met 1 kamer, voor 4 à 6 personen",4,6,153
+AP5,A2,"appartement met 1 kamer, voor 4 à 6 personen",4,6,166
+AP5,A2,"appartement met 1 kamer, voor 4 à 6 personen",4,6,167
+AP5,A2,"appartement met 1 kamer, voor 4 à 6 personen",4,6,172
+AP5,A2,"appartement met 1 kamer, voor 4 à 6 personen",4,6,173
+AP4,A1,"appartement met 1 kamer, voor 2 à 4 personen",2,4,210
+AP4,A1,"appartement met 1 kamer, voor 2 à 4 personen",2,4,220
+AP4,A1,"appartement met 1 kamer, voor 2 à 4 personen",2,4,310
+AP4,A1,"appartement met 1 kamer, voor 2 à 4 personen",2,4,341
+AP4,A1,"appartement met 1 kamer, voor 2 à 4 personen",2,4,343
+AP4,A1,"appartement met 1 kamer, voor 2 à 4 personen",2,4,344
+AP4,A1,"appartement met 1 kamer, voor 2 à 4 personen",2,4,361
+AP4,A1,"appartement met 1 kamer, voor 2 à 4 personen",2,4,363
+AP4,A1,"appartement met 1 kamer, voor 2 à 4 personen",2,4,364
+AP5,A3,"appartement met 1 kamer, voor 5 personen",5,5,143
+AP5,A3,"appartement met 1 kamer, voor 5 personen",5,5,144
+AP5,A3,"appartement met 1 kamer, voor 5 personen",5,5,163
+AP5,A3,"appartement met 1 kamer, voor 5 personen",5,5,164
+AP5,A3,"appartement met 1 kamer, voor 5 personen",5,5,201
+AP5,A3,"appartement met 1 kamer, voor 5 personen",5,5,202
+AP5,A3,"appartement met 1 kamer, voor 5 personen",5,5,203
+AP5,A3,"appartement met 1 kamer, voor 5 personen",5,5,204
+AP5,A3,"appartement met 1 kamer, voor 5 personen",5,5,205
+AP5,A3,"appartement met 1 kamer, voor 5 personen",5,5,212
+AP5,A3,"appartement met 1 kamer, voor 5 personen",5,5,213
+AP5,A3,"appartement met 1 kamer, voor 5 personen",5,5,214
+AP5,A3,"appartement met 1 kamer, voor 5 personen",5,5,215
+AP5,A3,"appartement met 1 kamer, voor 5 personen",5,5,241
+AP5,A3,"appartement met 1 kamer, voor 5 personen",5,5,243
+AP5,A3,"appartement met 1 kamer, voor 5 personen",5,5,244
+AP5,A3,"appartement met 1 kamer, voor 5 personen",5,5,246
+AP5,A3,"appartement met 1 kamer, voor 5 personen",5,5,247
+AP5,A3,"appartement met 1 kamer, voor 5 personen",5,5,252
+AP5,A3,"appartement met 1 kamer, voor 5 personen",5,5,253
+AP5,A3,"appartement met 1 kamer, voor 5 personen",5,5,261
+AP5,A3,"appartement met 1 kamer, voor 5 personen",5,5,263
+AP5,A3,"appartement met 1 kamer, voor 5 personen",5,5,264
+AP5,A3,"appartement met 1 kamer, voor 5 personen",5,5,266
+AP5,A3,"appartement met 1 kamer, voor 5 personen",5,5,267
+AP5,A3,"appartement met 1 kamer, voor 5 personen",5,5,272
+AP5,A3,"appartement met 1 kamer, voor 5 personen",5,5,273
+AP5,A3,"appartement met 1 kamer, voor 5 personen",5,5,301
+AP5,A3,"appartement met 1 kamer, voor 5 personen",5,5,302
+AP5,A3,"appartement met 1 kamer, voor 5 personen",5,5,303
+AP5,A3,"appartement met 1 kamer, voor 5 personen",5,5,304
+AP5,A3,"appartement met 1 kamer, voor 5 personen",5,5,305
+AP5,A3,"appartement met 1 kamer, voor 5 personen",5,5,311
+AP5,A3,"appartement met 1 kamer, voor 5 personen",5,5,312
+AP5,A3,"appartement met 1 kamer, voor 5 personen",5,5,313
+AP5,A3,"appartement met 1 kamer, voor 5 personen",5,5,314
+AP5,A3,"appartement met 1 kamer, voor 5 personen",5,5,315
+AP5,A3,"appartement met 1 kamer, voor 5 personen",5,5,346
+AP5,A3,"appartement met 1 kamer, voor 5 personen",5,5,347
+AP5,A3,"appartement met 1 kamer, voor 5 personen",5,5,352
+AP5,A3,"appartement met 1 kamer, voor 5 personen",5,5,353
+AP5,A3,"appartement met 1 kamer, voor 5 personen",5,5,366
+AP5,A3,"appartement met 1 kamer, voor 5 personen",5,5,367
+AP5,A3,"appartement met 1 kamer, voor 5 personen",5,5,372
+AP5,A3,"appartement met 1 kamer, voor 5 personen",5,5,373
+AP7,A7,"appartement met 2 kamers, voor 6 à 7 personen",6,7,149
+AP7,A7,"appartement met 2 kamers, voor 6 à 7 personen",6,7,150
+AP7,A7,"appartement met 2 kamers, voor 6 à 7 personen",6,7,169
+AP7,A7,"appartement met 2 kamers, voor 6 à 7 personen",6,7,170
+AP6,A6,"appartement met 2 kamers, voor 6 personen",5,6,206
+AP6,A6,"appartement met 2 kamers, voor 6 personen",5,6,207
+AP6,A6,"appartement met 2 kamers, voor 6 personen",5,6,216
+AP6,A6,"appartement met 2 kamers, voor 6 personen",5,6,217
+AP6,A6,"appartement met 2 kamers, voor 6 personen",5,6,249
+AP6,A6,"appartement met 2 kamers, voor 6 personen",5,6,250
+AP6,A6,"appartement met 2 kamers, voor 6 personen",5,6,269
+AP6,A6,"appartement met 2 kamers, voor 6 personen",5,6,270
+AP6,A6,"appartement met 2 kamers, voor 6 personen",5,6,306
+AP6,A6,"appartement met 2 kamers, voor 6 personen",5,6,307
+AP6,A6,"appartement met 2 kamers, voor 6 personen",5,6,316
+AP6,A6,"appartement met 2 kamers, voor 6 personen",5,6,317
+AP6,A6,"appartement met 2 kamers, voor 6 personen",5,6,349
+AP6,A6,"appartement met 2 kamers, voor 6 personen",5,6,350
+AP6,A6,"appartement met 2 kamers, voor 6 personen",5,6,369
+AP6,A6,"appartement met 2 kamers, voor 6 personen",5,6,370

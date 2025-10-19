@@ -2,7 +2,6 @@
 # copyright Chessdevil Consulting BVBA 2015 - 2024
 
 import logging
-from asyncio import sleep
 from asyncssh import constants
 from io import BytesIO
 

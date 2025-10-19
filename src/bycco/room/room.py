@@ -1,9 +1,9 @@
 # copyright Ruben Decrop 2012 - 2015
 # copyright Chessdevil Consulting BVBA 2015 - 2019
 
-import os
 import logging
-import io, csv
+import io
+import csv
 from typing import cast, List
 
 from .md_room import DbRoom, Room, RoomItem
@@ -96,22 +96,3 @@ async def get_csv_rooms() -> str:
     for room in rooms:
         csvf.writerow(room.model_dump())
     return csvstr.getvalue()
-
-
-async def roominit(pathname: str) -> None:
-    """
-    get all rooms in csv format
-    """
-    logger.info(f"reading room from {pathname} {os.getcwd()}")
-    with open(f"{settings.SHARED_PATH}/data/{pathname}") as csvf:
-        reader = csv.DictReader(csvf)
-        for row in reader:
-            await DbRoom.add(
-                {
-                    "blocked": False,
-                    "capacity": row["capacity"],
-                    "enabled": True,
-                    "number": row["roomnr"],
-                    "roomtype": row["roomtype"],
-                }
-            )

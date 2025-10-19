@@ -3,13 +3,11 @@
 
 import logging
 import asyncssh
-from typing import Dict, Any
-from datetime import date
+from typing import Any
 from reddevil.core import get_secret
+from . import ReadRequest
 
 logger = logging.getLogger(__name__)
-
-from . import ReadRequest
 
 
 async def get_file(fr: ReadRequest) -> str | bytes:
@@ -70,12 +68,12 @@ async def empty_dir(path: str) -> None:
     """
     mypath = f"{path}*" if path.endswith("/") else f"{path}/*"
     st_settings = get_secret("statamic")
-    logger.info(f"kh: {kh}")
+    # logger.info(f"kh: {kh}")
     async with asyncssh.connect(
         st_settings["ssh-host"],
         username=st_settings["ssh-user"],
         password=st_settings["ssh-password"],
-        known_hosts=kh,
+        # known_hosts=kh,
     ) as conn:
         result = await conn.run(f"rm {mypath}")
         logger.info(f"empty dir: {result} ")

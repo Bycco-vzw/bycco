@@ -7,7 +7,6 @@ from fastapi.security import HTTPAuthorizationCredentials
 from typing import List
 from reddevil.core import RdException, get_settings, bearer_schema, validate_token
 
-from bycco.main import app
 from . import (
     create_pr_stay,
     create_pr_participant_bjk,

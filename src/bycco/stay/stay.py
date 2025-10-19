@@ -24,7 +24,6 @@ from . import (
 )
 from bycco.room import Room, get_room_by_number, update_room
 
-
 logger = logging.getLogger(__name__)
 settings = get_settings()
 

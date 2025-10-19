@@ -2,7 +2,6 @@
 # the endpoints are excluded from the api docs  (endpoint /docs)
 
 import logging
-from fastapi import Depends
 from reddevil.core import get_settings
 from bycco.main import app
 from bycco.core.mail import test_mail

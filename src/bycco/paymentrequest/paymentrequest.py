@@ -136,7 +136,6 @@ async def calc_pricedetails_stay(
     details = []
     totalprice = 0.0
     ndays = int(rsv.checkoutdate[8:10]) - int(rsv.checkindate[8:10])
-    hotel = False
     for ass in rsv.assignments:
         details.append(
             {
@@ -149,7 +148,7 @@ async def calc_pricedetails_stay(
         totalprice += rooms[ass.roomtype]["day"] * ndays
         if ass.roomtype in ["SH", "DH", "TH"]:
             # checkroom18 = True
-            hotel = True
+            pass
         else:
             details.append(
                 {
@@ -390,7 +389,7 @@ def calc_pricedetails_par_bjk(
             "totalprice": format(amount, ">6.2f"),
         }
     ]
-    logger.info(f"par._creationtime")
+    logger.info("par._creationtime")
     # TODO: use common.yaml
     if par.creationtime > datetime(2025, 2, 3):
         logger.info("adding admin cost")
