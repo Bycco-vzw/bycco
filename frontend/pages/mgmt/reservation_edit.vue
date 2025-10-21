@@ -34,6 +34,7 @@ const idreservation = route.query.id
 const newguest = ref({})
 const roomtypes = ref([])
 const roomnrs = ref([])
+const common = ref({})
 const rsv = ref({ payment_id: "" })
 
 definePageMeta({
@@ -231,39 +232,20 @@ async function get_free_rooms() {
   console.log("returned rooms", rooms)
 }
 
-async function parseYaml(group, name) {
-  let yamlcontent
-  try {
-    yamlcontent = await readBucket(group, name)
-    if (!yamlcontent) {
-      return null
-    }
-    return parse(yamlcontent)
-  } catch (error) {
-    console.error("cannot parse yaml", error)
-  }
-}
-
-async function processCommon() {
-  const cm = await parseYaml("data", "common.yml")
+async function readCommon() {
   roomtypes.value = []
-  cm.rooms.forEach((r) => {
-    roomtypes.value.push({
-      title: r.nl,
-      value: r.name,
-    })
-  })
-}
-
-async function readBucket(group, name) {
   try {
-    const reply = await $backend("filestore", "anon_get_file", {
-      group,
-      name,
+    const reply = await $backend("stay", "get_common", {})
+    console.log("common data", reply.data)
+    common.value = reply.data
+    common.value.rooms.forEach((r) => {
+      roomtypes.value.push({
+        title: r.nl,
+        value: r.name,
+      })
     })
-    return reply.data
   } catch (error) {
-    console.error("failed to fetch file from bucket")
+    console.error("failed to fetch common", error)
     return null
   }
 }
@@ -356,7 +338,7 @@ async function saveProperties() {
 onMounted(async () => {
   showSnackbar = refsnackbar.value.showSnackbar
   showLoading = refloading.value.showLoading
-  await processCommon()
+  await readCommon()
   await checkAuth()
   await getReservation()
 })

@@ -69,26 +69,26 @@ rooms:
     en: Hotel room 2 persons
     available: 1
     breakfast: 1
-  # - name: TH
-  #   minpers: 2
-  #   maxpers: 3
-  #   day: 165
-  #   clean: 0
-  #   nl: Hotelkamer 3 personen
-  #   fr: Chambre d'Hôtel 3 personnes
-  #   de: Hotelzimmer 3 Personen
-  #   en: Hotel room 3 persons
-  #   available: 1
-  #   breakfast: 1
+  - name: TH
+    minpers: 2
+    maxpers: 3
+    day: 165
+    clean: 0
+    nl: Hotelkamer 3 personen
+    fr: Chambre d'Hôtel 3 personnes
+    de: Hotelzimmer 3 Personen
+    en: Hotel room 3 persons
+    available: 1
+    breakfast: 1
   - name: SD
     minpers: 1
     maxpers: 3
     day: 100
     clean: 39
-    nl: Studio 2 à 3 personen
-    fr: Studio 2 à 3 personnes
-    de: Studio 2 bis Personen
-    en: Studio 2 to 3 persons
+    nl: Studio 3 personen
+    fr: Studio 3 personnes
+    de: Studio 3 Personen
+    en: Studio 3 persons
     available: 1
     breakfast: 0
   - name: AP4
@@ -96,10 +96,10 @@ rooms:
     maxpers: 4
     day: 100
     clean: 49
-    nl: Appartement 2 à 4 personen
-    fr: Appartement 2 à 4 personnes
-    de: Appartement 2 bis 4 Personen
-    en: Apartment 2 to 4 persons
+    nl: Appartement 4 personen
+    fr: Appartement 4 personnes
+    de: Appartement 4 Personen
+    en: Apartment 4 persons
     available: 1
     breakfast: 0
   - name: AP5
@@ -107,10 +107,10 @@ rooms:
     maxpers: 5
     day: 100
     clean: 49
-    nl: Appartement 4 à 5 personen
-    fr: Appartement 4 à 5 personnes
-    de: Appartement 4 bis 5 Personen
-    en: Apartment 4 to 5 persons
+    nl: Appartement 5 personen
+    fr: Appartement 5 personnes
+    de: Appartement 5 Personen
+    en: Apartment 5 persons
     available: 1
     breakfast: 0
   - name: AP6
@@ -129,10 +129,10 @@ rooms:
     maxpers: 7
     day: 145
     clean: 60
-    nl: Appartement 6 à 7 personen
-    fr: Appartement 6 à 7 personnes
-    de: Appartement 6 bis 7 Personen
-    en: Apartment 6 to 7 persons
+    nl: Appartement 7 personen
+    fr: Appartement 7 personnes
+    de: Appartement 7 Personen
+    en: Apartment 7 persons
     available: 0
     breakfast: 0
     closed: yes

@@ -109,7 +109,7 @@ wheels = [
 
 [[package]]
 name = "bycco"
-version = "3.6.1"
+version = "3.7.0"
 source = { editable = "." }
 dependencies = [
     { name = "aiocsv" },
