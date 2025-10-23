@@ -7,7 +7,7 @@ from fastapi.security import HTTPAuthorizationCredentials
 from reddevil.core import RdException, bearer_schema, validate_token
 from typing import List
 from bycco.room.md_room import Room, RoomItem
-from bycco.room.room import get_rooms, get_room, get_free_rooms, roominit
+from bycco.room.room import get_rooms, get_room, get_free_rooms
 
 router = APIRouter(prefix="/api/v1/room")
 
@@ -36,19 +36,6 @@ async def api_get_room(
     try:
         await validate_token(auth)
         return await get_room(id)
-    except RdException as e:
-        raise HTTPException(status_code=e.status_code, detail=e.description)
-    except Exception:
-        logger.exception("failed api call get_room")
-        raise HTTPException(status_code=500)
-
-
-@router.post("/roominit", status_code=201, include_in_schema=False)
-async def api_roominit(
-    auth: HTTPAuthorizationCredentials = Depends(bearer_schema),
-):
-    try:
-        return await roominit("room2025.csv")
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except Exception:

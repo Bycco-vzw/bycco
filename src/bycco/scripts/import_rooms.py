@@ -10,6 +10,8 @@ from reddevil.core import (
     get_settings,
 )
 from dotenv import load_dotenv
+from bycco import ROOT_DIR
+from bycco.room import RoomAdd, DbRoom
 import logging
 
 
@@ -33,19 +35,22 @@ async def lifespan(app: FastAPI):
 
 
 async def main():
-    infile = ROOT_DIR / "share" / "data" / "icseries2425.csv"
-    async with lifespan(app) as writer:
+    print("ROOT_DIR:", ROOT_DIR)
+    infile = ROOT_DIR / "share" / "data" / "rooms.csv"
+    async with lifespan(app) as writer:  # noqa: F841
         async with aiofiles.open(
             infile, mode="r", encoding="utf-8", newline=""
         ) as reader:
-            async for team in aiocsv.AsyncDictReader(reader):
-                await script_addteam_icseries(
-                    division=int(team.get("division")),
-                    index=team.get("index"),
-                    name=team.get("team"),
-                    pairingnumber=team.get("pairingnr"),
-                    idclub=team.get("idclub"),
+            async for row in aiocsv.AsyncDictReader(reader):
+                room = RoomAdd(
+                    roomtype=row["roomtype"],
+                    florealtype=row["florealtype"],
+                    number=row["roomnumber"],
+                    capacity=int(row["maxpers"]),
+                    enabled=True,
+                    blocked=False,
                 )
+                await DbRoom.add(room)
 
 
 if __name__ == "__main__":

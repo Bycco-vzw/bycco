@@ -1,4 +1,4 @@
-## CBJ 2025: Demande de paiement pour l'enregistrement 
+## CBJ 2026: Demande de paiement pour l'enregistrement 
 
 ### Enregistrement
 

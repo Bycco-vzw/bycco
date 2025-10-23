@@ -10,4 +10,4 @@ def read_version():
 
 version = read_version()
 
-ROOT_DIR = (Path(".") / "..").resolve()
+ROOT_DIR = (Path(".")).resolve()

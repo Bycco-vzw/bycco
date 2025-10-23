@@ -1,12 +1,13 @@
 [project]
 name = "bycco"
-version = "3.6.3"
+version = "3.7.2"
 description = "Bycco website"
 authors = [
     { name = "Ruben Decrop", email = "ruben.decrop@bycco.be" }
 ]
 requires-python = ">=3.12"
 dependencies = [
+    "aiocsv>=1.4.0",
     "asyncssh>=2.21.1",
     "fastapi[standard]>=0.118.0",
     "gunicorn>=23.0.0",

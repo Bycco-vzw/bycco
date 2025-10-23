@@ -1,7 +1,6 @@
 #    Copyright 2019 Chessdevil Consulting
 
 import logging
-import os
 import smtplib
 import base64
 from pathlib import Path
@@ -43,7 +42,7 @@ class GmailBackend(BaseEmailBackend):
         rmsg = {"raw": base64.urlsafe_b64encode(msg.as_bytes()).decode("ascii")}
         try:
             service.users().messages().send(userId="me", body=rmsg).execute()
-        except Exception as e:
+        except Exception:
             logger.exception("sending Gmail message failed")
 
 

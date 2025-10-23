@@ -1,4 +1,4 @@
-## Confirmation d'inscription CBJ 2025
+## Confirmation d'inscription CBJ 2026
 
 ### Détails du participant
 

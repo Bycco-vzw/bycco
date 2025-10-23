@@ -28,12 +28,13 @@ enddate = None
 m3y = None
 m12y = None
 m18y = None
+i18n = None
 
-i18n_enrollment_bjk = {
-    "nl": "Inschrijving BJK 2025",
-    "en": "Regoistration BYCC 2025",
-    "fr": "Enregistrement CBJ 2025",
-    "de": "Anmeldung BJLM 2025",
+i18n_registration_bjk = {
+    "nl": "Inschrijving BJK 2026",
+    "en": "Registration BYCC 2026",
+    "fr": "Enregistrement CBJ 2026",
+    "de": "Anmeldung BJLM 2026",
 }
 i18n_administrative_cost = {
     "nl": "Extra adminstratiekosten",
@@ -115,7 +116,29 @@ def getPaymessage(n) -> str:
     p4 = n % 97 or 97
     return f"+++{p1:03d}/{p2:04d}/{p3:03d}{p4:02d}+++"
 
-
+def check_min18y(rsv: Stay) -> list[bool]:
+    """
+    check if at least one guest is 18 years or older at checkin date
+    """
+    global m18y
+    is_min18y = []
+    for ass in rsv.assignments:
+        if ass.roomtype != "DH":
+            is_min18y.append(False)
+            continue
+        if len(ass.guestlist) != 2:
+            is_min18y.append(False)
+            continue
+        for g in rsv.guestlist:
+            logger.info(f"guest birthdate {g.birthdate} {m18y}")
+            bd = date.fromisoformat(g.birthdate)
+            if bd > m18y:
+                is_min18y.append(True)
+                break
+        else:
+            is_min18y.append(False)
+    logger.info(f"check_min18y: {is_min18y}")
+    return is_min18y
 # stay
 
 
@@ -136,44 +159,21 @@ async def calc_pricedetails_stay(
     details = []
     totalprice = 0.0
     ndays = int(rsv.checkoutdate[8:10]) - int(rsv.checkindate[8:10])
-    hotel = False
-    for ass in rsv.assignments:
+    is_min18y = check_min18y(rsv)
+    for ix, ass in enumerate(rsv.assignments):
+
+        unitprice = rooms[ass.roomtype]["day"]
+        if is_min18y[ix]:
+            unitprice -= 25 
         details.append(
             {
                 "description": rooms[ass.roomtype][rsv.locale],
                 "quantity": ndays,
-                "unitprice": format(rooms[ass.roomtype]["day"], ">6.2f"),
-                "totalprice": format(rooms[ass.roomtype]["day"] * ndays, ">6.2f"),
+                "unitprice": format(unitprice, ">6.2f"),
+                "totalprice": format(unitprice * ndays, ">6.2f"),
             }
         )
-        totalprice += rooms[ass.roomtype]["day"] * ndays
-        if ass.roomtype in ["SH", "DH", "TH"]:
-            # checkroom18 = True
-            hotel = True
-        else:
-            details.append(
-                {
-                    "description": i18n["cleaning"][rsv.locale],
-                    "quantity": 1,
-                    "unitprice": format(rooms[ass.roomtype]["clean"], ">6.2f"),
-                    "totalprice": format(rooms[ass.roomtype]["clean"], ">6.2f"),
-                }
-            )
-            totalprice += rooms[ass.roomtype]["clean"]
-    # if checkroom18:
-    #     for g in rsv.guestlist:
-    #         assert g.birthdate
-    #         bd = date.fromisoformat(g.birthdate)
-    #         if bd > m18y:
-    #             details.append(
-    #                 {
-    #                     "description": i18n["ROOM_18"][rsv.locale],
-    #                     "quantity": ndays,
-    #                     "unitprice": format(prices["ROOM_18"]["day"], ">6.2f"),
-    #                     "totalprice": format(prices["ROOM_18"]["day"] * ndays, ">6.2f"),
-    #                 }
-    #             )
-    #             totalprice += prices["ROOM_18"]["day"] * ndays
+        totalprice += unitprice * ndays
     if rsv.meals != "no":
         for g in rsv.guestlist:
             assert g.birthdate
@@ -255,7 +255,7 @@ async def create_pr_stay(rsvid: str) -> str:
     }
     pr["details"], pr["totalprice"] = await calc_pricedetails_stay(rsv)
     pr["number"] = await DbCounter.next("paymentrequest")
-    pr["paymessage"] = getPaymessage(20250000 + pr["number"])
+    pr["paymessage"] = getPaymessage(20260000 + pr["number"])
     pr["guests"] = ", ".join([f"{g.first_name} {g.last_name}" for g in rsv.guestlist])
     id = await create_payment_request(pr)
     await update_stay(rsvid, Stay(payment_id=id))
@@ -295,7 +295,7 @@ async def email_pr_stay(prqid) -> None:
     assert prq.email and prq.locale
     logger.info(f"remarks {prq.remarks}, reductionremark: {prq.reductionremark}  ")
     mp = MailParams(
-        subject="Floreal 2025",
+        subject="Floreal 2026",
         sender=settings.EMAIL["sender"],
         receiver=prq.email,
         template="pr_stay_mail_{locale}.md",
@@ -314,7 +314,7 @@ async def email_pr_stay(prqid) -> None:
 # participant bjk
 
 
-async def create_pr_participants_bjk() -> str:
+async def create_pr_participants() -> str:
     """
     create payrq for all participants wihtout payrq
     """
@@ -338,16 +338,16 @@ async def create_pr_participants_bjk() -> str:
             "link_id": par.id,
             "locale": par.locale,
             "paystatus": False,
-            "reason": "bjk2025",
+            "reason": "bjk",
         }
-        pr["details"], pr["totalprice"] = calc_pricedetails_par_bjk(par)
+        pr["details"], pr["totalprice"] = calc_pricedetails_par(par)
         pr["number"] = await DbCounter.next("paymentrequest")
-        pr["paymessage"] = getPaymessage(20250000 + pr["number"])
+        pr["paymessage"] = getPaymessage(20260000 + pr["number"])
         id = await create_payment_request(pr)
         await update_participant_bjk(par.id, ParticipantBJK(payment_id=id))
 
 
-async def create_pr_participant_bjk(parid: str) -> str:
+async def create_pr_participant(parid: str) -> str:
     """
     create payment request for participant
     """
@@ -363,15 +363,15 @@ async def create_pr_participant_bjk(parid: str) -> str:
         "paystatus": False,
         "reason": "bjk2025",
     }
-    pr["details"], pr["totalprice"] = calc_pricedetails_par_bjk(par)
+    pr["details"], pr["totalprice"] = calc_pricedetails_par(par)
     pr["number"] = await DbCounter.next("paymentrequest")
-    pr["paymessage"] = getPaymessage(20250000 + pr["number"])
+    pr["paymessage"] = getPaymessage(20260000 + pr["number"])
     id = await create_payment_request(pr)
     await update_participant_bjk(parid, ParticipantBJK(payment_id=id))
     return id
 
 
-def calc_pricedetails_par_bjk(
+def calc_pricedetails_par(
     par: ParticipantBJKDetail,
 ):
     """
@@ -390,9 +390,9 @@ def calc_pricedetails_par_bjk(
             "totalprice": format(amount, ">6.2f"),
         }
     ]
-    logger.info(f"par._creationtime")
+    logger.info("par._creationtime")
     # TODO: use common.yaml
-    if par.creationtime > datetime(2025, 2, 3):
+    if par.creationtime > datetime(2026, 2, 3):
         logger.info("adding admin cost")
         details.append(
             {
@@ -406,7 +406,7 @@ def calc_pricedetails_par_bjk(
     return details, total
 
 
-async def delete_pr_participant_bjk(parid: str) -> None:
+async def delete_pr_participant(parid: str) -> None:
     par = await get_participant_bjk(parid)
     payment_id = par.payment_id
     assert payment_id
@@ -418,24 +418,24 @@ async def delete_pr_participant_bjk(parid: str) -> None:
         pass
 
 
-async def update_pr_participant_bjk(id: str, prqin: PaymentRequest) -> None:
+async def update_pr_participant(id: str, prqin: PaymentRequest) -> None:
     exprq = await get_payment_request(id)
     par = await get_participant_bjk(exprq.link_id)
     logger.info(f"updating par {par}")
-    (details, totalprice) = calc_pricedetails_par_bjk(par)
+    (details, totalprice) = calc_pricedetails_par(par)
     prqdict = prqin.model_dump(exclude_unset=True)
     prqdict["details"] = details
     prqdict["totalprice"] = totalprice
     await DbPayrequest.update(id, prqdict, {"_model": PaymentRequest})
 
 
-async def email_pr_participant_bjk(prqid) -> None:
+async def email_pr_participant(prqid) -> None:
     prq = await get_payment_request(prqid)
     assert prq.email
     if prq.locale not in ["en", "nl", "fr", "de"]:
         prq.locale = "en"
     mp = MailParams(
-        subject="BJK / CBJ / BJLM 2025",
+        subject="BJK / CBJ / BJLM 2026",
         sender=settings.EMAIL["sender"],
         receiver=prq.email,
         template="pr_part_bjk_mail_{locale}.md",
@@ -453,8 +453,7 @@ async def email_pr_participant_bjk(prqid) -> None:
 
 emailfunctions = {
     "stay": email_pr_stay,
-    # "vk2024": email_pr_participant_vk,
-    "bjk2025": email_pr_participant_bjk,
+    "bjk": email_pr_participant,
 }
 
 

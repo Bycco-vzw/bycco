@@ -2,8 +2,8 @@
 # copyright Chessdevil Consulting BVBA 2015 - 2019
 
 import logging
-from typing import cast, Optional, List
-from datetime import date, datetime, timezone, timedelta
+from typing import cast, List
+from datetime import datetime
 from fastapi import BackgroundTasks
 from fastapi.responses import Response
 from binascii import a2b_base64

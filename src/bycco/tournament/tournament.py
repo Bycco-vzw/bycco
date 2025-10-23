@@ -35,7 +35,7 @@ def set_unofficial_result(ur: TrnUnofficialResult) -> None:
     logger.info(f"setting unofficial result {ur}")
     try:
         jf = read_bucket_content(f"trn/{ur.name}")
-    except Exception as e:
+    except Exception:
         logger.info(f"failed to read {ur.name}")
     trn = json.loads(jf)
     players = trn["Swar"]["Player"]

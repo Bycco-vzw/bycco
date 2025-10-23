@@ -2,11 +2,10 @@
 # copyright Chessdevil Consulting BVBA 2015 - 2020
 
 import logging
-from fastapi import HTTPException, Depends, APIRouter
-from fastapi.security import HTTPAuthorizationCredentials
+from fastapi import HTTPException, APIRouter
 from typing import Any
 
-from reddevil.core import RdException, bearer_schema, validate_token
+from reddevil.core import RdException
 
 from . import get_file, put_file, ReadRequest, WriteRequest
 

@@ -1,6 +1,6 @@
-### Payment request enrollment BYCC 2025
+### Payment request registration BYCC 2026
 
-### Enrollment
+### Registration
 
 | Description | Quantity | Unit | Total |
 |:-------------|:------:|--------:|--------:|

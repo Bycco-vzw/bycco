@@ -2,9 +2,8 @@
 # copyright Chessdevil Consulting BVBA 2015 - 2019
 
 from datetime import datetime
-from typing import Dict, Any, List, Optional, Type, Union
-from enum import Enum
-from pydantic import BaseModel, Field
+from typing import Any, List
+from pydantic import BaseModel
 from reddevil.core import DbBase
 
 

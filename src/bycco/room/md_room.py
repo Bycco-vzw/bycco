@@ -15,6 +15,7 @@ class RoomDB(BaseModel):
     blocked: bool  # blocked by organizer
     capacity: int
     enabled: bool
+    florealtype: str
     number: str
     reservation_id: str
     reservation_nr: int
@@ -39,11 +40,27 @@ class Room(BaseModel):
     reservation_id: str | None = None
     reservation_nr: int | None = None
     roomtype: str | None = None
+    florealtype: str | None = None
     _id: str | None = None
     _version: int | None = None
     _documenttype: str | None = None
     _creationtime: datetime | None = None
     _modificationtime: datetime | None = None
+
+
+class RoomAdd(BaseModel):
+    """
+    the generic room model used in the application
+    """
+
+    blocked: bool | None = None
+    capacity: int | None = None
+    enabled: bool | None = None
+    number: str | None = None
+    reservation_id: str | None = None
+    reservation_nr: int | None = None
+    roomtype: str | None = None
+    florealtype: str | None = None
 
 
 class RoomItem(BaseModel):
@@ -59,6 +76,6 @@ class RoomItem(BaseModel):
 
 
 class DbRoom(DbBase):
-    COLLECTION = "room"
+    COLLECTION = "room26"
     DOCUMENTTYPE = "Room"
     VERSION = 1
