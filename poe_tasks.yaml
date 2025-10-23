@@ -5,7 +5,7 @@ tasks:
   deploy:
     shell: |
       pushd frontend
-      API_URL=https://www.bycco.be/ yarn generate
+      API_URL=https://byccowebsiteprod.ew.r.appspot.com/ yarn generate
       popd
       gcloud app deploy
     help: generate frontend and deploy app on google cloud
