@@ -3,25 +3,25 @@
 categories:
   - value: 20
     title: "-20"
-    year: 2005
+    year: 2006
   - value: 18
     title: "-18"
-    year: 2007
+    year: 2008
   - value: 16
     title: "-16"
-    year: 2009
+    year: 2010
   - value: 14
     title: "-14"
-    year: 2011
+    year: 2012
   - value: 12
     title: "-12"
-    year: 2013
+    year: 2014
   - value: 10
     title: "-10"
-    year: 2015
+    year: 2016
   - value: 8
     title: "-8"
-    year: 2017
+    year: 2018
 
 canbechampion:
   - Fide Belg.

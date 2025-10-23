@@ -28,12 +28,13 @@ enddate = None
 m3y = None
 m12y = None
 m18y = None
+i18n = None
 
-i18n_enrollment_bjk = {
-    "nl": "Inschrijving BJK 2025",
-    "en": "Regoistration BYCC 2025",
-    "fr": "Enregistrement CBJ 2025",
-    "de": "Anmeldung BJLM 2025",
+i18n_registration_bjk = {
+    "nl": "Inschrijving BJK 2026",
+    "en": "Registration BYCC 2026",
+    "fr": "Enregistrement CBJ 2026",
+    "de": "Anmeldung BJLM 2026",
 }
 i18n_administrative_cost = {
     "nl": "Extra adminstratiekosten",
@@ -147,7 +148,7 @@ async def calc_pricedetails_stay(
         )
         totalprice += rooms[ass.roomtype]["day"] * ndays
         if ass.roomtype in ["SH", "DH", "TH"]:
-            # checkroom18 = True
+            checkroom18 = True
             pass
         else:
             details.append(
@@ -159,20 +160,20 @@ async def calc_pricedetails_stay(
                 }
             )
             totalprice += rooms[ass.roomtype]["clean"]
-    # if checkroom18:
-    #     for g in rsv.guestlist:
-    #         assert g.birthdate
-    #         bd = date.fromisoformat(g.birthdate)
-    #         if bd > m18y:
-    #             details.append(
-    #                 {
-    #                     "description": i18n["ROOM_18"][rsv.locale],
-    #                     "quantity": ndays,
-    #                     "unitprice": format(prices["ROOM_18"]["day"], ">6.2f"),
-    #                     "totalprice": format(prices["ROOM_18"]["day"] * ndays, ">6.2f"),
-    #                 }
-    #             )
-    #             totalprice += prices["ROOM_18"]["day"] * ndays
+    if checkroom18:
+        for g in rsv.guestlist:
+            assert g.birthdate
+            bd = date.fromisoformat(g.birthdate)
+            if bd > m18y:
+                details.append(
+                    {
+                        "description": i18n["ROOM_18"][rsv.locale],
+                        "quantity": ndays,
+                        "unitprice": format(prices["ROOM_18"]["day"], ">6.2f"),
+                        "totalprice": format(prices["ROOM_18"]["day"] * ndays, ">6.2f"),
+                    }
+                )
+                totalprice += prices["ROOM_18"]["day"] * ndays
     if rsv.meals != "no":
         for g in rsv.guestlist:
             assert g.birthdate

@@ -1,4 +1,4 @@
-## Floréal 2024: Demande de paiement pour le séjour 2025
+## Floréal: Demande de paiement pour le séjour 2026
 
 Nous vous demandons de vérifier à nouveau les données répertoriées et de nous signaler toute erreur
 
