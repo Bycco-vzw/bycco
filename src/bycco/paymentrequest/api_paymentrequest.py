@@ -9,17 +9,17 @@ from reddevil.core import RdException, get_settings, bearer_schema, validate_tok
 
 from . import (
     create_pr_stay,
-    create_pr_participant_bjk,
-    create_pr_participants_bjk,
+    create_pr_participant,
+    create_pr_participants,
     delete_pr_stay,
-    delete_pr_participant_bjk,
+    delete_pr_participant,
     email_paymentrequest,
     email_paymentrequests,
     get_payment_requests,
     get_payment_request,
     update_payment_request,
     update_pr_stay,
-    update_pr_participant_bjk,
+    update_pr_participant,
     PaymentRequest,
     PaymentRequestItem,
 )
@@ -165,7 +165,7 @@ async def api_create_pr_participant_bjk(
 ):
     try:
         await validate_token(auth)
-        return await create_pr_participant_bjk(id)
+        return await create_pr_participant(id)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except Exception:
@@ -179,7 +179,7 @@ async def api_create_pr_participants_bjk(
 ):
     try:
         await validate_token(auth)
-        await create_pr_participants_bjk()
+        await create_pr_participants()
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except Exception:
@@ -195,7 +195,7 @@ async def api_update_pr_participant_bjk(
 ):
     try:
         await validate_token(auth)
-        await update_pr_participant_bjk(id, prq)
+        await update_pr_participant(id, prq)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except Exception:
@@ -210,7 +210,7 @@ async def api_delete_pr_participant_bjk(
 ):
     try:
         await validate_token(auth)
-        await delete_pr_participant_bjk(id)
+        await delete_pr_participant(id)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except Exception:
