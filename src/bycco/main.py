@@ -45,7 +45,7 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:3000",
         "https://www.bycco.be",
-        "*byccowebsiteprod.ew.r.appspot.com",
+        "https://byccowebsiteprod.ew.r.appspot.com",
     ],
     allow_credentials=True,
     allow_methods=["*"],
