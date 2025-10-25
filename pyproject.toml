@@ -1,6 +1,6 @@
 [project]
 name = "bycco"
-version = "3.7.2"
+version = "3.7.3"
 description = "Bycco website"
 authors = [
     { name = "Ruben Decrop", email = "ruben.decrop@bycco.be" }
