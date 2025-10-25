@@ -161,7 +161,6 @@ async def calc_pricedetails_stay(
     ndays = int(rsv.checkoutdate[8:10]) - int(rsv.checkindate[8:10])
     is_min18y = check_min18y(rsv)
     for ix, ass in enumerate(rsv.assignments):
-
         unitprice = rooms[ass.roomtype]["day"]
         if is_min18y[ix]:
             unitprice -= 25 
@@ -174,6 +173,16 @@ async def calc_pricedetails_stay(
             }
         )
         totalprice += unitprice * ndays
+        if rooms[ass.roomtype]["clean"]:
+            details.append(
+                {
+                    "description": i18n["cleaning"][rsv.locale],
+                    "quantity": 1,
+                    "unitprice": format(rooms[ass.roomtype]["clean"], ">6.2f"),
+                    "totalprice": format(rooms[ass.roomtype]["clean"], ">6.2f"),
+                }
+            )
+            totalprice += rooms[ass.roomtype]["clean"]
     if rsv.meals != "no":
         for g in rsv.guestlist:
             assert g.birthdate
