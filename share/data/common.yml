@@ -45,6 +45,8 @@ trndates:
   enddate: 2026-02-22
   stayopen: 2025-10-04
   stayclose: 2025-12-10
+  regopen: 2025-12-01
+  regclose: 2026-02-01
 
 rooms:
   - name: SH
