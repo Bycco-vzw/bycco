@@ -123,7 +123,7 @@ async def create_registration_bjk(ei: RegistrationIn) -> str:
     else:
         eidict = ei.model_dump()
         eidict.pop("idsub", None)
-        eidict["event"] = "bjk2025"
+        eidict["event"] = "bjk2026"
         eidict["representative"] = {
             "emailattendant": eidict.pop("emailattendant", ""),
             "emailparent": eidict.pop("emailparent", ""),
@@ -261,7 +261,7 @@ async def confirm_registration(id: str, bt: BackgroundTasks) -> None:
         confirmed=True, registrationtime=datetime.now(), enabled=True
     )
     enr = await update_registration(id, su)
-    sendemail_registration_bjk(enr)
+    sendemail_registration(enr)
 
 
 async def get_photo(id: str):
@@ -274,26 +274,32 @@ async def get_photo(id: str):
     return Response(content=photo["badgeimage"], media_type=photo["badgemimetype"])
 
 
-def sendemail_registration_bjk(enr: Registration) -> None:
+def sendemail_registration(reg: Registration) -> None:
     from bycco.core.mail import MailParams, sendemail_no_attachments
 
     settings = get_settings()
-    em1 = enr.emailplayer.split(",")
-    em2 = enr.representative.emailattendant.split(",")
-    em3 = enr.representative.emailparent.split(",")
+    em1 = reg.emailplayer.split(",")
+    try:
+        em2 = reg.representative.emailattendant.split(",")
+    except Exception:
+        em2 = []
+    try:
+        em3 = reg.representative.emailparent.split(",")
+    except Exception:
+        em3 = []
     mp = MailParams(
-        subject="BJK 2025 / CBJ 2025 / BJLM 2025",
+        subject="BJK 202^ / CBJ 2026 / BJLM 2026 / BYCC 2026",
         sender=settings.EMAIL["sender"],
         receiver=",".join(em1 + em2 + em3),
-        template="mailregistration_bjk_{locale}.md",
-        locale=enr.locale,
+        template="mailregistration_{locale}.md",
+        locale=reg.locale,
         attachments=[],
         bcc=settings.EMAIL["bcc_registration"],
     )
-    edict = enr.model_dump()
+    edict = reg.model_dump()
     edict["category"] = edict["category"].value
-    if enr.nationalityfide:
-        edict["natstatus"] = 0 if enr.nationalityfide == "BEL" else 1
+    if reg.nationalityfide:
+        edict["natstatus"] = 0 if reg.nationalityfide == "BEL" else 1
     else:
         edict["natstatus"] = 2
     sendemail_no_attachments(mp, edict, "confirmation registration")

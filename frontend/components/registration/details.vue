@@ -184,7 +184,7 @@ onMounted(() => {
       <SnackbarMessage ref="refsnackbar" />
       <ProgressLoading ref="refloading" />
       <v-row class="mt-2">
-        <h2>{{ $t("enroll.det_title") }}</h2>
+        <h2>{{ $t("reg.det_title") }}</h2>
       </v-row>
       <v-row>
         <v-col cols="12" md="6" class="pa-1">
@@ -214,8 +214,8 @@ onMounted(() => {
         </v-col>
       </v-row>
       <v-row>
-        <h3 class="my-2">{{ $t("enroll.det_more") }}</h3>
-        <p class="my-2">{{ $t("enroll.det_requiredinfo") }}</p>
+        <h3 class="my-2">{{ $t("reg.det_more") }}</h3>
+        <p class="my-2">{{ $t("reg.det_requiredinfo") }}</p>
       </v-row>
       <v-row>
         <v-col cols="12" md="6" class="pa-1">
@@ -245,13 +245,13 @@ onMounted(() => {
       </v-row>
       <v-alert v-show="errorcode" type="error" class="mt-2" closable>
         <div v-show="errorcode == 'playerdetailsnotvalid'">
-          <div>{{ t("enroll.det_playerdetailsnotvalid") }}</div>
+          <div>{{ t("reg.det_playerdetailsnotvalid") }}</div>
         </div>
         <div v-show="errorcode == 'parentdetailsnotvalid'">
-          <div>{{ t("enroll.det_parentdetailsnotvalid") }}</div>
+          <div>{{ t("reg.det_parentdetailsnotvalid") }}</div>
         </div>
         <div v-show="errorcode == 'attendantdetailsnotvalid'">
-          <div>{{ t("enroll.det_attendantdetailsnotvalid") }}</div>
+          <div>{{ t("reg.det_attendantdetailsnotvalid") }}</div>
         </div>
       </v-alert>
       <v-row class="mt-4">

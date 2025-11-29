@@ -102,7 +102,7 @@ onMounted(async () => {
       <v-card class="my-2">
         <v-card-title class="text-h5 py-2 mb-2 bottomline">
           <v-chip>1</v-chip>
-          {{ t("reh.intro") }}
+          {{ t("reg.intro") }}
         </v-card-title>
         <v-card-text>
           <RegistrationIntro

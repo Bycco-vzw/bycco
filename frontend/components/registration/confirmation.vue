@@ -87,7 +87,7 @@ onMounted(() => {
     <SnackbarMessage ref="refsnackbar" />
     <ProgressLoading ref="refloading" />
     <v-row class="my-2">
-      <h2>{{ $t("enroll.cfm_title") }}</h2>
+      <h2>{{ $t("reg.cfm_title") }}</h2>
     </v-row>
     <v-row>
       <v-col cols="12" sm="4" lg="3">
@@ -104,7 +104,7 @@ onMounted(() => {
           {{ t("FIDE nationality") }}: <b>{{ nationalityfide }}</b>
         </div>
         <div>
-          {{ t("enroll.cfm_champion") }}: <b>{{ canBeChampion }}</b>
+          {{ t("reg.cfm_champion") }}: <b>{{ canBeChampion }}</b>
         </div>
         <div>
           {{ t("Gender") }}: <b>{{ gender }}</b>
@@ -123,19 +123,19 @@ onMounted(() => {
       </v-btn>
     </v-row>
     <v-row class="my-2" v-show="isConfirmed">
-      <v-alert :text="t('enroll.cfm_confirmed')" type="success" />
+      <v-alert :text="t('reg.cfm_confirmed')" type="success" />
     </v-row>
     <hr />
     <v-row v-show="isConfirmed" class="my-4">
       <h3>{{ t("Payment") }}</h3>
     </v-row>
     <v-row v-show="isConfirmed" class="my-4">
-      {{ t("enroll.cfm_paymentinstructions") }}
+      {{ t("reg.cfm_paymentinstructions") }}
     </v-row>
     <hr />
     <v-row v-show="isConfirmed" class="mt-6">
       <v-btn class="ml-2" @click="restart">
-        {{ $t("enroll.cfm_new") }}
+        {{ $t("reg.cfm_new") }}
       </v-btn>
     </v-row>
   </v-container>

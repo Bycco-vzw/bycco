@@ -129,14 +129,14 @@ onMounted(() => {
     <SnackbarMessage ref="refsnackbar" />
     <ProgressLoading ref="refloading" />
     <v-row class="my-2">
-      <h2>{{ t("enroll.idn_title") }}</h2>
+      <h2>{{ t("reg.idn_title") }}</h2>
     </v-row>
     <v-row class="mt-2">
-      <div>{{ t("enroll.idn_enter") }}</div>
+      <div>{{ t("reg.idn_enter") }}</div>
     </v-row>
     <v-row>
       <v-col cols="12" md="6">
-        <v-text-field v-model="idbel" :label="t('enroll.idn_title')" required />
+        <v-text-field v-model="idbel" :label="t('reg.idn_title')" required />
       </v-col>
       <v-col cols="12" md="6">
         <v-btn color="primary" @click="lookup_bel()">
@@ -146,13 +146,13 @@ onMounted(() => {
     </v-row>
     <v-alert v-show="errorcode" type="error" class="mt-2" closable>
       <div v-show="errorcode == 'notfound'">
-        <div>{{ t("enroll.idn_notfound") }}</div>
+        <div>{{ t("reg.idn_notfound") }}</div>
       </div>
       <div v-show="errorcode == 'alreadyregistered'">
-        {{ t("enroll.idn_alreadyregistered") }}
+        {{ t("reg.idn_alreadyregistered") }}
       </div>
       <div v-show="errorcode == 'noyouth'">
-        {{ t("enroll.idn_noyouth") }}
+        {{ t("reg.idn_noyouth") }}
       </div>
       <div v-show="errorcode == 'unknown'">
         {{ t("UnknownError") }}
@@ -160,7 +160,7 @@ onMounted(() => {
     </v-alert>
     <div class="mt-4">
       <div v-show="isBelPlayerFound">
-        {{ t("enroll.idn_playerfound") }} {{ first_name }} {{ last_name }}
+        {{ t("reg.idn_playerfound") }} {{ first_name }} {{ last_name }}
       </div>
       <div class="mt-2">
         <v-btn class="ml-2" @click="prev" color="primary">

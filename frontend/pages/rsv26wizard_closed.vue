@@ -10,7 +10,7 @@ const { t } = useI18n()
     <h1 class="my-2">
       {{ t("stay.res_tool") }}
     </h1>
-    <div>
+    <div class="mt-2 pt-3">
       {{ t("stay.res_closed") }}
     </div>
   </v-container>

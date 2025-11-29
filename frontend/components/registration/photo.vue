@@ -99,9 +99,9 @@ onMounted(() => {
       <SnackbarMessage ref="refsnackbar" />
       <ProgressLoading ref="refloading" />
       <h2>{{ $t("Photo") }}</h2>
-      <div class="my-2">{{ $t("enroll.pho_browse") }}</div>
+      <div class="my-2">{{ $t("reg.pho_browse") }}</div>
       <v-file-input label="Badge" v-model="photo" @update:modelValue="handleFile" />
-      <div>{{ $t("enroll.pho_crop") }}</div>
+      <div>{{ $t("reg.pho_crop") }}</div>
       <vue-cropper
         ref="photosrc"
         :view-mode="2"
@@ -114,7 +114,7 @@ onMounted(() => {
         preview="#photoresult"
         :img-style="{ height: '400px' }"
       />
-      <h4 class="mt-2">{{ $t("enroll.pho_result") }}</h4>
+      <h4 class="mt-2">{{ $t("reg.pho_result") }}</h4>
       <div id="photoresult" ref="photoresult" class="photoresult" />
       <div class="mt-2">
         <v-btn class="ml-2" @click="prev" color="primary">
