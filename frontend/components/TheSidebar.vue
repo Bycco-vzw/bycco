@@ -46,8 +46,8 @@ const tournament_mode = false
           <v-list-item v-bind="props" :title="t('BYC 2026')" />
         </template>
         <v-list-item to="schedule" :title="t('Game schedule')" />
-        <!-- <v-list-item to="/regwizard" :title="t('reg.tool')" />
-        <v-list-item to="/participants" :title="t('trn.partcp')" />  -->
+        <v-list-item to="/regwizard" :title="t('reg.tool')" />
+        <!-- <v-list-item to="/participants" :title="t('trn.partcp')" />  -->
         <v-list-item to="/rules" :title="t('Tournament Rules')" />
       </v-list-group>
       <v-list-group no-action v-if="tournament_mode">

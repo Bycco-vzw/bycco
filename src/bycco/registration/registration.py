@@ -278,19 +278,17 @@ def sendemail_registration(reg: Registration) -> None:
     from bycco.core.mail import MailParams, sendemail_no_attachments
 
     settings = get_settings()
-    em1 = reg.emailplayer.split(",")
-    try:
-        em2 = reg.representative.emailattendant.split(",")
-    except Exception:
-        em2 = []
-    try:
-        em3 = reg.representative.emailparent.split(",")
-    except Exception:
-        em3 = []
+    em1 = reg.emailplayer or ""
+    em2 = reg.representative.emailattendant if reg.representative else ""
+    em3 = reg.representative.emailparent if reg.representative else ""
+    all_email = []
+    for em in (em1, em2, em3):
+        all_email.extend(em.split(",") if em else [])
+    logger.info(f"{all_email=}")
     mp = MailParams(
-        subject="BJK 202^ / CBJ 2026 / BJLM 2026 / BYCC 2026",
+        subject="BJK 2026 / CBJ 2026 / BJLM 2026 / BYCC 2026",
         sender=settings.EMAIL["sender"],
-        receiver=",".join(em1 + em2 + em3),
+        receiver=",".join(all_email),
         template="mailregistration_{locale}.md",
         locale=reg.locale,
         attachments=[],

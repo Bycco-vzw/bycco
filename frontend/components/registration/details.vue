@@ -58,6 +58,7 @@ const mobileplayer = ref("")
 const mobileparent = ref("")
 const mobileattendant = ref("")
 const nationalityfide = ref("")
+const remarks = ref("")
 
 // datamodel the rest
 const step = 3
@@ -88,6 +89,7 @@ async function next() {
         mobileattendant: mobileattendant.value,
         mobileparent: mobileparent.value,
         mobileplayer: mobileplayer.value,
+        remarks: remarks.value,
       },
     })
   } catch (error) {
@@ -124,6 +126,7 @@ function setup(e) {
   last_name.value = e.last_name
   mobileplayer.value = e.mobileplayer || ""
   nationalityfide.value = e.nationalityfide
+  remarks.value = e.remarks || ""
   if (!category.value) {
     categories.forEach((c) => {
       if (c.year <= birthyear.value) category.value = c.value
@@ -243,6 +246,8 @@ onMounted(() => {
           </div>
         </v-col>
       </v-row>
+      <h4>{{ $t('Remarks') }}</h4>
+      <v-text-field v-model="remarks" :label="$t('Remarks')" />
       <v-alert v-show="errorcode" type="error" class="mt-2" closable>
         <div v-show="errorcode == 'playerdetailsnotvalid'">
           <div>{{ t("reg.det_playerdetailsnotvalid") }}</div>
