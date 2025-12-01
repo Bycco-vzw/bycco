@@ -52,7 +52,7 @@ async def get_registrations_bjk(options: dict = {}) -> List[RegistrationItem]:
     filter = options.copy()
     filter["_model"] = filter.pop("_model", RegistrationItem)
     filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
-    filter["event"] = "bjk2025"
+    filter["event"] = "bjk2026"
     return [
         cast(RegistrationItem, x) for x in await DbRegistration.find_multiple(filter)
     ]
@@ -66,7 +66,7 @@ async def get_registration_bjk(id: str, options: dict = {}) -> RegistrationNoBad
     filter["_model"] = filter.pop("_model", RegistrationNoBadge)
     filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
     filter["id"] = id
-    filter["event"] = "bjk2025"
+    filter["event"] = "bjk2026"
     reg = cast(RegistrationNoBadge, await DbRegistration.find_single(filter))
     return reg
 
