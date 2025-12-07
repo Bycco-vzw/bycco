@@ -163,6 +163,31 @@ onMounted(async () => {
           </v-card-title>
         </v-card>
       </template>
+      <template v-slot:item.last_name="{ item }">
+        <span :class="{ disabled: !item.enabled }">
+          {{ item.last_name }}
+        </span>
+      </template>
+      <template v-slot:item.first_name="{ item }">
+        <span :class="{ disabled: !item.enabled }">
+          {{ item.first_name }}
+        </span>
+      </template>
+      <template v-slot:item.category="{ item }">
+        <span :class="{ disabled: !item.enabled }">
+          {{ item.category }}
+        </span>
+      </template> 
+      <template v-slot:item.idbel="{ item }">
+        <span :class="{ disabled: !item.enabled }">
+          {{ item.idbel }}
+        </span>
+      </template>
+      <template v-slot:item.idfide="{ item }">
+        <span :class="{ disabled: !item.enabled }">
+          {{ item.idfide }}
+        </span>
+      </template>             
       <template #item.payment_id="{ item }">
         <NuxtLink
           v-if="item.payment_id"
