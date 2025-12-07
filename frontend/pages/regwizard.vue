@@ -3,6 +3,7 @@ import { ref, computed } from "vue"
 import { useI18n } from "vue-i18n"
 
 // communication with stepped children
+const { $backend } = useNuxtApp()
 const step = ref(1)
 const refintro = ref(null)
 const refidnumber = ref(null)
@@ -10,17 +11,29 @@ const refdetails = ref(null)
 const refphoto = ref(null)
 const refnat = ref(null)
 const refconfirmation = ref(null)
-const today = new Date()
 
-// cutoff after 23rd of February 2025
-const cutoffdate = new Date(2025, 1, 24)
-const active = cutoffdate.valueOf() > today.valueOf()
 
 // data model
 const registration = ref({})
-
-// i18n
+const common = ref(null)
+const status = ref("closed")
 const { t } = useI18n()
+
+function calcStatus() {
+  let now = new Date()
+  let opendate = new Date(common.value.trndates.regopen)
+  let closedate = new Date(common.value.trndates.regclose)
+  console.log(opendate, closedate, now)
+  if (opendate.valueOf() > now.valueOf()) {
+    status.value = "notyetopen"
+    return
+  }
+  if (closedate.valueOf() < now.valueOf()) {
+    status.value = "closed"
+  } else {
+    status.value = "open"
+  }
+}
 
 function changeStep(s) {
   console.log("receive update step", s)
@@ -56,22 +69,40 @@ function restart() {
   registration.value = {}
   step.value = 1
 }
+
+async function readCommon() {
+  try {
+    const reply = await $backend("stay", "get_common", {})
+    common.value = reply.data
+  } catch (error) {
+    console.error("failed to fetch common", error)
+    return null
+  }
+}
+
+onMounted(async () => {
+  await readCommon()
+  calcStatus()
+})
+
 </script>
 
 <template>
   <v-container fluid>
-    <h1 class="my-2">{{ t("enroll.tool") }} {{ t("BYC 2025") }}</h1>
-    <div v-if="!active">
-      <p class="mt-5">Inschrijvingen afgesloten</p>
-      <p class="mt-5">Enregistrements clôturés</p>
-      <p class="mt-5">Registrations closed</p>
-      <p class="mt-5">Anmeldungen geschlossen</p>
+    <h1 class="my-2">
+      {{ t("reg.tool") }} {{ t("BYC 2026") }}
+    </h1>
+    <div class v-if="status == 'closed'">      
+      {{ t("reg.reg_closed") }}
     </div>
-    <div v-if="active">
+    <div class="my-2" v-if="status == 'notyetopen'">
+      {{ t("reg.reg_notstarted") }}
+    </div>    
+    <div  class="my-2" v-if="status == 'open'">
       <v-card class="my-2">
         <v-card-title class="text-h5 py-2 mb-2 bottomline">
           <v-chip>1</v-chip>
-          Intro
+          {{ t("reg.intro") }}
         </v-card-title>
         <v-card-text>
           <RegistrationIntro
@@ -84,7 +115,7 @@ function restart() {
       <v-card class="my-2">
         <v-card-title class="text-h5 py-2 mb-2 bottomline">
           <v-chip>2</v-chip>
-          {{ t("ID number") }}
+          {{ t("reg.idnumber") }}
         </v-card-title>
         <v-card-text>
           <RegistrationIdnumber
@@ -98,7 +129,7 @@ function restart() {
       <v-card class="my-2">
         <v-card-title class="text-h5 py-2 mb-2 bottomline">
           <v-chip>3</v-chip>
-          {{ t("Details") }}
+          {{ t("reg.details") }}
         </v-card-title>
         <v-card-text>
           <RegistrationDetails
@@ -112,7 +143,7 @@ function restart() {
       <v-card class="my-2">
         <v-card-title class="text-h5 py-2 mb-2 bottomline">
           <v-chip>4</v-chip>
-          {{ t("Photo") }}
+          {{ t("reg.photo") }}
         </v-card-title>
         <v-card-text v-show="step == 4">
           <RegistrationPhoto
@@ -125,7 +156,7 @@ function restart() {
       <v-card class="my-2">
         <v-card-title class="text-h5 py-2 mb-2 bottomline">
           <v-chip>5</v-chip>
-          {{ t("Nationality") }}
+          {{ t("reg.nationality") }}
         </v-card-title>
         <v-card-text>
           <RegistrationNationality
@@ -139,7 +170,7 @@ function restart() {
       <v-card class="my-2">
         <v-card-title class="text-h5 py-2 mb-2 bottomline">
           <v-chip>6</v-chip>
-          {{ t("Confirmation") }}
+          {{ t("reg.confirmation") }}
         </v-card-title>
         <v-card-text>
           <RegistrationConfirmation

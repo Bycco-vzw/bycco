@@ -105,6 +105,7 @@ class RegistrationIn(BaseModel):
     mobileattendant: str
     mobileparent: str
     mobileplayer: str
+    remarks: str | None = None
 
 
 class RegistrationVkIn(BaseModel):

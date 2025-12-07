@@ -45,38 +45,38 @@ function setup(l) {
     </v-row>
     <v-row>
       <div v-show="natstatus == 'fidebelg'">
-        {{ t("enroll.nat_fidebelg", { email: "info@bycco.be" }) }}
+        {{ t("reg.nat_fidebelg", { email: "info@bycco.be" }) }}
       </div>
       <div v-show="natstatus == 'nobelg'">
-        {{ t("enroll.nat_nobelg", { email: "info@bycco.be" }) }}
+        {{ t("reg.nat_nobelg", { email: "info@bycco.be" }) }}
       </div>
       <div v-show="natstatus == 'unknown'">
-        {{ t("enroll.nat_unknown", { email: "info@bycco.be" }) }}
+        {{ t("reg.nat_unknown", { email: "info@bycco.be" }) }}
       </div>
     </v-row>
     <v-row>
       <div class="mt-2">
-        <VCheckbox :label="t('enroll.nat_agree')" v-model="nat_ok" />
+        <VCheckbox :label="t('reg.nat_agree')" v-model="nat_ok" />
       </div>
     </v-row>
     <v-row>
-      <h2>{{ t("enroll.gdpr_title") }}</h2>
+      <h2>{{ t("reg.gdpr_title") }}</h2>
     </v-row>
     <v-row>
       <div class="mt-2">
         <ul>
-          <li>{{ t("enroll.gdpr_1") }}</li>
-          <li>{{ t("enroll.gdpr_2") }}</li>
-          <li>{{ t("enroll.gdpr_3") }}</li>
-          <li>{{ t("enroll.gdpr_4") }}</li>
-          <li>{{ t("enroll.gdpr_5") }}</li>
-          <li>{{ t("enroll.gdpr_6") }}</li>
+          <li>{{ t("reg.gdpr_1") }}</li>
+          <li>{{ t("reg.gdpr_2") }}</li>
+          <li>{{ t("reg.gdpr_3") }}</li>
+          <li>{{ t("reg.gdpr_4") }}</li>
+          <li>{{ t("reg.gdpr_5") }}</li>
+          <li>{{ t("reg.gdpr_6") }}</li>
         </ul>
       </div>
     </v-row>
     <v-row>
       <div class="mt-2">
-        <VCheckbox :label="t('enroll.nat_agree')" v-model="gdpr_ok" />
+        <VCheckbox :label="t('reg.nat_agree')" v-model="gdpr_ok" />
       </div>
     </v-row>
     <v-row>
