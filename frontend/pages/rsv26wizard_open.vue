@@ -73,12 +73,12 @@ onMounted(async () => {
     <h1 class="my-2">
       {{ t("stay.res_tool") }}
     </h1>
-    <div class="my-2" v-if="status == 'closed'">
+    <!-- <div class="my-2" v-if="status == 'closed'">
       {{ t("stay.res_closed") }}
     </div>
     <div class="my-2" v-if="status == 'notyetopen'">
       {{ t("stay.res_notstarted") }}
-    </div>
+    </div> -->
     <div class="my-2" v-if="status == 'open'">
       <v-card class="my-2">
         <v-card-title class="text-h5 py-2 mb-2 bottomline">
