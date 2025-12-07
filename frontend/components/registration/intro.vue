@@ -13,8 +13,8 @@ function next() {
   emit('changeStep', 2)
 }
 
-function setup(l) {
-  console.log('setup intro', l)
+function setup(l, common) {
+  console.log('setup intro', l. common)
 }
 
 </script>

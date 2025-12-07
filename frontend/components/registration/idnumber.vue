@@ -3,7 +3,6 @@ import { ref } from "vue"
 import { useI18n } from "vue-i18n"
 import ProgressLoading from "@/components/ProgressLoading.vue"
 import SnackbarMessage from "@/components/SnackbarMessage.vue"
-import { categories } from "~/utils/constants"
 
 // communication
 const emit = defineEmits(["changeStep", "updateRegistration"])
@@ -38,6 +37,7 @@ const isBelPlayerFound = ref(false)
 const isFidePlayerFound = ref(false)
 const errorcode = ref(null)
 const step = 2
+let categories = null
 
 async function lookup_bel() {
   let member
@@ -94,13 +94,14 @@ function restart() {
   idfide.value = ""
 }
 
-function setup(e) {
+function setup(e, common) {
   idbel.value = e.idbel
   idfide.value = e.idfide
   first_name.value = e.first_name + ""
   last_name.value = e.last_name + ""
   ratingbel.value = e.ratingbel + 0
   ratingfide.value = e.ratingfide + 0
+  categories = common.categories
 }
 
 function updateRegistration() {
