@@ -285,12 +285,15 @@ def sendemail_registration(reg: Registration) -> None:
     for em in (em1, em2, em3):
         all_email.extend(em.split(",") if em else [])
     logger.info(f"{all_email=}")
+    locale = reg.locale
+    if locale not in ["nl", "fr", "de"]:
+        locale = "en"
     mp = MailParams(
         subject="BJK 2026 / CBJ 2026 / BJLM 2026 / BYCC 2026",
         sender=settings.EMAIL["sender"],
         receiver=",".join(all_email),
         template="mailregistration_{locale}.md",
-        locale=reg.locale,
+        locale=locale,
         attachments=[],
         bcc=settings.EMAIL["bcc_registration"],
     )
