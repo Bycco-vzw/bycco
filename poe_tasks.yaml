@@ -22,9 +22,9 @@ tasks:
     help: run yarn dev in frontend
   gcp_init:
     shell: |
-      gcloud config configurations activate byccoprod
+      gcloud config configurations activate bycco
       gcloud auth application-default login
-    help: activate the gcloud byccoprod configuration
+    help: activate the gcloud bycco configuration
   i18n:
     shell: |
       uv run python -m bycco.scripts.i18n
