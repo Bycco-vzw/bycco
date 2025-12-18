@@ -10,12 +10,12 @@ from reddevil.core import validate_token
 
 
 from bycco.participant import (
-    ParticipantBJKItem,
-    ParticipantBJKDetail,
-    ParticipantBJKUpdate,
-    get_participants_bjk,
-    get_participant_bjk,
-    update_participant_bjk,
+    ParticipantItem,
+    ParticipantDetail,
+    ParticipantUpdate,
+    get_participants,
+    get_participant,
+    update_participant,
 )
 from . import add_guest
 
@@ -23,10 +23,10 @@ router = APIRouter(prefix="/api/v1/guest")
 logger = logging.getLogger(__name__)
 
 
-@router.get("", response_model=List[ParticipantBJKItem])
+@router.get("", response_model=List[ParticipantItem])
 async def api_get_guests():
     try:
-        return await get_participants_bjk()
+        return await get_participants()
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except Exception:
@@ -34,33 +34,33 @@ async def api_get_guests():
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.get("/{id}", response_model=ParticipantBJKDetail)
+@router.get("/{id}", response_model=ParticipantDetail)
 async def api_mgmt_get_guest(
     id: str, auth: HTTPAuthorizationCredentials = Depends(bearer_schema)
 ):
     try:
         await validate_token(auth)
-        return await get_participant_bjk(id)
+        return await get_participant(id)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except Exception:
-        logger.exception("failed api call get_particpant_bjk")
+        logger.exception("failed api call get_particpant")
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.put("/{id}", response_model=ParticipantBJKDetail)
+@router.put("/{id}", response_model=ParticipantDetail)
 async def api_mgmt_update_guest(
     id: str,
-    participant: ParticipantBJKUpdate,
+    participant: ParticipantUpdate,
     auth: HTTPAuthorizationCredentials = Depends(bearer_schema),
 ):
     try:
         await validate_token(auth)
-        return await update_participant_bjk(id, participant)
+        return await update_participant(id, participant)
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except Exception:
-        logger.exception("failed api call update_participant_bjk")
+        logger.exception("failed api call update_participant")
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 

@@ -45,7 +45,7 @@ async def add_registration(edict: dict) -> str:
     return id
 
 
-async def get_registrations_bjk(options: dict = {}) -> List[RegistrationItem]:
+async def get_registrations(options: dict = {}) -> List[RegistrationItem]:
     """
     get registrations
     """
@@ -58,7 +58,7 @@ async def get_registrations_bjk(options: dict = {}) -> List[RegistrationItem]:
     ]
 
 
-async def get_registration_bjk(id: str, options: dict = {}) -> RegistrationNoBadge:
+async def get_registration(id: str, options: dict = {}) -> RegistrationNoBadge:
     """
     get registrations
     """
@@ -100,7 +100,7 @@ async def update_registration(
 # business methods
 
 
-async def create_registration_bjk(ei: RegistrationIn) -> str:
+async def create_registration(ei: RegistrationIn) -> str:
     logger.info(f"create an registration for BJK {ei.idbel} {ei.idfide}")
     if ei.idfide == "0":
         ei.idfide = ""

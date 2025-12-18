@@ -12,11 +12,11 @@ from bycco.core.counter import DbCounter
 from bycco.core.common import load_common
 from bycco.stay import get_stay, update_stay, Stay
 from bycco.participant import (
-    get_participant_bjk,
-    get_participants_bjk,
-    update_participant_bjk,
-    ParticipantBJKDetail,
-    ParticipantBJK,
+    get_participant,
+    get_participants,
+    update_participant,
+    ParticipantDetail,
+    Participant,
 )
 
 logger = logging.getLogger(__name__)
@@ -30,7 +30,7 @@ m12y = None
 m18y = None
 i18n = None
 
-i18n_registration_bjk = {
+i18n_registration = {
     "nl": "Inschrijving BJK 2026",
     "en": "Registration BYCC 2026",
     "fr": "Enregistrement CBJ 2026",
@@ -311,15 +311,12 @@ async def email_pr_stay(prqid) -> None:
     )
 
 
-# participant bjk
-
-
 async def create_pr_participants() -> str:
     """
     create payrq for all participants wihtout payrq
     """
     ix = 0
-    for par in await get_participants_bjk({"_model": ParticipantBJKDetail}):
+    for par in await get_participants({"_model": ParticipantDetail}):
         if par.birthyear is None:
             logger.info(f"par {par.first_name} {par.last_name} has no birthyear")
         if par.gender is None:
@@ -344,14 +341,14 @@ async def create_pr_participants() -> str:
         pr["number"] = await DbCounter.next("paymentrequest")
         pr["paymessage"] = getPaymessage(20260000 + pr["number"])
         id = await create_payment_request(pr)
-        await update_participant_bjk(par.id, ParticipantBJK(payment_id=id))
+        await update_participant(par.id, Participant(payment_id=id))
 
 
 async def create_pr_participant(parid: str) -> str:
     """
     create payment request for participant
     """
-    par = await get_participant_bjk(parid)
+    par = await get_participant(parid)
     if par.locale not in ["en", "nl", "fr", "de"]:
         par.locale = "en"
     pr: Dict[str, Any] = {
@@ -367,12 +364,12 @@ async def create_pr_participant(parid: str) -> str:
     pr["number"] = await DbCounter.next("paymentrequest")
     pr["paymessage"] = getPaymessage(20260000 + pr["number"])
     id = await create_payment_request(pr)
-    await update_participant_bjk(parid, ParticipantBJK(payment_id=id))
+    await update_participant(parid, Participant(payment_id=id))
     return id
 
 
 def calc_pricedetails_par(
-    par: ParticipantBJKDetail,
+    par: ParticipantDetail,
 ):
     """
     calculates cost for pricedetails
@@ -384,7 +381,7 @@ def calc_pricedetails_par(
         par.locale = "en"
     details = [
         {
-            "description": f"{i18n_enrollment_bjk[par.locale]} {par.first_name} {par.last_name}",
+            "description": f"{i18n_enrollment[par.locale]} {par.first_name} {par.last_name}",
             "quantity": 1,
             "unitprice": format(amount, ">6.2f"),
             "totalprice": format(amount, ">6.2f"),
@@ -407,10 +404,10 @@ def calc_pricedetails_par(
 
 
 async def delete_pr_participant(parid: str) -> None:
-    par = await get_participant_bjk(parid)
+    par = await get_participant(parid)
     payment_id = par.payment_id
     assert payment_id
-    await update_participant_bjk(parid, ParticipantBJK(payment_id=None))
+    await update_participant(parid, Participant(payment_id=None))
     try:
         await delete_payment_request(payment_id)
     except Exception:
@@ -420,7 +417,7 @@ async def delete_pr_participant(parid: str) -> None:
 
 async def update_pr_participant(id: str, prqin: PaymentRequest) -> None:
     exprq = await get_payment_request(id)
-    par = await get_participant_bjk(exprq.link_id)
+    par = await get_participant(exprq.link_id)
     logger.info(f"updating par {par}")
     (details, totalprice) = calc_pricedetails_par(par)
     prqdict = prqin.model_dump(exclude_unset=True)
@@ -438,7 +435,7 @@ async def email_pr_participant(prqid) -> None:
         subject="BJK / CBJ / BJLM 2026",
         sender=settings.EMAIL["sender"],
         receiver=prq.email,
-        template="pr_part_bjk_mail_{locale}.md",
+        template="pr_part_mail_{locale}.md",
         locale=prq.locale,
         attachments=[],
         bcc=settings.EMAIL.get("bcc_registration", ""),

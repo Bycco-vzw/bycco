@@ -6,8 +6,8 @@ from jinja2 import PackageLoader, Environment
 
 
 from bycco.participant import (
-    ParticipantBJKCategory,
-    DbParticpantBJK,
+    ParticipantCategory,
+    DbParticpant,
 )
 
 logger = logging.getLogger(__name__)
@@ -15,13 +15,13 @@ tmpl_env = Environment(loader=PackageLoader("bycco"), trim_blocks=True)
 
 
 async def add_guest(
-    first_name: str, last_name: str, category: ParticipantBJKCategory
+    first_name: str, last_name: str, category: ParticipantCategory
 ) -> None:
     """
     create a participant
     """
     logger.info("Adding guest")
-    return await DbParticpantBJK.add(
+    return await DbParticpant.add(
         {
             "badgemimetype": "",
             "badglength": 0,

@@ -29,6 +29,7 @@ const headers = [
   { title: "Last Name", value: "last_name", sortable: true },
   { title: "First Name", value: "first_name", sortable: true },
   { title: "Category", value: "category", sortable: true },
+  { title: "Birthyear", value: "birthyear", sortable: true },
   { title: "ID Bel", value: "idbel" },
   { title: "ID Fide", value: "idfide" },
   { title: "Elo BEL", value: "ratingbel", sortable: true },
@@ -108,7 +109,7 @@ async function create_prs() {
   let reply
   showLoading(true)
   try {
-    reply = await $backend("payment", "mgmt_create_participants_bjk_pr", {
+    reply = await $backend("payment", "mgmt_create_participants_pr", {
       token: token.value,
     })
   } catch (error) {
@@ -133,7 +134,7 @@ async function getParticipants() {
   let reply
   showLoading(true)
   try {
-    reply = await $backend("participant", "get_participants_bjk", {})
+    reply = await $backend("participant", "get_participants", {})
     participants.value = reply.data
   } catch (error) {
     console.error("getting participants failed", error)
@@ -152,7 +153,7 @@ async function importEnrollments() {
   let reply
   showLoading(true)
   try {
-    reply = await $backend("participant", "mgmt_import_enrollments_bjk", {
+    reply = await $backend("participant", "mgmt_import_registrations", {
       token: token.value,
     })
   } catch (error) {

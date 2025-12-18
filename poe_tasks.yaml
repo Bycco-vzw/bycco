@@ -30,6 +30,6 @@ tasks:
       uv run python -m bycco.scripts.i18n
     help: regenerate i18n files
   requirements:
-    cmd: uv export --no-hashes --format requirements-txt > src/requirements.txt
+    cmd: uv export --no-hashes --format requirements-txt -o requirements.txt
     help: create requirements.txt in src directory
 shell_interpreter: bash
