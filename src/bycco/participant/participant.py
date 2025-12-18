@@ -10,62 +10,59 @@ from jinja2 import PackageLoader, Environment
 from reddevil.core import RdBadRequest, RdNotFound
 
 from bycco.participant import (
-    ParticipantBJKCategory,
-    ParticipantBJKDetail,
-    ParticipantBJKItem,
-    ParticipantBJKUpdate,
-    ParticipantBJK,
-    DbParticpantBJK,
+    ParticipantCategory,
+    ParticipantDetail,
+    ParticipantItem,
+    ParticipantUpdate,
+    Participant,
+    DbParticpant,
     Gender,
 )
 from bycco.registration import (
     Registration,
-    get_registration_bjk,
-    # get_registration_vk,
-    get_registrations_bjk,
-    # get_registrations_vk,
+    get_registration,
+    get_registrations,
     lookup_idbel,
     lookup_idfide,
 )
 
 logger = logging.getLogger(__name__)
 tmpl_env = Environment(loader=PackageLoader("bycco"), trim_blocks=True)
-# bjk
 
 
-async def get_participants_bjk(options: dict | None = None) -> List[ParticipantBJKItem]:
+async def get_participants(options: dict | None = None) -> List[ParticipantItem]:
     filter = options.copy() if options else {}
-    filter["_model"] = filter.pop("_model", ParticipantBJKItem)
+    filter["_model"] = filter.pop("_model", ParticipantItem)
     filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
     filter["_fieldlist"].append("_creationtime")
-    logger.info(f"get_participants_bjk {filter}")
+    logger.info(f"get_participants {filter}")
     return [
-        cast(ParticipantBJKItem, x) for x in await DbParticpantBJK.find_multiple(filter)
+        cast(ParticipantItem, x) for x in await DbParticpant.find_multiple(filter)
     ]
 
 
-async def get_participant_bjk(id: str) -> ParticipantBJKDetail:
-    filter = {"_model": ParticipantBJKDetail}
+async def get_participant(id: str) -> ParticipantDetail:
+    filter = {"_model": ParticipantDetail}
     filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
     filter["_fieldlist"].append("_creationtime")
     filter["id"] = id
-    par = await DbParticpantBJK.find_single(filter)
+    par = await DbParticpant.find_single(filter)
     return par
 
 
-async def get_participant_bjk_by_idbel(idbel: str) -> ParticipantBJKItem:
-    filter = {"_model": ParticipantBJKItem}
+async def get_participant_by_idbel(idbel: str) -> ParticipantItem:
+    filter = {"_model": ParticipantItem}
     filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
     filter["idbel"] = idbel
-    return await DbParticpantBJK.find_single(filter)
+    return await DbParticpant.find_single(filter)
 
 
-async def create_participant_bjk(idbel: str, category: ParticipantBJKCategory) -> None:
+async def create_participant(idbel: str, category: ParticipantCategory) -> None:
     """
     create a participant
     """
     pl = await lookup_idbel(idbel)
-    return await DbParticpantBJK.add(
+    return await DbParticpant.add(
         {
             "badgemimetype": "",
             "badglength": 0,
@@ -90,90 +87,90 @@ async def create_participant_bjk(idbel: str, category: ParticipantBJKCategory) -
     )
 
 
-async def import_participant_bjk(idreg) -> str:
+async def import_registration(idreg) -> str:
     """
     import an enrollemnt and create a participant
     return the id of the participant
     """
-    enr = cast(
-        Registration, await get_registration_bjk(idreg, {"_model": Registration})
+    reg = cast(
+        Registration, await get_registration(idreg, {"_model": Registration})
     )
-    return await DbParticpantBJK.add(
+    return await DbParticpant.add(
         {
-            "badgeimage": enr.badgeimage,
-            "badgemimetype": enr.badgemimetype,
-            "badgelength": enr.badgelength,
-            "birthyear": enr.birthyear,
-            "category": ParticipantBJKCategory(enr.category.value),
-            "chesstitle": enr.chesstitle or "",
+            "badgeimage": reg.badgeimage,
+            "badgemimetype": reg.badgemimetype,
+            "badgelength": reg.badgelength,
+            "birthyear": reg.birthyear,
+            "category": ParticipantCategory(reg.category.value),
+            "chesstitle": reg.chesstitle or "",
             "enabled": True,
-            "emails": enr.emailplayer.split(",")
-            + enr.representative.emailparent.split(",")
-            + enr.representative.emailattendant.split(","),
-            "first_name": enr.first_name,
-            "gender": Gender(enr.gender) if enr.gender else None,
-            "idbel": enr.idbel,
-            "idclub": enr.idclub,
-            "idfide": enr.idfide,
-            "locale": enr.locale,
-            "last_name": enr.last_name,
-            "nationalityfide": enr.nationalityfide,
-            "natstatus": enr.natstatus,
+            "emails": reg.emailplayer.split(",")
+            + reg.representative.emailparent.split(",")
+            + reg.representative.emailattendant.split(","),
+            "first_name": reg.first_name,
+            "gender": Gender(reg.gender) if reg.gender else None,
+            "idbel": reg.idbel,
+            "idclub": reg.idclub,
+            "idfide": reg.idfide,
+            "locale": reg.locale,
+            "last_name": reg.last_name,
+            "nationalityfide": reg.nationalityfide,
+            "natstatus": reg.natstatus,
             "present": None,
-            "ratingbel": enr.ratingbel or 0,
-            "ratingfide": enr.ratingfide or 0,
+            "ratingbel": reg.ratingbel or 0,
+            "ratingfide": reg.ratingfide or 0,
             "remarks": "",
         }
     )
 
 
-async def import_participants_bjk():
+async def import_regitrations():
     """
     import all registration for the bjk 2025
     check doubles5
     retain most recent registration for the same person
     """
-    enrs = await get_registrations_bjk({"confirmed": True})
+    regs = await get_registrations({"confirmed": True, "enabled": True})
     idbels = {}
-    for enr in enrs:
-        if enr.idbel in idbels:
+    for reg in regs:
+        if reg.idbel in idbels:
             # we have a double detected via idbel
-            if enr.registrationtime > idbels[enr.idbel].registrationtime:
-                idbels[enr.idbel] = enr
+            if reg.registrationtime > idbels[reg.idbel].registrationtime:
+                idbels[reg.idbel] = reg # keep most recent              
         else:
-            idbels[enr.idbel] = enr
+            idbels[reg.idbel] = reg
     # process the participants
-    for idbel, enr in idbels.items():
+    for idbel, reg in idbels.items():
         try:
-            par = await get_participant_bjk_by_idbel(idbel)
+            par = await get_participant_by_idbel(idbel)
         except RdNotFound:
             par = None
         if par is None:
-            await import_participant_bjk(enr.id)
+            await import_registration(reg.id)
 
 
-async def update_participant_bjk(
-    id: str, par: ParticipantBJKUpdate, options: dict = {}
-) -> ParticipantBJK:
+async def update_participant(
+    id: str, par: ParticipantUpdate, options: dict = {}
+) -> Participant:
     opt = options.copy()
-    opt["_model"] = opt.pop("_model", ParticipantBJKDetail)
+    opt["_model"] = opt.pop("_model", ParticipantDetail)
     upd = par.model_dump(exclude_unset=True)
     return cast(
-        ParticipantBJK,
-        await DbParticpantBJK.update(id, upd, opt),
+        Participant,
+        await DbParticpant.update(id, upd, opt),
     )
 
 
-async def update_elo_bjk() -> None:
+async def update_elo() -> None:
     """
     update the elo of all participants
     """
-    prts = await get_participants_bjk()
+    prts = await get_participants()
     for pr in prts:
         if not pr.enabled:
             continue
         logger.info(f"updating elo {pr.last_name} {pr.first_name}")
-        upd = ParticipantBJK()
+        upd = Participant()
         if pr.idbel and pr.idbel != "0":
             try:
                 pl = await lookup_idbel(pr.idbel)
@@ -187,20 +184,20 @@ async def update_elo_bjk() -> None:
             except Exception:
                 logger.info(f"lookup idfide failed {pr.last_name} {pr.first_name}")
         if upd:
-            await update_participant_bjk(pr.id, upd)
+            await update_participant(pr.id, upd)
 
 
-async def generate_badges_bjk(cat: str, ids: str = ""):
+async def generate_badges(cat: str, ids: str = ""):
     """
     get the Namecards for the bjk by categorie or by ids
     cat: str
     ids: comma separated ids
     """
-    logger.info(f"generate_badges_bjk cat={cat} ids={ids}")
+    logger.info(f"generate_badges cat={cat} ids={ids}")
     if cat:
-        prts = await get_participants_bjk({"category": cat, "enabled": True})
+        prts = await get_participants({"category": cat, "enabled": True})
     else:
-        prts = await get_participants_bjk(
+        prts = await get_participants(
             {"idbel": {"$in": ids.split(",")}, "enabled": True}
         )
     logger.info(f"nr of participants {len(prts)}")
@@ -230,19 +227,19 @@ async def generate_badges_bjk(cat: str, ids: str = ""):
             badges = []
     if j > 0:
         pages.append(badges)
-    tmpl = tmpl_env.get_template("printbadge_bjk.j2")
+    tmpl = tmpl_env.get_template("printbadge.j2")
     return tmpl.render({"pages": pages})
 
 
-async def generate_namecards_bjk(cat: str, ids: str = ""):
+async def generate_namecards(cat: str, ids: str = ""):
     """
     get the Namecards for the bjk by categorie or by ids
     ids: comma separated ids
     """
     if cat:
-        prts = await get_participants_bjk({"category": cat, "enabled": True})
+        prts = await get_participants({"category": cat, "enabled": True})
     else:
-        prts = await get_participants_bjk({"idbel": {"$in": ids.split(",")}})
+        prts = await get_participants({"idbel": {"$in": ids.split(",")}})
     logger.info(f"nr of participants {len(prts)}")
     pages = []
     cards = []
@@ -270,12 +267,12 @@ async def generate_namecards_bjk(cat: str, ids: str = ""):
             cards = []
     if j > 0:
         pages.append(cards)
-    tmpl = tmpl_env.get_template("printnamecard_bjk.j2")
+    tmpl = tmpl_env.get_template("printnamecard.j2")
     return tmpl.render({"pages": pages})
 
 
 async def get_photo(id: str) -> Response:
-    photo = await DbParticpantBJK.find_single(
+    photo = await DbParticpant.find_single(
         {
             "id": id,
             "_fieldlist": ["badgeimage", "badgemimetype"],
@@ -285,7 +282,7 @@ async def get_photo(id: str) -> Response:
 
 
 async def get_photo_bel(idbel: str) -> Response:
-    photo = await DbParticpantBJK.find_single(
+    photo = await DbParticpant.find_single(
         {
             "idbel": idbel,
             "_fieldlist": ["badgeimage", "badgemimetype"],
@@ -294,18 +291,18 @@ async def get_photo_bel(idbel: str) -> Response:
     return Response(content=photo["badgeimage"], media_type=photo["badgemimetype"])
 
 
-async def upload_photo_bjk(id: str, photo: str) -> None:
+async def upload_photo(id: str, photo: str) -> None:
     try:
         header, data = photo.split(",")
         imagedata = a2b_base64(data)
-        su = ParticipantBJKUpdate(
+        su = ParticipantUpdate(
             badgemimetype=header.split(":")[1].split(";")[0],
             badgeimage=imagedata,
             badgelength=len(cast(str, imagedata)),
         )
     except Exception:
         raise RdBadRequest(description="BadPhotoData")
-    await update_participant_bjk(id, su)
+    await update_participant(id, su)
 
 
 prizetable = {
@@ -414,7 +411,7 @@ prizetable = {
 }
 
 
-async def generate_prizes_bjk(cat: str):
+async def generate_prizes(cat: str):
     """
     get the prizes for the bjk by categorie
     """
@@ -424,7 +421,7 @@ async def generate_prizes_bjk(cat: str):
     cards = []
     j = 0
     for pr in prizetable[cat]:
-        pls = await get_participants_bjk({"idbel": str(pr[0])})
+        pls = await get_participants({"idbel": str(pr[0])})
         pl = pls[0]
         rix = j % 3 + 1
         code = 2025 * 100000 + pr[0]
@@ -444,5 +441,5 @@ async def generate_prizes_bjk(cat: str):
             cards = []
     if j > 0:
         pages.append(cards)
-    tmpl = tmpl_env.get_template("printprize_bjk.j2")
+    tmpl = tmpl_env.get_template("printprize.j2")
     return tmpl.render({"pages": pages})

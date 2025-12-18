@@ -32,7 +32,7 @@ async function getParticipants() {
   let reply
   showLoading(true)
   try {
-    reply = await $backend("participant", "get_participants_bjk", { enabled: 1 })
+    reply = await $backend("participant", "get_participants", { enabled: 1 })
     participants.value = reply.data
   } catch (error) {
     console.error("getting participants failed", error)
@@ -55,7 +55,7 @@ onMounted(async () => {
   <v-container>
     <SnackbarMessage ref="refsnackbar" />
     <ProgressLoading ref="refloading" />
-    <h1>{{ t("Participants") }} {{ t("BYC 2025") }}</h1>
+    <h1>{{ t("Participants") }} {{ t("BYC 2026") }}</h1>
     <v-data-table
       :headers="headers"
       :items="participants"

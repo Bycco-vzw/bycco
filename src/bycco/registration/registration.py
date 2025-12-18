@@ -45,7 +45,7 @@ async def add_registration(edict: dict) -> str:
     return id
 
 
-async def get_registrations_bjk(options: dict = {}) -> List[RegistrationItem]:
+async def get_registrations(options: dict = {}) -> List[RegistrationItem]:
     """
     get registrations
     """
@@ -58,7 +58,7 @@ async def get_registrations_bjk(options: dict = {}) -> List[RegistrationItem]:
     ]
 
 
-async def get_registration_bjk(id: str, options: dict = {}) -> RegistrationNoBadge:
+async def get_registration(id: str, options: dict = {}) -> RegistrationNoBadge:
     """
     get registrations
     """
@@ -100,7 +100,7 @@ async def update_registration(
 # business methods
 
 
-async def create_registration_bjk(ei: RegistrationIn) -> str:
+async def create_registration(ei: RegistrationIn) -> str:
     logger.info(f"create an registration for BJK {ei.idbel} {ei.idfide}")
     if ei.idfide == "0":
         ei.idfide = ""
@@ -285,12 +285,15 @@ def sendemail_registration(reg: Registration) -> None:
     for em in (em1, em2, em3):
         all_email.extend(em.split(",") if em else [])
     logger.info(f"{all_email=}")
+    locale = reg.locale
+    if locale not in ["nl", "fr", "de"]:
+        locale = "en"
     mp = MailParams(
         subject="BJK 2026 / CBJ 2026 / BJLM 2026 / BYCC 2026",
         sender=settings.EMAIL["sender"],
         receiver=",".join(all_email),
         template="mailregistration_{locale}.md",
-        locale=reg.locale,
+        locale=locale,
         attachments=[],
         bcc=settings.EMAIL["bcc_registration"],
     )

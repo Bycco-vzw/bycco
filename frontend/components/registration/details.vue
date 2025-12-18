@@ -1,7 +1,6 @@
 <script setup>
 import { ref, computed } from "vue"
 import { useI18n } from "vue-i18n"
-// import { categories } from "~/utils/constants"
 
 import ProgressLoading from "@/components/ProgressLoading.vue"
 import SnackbarMessage from "@/components/SnackbarMessage.vue"
@@ -64,6 +63,7 @@ const remarks = ref("")
 const step = 3
 const errorcode = ref(false)
 const formvalid = ref(false)
+let categories = []
 
 async function next() {
   if (!validate_form()) {
@@ -109,7 +109,7 @@ function prev() {
   emit("changeStep", step - 1)
 }
 
-function setup(e) {
+function setup(e, common) {
   console.log("setup details", e)
   birthyear.value = e.birthyear
   category.value = e.category
@@ -127,6 +127,7 @@ function setup(e) {
   mobileplayer.value = e.mobileplayer || ""
   nationalityfide.value = e.nationalityfide
   remarks.value = e.remarks || ""
+  categories = common.categories
   if (!category.value) {
     categories.forEach((c) => {
       if (c.year <= birthyear.value) category.value = c.value

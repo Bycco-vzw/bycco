@@ -9,13 +9,10 @@ from .paymentrequest import (
     create_payment_request,
     create_pr_stay,
     create_pr_participant,
-    # create_pr_participant_vk,
     create_pr_participants,
-    # create_pr_participants_vk,
     delete_payment_request,
     delete_pr_stay,
     delete_pr_participant,
-    # delete_pr_participant_vk,
     email_paymentrequest,
     email_paymentrequests,
     get_payment_request,
@@ -23,7 +20,6 @@ from .paymentrequest import (
     update_payment_request,
     update_pr_stay,
     update_pr_participant,
-    # update_pr_participant_vk,
 )
 
 __all__ = [
@@ -35,13 +31,10 @@ __all__ = [
     "create_payment_request",
     "create_pr_stay",
     "create_pr_participant",
-    # "create_pr_participant_vk",
     "create_pr_participants",
-    # "create_pr_participants_vk",
     "delete_payment_request",
     "delete_pr_stay",
     "delete_pr_participant",
-    # "delete_pr_participant_vk",
     "email_paymentrequest",
     "email_paymentrequests",
     "get_payment_request",
@@ -49,5 +42,4 @@ __all__ = [
     "update_payment_request",
     "update_pr_stay",
     "update_pr_participant",
-    # "update_pr_participant_vk",
 ]       

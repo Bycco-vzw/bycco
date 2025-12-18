@@ -1,5 +1,5 @@
 # copyright Ruben Decrop 2012 - 2015
-# copyright Chessdevil Consulting BVBA 2015 - 2019
+# copyright Chessdevil Consulting BVBA 2015 - 2025
 
 from datetime import datetime
 from typing import List, Optional
@@ -12,17 +12,13 @@ class Gender(str, Enum):
     M = "M"
     F = "F"
 
-
-### BJK
-
-
 class NatStatus(str, Enum):
     fidebelg = "Fide Belg."
     nobelg = "No Belg."
     unknown = "Unknown"
 
 
-class ParticipantBJKCategory(str, Enum):
+class ParticipantCategory(str, Enum):
     U8 = "U8"
     U10 = "U10"
     U12 = "U12"
@@ -35,7 +31,7 @@ class ParticipantBJKCategory(str, Enum):
     GUEST = "GUEST"
 
 
-class ParticipantBJKDB(BaseModel):
+class ParticipantDB(BaseModel):
     """
     the participant model as used in the database
     is normally not exposed
@@ -45,7 +41,7 @@ class ParticipantBJKDB(BaseModel):
     badgeimage: bytes
     badgelength: int
     birthyear: int
-    category: ParticipantBJKCategory
+    category: ParticipantCategory
     chesstitle: str
     enabled: bool
     emails: List[str]
@@ -70,7 +66,7 @@ class ParticipantBJKDB(BaseModel):
     _modificationtime: datetime
 
 
-class ParticipantBJKDetail(BaseModel):
+class ParticipantDetail(BaseModel):
     """
     the detailed participant model
     """
@@ -78,7 +74,7 @@ class ParticipantBJKDetail(BaseModel):
     badgemimetype: str
     badgelength: int | None = 0
     birthyear: int | None
-    category: ParticipantBJKCategory
+    category: ParticipantCategory
     chesstitle: str
     enabled: bool
     emails: List[str]
@@ -100,7 +96,7 @@ class ParticipantBJKDetail(BaseModel):
     creationtime: datetime = Field(alias="_creationtime")
 
 
-class ParticipantBJKUpdate(BaseModel):
+class ParticipantUpdate(BaseModel):
     """
     participant update model
     """
@@ -109,7 +105,7 @@ class ParticipantBJKUpdate(BaseModel):
     badgeimage: Optional[bytes] = None
     badgelength: int | None = None
     birthyear: int | None = None
-    category: ParticipantBJKCategory | None = None
+    category: ParticipantCategory | None = None
     chesstitle: str | None = None
     enabled: bool | None = None
     emails: List[str] | None = None
@@ -129,7 +125,7 @@ class ParticipantBJKUpdate(BaseModel):
     remarks: str | None = None
 
 
-class ParticipantBJK(BaseModel):
+class Participant(BaseModel):
     """
     the participant model
     """
@@ -137,7 +133,7 @@ class ParticipantBJK(BaseModel):
     badgemimetype: str | None = None
     badgelength: int | None = None
     birthyear: int | None = None
-    category: ParticipantBJKCategory | None = None
+    category: ParticipantCategory | None = None
     chesstitle: str | None = None
     enabled: bool | None = None
     emails: List[str] | None = None
@@ -157,14 +153,14 @@ class ParticipantBJK(BaseModel):
     remarks: str | None = None
 
 
-class ParticipantBJKItem(BaseModel):
+class ParticipantItem(BaseModel):
     """
     validator for public view of a enrollment
     """
 
     badgelength: int | None = 0
     birthyear: int | None = 0
-    category: ParticipantBJKCategory
+    category: ParticipantCategory
     chesstitle: str | None
     enabled: bool | None = True
     first_name: str
@@ -182,9 +178,9 @@ class ParticipantBJKItem(BaseModel):
     ratingfide: int | None = 0
 
 
-class DbParticpantBJK(DbBase):
-    COLLECTION = "participant_bjk"
-    DOCUMENTTYPE = ParticipantBJKDB
+class DbParticpant(DbBase):
+    COLLECTION = "participant"
+    DOCUMENTTYPE = ParticipantDB
     VERSION = 1
 
 
