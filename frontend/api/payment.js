@@ -48,7 +48,7 @@ export default {
   mgmt_create_participants_pr: async function (options) {
     const { token } = options
     return await axios.post(
-      `${prefix}/participant__pr`,
+      `${prefix}/participant_pr`,
       {},
       {
         headers: {
