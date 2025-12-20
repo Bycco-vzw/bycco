@@ -8,7 +8,6 @@ const items = [
   { src: "/img/frame_chesscom.png", name: "chesscom" },
   { src: "/img/frame_chessconsult.png", name: "chessconsult" },
   { src: "/img/frame_chessnut.png", name: "chessnut" },
-  { src: "/img/frame_google.png", name: "google" },
   { src: "/img/frame_talistro.png", name: "talistro" },
   { src: "/img/frame_dgt.png", name: "dgt" },
   { src: "/img/frame_newinchess.png", name: "newinchess" },

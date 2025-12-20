@@ -93,9 +93,7 @@ async def update_payment_request(id: str, pr: PaymentRequest, options={}) -> Non
     opt["_model"] = opt.get("_model", PaymentRequest)
     return await DbPayrequest.update(id, pd, opt)
 
-
 # app routines
-
 
 async def setup_globals():
     global common, startdate, enddate, m12y, m3y, m18y, rooms, i18n
@@ -115,6 +113,8 @@ def getPaymessage(n) -> str:
     p2, p3 = divmod(rm, 1000)
     p4 = n % 97 or 97
     return f"+++{p1:03d}/{p2:04d}/{p3:03d}{p4:02d}+++"
+
+# stay
 
 def check_min18y(rsv: Stay) -> list[bool]:
     """
@@ -139,7 +139,6 @@ def check_min18y(rsv: Stay) -> list[bool]:
             is_min18y.append(False)
     logger.info(f"check_min18y: {is_min18y}")
     return is_min18y
-# stay
 
 
 async def calc_pricedetails_stay(
@@ -310,6 +309,7 @@ async def email_pr_stay(prqid) -> None:
         prqid, PaymentRequest(sentdate=date.today().isoformat())
     )
 
+# registration
 
 async def create_pr_participants() -> str:
     """
@@ -335,7 +335,7 @@ async def create_pr_participants() -> str:
             "link_id": par.id,
             "locale": par.locale,
             "paystatus": False,
-            "reason": "bjk",
+            "reason": "bjk2026",
         }
         pr["details"], pr["totalprice"] = calc_pricedetails_par(par)
         pr["number"] = await DbCounter.next("paymentrequest")
@@ -358,7 +358,7 @@ async def create_pr_participant(parid: str) -> str:
         "link_id": parid,
         "locale": par.locale,
         "paystatus": False,
-        "reason": "bjk2025",
+        "reason": "bjk2026",
     }
     pr["details"], pr["totalprice"] = calc_pricedetails_par(par)
     pr["number"] = await DbCounter.next("paymentrequest")
@@ -381,7 +381,7 @@ def calc_pricedetails_par(
         par.locale = "en"
     details = [
         {
-            "description": f"{i18n_enrollment[par.locale]} {par.first_name} {par.last_name}",
+            "description": f"{i18n_registration[par.locale]} {par.first_name} {par.last_name}",
             "quantity": 1,
             "unitprice": format(amount, ">6.2f"),
             "totalprice": format(amount, ">6.2f"),
@@ -432,7 +432,7 @@ async def email_pr_participant(prqid) -> None:
     if prq.locale not in ["en", "nl", "fr", "de"]:
         prq.locale = "en"
     mp = MailParams(
-        subject="BJK / CBJ / BJLM 2026",
+        subject="BJK / CBJ / BJLM / BYCC 2026",
         sender=settings.EMAIL["sender"],
         receiver=prq.email,
         template="pr_part_mail_{locale}.md",
@@ -450,7 +450,7 @@ async def email_pr_participant(prqid) -> None:
 
 emailfunctions = {
     "stay": email_pr_stay,
-    "bjk": email_pr_participant,
+    "bjk2026": email_pr_participant,
 }
 
 
@@ -463,7 +463,7 @@ async def email_paymentrequest(prqid) -> None:
         raise NotImplementedError
 
 
-async def email_paymentrequests(prqid) -> None:
+async def email_paymentrequests() -> None:
     """
     send all virgin payment requests
     """
