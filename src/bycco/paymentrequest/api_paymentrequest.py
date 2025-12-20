@@ -98,7 +98,7 @@ async def api_email_paymentrequests(
 ):
     try:
         await validate_token(auth)
-        await email_paymentrequests(id)
+        await email_paymentrequests()
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except Exception:
