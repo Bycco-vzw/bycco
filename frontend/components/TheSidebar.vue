@@ -74,6 +74,7 @@ const tournament_mode = false
         <v-list-item to="/rsv26wizard_closed" :title="t('stay.res_tool')" />
         <!-- <v-list-item @click="livegames" title="Live" /> -->
       </v-list-group>
+      <v-list-item to="/bycco" title="Bycco" />
     </v-list>
   </div>
 </template>
