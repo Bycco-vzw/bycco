@@ -47,7 +47,7 @@ const tournament_mode = false
         </template>
         <v-list-item to="schedule" :title="t('Game schedule')" />
         <v-list-item to="/regwizard" :title="t('reg.tool')" />
-        <!-- <v-list-item to="/participants" :title="t('trn.partcp')" />  -->
+        <v-list-item to="/participants" :title="t('trn.partcp')" />
         <v-list-item to="/rules" :title="t('Tournament Rules')" />
       </v-list-group>
       <v-list-group no-action v-if="tournament_mode">
@@ -74,6 +74,7 @@ const tournament_mode = false
         <v-list-item to="/rsv26wizard_closed" :title="t('stay.res_tool')" />
         <!-- <v-list-item @click="livegames" title="Live" /> -->
       </v-list-group>
+      <v-list-item to="/bycco" title="Bycco" />
     </v-list>
   </div>
 </template>

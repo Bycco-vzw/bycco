@@ -1,7 +1,7 @@
 ## Betalingsaanvraag inschrijving BJK 2026
 
 
-### Inschrijvinging
+### Inschrijving
 
 | Omschrijving | Aantal | Eenheid | Totaal |
 |:-------------|:------:|--------:|--------:|

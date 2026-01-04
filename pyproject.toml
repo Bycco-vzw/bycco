@@ -1,6 +1,6 @@
 [project]
 name = "bycco"
-version = "3.7.8"
+version = "3.9.3"
 description = "Bycco website"
 authors = [
     { name = "Ruben Decrop", email = "ruben.decrop@bycco.be" }
@@ -30,7 +30,7 @@ unfixable = []
 "**/__init__.py" = ["E402"]
 
 [tool.uv.sources]
-reddevil = { path = "libs/reddevil-3.4.5-py3-none-any.whl" }
+reddevil = { path = "libs/reddevil-3.5.3-py3-none-any.whl" }
 
 
 [build-system]

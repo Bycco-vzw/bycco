@@ -13,9 +13,9 @@ from bycco.registration import (
     RegistrationUpdate,
     IdReply,
     confirm_registration,
-    create_registration_bjk,
-    get_registration_bjk,
-    get_registrations_bjk,
+    create_registration,
+    get_registration,
+    get_registrations,
     get_photo,
     lookup_idbel,
     lookup_idfide,
@@ -31,9 +31,9 @@ router = APIRouter(prefix="/api/v1/registration")
 
 
 @router.get("/bjk", response_model=list[RegistrationItem])
-async def api_get_registrations_bjk():
+async def api_get_registrations():
     try:
-        return await get_registrations_bjk()
+        return await get_registrations()
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except Exception:
@@ -42,21 +42,21 @@ async def api_get_registrations_bjk():
 
 
 @router.get("/bjk/{id}", response_model=RegistrationNoBadge)
-async def api_get_registration_bjk(id: str):
+async def api_get_registration(id: str):
     try:
-        reg = await get_registration_bjk(id)
+        reg = await get_registration(id)
         return reg
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except Exception:
-        logger.exception("failed api call get_registration_bjk")
+        logger.exception("failed api call get_registration")
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
 @router.post("/bjk", response_model=str)
-async def api_create_registration_bjk(reg: RegistrationIn):
+async def api_create_registration(reg: RegistrationIn):
     try:
-        id = await create_registration_bjk(reg)
+        id = await create_registration(reg)
         return id
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
@@ -72,7 +72,7 @@ async def api_update_registration_vk(id: str, reg: RegistrationUpdate):
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except Exception:
-        logger.exception("failed api call create_registration_bjkk")
+        logger.exception("failed api call create_registrationk")
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 

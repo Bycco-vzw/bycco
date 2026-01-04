@@ -142,6 +142,7 @@ async function gotoPaymentrequest(id) {
 
 function readRegistration(registration) {
   reg.value = { ...registration }
+  reg.value.confirmed = reg.value.comfirmed ? "true" : "false"
 }
 
 async function saveRegistration() {
@@ -159,7 +160,7 @@ async function saveRegistration() {
         gender: reg.value.gender,
         birthyear: reg.value.birthyear,
         locale: reg.value.locale,
-        confirmed: reg.value.confirmed,
+        confirmed: reg.value.confirmed == "true",
         remarks: reg.value.remarks,
         enabled: reg.value.enabled,
         ratingbel: reg.value.ratingbel,

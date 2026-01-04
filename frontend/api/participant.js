@@ -3,13 +3,10 @@ import axios from "axios"
 const prefix = "/api/v1/participant"
 
 export default {
-  get_participants_vk: async function () {
-    return await axios.get(`${prefix}/vk`)
-  },
-  mgmt_add_participant_bjk: async function (options) {
+  mgmt_add_participant: async function (options) {
     const { token, idbel, cat } = options
     return await axios.post(
-      `${prefix}/bjk/${idbel}/${cat}`,
+      `${prefix}/single/${idbel}/${cat}`,
       {},
       {
         headers: {
@@ -18,30 +15,30 @@ export default {
       }
     )
   },
-  mgmt_add_guest: async function (options) {
-    const { token, first_name, last_name, cat } = options
-    return await axios.post(
-      `/api/v1/guest/${first_name}/${last_name}/${cat}`,
-      {},
-      {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      }
-    )
-  },
-  get_participants_bjk: async function (options) {
+  // mgmt_add_guest: async function (options) {
+  //   const { token, first_name, last_name, cat } = options
+  //   return await axios.post(
+  //     `/api/v1/guest/${first_name}/${last_name}/${cat}`,
+  //     {},
+  //     {
+  //       headers: {
+  //         Authorization: "Bearer " + token,
+  //       },
+  //     }
+  //   )
+  // },
+  get_participants: async function (options) {
     const { enabled } = options
     if (enabled) {
-      return await axios.get(`${prefix}/bjk?enabled=1`)
+      return await axios.get(`${prefix}/list?enabled=1`)
     } else {
-      return await axios.get(`${prefix}/bjk`)
+      return await axios.get(`${prefix}/list`)
     }
   },
-  mgmt_import_enrollments_bjk: async function (options) {
+  mgmt_import_registrations: async function (options) {
     const { token } = options
     return await axios.post(
-      `${prefix}/import/enrollments/bjk`,
+      `${prefix}/import/registrations`,
       {},
       {
         headers: {
@@ -50,36 +47,24 @@ export default {
       }
     )
   },
-  mgmt_get_participant_bjk: async function (options) {
+  mgmt_get_participant: async function (options) {
     const { id, token } = options
-    return await axios.get(`${prefix}/bjk/${id}`, {
+    return await axios.get(`${prefix}/single/${id}`, {
       headers: {
         Authorization: "Bearer " + token,
       },
     })
   },
-  mgmt_update_participant_bjk: async function (options) {
+  mgmt_update_participant: async function (options) {
     const { id, participant, token } = options
-    return await axios.put(`${prefix}/bjk/${id}`, participant, {
+    return await axios.put(`${prefix}/single/${id}`, participant, {
       headers: {
         Authorization: "Bearer " + token,
       },
     })
   },
-  mgmt_import_enrollments_bjk: async function (options) {
-    const { token } = options
-    return await axios.post(
-      `${prefix}/import/enrollments/bjk`,
-      {},
-      {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      }
-    )
-  },
-  upload_photo_bjk: async function (options) {
+  upload_photo: async function (options) {
     const { id, photo } = options
-    return await axios.post(`${prefix}/photo/bjk/${id}`, { photo })
+    return await axios.post(`${prefix}/photo/${id}`, { photo })
   },
 }

@@ -98,7 +98,7 @@ async def api_email_paymentrequests(
 ):
     try:
         await validate_token(auth)
-        await email_paymentrequests(id)
+        await email_paymentrequests()
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except Exception:
@@ -154,12 +154,8 @@ async def api_delete_pr_stay(
         logger.exception("failed api call delete_pr_reservation")
         raise HTTPException(status_code=500)
 
-
-# bjk
-
-
-@router.post("/participant_bjk_pr/{id}", response_model=str)
-async def api_create_pr_participant_bjk(
+@router.post("/participant_pr/{id}", response_model=str)
+async def api_create_pr_participant(
     id: str,
     auth: HTTPAuthorizationCredentials = Depends(bearer_schema),
 ):
@@ -173,8 +169,8 @@ async def api_create_pr_participant_bjk(
         raise HTTPException(status_code=500)
 
 
-@router.post("/participant_bjk_pr", status_code=201)
-async def api_create_pr_participants_bjk(
+@router.post("/participant_pr", status_code=201)
+async def api_create_pr_participants(
     auth: HTTPAuthorizationCredentials = Depends(bearer_schema),
 ):
     try:
@@ -187,8 +183,8 @@ async def api_create_pr_participants_bjk(
         raise HTTPException(status_code=500)
 
 
-@router.put("/participant_bjk_pr/{id}")
-async def api_update_pr_participant_bjk(
+@router.put("/participant_pr/{id}")
+async def api_update_pr_participant(
     id: str,
     prq: PaymentRequest,
     auth: HTTPAuthorizationCredentials = Depends(bearer_schema),
@@ -203,8 +199,8 @@ async def api_update_pr_participant_bjk(
         raise HTTPException(status_code=500)
 
 
-@router.delete("/participant_bjk_pr/{id}")
-async def api_delete_pr_participant_bjk(
+@router.delete("/participant_pr/{id}")
+async def api_delete_pr_participant(
     id: str,
     auth: HTTPAuthorizationCredentials = Depends(bearer_schema),
 ):
