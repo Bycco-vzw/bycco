@@ -12,6 +12,7 @@ class Gender(str, Enum):
     M = "M"
     F = "F"
 
+
 class NatStatus(str, Enum):
     fidebelg = "Fide Belg."
     nobelg = "No Belg."
@@ -139,6 +140,7 @@ class Participant(BaseModel):
     emails: List[str] | None = None
     first_name: str | None = None
     gender: Gender | None = None
+    id: str | None = None
     idbel: str | None = None
     idclub: str | None = None
     idfide: str | None = None
@@ -146,6 +148,7 @@ class Participant(BaseModel):
     last_name: str | None = None
     meals: str | None = None
     nationalityfide: str | None = None
+    natstatus: NatStatus | None = None
     payment_id: str | None = None
     present: datetime | None = None
     ratingbel: int | None = None
@@ -178,7 +181,7 @@ class ParticipantItem(BaseModel):
     ratingfide: int | None = 0
 
 
-class DbParticpant(DbBase):
+class DbParticipant(DbBase):
     COLLECTION = "participant"
     DOCUMENTTYPE = ParticipantDB
     VERSION = 1

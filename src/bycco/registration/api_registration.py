@@ -2,9 +2,12 @@
 # copyright Chessdevil Consulting BVBA 2015 - 2020
 
 import logging
+import base64
 
-from fastapi import HTTPException, BackgroundTasks, APIRouter
-from reddevil.core import RdException
+from fastapi import HTTPException, BackgroundTasks, APIRouter, Depends
+from fastapi.security import HTTPAuthorizationCredentials
+from reddevil.core import RdException, bearer_schema, validate_token
+
 
 from bycco.registration import (
     RegistrationIn,
@@ -21,6 +24,7 @@ from bycco.registration import (
     lookup_idfide,
     update_registration,
     upload_photo,
+    xls_registration,
 )
 
 logger = logging.getLogger(__name__)
@@ -134,12 +138,16 @@ async def api_anon_get_photo(id: str):
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-# @router.post("/notconfirmed_vk")
-# async def api_get_notconfirmed_vk():
-#     try:
-#         return await send_notconfirmed_vk()
-#     except RdException as e:
-#         raise HTTPException(status_code=e.status_code, detail=e.description)
-#     except Exception:
-#         logger.exception("failed api call get_photo")
-#         raise HTTPException(status_code=500, detail="Internal Server Error")
+@router.get("/cmd/xls_registration")
+async def api_xls_registration(
+    auth: HTTPAuthorizationCredentials = Depends(bearer_schema),
+):
+    await validate_token(auth)
+    try:
+        xlsfile = await xls_registration()
+        return {"xls64": base64.b64encode(xlsfile)}
+    except RdException as e:
+        raise HTTPException(status_code=e.status_code, detail=e.description)
+    except Exception:
+        logger.exception("failed api call xls")
+        raise HTTPException(status_code=500, detail="Internal Server Error")

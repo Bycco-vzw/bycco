@@ -2,6 +2,7 @@
 # copyright Chessdevil Consulting BVBA 2015 - 2025
 
 import logging
+import base64
 from typing import List
 from fastapi import HTTPException, Depends, APIRouter
 from fastapi.responses import HTMLResponse, Response
@@ -26,6 +27,7 @@ from . import (
     update_elo,
     update_participant,
     upload_photo,
+    xls_participant,
 )
 
 router = APIRouter(prefix="/api/v1/participant")
@@ -111,7 +113,7 @@ async def api_mgmt_update_elo(
     auth: HTTPAuthorizationCredentials = Depends(bearer_schema),
 ):
     try:
-        # await validate_token(auth)    
+        # await validate_token(auth)
         await update_elo()
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
@@ -205,4 +207,19 @@ async def api_generate_prizes(cat: str):
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except Exception:
         logger.exception("failed api call generate_prizes")
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+
+
+@router.get("/cmd/xls_participant")
+async def api_xls_participant(
+    auth: HTTPAuthorizationCredentials = Depends(bearer_schema),
+):
+    await validate_token(auth)
+    try:
+        xlsfile = await xls_participant()
+        return {"xls64": base64.b64encode(xlsfile)}
+    except RdException as e:
+        raise HTTPException(status_code=e.status_code, detail=e.description)
+    except Exception:
+        logger.exception("failed api call xls")
         raise HTTPException(status_code=500, detail="Internal Server Error")

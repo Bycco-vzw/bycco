@@ -21,9 +21,10 @@ from .registration import (
     lookup_idfide,
     update_registration,
     upload_photo,
+    xls_registration,
 )
 
-__all__ = [ 
+__all__ = [
     "DbRegistration",
     "Registration",
     "RegistrationCategory",
@@ -44,4 +45,5 @@ __all__ = [
     "lookup_idfide",
     "update_registration",
     "upload_photo",
+    "xls_registration",
 ]

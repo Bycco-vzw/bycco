@@ -118,7 +118,7 @@ async function getRegistration() {
   let reply
   showLoading(true)
   try {
-    reply = await $backend("registration", "mgmt_get_registration_bjk", {
+    reply = await $backend("registration", "mgmt_get_registration", {
       id: idregistration,
       token: token.value,
     })
@@ -149,7 +149,7 @@ async function saveRegistration() {
   let reply
   showLoading(true)
   try {
-    await $backend("registration", "mgmt_update_registration_bjk", {
+    await $backend("registration", "mgmt_update_registration", {
       id: idregistration,
       reg: {
         first_name: reg.value.first_name,

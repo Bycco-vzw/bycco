@@ -1,5 +1,5 @@
 from .md_participant import (
-    DbParticpant,
+    DbParticipant,
     Gender,
     NatStatus,
     ParticipantCategory,
@@ -23,11 +23,12 @@ from .participant import (
     update_elo,
     update_participant,
     upload_photo,
+    xls_participant,
 )
 
 
 __all__ = [
-    "DbParticpant",
+    "DbParticipant",
     "Gender",
     "NatStatus",
     "ParticipantCategory",
@@ -50,4 +51,5 @@ __all__ = [
     "update_elo",
     "update_participant",
     "upload_photo",
+    "xls_participant",
 ]
