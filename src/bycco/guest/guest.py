@@ -7,7 +7,7 @@ from jinja2 import PackageLoader, Environment
 
 from bycco.participant import (
     ParticipantCategory,
-    DbParticpant,
+    DbParticipant,
 )
 
 logger = logging.getLogger(__name__)
@@ -21,7 +21,7 @@ async def add_guest(
     create a participant
     """
     logger.info("Adding guest")
-    return await DbParticpant.add(
+    return await DbParticipant.add(
         {
             "badgemimetype": "",
             "badglength": 0,

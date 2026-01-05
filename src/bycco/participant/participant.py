@@ -6,16 +6,17 @@ from typing import cast, List
 from binascii import a2b_base64
 from fastapi import Response
 from jinja2 import PackageLoader, Environment
+import openpyxl
+from tempfile import NamedTemporaryFile
 
 from reddevil.core import RdBadRequest, RdNotFound
-
 from bycco.participant import (
     ParticipantCategory,
     ParticipantDetail,
     ParticipantItem,
     ParticipantUpdate,
     Participant,
-    DbParticpant,
+    DbParticipant,
     Gender,
 )
 from bycco.registration import (
@@ -36,9 +37,7 @@ async def get_participants(options: dict | None = None) -> List[ParticipantItem]
     filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
     filter["_fieldlist"].append("_creationtime")
     logger.info(f"get_participants {filter}")
-    return [
-        cast(ParticipantItem, x) for x in await DbParticpant.find_multiple(filter)
-    ]
+    return [cast(ParticipantItem, x) for x in await DbParticipant.find_multiple(filter)]
 
 
 async def get_participant(id: str) -> ParticipantDetail:
@@ -46,7 +45,7 @@ async def get_participant(id: str) -> ParticipantDetail:
     filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
     filter["_fieldlist"].append("_creationtime")
     filter["id"] = id
-    par = await DbParticpant.find_single(filter)
+    par = await DbParticipant.find_single(filter)
     return par
 
 
@@ -54,7 +53,7 @@ async def get_participant_by_idbel(idbel: str) -> ParticipantItem:
     filter = {"_model": ParticipantItem}
     filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
     filter["idbel"] = idbel
-    return await DbParticpant.find_single(filter)
+    return await DbParticipant.find_single(filter)
 
 
 async def create_participant(idbel: str, category: ParticipantCategory) -> None:
@@ -62,7 +61,7 @@ async def create_participant(idbel: str, category: ParticipantCategory) -> None:
     create a participant
     """
     pl = await lookup_idbel(idbel)
-    return await DbParticpant.add(
+    return await DbParticipant.add(
         {
             "badgemimetype": "",
             "badglength": 0,
@@ -92,10 +91,8 @@ async def import_registration(idreg) -> str:
     import an enrollemnt and create a participant
     return the id of the participant
     """
-    reg = cast(
-        Registration, await get_registration(idreg, {"_model": Registration})
-    )
-    return await DbParticpant.add(
+    reg = cast(Registration, await get_registration(idreg, {"_model": Registration}))
+    return await DbParticipant.add(
         {
             "badgeimage": reg.badgeimage,
             "badgemimetype": reg.badgemimetype,
@@ -136,7 +133,7 @@ async def import_regitrations():
         if reg.idbel in idbels:
             # we have a double detected via idbel
             if reg.registrationtime > idbels[reg.idbel].registrationtime:
-                idbels[reg.idbel] = reg # keep most recent              
+                idbels[reg.idbel] = reg  # keep most recent
         else:
             idbels[reg.idbel] = reg
     # process the participants
@@ -157,7 +154,7 @@ async def update_participant(
     upd = par.model_dump(exclude_unset=True)
     return cast(
         Participant,
-        await DbParticpant.update(id, upd, opt),
+        await DbParticipant.update(id, upd, opt),
     )
 
 
@@ -272,7 +269,7 @@ async def generate_namecards(cat: str, ids: str = ""):
 
 
 async def get_photo(id: str) -> Response:
-    photo = await DbParticpant.find_single(
+    photo = await DbParticipant.find_single(
         {
             "id": id,
             "_fieldlist": ["badgeimage", "badgemimetype"],
@@ -282,7 +279,7 @@ async def get_photo(id: str) -> Response:
 
 
 async def get_photo_bel(idbel: str) -> Response:
-    photo = await DbParticpant.find_single(
+    photo = await DbParticipant.find_single(
         {
             "idbel": idbel,
             "_fieldlist": ["badgeimage", "badgemimetype"],
@@ -443,3 +440,58 @@ async def generate_prizes(cat: str):
         pages.append(cards)
     tmpl = tmpl_env.get_template("printprize.j2")
     return tmpl.render({"pages": pages})
+
+
+async def xls_participant() -> bytes:
+    """
+    get all registrations in xls format
+    """
+    docs = await DbParticipant.find_multiple({"_model": Participant})
+    wb = openpyxl.Workbook()
+    ws = wb.active
+    ws.title = "Participants"
+    ws.append(
+        [
+            "id",
+            "idbel",
+            "idfide",
+            "idclub",
+            "first_name",
+            "last_name",
+            "category",
+            "enabled",
+            "emails",
+            "locale",
+            "nationalityfide",
+            "ratingbel",
+            "ratingfide",
+            "remarks",
+            "natstatus",
+        ]
+    )
+    for d in docs:
+        ws.append(
+            [
+                d.id,
+                d.idbel,
+                d.idfide,
+                d.idclub,
+                d.first_name,
+                d.last_name,
+                d.category.value,
+                d.enabled,
+                ",".join(d.emails),
+                d.locale,
+                d.nationalityfide,
+                d.ratingbel,
+                d.ratingfide,
+                d.remarks,
+                d.natstatus.value,
+            ]
+        )
+    with NamedTemporaryFile() as tmp:
+        wb.save(tmp.name)
+        tmp.seek(0)
+        xlscontent = tmp.read()
+    logger.info(f"xlscontent {len(xlscontent)}")
+    return xlscontent

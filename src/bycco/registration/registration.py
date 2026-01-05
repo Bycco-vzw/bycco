@@ -12,11 +12,14 @@ from httpx import (
     DecodingError,
     AsyncClient,
 )
+import openpyxl
+from tempfile import NamedTemporaryFile
 
 from reddevil.core import get_settings, RdBadRequest, RdNotFound
 from bycco.registration import (
     DbRegistration,
     Registration,
+    RegistrationCategory,
     RegistrationIn,
     RegistrationItem,
     RegistrationNoBadge,
@@ -106,17 +109,12 @@ async def create_registration(ei: RegistrationIn) -> str:
         ei.idfide = ""
     if ei.idsub:
         eu = RegistrationUpdate(
-            category=ei.category,
-            emailattendant=ei.emailattendant,
-            emailparent=ei.emailparent,
+            category=RegistrationCategory(ei.category),
             emailplayer=ei.emailplayer,
-            fullnameattendant=ei.fullnameattendant,
-            fullnameparent=ei.fullnameparent,
             idbel=ei.idbel,
             idfide=ei.idfide,
             locale=ei.locale,
             mobileattendant=ei.mobileattendant,
-            mobileparent=ei.mobileparent,
             mobileplayer=ei.mobileplayer,
         )
         enrid = (await update_registration(ei.idsub, eu)).id
@@ -304,3 +302,58 @@ def sendemail_registration(reg: Registration) -> None:
     else:
         edict["natstatus"] = 2
     sendemail_no_attachments(mp, edict, "confirmation registration")
+
+
+async def xls_registration() -> bytes:
+    """
+    get all registrations in xls format
+    """
+    docs = await DbRegistration.find_multiple({"_model": Registration})
+    wb = openpyxl.Workbook()
+    ws = wb.active
+    ws.title = "Registrations"
+    ws.append(
+        [
+            "id",
+            "idbel",
+            "idfide",
+            "first_name",
+            "last_name",
+            "confirmed",
+            "enabled",
+            "emailplayer",
+            "mobileplayer",
+            "locale",
+            "nationalityfide",
+            "ratingbel",
+            "ratingfide",
+            "remarks",
+            "registrationtime",
+        ]
+    )
+    for d in docs:
+        ws.append(
+            [
+                d.id,
+                d.idbel,
+                d.idfide,
+                d.first_name,
+                d.last_name,
+                d.confirmed,
+                d.enabled,
+                d.emailplayer,
+                d.mobileplayer,
+                d.locale,
+                d.nationalityfide,
+                d.ratingbel,
+                d.ratingfide,
+                d.remarks,
+                d.registrationtime,
+            ]
+        )
+    with NamedTemporaryFile() as tmp:
+        wb.save(tmp.name)
+        tmp.seek(0)
+        xlscontent = tmp.read()
+    logger.info(f"xlscontent {len(xlscontent)}")
+    return xlscontent

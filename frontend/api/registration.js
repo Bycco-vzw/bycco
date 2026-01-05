@@ -11,11 +11,7 @@ export default {
     const { idfide } = options
     return await axios.get(`${prefix}/idfide/${idfide}`)
   },
-  create_registration_vk: async function (options) {
-    const { registrationVkIn } = options
-    return await axios.post(`${prefix}/vk`, registrationVkIn)
-  },
-  create_registration_bjk: async function (options) {
+  create_registration: async function (options) {
     const { registrationIn } = options
     return await axios.post(`${prefix}/bjk`, registrationIn)
   },
@@ -27,16 +23,10 @@ export default {
     const { idsub, photo } = options
     return await axios.post(`${prefix}/photo/${idsub}`, { photo })
   },
-  get_registrations_vk: async function () {
-    return await axios.get(`${prefix}/vk`)
-  },
-  get_registrations_vk: async function () {
-    return await axios.get(`${prefix}/vk`)
-  },
-  get_registrations_bjk: async function () {
+  get_registrations: async function () {
     return await axios.get(`${prefix}/bjk`)
   },
-  mgmt_get_registration_bjk: async function (options) {
+  mgmt_get_registration: async function (options) {
     const { id, token } = options
     return await axios.get(`${prefix}/bjk/${id}`, {
       headers: {
@@ -44,15 +34,7 @@ export default {
       },
     })
   },
-  mgmt_get_registration_vk: async function (options) {
-    const { id, token } = options
-    return await axios.get(`${prefix}/vk/${id}`, {
-      headers: {
-        Authorization: "Bearer " + token,
-      },
-    })
-  },
-  mgmt_update_registration_bjk: async function (options) {
+  mgmt_update_registration: async function (options) {
     const { id, reg, token } = options
     return await axios.put(`${prefix}/bjk/${id}`, reg, {
       headers: {
@@ -60,12 +42,12 @@ export default {
       },
     })
   },
-  mgmt_update_registration_vk: async function (options) {
-    const { id, enr, token } = options
-    return await axios.put(`${prefix}/vk/${id}`, enr, {
+  mgmt_xls_registrations: async function (options) {
+    const { token } = options
+    return await axios.get(`${prefix}/cmd/xls_registration`, {
       headers: {
         Authorization: "Bearer " + token,
       },
     })
-  },
+  },  
 }

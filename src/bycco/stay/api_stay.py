@@ -6,8 +6,7 @@ import base64
 from typing import List
 from fastapi import HTTPException, BackgroundTasks, Depends, APIRouter
 from fastapi.security import HTTPAuthorizationCredentials
-from reddevil.core import RdException, bearer_schema
-from reddevil.core import validate_token
+from reddevil.core import RdException, bearer_schema, validate_token
 
 from bycco.stay.stay import (
     assign_room,

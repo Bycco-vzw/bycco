@@ -85,7 +85,7 @@ async function getRegistrations() {
   let reply
   showLoading(true)
   try {
-    reply = await $backend("registration", "get_registrations_bjk")
+    reply = await $backend("registration", "get_registrations")
     registrations.value = reply.data
     console.log("regs", registrations.value)
   } catch (error) {

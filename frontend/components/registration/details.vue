@@ -74,7 +74,7 @@ async function next() {
   let reply
   showLoading(true)
   try {
-    reply = await $backend("registration", "create_registration_bjk", {
+    reply = await $backend("registration", "create_registration", {
       registrationIn: {
         category: apicat.value,
         emailattendant: emailattendant.value,
