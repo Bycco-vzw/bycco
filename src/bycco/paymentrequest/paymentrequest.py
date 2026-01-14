@@ -93,7 +93,9 @@ async def update_payment_request(id: str, pr: PaymentRequest, options={}) -> Non
     opt["_model"] = opt.get("_model", PaymentRequest)
     return await DbPayrequest.update(id, pd, opt)
 
+
 # app routines
+
 
 async def setup_globals():
     global common, startdate, enddate, m12y, m3y, m18y, rooms, i18n
@@ -114,7 +116,9 @@ def getPaymessage(n) -> str:
     p4 = n % 97 or 97
     return f"+++{p1:03d}/{p2:04d}/{p3:03d}{p4:02d}+++"
 
+
 # stay
+
 
 def check_min18y(rsv: Stay) -> list[bool]:
     """
@@ -160,10 +164,9 @@ async def calc_pricedetails_stay(
     ndays = int(rsv.checkoutdate[8:10]) - int(rsv.checkindate[8:10])
     is_min18y = check_min18y(rsv)
     for ix, ass in enumerate(rsv.assignments):
-
         unitprice = rooms[ass.roomtype]["day"]
         if is_min18y[ix]:
-            unitprice -= 25 
+            unitprice -= 25
         details.append(
             {
                 "description": rooms[ass.roomtype][rsv.locale],
@@ -309,7 +312,9 @@ async def email_pr_stay(prqid) -> None:
         prqid, PaymentRequest(sentdate=date.today().isoformat())
     )
 
+
 # registration
+
 
 async def create_pr_participants() -> str:
     """
@@ -389,7 +394,7 @@ def calc_pricedetails_par(
     ]
     logger.info("par._creationtime")
     # TODO: use common.yaml
-    if par.creationtime > datetime(2026, 2, 3):
+    if par.creationtime > datetime(2026, 1, 15, 23, 59, 59):
         logger.info("adding admin cost")
         details.append(
             {

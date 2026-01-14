@@ -81,10 +81,12 @@ export default defineNuxtPlugin((nuxtApp) => {
   return {
     provide: {
       backend: async function (fact, method, options) {
+        console.log("factories", fact, factories[fact])
         const f = factories[fact][method]
         if (!f) {
           console.log("$backend method not existing", fact, method)
         }
+        console.log("f", f, fact, method)
         return await f(options)
       },
     },

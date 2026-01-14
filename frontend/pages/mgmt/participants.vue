@@ -26,12 +26,14 @@ const { person } = storeToRefs(personstore)
 const participants = ref([])
 const search = ref("")
 const headers = [
+  { title: "N", value: "index" },
   { title: "Last Name", value: "last_name", sortable: true },
   { title: "First Name", value: "first_name", sortable: true },
   { title: "Category", value: "category", sortable: true },
   { title: "Birthyear", value: "birthyear", sortable: true },
   { title: "ID Bel", value: "idbel" },
   { title: "ID Fide", value: "idfide" },
+  { title: "ID Club", value: "idclub", sortable: true },
   { title: "Elo BEL", value: "ratingbel", sortable: true },
   { title: "Elo FIDE", value: "ratingfide", sortable: true },
   { title: "Actions", value: "action" },
@@ -39,6 +41,8 @@ const headers = [
 const idbel = ref("")
 const category = ref("U8")
 const showAddParticipant = ref(false)
+const pagenr = ref(1)
+const pagesize = ref(25)
 
 definePageMeta({
   layout: "mgmt",
@@ -178,6 +182,34 @@ async function refresh() {
   await getParticipants()
 }
 
+async function updateElo() {
+  let reply
+  showLoading(true)
+  try {
+    reply = await $backend("participant", "mgmt_update_elo", {
+      token: token.value,
+    })
+  } catch (error) {
+    console.log("import error", error)
+    if (error.code == 401) {
+      router.push("/mgmt")
+      return
+    }
+    showSnackbar("Failed to update elo: " + error.detail)
+  } finally {
+    showLoading(false)
+  }
+}
+
+function updatingPage(e){
+  pagenr.value = e
+}
+
+function updatingPageSize(e){
+  pagesize.value = e
+}
+
+
 onMounted(async () => {
   showSnackbar = refsnackbar.value.showSnackbar
   showLoading = refloading.value.showLoading
@@ -201,12 +233,20 @@ onMounted(async () => {
       :headers="headers"
       :items="participants"
       :item-class="lightgreyRow"
-      :items-per-page-options="[150, -1]"
-      items-per-page="150"
+      :items-per-page-options="[25, 50, 100, -1]"
+      :items-per-page=pagesize
       class="elevation-1"
       :sort-by="[{ key: 'last_name', order: 'asc' }]"
       :search="search"
+      @update:itemsPerPage="updatingPageSize"
+      @update:page="updatingPage"
     >
+
+      <template v-slot:item.index="{ item, index }">
+        <span :class="{ disabled: !item.enabled }">
+          {{ (pagenr -1) * pagesize + index + 1 }}
+        </span>
+      </template>    
       <template v-slot:item.last_name="{ item }">
         <span :class="{ disabled: !item.enabled }">
           {{ item.last_name }}
@@ -275,6 +315,21 @@ onMounted(async () => {
                     @click="addParticipant()"
                   >
                     <v-icon>mdi-plus</v-icon>
+                  </v-btn>
+                </template>
+              </v-tooltip>
+              &nbsp;
+              <v-tooltip location="bottom">
+                Update Elo
+                <template #activator="{ props }">
+                  <v-btn
+                    fab
+                    outlined
+                    color="deep-purple-lighten-1"
+                    v-bind="props"
+                    @click="updateElo()"
+                  >
+                    <v-icon>mdi-sync</v-icon>
                   </v-btn>
                 </template>
               </v-tooltip>

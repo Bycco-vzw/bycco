@@ -51,6 +51,14 @@ export default {
       },
     })
   },
+  mgmt_update_elo: async function (options) {
+    const { token } = options
+    return await axios.post(`${prefix}/update_elo`, null, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    })
+  },
   upload_photo: async function (options) {
     const { id, photo } = options
     return await axios.post(`${prefix}/photo/${id}`, { photo })

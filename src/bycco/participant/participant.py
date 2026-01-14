@@ -172,14 +172,15 @@ async def update_elo() -> None:
             try:
                 pl = await lookup_idbel(pr.idbel)
                 upd.ratingbel = pl.ratingbel
-            except Exception:
-                logger.info(f"lookup idbel failed {pr.last_name} {pr.first_name}")
+                upd.idclub = pl.idclub
+            except Exception as e:
+                logger.info(f"lookup idbel failed {pr.last_name} {pr.first_name}: {e}")
         if pr.idfide and pr.idfide != "0":
             try:
                 pl = await lookup_idfide(pr.idfide)
                 upd.ratingfide = pl.ratingfide
-            except Exception:
-                logger.info(f"lookup idfide failed {pr.last_name} {pr.first_name}")
+            except Exception as e:
+                logger.info(f"lookup idfide failed {pr.last_name} {pr.first_name}: {e}")
         if upd:
             await update_participant(pr.id, upd)
 

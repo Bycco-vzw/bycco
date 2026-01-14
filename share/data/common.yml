@@ -47,6 +47,7 @@ trndates:
   stayclose: 2025-12-10
   regopen: 2025-11-27
   regclose: 2026-02-01
+  regadmin: 2026-01-15
 
 rooms:
   - name: SH

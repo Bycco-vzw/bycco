@@ -108,7 +108,7 @@ async def api_mgmt_import_registrations(
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.post("/update/elo/", status_code=201)
+@router.post("/update_elo", status_code=201)
 async def api_mgmt_update_elo(
     auth: HTTPAuthorizationCredentials = Depends(bearer_schema),
 ):
