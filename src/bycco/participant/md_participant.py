@@ -91,9 +91,9 @@ class ParticipantDetail(BaseModel):
     nationalityfide: str | None
     natstatus: NatStatus | None = NatStatus.unknown
     payment_id: str | None = None
-    ratingbel: int
-    ratingfide: int
-    remarks: str
+    ratingbel: int | None = None
+    ratingfide: int | None = None
+    remarks: str | None = None
     creationtime: datetime = Field(alias="_creationtime")
 
 
