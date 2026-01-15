@@ -103,7 +103,7 @@ class ParticipantUpdate(BaseModel):
     """
 
     badgemimetype: str | None = None
-    badgeimage: Optional[bytes] = None
+    badgeimage: Optional[bytes] | None = None
     badgelength: int | None = None
     birthyear: int | None = None
     category: ParticipantCategory | None = None

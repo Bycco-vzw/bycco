@@ -16,19 +16,20 @@ from bycco.participant import (
     get_participants,
     update_participant,
     ParticipantDetail,
+    ParticipantUpdate,
     Participant,
 )
 
 logger = logging.getLogger(__name__)
 settings = get_settings()
-common = None
-rooms = None
-startdate = None
-enddate = None
-m3y = None
-m12y = None
-m18y = None
-i18n = None
+common: dict | None = None
+rooms: dict
+startdate: date
+enddate: date
+m3y: date
+m12y: date
+m18y: date
+i18n: date
 
 i18n_registration = {
     "nl": "Inschrijving BJK 2026",
@@ -126,14 +127,17 @@ def check_min18y(rsv: Stay) -> list[bool]:
     """
     global m18y
     is_min18y = []
+    assert rsv.assignments and rsv.guestlist
     for ass in rsv.assignments:
         if ass.roomtype != "DH":
             is_min18y.append(False)
             continue
+        assert ass.guestlist
         if len(ass.guestlist) != 2:
             is_min18y.append(False)
             continue
         for g in rsv.guestlist:
+            assert g.birthdate
             logger.info(f"guest birthdate {g.birthdate} {m18y}")
             bd = date.fromisoformat(g.birthdate)
             if bd > m18y:
@@ -316,12 +320,16 @@ async def email_pr_stay(prqid) -> None:
 # registration
 
 
-async def create_pr_participants() -> str:
+async def create_pr_participants() -> None:
     """
     create payrq for all participants wihtout payrq
     """
     ix = 0
-    for par in await get_participants({"_model": ParticipantDetail}):
+    pars = cast(
+        list[ParticipantDetail], await get_participants({"_model": ParticipantDetail})
+    )
+    for par in pars:
+        cast(ParticipantDetail, par)
         if par.birthyear is None:
             logger.info(f"par {par.first_name} {par.last_name} has no birthyear")
         if par.gender is None:
@@ -342,11 +350,11 @@ async def create_pr_participants() -> str:
             "paystatus": False,
             "reason": "bjk2026",
         }
-        pr["details"], pr["totalprice"] = calc_pricedetails_par(par)
+        pr["details"], pr["totalprice"] = await calc_pricedetails_par(par)
         pr["number"] = await DbCounter.next("paymentrequest")
         pr["paymessage"] = getPaymessage(20260000 + pr["number"])
         id = await create_payment_request(pr)
-        await update_participant(par.id, Participant(payment_id=id))
+        await update_participant(par.id, ParticipantUpdate(payment_id=id))
 
 
 async def create_pr_participant(parid: str) -> str:
@@ -365,20 +373,23 @@ async def create_pr_participant(parid: str) -> str:
         "paystatus": False,
         "reason": "bjk2026",
     }
-    pr["details"], pr["totalprice"] = calc_pricedetails_par(par)
+    pr["details"], pr["totalprice"] = await calc_pricedetails_par(par)
     pr["number"] = await DbCounter.next("paymentrequest")
     pr["paymessage"] = getPaymessage(20260000 + pr["number"])
     id = await create_payment_request(pr)
-    await update_participant(parid, Participant(payment_id=id))
+    await update_participant(parid, ParticipantUpdate(payment_id=id))
     return id
 
 
-def calc_pricedetails_par(
+async def calc_pricedetails_par(
     par: ParticipantDetail,
 ):
     """
     calculates cost for pricedetails
     """
+    global common
+    await setup_globals()
+    assert common
     amount = 35
     admincost = 10
     total = amount
@@ -392,9 +403,11 @@ def calc_pricedetails_par(
             "totalprice": format(amount, ">6.2f"),
         }
     ]
-    logger.info("par._creationtime")
-    # TODO: use common.yaml
-    if par.creationtime > datetime(2026, 1, 15, 23, 59, 59):
+    regadmindate: date = common["trndates"]["regadmin"]
+    logger.info(f"par._creationtime: {par.creationtime} {regadmindate}")
+    if par.creationtime > datetime(
+        regadmindate.year, regadmindate.month, regadmindate.day
+    ):
         logger.info("adding admin cost")
         details.append(
             {

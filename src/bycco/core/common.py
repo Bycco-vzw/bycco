@@ -2,7 +2,7 @@ import yaml
 from reddevil.filestore.filestore import get_file
 
 
-async def load_common():
+async def load_common() -> dict:
     _icd = getattr(load_common, "common", None)
     if not _icd:
         icdr = await get_file("data", "common.yml")

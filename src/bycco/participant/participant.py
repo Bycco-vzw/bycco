@@ -37,12 +37,13 @@ async def get_participants(options: dict | None = None) -> List[ParticipantItem]
     filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
     filter["_fieldlist"].append("_creationtime")
     logger.info(f"get_participants {filter}")
-    return [cast(ParticipantItem, x) for x in await DbParticipant.find_multiple(filter)]
+    pars = list(await DbParticipant.find_multiple(filter))
+    return pars
 
 
 async def get_participant(id: str) -> ParticipantDetail:
-    filter = {"_model": ParticipantDetail}
-    filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
+    filter: dict = {"_model": ParticipantDetail}
+    filter["_fieldlist"] = list(ParticipantDetail.model_fields.keys())
     filter["_fieldlist"].append("_creationtime")
     filter["id"] = id
     par = await DbParticipant.find_single(filter)
@@ -50,8 +51,8 @@ async def get_participant(id: str) -> ParticipantDetail:
 
 
 async def get_participant_by_idbel(idbel: str) -> ParticipantItem:
-    filter = {"_model": ParticipantItem}
-    filter["_fieldlist"] = list(filter["_model"].model_fields.keys())
+    filter: dict = {"_model": ParticipantItem}
+    filter["_fieldlist"] = list(ParticipantItem.model_fields.keys())
     filter["idbel"] = idbel
     return await DbParticipant.find_single(filter)
 
