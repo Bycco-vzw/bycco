@@ -20,19 +20,7 @@ const status = ref("closed")
 const { t } = useI18n()
 
 function calcStatus() {
-  let now = new Date()
-  let opendate = new Date(common.value.trndates.regopen)
-  let closedate = new Date(common.value.trndates.regclose)
-  console.log(opendate, closedate, now)
-  if (opendate.valueOf() > now.valueOf()) {
-    status.value = "notyetopen"
-    return
-  }
-  if (closedate.valueOf() < now.valueOf()) {
-    status.value = "closed"
-  } else {
-    status.value = "open"
-  }
+  status.value = "open"
 }
 
 function changeStep(s) {
@@ -95,7 +83,6 @@ onMounted(async () => {
     </h1>
     <div class v-if="status == 'closed'">      
       {{ t("reg.reg_closed") }}
-      <p>{{ t("reg.reg_contact") }}</p>
     </div>
     <div class="my-2" v-if="status == 'notyetopen'">
       {{ t("reg.reg_notstarted") }}

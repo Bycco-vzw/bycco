@@ -7,6 +7,7 @@ reg,cfm_paymentinstructions,,Je zal een aparte email ontvangen met de betaalinst
 reg,cfm_title,,Bevestiging,Confirmation,Confirmation,Bestätigung
 reg,closed,,De inschrijvingen zijn officieel gesloten.,The enrollments are officially closed.,Les inscriptions sont officiellement terminées.,Die Anmeldungen sind offiziell geschlossen.
 reg,confirmation,,Bevestiging,Confirmation,Confirmation,Bestätigung
+reg,reg_contact,,Je stuurt best een e-mail naar info@bycco.be om te zien als er nog plaats is.,It's best to send an email to info@bycco.be to see if there's still room.,Le mieux est d'envoyer un courriel à info@bycco.be pour vérifier les disponibilités.,"Am besten senden Sie eine E-Mail an info@bycco.be, um zu erfahren, ob noch Plätze frei sind."
 reg,det_attendantdetailsnotvalid,,"De naame, het emailadres of het GSM nummer van de begeleider is ongeldig","The attendant's name, email address or mobile number is invalid","Le nom, l'adresse email ou le numéro de GSM de l'accompagnateur n'est pas valide","Der Name, die E-Mail-Adresse oder Handynummer des Begleiters ist ungültig"
 reg,det_more,,Extra informatie,Extra information,Informations supplémentaires,Zusatzinformation
 reg,det_parentdetailsnotvalid,,"De naam, het emailadres of het GSM nummer van de ouder is ongeldig","The parent's name, email address or mobile number is invalid","Le nom, l'adresse email ou le numéro de GSM du parent n'est pas valide","Der Name, die E-Mail-Adresse oder Handynummer des Elterteils ist ungültiger "

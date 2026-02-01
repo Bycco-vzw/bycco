@@ -7,6 +7,7 @@
 "reg.cfm_title": "Confirmation",
 "reg.closed": "Les inscriptions sont officiellement terminées.",
 "reg.confirmation": "Confirmation",
+"reg.reg_contact": "Le mieux est d'envoyer un courriel à info@bycco.be pour vérifier les disponibilités.",
 "reg.det_attendantdetailsnotvalid": "Le nom, l'adresse email ou le numéro de GSM de l'accompagnateur n'est pas valide",
 "reg.det_more": "Informations supplémentaires",
 "reg.det_parentdetailsnotvalid": "Le nom, l'adresse email ou le numéro de GSM du parent n'est pas valide",
