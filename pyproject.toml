@@ -5,7 +5,7 @@ description = "Bycco website"
 authors = [
     { name = "Ruben Decrop", email = "ruben.decrop@bycco.be" }
 ]
-requires-python = ">=3.12"
+requires-python = ">=3.13"
 dependencies = [
     "aiocsv>=1.4.0",
     "asyncssh>=2.21.1",
@@ -32,7 +32,6 @@ unfixable = []
 [tool.uv.sources]
 reddevil = { path = "libs/reddevil-3.5.3-py3-none-any.whl" }
 
-
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+requires = ["uv_build>=0.10.2,<0.11.0"]
+build-backend = "uv_build"
