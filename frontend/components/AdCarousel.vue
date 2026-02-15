@@ -10,7 +10,7 @@ const items = [
   { src: "/img/frame_chesscom.png", name: "chesscom" },
   { src: "/img/frame_chessconsult.png", name: "chessconsult" },
   { src: "/img/frame_chessnut.png", name: "chessnut" },
-  { src: "/img/frame_dgt.png", name: "dgt" },
+  { src: "/img/frame_chronos.png", name: "chronos" },
   { src: "/img/frame_floreal.png", name: "floreal" },
   { src: "/img/frame_megableu.png", name: "megableu" },
   { src: "/img/frame_newinchess.png", name: "newinchess" },
@@ -23,9 +23,7 @@ const items = [
 
 function setupCarousel() {
   let secCarousel = Math.floor((new Date() / 1000) % (interval * items.length))
-  console.log("secCarousel", secCarousel)
   current.value = Math.floor(secCarousel / items.length)
-  console.log("current", current.value)
   if (current.value == items.length) current.value = 0
 }
 
