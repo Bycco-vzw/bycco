@@ -82,7 +82,8 @@ onMounted(async () => {
       {{ t("reg.tool") }} {{ t("BYC 2026") }}
     </h1>
     <div class v-if="status == 'closed'">      
-      {{ t("reg.reg_closed") }}
+      <div>{{ t("reg.reg_closed") }}</div>
+      <div>{{ t("reg.reg_contact") }}</div>
     </div>
     <div class="my-2" v-if="status == 'notyetopen'">
       {{ t("reg.reg_notstarted") }}

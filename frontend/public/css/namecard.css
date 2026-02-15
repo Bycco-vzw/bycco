@@ -3,13 +3,6 @@
   margin: 0;
 }
 
-.cardpage {
-  border: 1px #efefef solid;
-  border-radius: 5px;
-  background: white;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-}
-
 @media print {
   .cardpage {
     margin: 0 0 !important;
@@ -20,22 +13,6 @@
     box-shadow: none;
     page-break-after: always;
   }
-}
-
-.cardpage {
-  width: 21cm;
-  min-height: 29.4cm;
-  padding: 0;
-  margin: 0;
-  /* margin: 1em auto; */
-  position: relative;
-}
-
-.cardline {
-  position: absolute;
-  top: 14.80cm;
-  left: 0;
-  right: 0;
 }
 
 .card_1 {
@@ -52,6 +29,50 @@
 .card_12 {
   top: 14.7cm;
   left: 0cm;
+  border-top: 1px dashed #666;  
+}
+
+.cardcategory {
+  font-size: 100%;
+}
+
+.cardname {
+  font-size: 230%;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
+.cardnumber {
+  position: absolute;
+  top: 14cm;
+  right: 0cm;
+  width: 1cm;
+}
+
+.cardpage {
+  width: 21cm;
+  height: 29.4cm;
+  padding: 0;
+  margin: 0;
+  /* margin: 1em auto; */
+  position: relative;
+  border: 1px #efefef solid;
+  border-radius: 5px;
+  background: white;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);  
+}
+
+.cardrating {
+  font-size: 120%;
+  font-weight: bold;
+}
+
+.cardright {
+  position: absolute;
+  top: 5cm;
+  right: 0cm;
+  width: 1cm;
+  bottom: 3cm;
 }
 
 .cardsponsor1 {
@@ -78,14 +99,6 @@
   height: auto;
 }
 
-.cardtitle {
-  position: absolute;
-  top: 7.5cm;
-  left: 4cm;
-  width: 13cm;
-  height: 1.8cm;
-}
-
 .cardtext {
   position: absolute;
   top: 9.5cm;
@@ -93,23 +106,13 @@
   width: 14cm;
 }
 
-.cardright {
-  position: absolute;
-  top: 5cm;
-  right: 0cm;
-  width: 1cm;
-  bottom: 5cm;
-}
-
-.cardline {
-  border-top: 1px dashed #666;
-}
-
-.cardcategory {
-  font-size: 100%;
-}
 
 .cardtitle {
+  position: absolute;
+  top: 8cm;
+  left: 4cm;
+  width: 13cm;
+  height: 1.8cm;
   font-size: 180%;
   font-weight: bold;
 }
@@ -119,24 +122,8 @@
   width: auto;
 }
 
-.cardname {
-  font-size: 250%;
-  font-weight: bold;
-}
-
-.cardrating {
-  font-size: 120%;
-  font-weight: bold;
-}
-
 .cardturn {
   transform: rotate(180deg);
   width: 100%;
 }
 
-.cardnumber {
-  position: absolute;
-  top: 14cm;
-  right: 0cm;
-  width: 1cm;
-}

@@ -2,15 +2,31 @@
 import { ref, computed, onMounted } from "vue"
 import { useI18n } from "vue-i18n"
 import { useDisplay } from "vuetify"
-// import { useStorage } from "@vueuse/core"
 
+// communication
+const { $backend } = useNuxtApp()
 const { t } = useI18n()
 const { xs, sm } = useDisplay()
+const tab = ref(0)
 
+// data model
+const common = ref(null)
 const stheaders_smartphone = ["rank", "name", "elo", "gender", "points"]  
 const stheaders_tablet = ["rank", "name", "elo", "idbel", "points", "gender",  "clubname"]  
-const stheaders_pc = []  
-
+const stheaders_pc = [] 
+const tournament = {
+  json_file: "bjk_u18.json",
+  category: "U18"
+}
+const swartrn = ref({})
+const games = ref([])
+const round = ref(1)
+const uo_headers = [
+  { title: t("Board"), value: "boardnr" },
+  { title: t("White"), value: "white" },
+  { title: t("Black"), value: "black" },
+  { title: t("Result"), value: "unofficial_result" },
+]
 const st_headers = computed(() => {
   let dsp = stheaders_pc
   if (xs.value) {
@@ -24,23 +40,7 @@ const st_headers = computed(() => {
   return swartrn.value.st_headers.filter((x) => dsp.includes(x.value))
 })
 
-const tournament = {
-  json_file: "bjk_u18.json",
-  category: "U18"
-}
-const { $backend } = useNuxtApp()
-
-const swartrn = ref({})
-const tab = ref(0)
-const games = ref([])
-const round = ref(1)
-
-const uo_headers = [
-  { title: t("Board"), value: "boardnr" },
-  { title: t("White"), value: "white" },
-  { title: t("Black"), value: "black" },
-  { title: t("Result"), value: "unofficial_result" },
-]
+// routines
 
 async function getTournament() {
   let reply
@@ -79,15 +79,47 @@ function getUnofficialGames(swarjson) {
   games.value.sort((x, y) => x.boardnr - y.boardnr)
 }
 
-onMounted(() => {
-  getTournament()
+
+async function readCommon() {
+  console.log('readCommon')
+  try {
+    const reply = await $backend("stay", "get_common", {})
+    common.value = reply.data
+  } catch (error) {
+    console.error("failed to fetch common", error)
+    return null
+  }
+}
+
+async function setUnRound(){
+  let uround = -1
+  let now = new Date()
+  console.log("common", common.value)
+  for (const [rix, ds] of Object.entries(common.value.rounds)) {
+    let d = new Date(ds)
+    if (now.getTime() > d.getTime()) {
+      uround = rix
+    }
+  }
+  if (uround != -1) {
+    console.log("fetching trn round", uround)
+    round.value = uround
+    await getTournament()
+  }
+}
+
+onMounted(async () => {
+  await readCommon()
+  await getTournament()
   setInterval(getTournament, 60000)
+  await setUnRound()
 })
+
 </script>
 
 <template>
   <v-container class="mt-1">
-    <h1>{{ t("BYC 2025") }} {{ tournament.category }}</h1>
+    <h1>{{ t("BYC 2026") }} {{ tournament.category }}</h1>
     <v-tabs v-model="tab" show>
       <v-tab>{{ t("Standings") }}</v-tab>
       <v-tab>{{ t("Pairings") }}</v-tab>
@@ -117,26 +149,23 @@ onMounted(() => {
         </div>
       </v-window-item>
       <v-window-item>
-          <!-- href="https://view.livechesscloud.com/#2c59a2ce-c07d-4ef2-9e2d-a7aaafdf6528" -->
           <a
           href="https://lichess.org/broadcast/u18-bjk-cjb-bljm-2025/xYfhE8Ym"
           target="live"
-          >Live Games</a
-        >
+          >Live Games</a>
       </v-window-item>
       <v-window-item>
         <h2>{{ t("Unofficial results") }}</h2>
-        <div>
+        <div style="font-size: 0.7rem;" class="mb-2">
           {{ t("uo_explanation") }}
         </div>
-        <v-select v-model="round" label="Round" :items="[1, 2, 3, 4, 5, 6, 7, 8, 9]" max-width="10em" 
-         @update:modelValue="getTournament"  />
+        <div>{{ t("Round") }}: {{ round }}</div>
         <v-data-table
           :items="games"
           :headers="uo_headers"
           :items-per-page="50"
           mobile-breakpoint="0"
-          density="compact"
+          density="compact">
         </v-data-table>
       </v-window-item>
     </v-window>
