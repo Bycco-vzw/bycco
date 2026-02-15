@@ -123,7 +123,7 @@ onMounted(async () => {
     <v-tabs v-model="tab" show>
       <v-tab>{{ t("Standings") }}</v-tab>
       <v-tab>{{ t("Pairings") }}</v-tab>
-      <v-tab>Live</v-tab>
+      <!-- <v-tab>Live</v-tab> -->
       <v-tab>{{ t("Unofficial results") }}</v-tab>
     </v-tabs>
     <v-window v-model="tab" :touch="false">
@@ -148,12 +148,12 @@ onMounted(async () => {
           />
         </div>
       </v-window-item>
-      <v-window-item>
+      <!-- <v-window-item>
           <a
           href="https://view.livechesscloud.com/#d9e28fab-7c13-4128-bc14-2aa8dabe6fdc"
           target="live"
           >Live Games</a>
-      </v-window-item>
+      </v-window-item> -->
       <v-window-item>
         <h2>{{ t("Unofficial results") }}</h2>
         <div style="font-size: 0.7rem;" class="mb-2">
