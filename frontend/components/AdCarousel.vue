@@ -5,15 +5,19 @@ const current = ref(0)
 const interval = 6
 const items = [
   { src: "/img/frame_archery.png", name: "archery" },
+  { src: "/img/frame_blankenberge.png", name: "blankenberge" },
+  { src: "/img/frame_cartamundi.png", name: "cartamundi" },
   { src: "/img/frame_chesscom.png", name: "chesscom" },
   { src: "/img/frame_chessconsult.png", name: "chessconsult" },
   { src: "/img/frame_chessnut.png", name: "chessnut" },
-  { src: "/img/frame_talistro.png", name: "talistro" },
   { src: "/img/frame_dgt.png", name: "dgt" },
+  { src: "/img/frame_floreal.png", name: "floreal" },
+  { src: "/img/frame_megableu.png", name: "megableu" },
   { src: "/img/frame_newinchess.png", name: "newinchess" },
   { src: "/img/frame_printcity.png", name: "printcity" },
   { src: "/img/frame_printedchess.png", name: "printedchess" },
-  { src: "/img/frame_floreal.png", name: "floreal" },
+  { src: "/img/frame_savaco.png", name: "savaco" },
+  { src: "/img/frame_talistro.png", name: "talistro" },
   { src: "/img/frame_thinkerspublishing.png", name: "thinkerspublishing" },
 ]
 
