@@ -17,7 +17,7 @@ from bycco.participant import (
     get_participant,
     update_participant,
 )
-from . import add_guest
+from . import add_guest, read_csv
 
 router = APIRouter(prefix="/api/v1/guest")
 logger = logging.getLogger(__name__)
@@ -64,7 +64,7 @@ async def api_mgmt_update_guest(
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
-@router.post("/{first_name}/{last_name}/{cat}", status_code=201)
+@router.post("/guest/{first_name}/{last_name}/{cat}", status_code=201)
 async def api_mgmt_add_guest(
     first_name: str,
     last_name: str,
@@ -78,4 +78,18 @@ async def api_mgmt_add_guest(
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except Exception:
         logger.exception("failed api call mgmt_add_guest")
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+
+
+@router.post("/read_csv", status_code=201)
+async def api_mgmt_read_csv(
+    auth: HTTPAuthorizationCredentials = Depends(bearer_schema),
+):
+    try:
+        # await validate_token(auth)
+        await read_csv()
+    except RdException as e:
+        raise HTTPException(status_code=e.status_code, detail=e.description)
+    except Exception:
+        logger.exception("failed api call mgmt_read_csv")
         raise HTTPException(status_code=500, detail="Internal Server Error")

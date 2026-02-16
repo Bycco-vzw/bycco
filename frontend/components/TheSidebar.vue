@@ -11,7 +11,7 @@ const tournament_mode = true
 
 // function livegames() {
 //   window.open(
-//     "https://lichess.org/broadcast/flemish-championship-2024--closed/round-1/YKpRRcUf",
+//     "https://www.chess.com/events/bjk-cjb-bklm-2026",
 //     "_live"
 //   )
 // }

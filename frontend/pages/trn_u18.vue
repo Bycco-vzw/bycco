@@ -150,7 +150,7 @@ onMounted(async () => {
       </v-window-item>
       <v-window-item>
           <a
-          href="https://view.livechesscloud.com/#d9e28fab-7c13-4128-bc14-2aa8dabe6fdc"
+          href="https://www.chess.com/events/u18-bjk-cjb-bklm-2026"
           target="live"
           >Live Games</a>
       </v-window-item>

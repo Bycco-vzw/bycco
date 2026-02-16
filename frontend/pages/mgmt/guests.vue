@@ -131,11 +131,28 @@ async function refresh() {
   await getParticipants()
 }
 
+async function readCsv() {
+  let reply
+  showLoading(true)
+  try {
+    reply = await $backend("guest", "mgmt_read_csv", {})
+    participants.value = reply.data
+  } catch (error) {
+    console.error("getting participants failed", error)
+    showSnackbar("Getting participants failed")
+    return
+  } finally {
+    showLoading(false)
+  }
+}
+
+
+
 onMounted(async () => {
   showSnackbar = refsnackbar.value.showSnackbar
   showLoading = refloading.value.showLoading
   await checkAuth()
-  await getParticipants()
+  // await getParticipants()
 })
 </script>
 
@@ -203,6 +220,21 @@ onMounted(async () => {
                 </template>
               </v-tooltip>
               &nbsp;
+              <v-tooltip bottom>
+                <template #activator="{ on }">
+                  <v-btn
+                    fab
+                    outlined
+                    color="deep-purple"
+                    v-on="on"
+                    @click="readCsv()"
+                  >
+                    <v-icon>mdi-download-multiple</v-icon>
+                  </v-btn>
+                </template>
+                Read CSV guests
+              </v-tooltip>
+              &nbsp;
               <v-tooltip location="bottom">
                 Refresh
                 <template #activator="{ props }">
@@ -217,6 +249,7 @@ onMounted(async () => {
                   </v-btn>
                 </template>
               </v-tooltip>
+              
             </v-row>
           </v-card-title>
         </v-card>
