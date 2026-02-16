@@ -158,7 +158,29 @@ async def api_generate_badges_cat(cat: str):
 @router.get("/badges_id/{ids}", response_class=HTMLResponse)
 async def api_generate_badges_ids(ids: str):
     try:
-        return await generate_badges(cat="", ids=ids)
+        return await generate_badges(ids=ids)
+    except RdException as e:
+        raise HTTPException(status_code=e.status_code, detail=e.description)
+    except Exception:
+        logger.exception("failed api call generate_namecards")
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+
+
+@router.get("/badges_orgid/{orgids}", response_class=HTMLResponse)
+async def api_generate_badges_orgids(orgids: str):
+    try:
+        return await generate_badges(orgids=orgids)
+    except RdException as e:
+        raise HTTPException(status_code=e.status_code, detail=e.description)
+    except Exception:
+        logger.exception("failed api call generate_namecards")
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+
+
+@router.get("/badges_eat", response_class=HTMLResponse)
+async def api_generate_badges_eat():
+    try:
+        return await generate_badges()
     except RdException as e:
         raise HTTPException(status_code=e.status_code, detail=e.description)
     except Exception:

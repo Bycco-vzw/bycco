@@ -179,6 +179,7 @@ async function saveParticipant() {
         first_name: par.value.first_name,
         last_name: par.value.last_name,
         meals: par.value.meals,
+        orgid: par.value.orgid,
         ratingbel: par.value.ratingbel,
         ratingfide: par.value.ratingfide,
       },
@@ -277,6 +278,7 @@ onMounted(async () => {
             <v-text-field v-model="par.ratingbel" label="ELO BEL" />
             <v-text-field v-model="par.ratingfide" label="ELO FIDE" />
             <v-text-field v-model="par.category" label="Category" />
+            <v-text-field v-model="par.orgid" label="Org id" />
             <div class="my-2">ID Bel {{ par.idbel }}</div>
             <div class="my-2">Creation time {{ date2str(par._creationtime) }}</div>
           </v-col>

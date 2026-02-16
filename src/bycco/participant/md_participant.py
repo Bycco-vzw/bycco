@@ -56,6 +56,7 @@ class ParticipantDB(BaseModel):
     meals: str | None = None
     nationalityfide: str | None
     natstatus: NatStatus | None = NatStatus.unknown
+    orgid: str | None = None
     payment_id: str | None = None
     ratingbel: int
     ratingfide: int
@@ -90,6 +91,7 @@ class ParticipantDetail(BaseModel):
     meals: str | None = None
     nationalityfide: str | None
     natstatus: NatStatus | None = NatStatus.unknown
+    orgid: str | None = None
     payment_id: str | None = None
     ratingbel: int | None = None
     ratingfide: int | None = None
@@ -120,6 +122,7 @@ class ParticipantUpdate(BaseModel):
     meals: str | None = None
     nationalityfide: str | None = None
     natstatus: NatStatus | None = None
+    orgid: str | None = None
     payment_id: str | None = None
     ratingbel: int | None = None
     ratingfide: int | None = None
@@ -150,6 +153,7 @@ class Participant(BaseModel):
     nationalityfide: str | None = None
     natstatus: NatStatus | None = None
     payment_id: str | None = None
+    orgid: str | None = None
     present: datetime | None = None
     ratingbel: int | None = None
     ratingfide: int | None = None
@@ -177,6 +181,7 @@ class ParticipantItem(BaseModel):
     nationalityfide: str | None = "BEL"
     natstatus: NatStatus | None = NatStatus.unknown
     payment_id: str | None = None
+    orgid: str | None = None
     ratingbel: int | None = 0
     ratingfide: int | None = 0
 
