@@ -49,7 +49,8 @@ def set_unofficial_result(ur: TrnUnofficialResult) -> None:
             if r["Color"] == "White":
                 logger.info(f"setting unofficial result for {ur.name} round {ur.round}")
                 r["UnofficialResult"] = ur.unofficial_result
-    njf = StringIO(json.dumps(trn))
+    njf = BytesIO(json.dumps(trn).encode("utf-8"))
+    # njf = StringIO(json.dumps(trn))
     try:
         write_bucket_content(f"trn/{ur.name}", njf)
     except Exception as e:
