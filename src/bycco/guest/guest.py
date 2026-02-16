@@ -3,7 +3,8 @@
 
 import logging
 from jinja2 import PackageLoader, Environment
-
+import pathlib
+import csv
 
 from bycco.participant import (
     ParticipantCategory,
@@ -12,6 +13,7 @@ from bycco.participant import (
 
 logger = logging.getLogger(__name__)
 tmpl_env = Environment(loader=PackageLoader("bycco"), trim_blocks=True)
+ROOTDIR = pathlib.Path(__file__).parents[3]
 
 
 async def add_guest(
@@ -44,3 +46,20 @@ async def add_guest(
             "remarks": "guest, arb or org",
         }
     )
+
+
+async def read_csv() -> None:
+    """
+    read_csv
+    """
+    logger.info(f"Rootdir: {ROOTDIR}")
+    filepath = ROOTDIR / "share" / "data" / "eters2026.csv"
+    with open(filepath) as f:
+        reader = csv.DictReader(f)
+        for line in reader:
+            last_name, first_name = line["name"].split(",")
+            await add_guest(
+                first_name=first_name,
+                last_name=last_name,
+                category=ParticipantCategory.GUEST,
+            )

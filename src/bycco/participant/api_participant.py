@@ -166,6 +166,17 @@ async def api_generate_badges_ids(ids: str):
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 
+@router.get("/badges_eat", response_class=HTMLResponse)
+async def api_generate_badges_eat():
+    try:
+        return await generate_badges(cat="", ids="", eat=True)
+    except RdException as e:
+        raise HTTPException(status_code=e.status_code, detail=e.description)
+    except Exception:
+        logger.exception("failed api call generate_namecards")
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+
+
 @router.get("/photo/{id}", response_class=Response)
 async def api_get_photo(id: str):
     try:

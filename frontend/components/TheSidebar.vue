@@ -9,12 +9,12 @@ function setLocale(l) {
 
 const tournament_mode = true
 
-function livegames() {
-  window.open(
-    "https://www.chess.com/events/bjk-cjb-bklm-2026",
-    "_live"
-  )
-}
+// function livegames() {
+//   window.open(
+//     "https://www.chess.com/events/bjk-cjb-bklm-2026",
+//     "_live"
+//   )
+// }
 </script>
 
 <template>
@@ -68,7 +68,7 @@ function livegames() {
         </template>
         <v-list-item to="/schedule" :title="t('Game schedule')" />
         <v-list-item to="/rules" :title="t('Tournament Rules')" />
-        <v-list-item @click="livegames" title="Live" />
+        <!-- <v-list-item @click="livegames" title="Live" /> -->
       </v-list-group>
       <v-list-item to="/bycco" title="Bycco" />
     </v-list>

@@ -186,7 +186,7 @@ async def update_elo() -> None:
             await update_participant(pr.id, upd)
 
 
-async def generate_badges(cat: str, ids: str = ""):
+async def generate_badges(cat: str, ids: str = "", eat=False):
     """
     get the Namecards for the bjk by categorie or by ids
     cat: str
@@ -195,10 +195,12 @@ async def generate_badges(cat: str, ids: str = ""):
     logger.info(f"generate_badges cat={cat} ids={ids}")
     if cat:
         prts = await get_participants({"category": cat, "enabled": True})
-    else:
+    elif ids:
         prts = await get_participants(
             {"idbel": {"$in": ids.split(",")}, "enabled": True}
         )
+    else:
+        prts = await get_participants({"meals": {"$ne": None}, "enabled": True})
     logger.info(f"nr of participants {len(prts)}")
     pages = []
     badges = []

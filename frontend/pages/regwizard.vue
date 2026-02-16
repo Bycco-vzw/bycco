@@ -70,16 +70,6 @@ function restart() {
   step.value = 1
 }
 
-async function readCommon() {
-  console.log('readCommon')
-  try {
-    const reply = await $backend("stay", "get_common", {})
-    common.value = reply.data
-  } catch (error) {
-    console.error("failed to fetch common", error)
-    return null
-  }
-}
 
 onMounted(async () => {
   await readCommon()
