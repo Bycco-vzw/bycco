@@ -85,9 +85,6 @@ from bycco.statamic import api_statamic  # noqa E402
 logger.info("loading api_tournament")
 from bycco.tournament import api_tournament  # noqa E402
 
-logger.info("loading api_guest")
-from bycco.guest import api_guest  # noqa E402
-
 
 app.include_router(api_account.router)
 app.include_router(api_filestore.router)
@@ -99,7 +96,6 @@ app.include_router(api_paymentrequest.router)
 app.include_router(api_statamic.router)
 app.include_router(api_page.router)
 app.include_router(api_tournament.router)
-app.include_router(api_guest.router)
 logger.info("Api's loaded")
 
 

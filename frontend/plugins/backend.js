@@ -2,7 +2,6 @@ import axios from "axios"
 import accounts from "@/api/accounts"
 import attendee from "@/api/attendee"
 import filestore from "@/api/filestore"
-import guest from "@/api/guest"
 import stay from "@/api/stay"
 import registration from "@/api/registration"
 import page from "@/api/page"
@@ -68,7 +67,6 @@ const factories = {
   accounts,
   attendee,
   filestore,
-  guest,
   stay,
   page,
   participant,
