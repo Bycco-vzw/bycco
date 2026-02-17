@@ -23,8 +23,9 @@ const personstore = usePersonStore()
 const { person } = storeToRefs(personstore)
 
 // datamodel
+const common = ref(null)
 const round = ref(1)
-const category = ref(null)
+const category = ref("U8")
 const dlg_unofficial = ref(false)
 const game = ref({})
 const games = ref([])
@@ -79,6 +80,7 @@ async function editResult(item) {
   dlg_unofficial.value = true
   act_result.value = item.uo_result + ""
 }
+
 async function getJsonFile() {
   let reply
   if (!category.value || !round.value) {
@@ -101,6 +103,18 @@ async function getJsonFile() {
     showLoading(false)
   }
   readSwarJson(reply.data)
+}
+
+
+async function readCommon() {
+  console.log('readCommon')
+  try {
+    const reply = await $backend("stay", "get_common", {})
+    common.value = reply.data
+  } catch (error) {
+    console.error("failed to fetch common", error)
+    return null
+  }
 }
 
 function readSwarJson(swarjson) {
@@ -153,10 +167,31 @@ async function saveUnofficial() {
   }
 }
 
+async function setUnRound(){
+  let uround = -1
+  let now = new Date()
+  console.log("common", common.value)
+  for (const [rix, ds] of Object.entries(common.value.rounds)) {
+    let d = new Date(ds)
+    if (now.getTime() > d.getTime()) {
+      uround = rix
+    }
+  }
+  if (uround != -1) {
+    console.log("fetching trn round", uround)
+    round.value = uround
+    await getTournament()
+  }
+}
+
+
 onMounted(async () => {
   showSnackbar = refsnackbar.value.showSnackbar
   showLoading = refloading.value.showLoading
   await checkAuth()
+  await readCommon()
+  await setUnRound()
+  await getJsonFile()
 })
 </script>
 
@@ -175,12 +210,7 @@ onMounted(async () => {
         />
       </v-col>
       <v-col cols="6">
-        <v-select
-          label="Round"
-          v-model="round"
-          :items="[1, 2, 3, 4, 5, 6, 7, 8, 9]"
-          @update:modelValue="getJsonFile"
-        />
+        Round {{ round }}
       </v-col>
     </v-row>
     <v-row>
