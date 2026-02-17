@@ -199,7 +199,7 @@ onMounted(async () => {
   <v-container>
     <SnackbarMessage ref="refsnackbar" />
     <ProgressLoading ref="refloading" />
-    <h1>Entry for unoffical results BJK 2025</h1>
+    <h1>Entry for unoffical results BJK 2026</h1>
     <v-row>
       <v-col cols="6">
         <v-select
