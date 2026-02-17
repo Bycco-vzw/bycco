@@ -10,6 +10,8 @@ const { t } = useI18n()
 const { xs, sm } = useDisplay()
 const tab = ref(0)
 
+// data model
+const common = ref(null)
 const stheaders_smartphone = ["rank", "name", "elo", "gender", "points"]  
 const stheaders_tablet = ["rank", "name", "elo", "idbel", "points", "gender",  "clubname"]  
 const stheaders_pc = []  

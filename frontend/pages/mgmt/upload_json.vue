@@ -132,7 +132,7 @@ onMounted(async () => {
   <v-container>
     <SnackbarMessage ref="refsnackbar" />
     <ProgressLoading ref="refloading" />
-    <h1>Upload JSON files BJK 2025</h1>
+    <h1>Upload JSON files BJK 2026</h1>
     <h3>U8</h3>
     <v-file-input label="Json file" v-model="trn_u8.file" />
     <v-btn @click="uploading(trn_u8)">Upload</v-btn>
