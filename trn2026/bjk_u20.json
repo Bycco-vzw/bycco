@@ -1,0 +1,3006 @@
+{
+    "Swar" : {
+        "TournamentDesc" : {
+            "Version" : "v6.75",
+            "Tournament" : "BJK CBJ 2026 U20",
+            "Organizer" : "BYCCO",
+            "ClubOrLogo" : "BYCCO",
+            "Place" : "Blankenberge",
+            "Arbiter_1" : "Geert BAILLEUL",
+            "Arbiter_2" : "Geert BAILLEUL",
+            "StartDate" : "16/02/2026",
+            "EndDate" : "22/02/2026",
+            "RateOfPlay" : "90 min with incr. 30\"",
+            "NbOfRounds" : 9,
+            "SepareteCategories" : 0,
+            "FideHomologation " : 1,
+            "Homologation Round(s)" : [ {
+                "Round from" : 1,
+                "Round to" : 9,
+                "Fide-Id" : 464923
+            } ],
+            "FideArbiterId_1" : "225185",
+            "FideArbiterName_1" : "Bailleul, Geert",
+            "FideArbiterId_2" : "207969 ",
+            "FideArbiterName_2" : "Wuyts  Tom",
+            "TournamentType" : "Swiss",
+            "AmericainPresence" : 0,
+            "MultiplePairing" : 0,
+            "FirstTableNumber" : 1,
+            "SW321_Win" : "0.0",
+            "SW321_Null" : "0.0",
+            "SW321_Loss" : "0.0",
+            "SW321_Bye" : "0.0",
+            "SW321_Presence" : "0.0",
+            "EloUsed" : "Higher of National and Fide",
+            "TournamentStd" : "Standard",
+            "ByeValue" : "1",
+            "AbsValue" : "1",
+            "NumberOfTimes" : "0",
+            "ToRound" : "0",
+            "Federation" : "FIDE",
+            "NbDates" : 9,
+            "NbPlayers" : 23,
+            "DatesArray" : [ {
+                "DateValue" : "16/02/2026"
+            }, {
+                "DateValue" : "17/02/2026"
+            }, {
+                "DateValue" : "17/02/2026"
+            }, {
+                "DateValue" : "18/02/2026"
+            }, {
+                "DateValue" : "19/02/2026"
+            }, {
+                "DateValue" : "19/02/2026"
+            }, {
+                "DateValue" : "20/02/2026"
+            }, {
+                "DateValue" : "21/02/2026"
+            }, {
+                "DateValue" : "22/02/2026"
+            } ],
+            "TieBreaks" : [ {
+                "Type" : "Bucholtz Cut 1"
+            }, {
+                "Type" : "Bucholtz"
+            }, {
+                "Type" : "Sonneborn-Berger"
+            }, {
+                "Type" : "Progressif"
+            }, {
+                "Type" : "Direct Encounter"
+            } ],
+            "Category" : "AGE",
+            "Category_1" : [ {
+                "Type" : "AGE",
+                "100" : "+20"
+            }, {
+                "Type" : "AGE",
+                "200" : "-20"
+            } ]
+        },
+        "Player" : [ {
+            "Ranking" : 1,
+            "Name" : "Dreelinck, Jacob",
+            "Ni" : 7,
+            "Rank" : 2,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-20",
+            "BirthDate" : "2007",
+            "Sex" : "Male",
+            "Country" : "BEL",
+            "NationalId" : 14086,
+            "FideId" : 250511,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 2281,
+            "FideElo" : 2306,
+            "UsedElo" : 2306,
+            "Titel" : "FM",
+            "ClubNumber" : 418,
+            "ClubName" : "Geraardsbergen",
+            "NbOfParts" : 8,
+            "Points" : "8.5",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "45.00"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "49.50"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : "49.25"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "41.5"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "-"
+            } ],
+            "Performance" : 2493,
+            "Paye" : 1,
+            "Absent" : "Present",
+            "AbsentAtRounds" : "",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "2",
+                "OpponentNi" : 2,
+                "OpponentName" : "Van Hoey, Luca",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "2",
+                "OpponentNi" : 13,
+                "OpponentName" : "Carion, Sebastien",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "2",
+                "OpponentNi" : 1,
+                "OpponentName" : "Vermoesen, Jordan",
+                "Result" : "½",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "1",
+                "OpponentNi" : 3,
+                "OpponentName" : "Zouaghi, Amir",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "1",
+                "OpponentNi" : 21,
+                "OpponentName" : "Vanduyfhuys, Igor",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "2",
+                "OpponentNi" : 18,
+                "OpponentName" : "Festraerts, Len",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "1",
+                "OpponentNi" : 14,
+                "OpponentName" : "Dewever, Niel",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "1",
+                "OpponentNi" : 9,
+                "OpponentName" : "Musabayeva, Diana",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "1",
+                "OpponentNi" : 15,
+                "OpponentName" : "Vanhove, Robbie",
+                "Result" : "1FF",
+                "Color" : "White",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            } ]
+        }, {
+            "Ranking" : 2,
+            "Name" : "Zouaghi, Amir",
+            "Ni" : 3,
+            "Rank" : 1,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-20",
+            "BirthDate" : "2007",
+            "Sex" : "Male",
+            "Country" : "BEL",
+            "NationalId" : 14606,
+            "FideId" : 249262,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 2296,
+            "FideElo" : 2319,
+            "UsedElo" : 2319,
+            "Titel" : "FM",
+            "ClubNumber" : 401,
+            "ClubName" : "KGSRL Gent",
+            "NbOfParts" : 9,
+            "Points" : "7.5",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "45.50"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "48.00"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : "36.25"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "37.5"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "-"
+            } ],
+            "Performance" : 2309,
+            "Paye" : 1,
+            "Absent" : "Present",
+            "AbsentAtRounds" : "",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "1",
+                "OpponentNi" : 19,
+                "OpponentName" : "Verelst, Thijs",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "1",
+                "OpponentNi" : 14,
+                "OpponentName" : "Dewever, Niel",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "1",
+                "OpponentNi" : 21,
+                "OpponentName" : "Vanduyfhuys, Igor",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "1",
+                "OpponentNi" : 7,
+                "OpponentName" : "Dreelinck, Jacob",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "3",
+                "OpponentNi" : 9,
+                "OpponentName" : "Musabayeva, Diana",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "1",
+                "OpponentNi" : 1,
+                "OpponentName" : "Vermoesen, Jordan",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "2",
+                "OpponentNi" : 13,
+                "OpponentName" : "Carion, Sebastien",
+                "Result" : "½",
+                "Color" : "Black",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "2",
+                "OpponentNi" : 15,
+                "OpponentName" : "Vanhove, Robbie",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "3",
+                "OpponentNi" : 18,
+                "OpponentName" : "Festraerts, Len",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            } ]
+        }, {
+            "Ranking" : 3,
+            "Name" : "Vermoesen, Jordan",
+            "Ni" : 1,
+            "Rank" : 3,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-20",
+            "BirthDate" : "2007",
+            "Sex" : "Male",
+            "Country" : "BEL",
+            "NationalId" : 25749,
+            "FideId" : 285544,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 2098,
+            "FideElo" : 2186,
+            "UsedElo" : 2186,
+            "Titel" : "",
+            "ClubNumber" : 501,
+            "ClubName" : "CREC Charleroi",
+            "NbOfParts" : 9,
+            "Points" : "6.5",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "47.00"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "51.00"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : "32.25"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "36.5"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "-"
+            } ],
+            "Performance" : 2195,
+            "Paye" : 1,
+            "Absent" : "Present",
+            "AbsentAtRounds" : "",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "3",
+                "OpponentNi" : 18,
+                "OpponentName" : "Festraerts, Len",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "3",
+                "OpponentNi" : 15,
+                "OpponentName" : "Vanhove, Robbie",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "2",
+                "OpponentNi" : 7,
+                "OpponentName" : "Dreelinck, Jacob",
+                "Result" : "½",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "2",
+                "OpponentNi" : 9,
+                "OpponentName" : "Musabayeva, Diana",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "2",
+                "OpponentNi" : 17,
+                "OpponentName" : "Demeulder, Eliott",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "1",
+                "OpponentNi" : 3,
+                "OpponentName" : "Zouaghi, Amir",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "3",
+                "OpponentNi" : 2,
+                "OpponentName" : "Van Hoey, Luca",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "3",
+                "OpponentNi" : 13,
+                "OpponentName" : "Carion, Sebastien",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "2",
+                "OpponentNi" : 21,
+                "OpponentName" : "Vanduyfhuys, Igor",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            } ]
+        }, {
+            "Ranking" : 4,
+            "Name" : "Vanduyfhuys, Igor",
+            "Ni" : 21,
+            "Rank" : 4,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-20",
+            "BirthDate" : "2006",
+            "Sex" : "Male",
+            "Country" : "BEL",
+            "NationalId" : 14603,
+            "FideId" : 246212,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 2082,
+            "FideElo" : 2110,
+            "UsedElo" : 2110,
+            "Titel" : "",
+            "ClubNumber" : 401,
+            "ClubName" : "KGSRL Gent",
+            "NbOfParts" : 9,
+            "Points" : "6.0",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "45.50"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "47.00"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : "26.50"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "29.0"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "-"
+            } ],
+            "Performance" : 2143,
+            "Paye" : 1,
+            "Absent" : "Present",
+            "AbsentAtRounds" : "",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "4",
+                "OpponentNi" : 8,
+                "OpponentName" : "Roymans, Liese",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "4",
+                "OpponentNi" : 22,
+                "OpponentName" : "Ulrichs, Nils",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "1",
+                "OpponentNi" : 3,
+                "OpponentName" : "Zouaghi, Amir",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "3",
+                "OpponentNi" : 13,
+                "OpponentName" : "Carion, Sebastien",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "1",
+                "OpponentNi" : 7,
+                "OpponentName" : "Dreelinck, Jacob",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "3",
+                "OpponentNi" : 14,
+                "OpponentName" : "Dewever, Niel",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "6",
+                "OpponentNi" : 12,
+                "OpponentName" : "Naumov, Artur",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "4",
+                "OpponentNi" : 17,
+                "OpponentName" : "Demeulder, Eliott",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "2",
+                "OpponentNi" : 1,
+                "OpponentName" : "Vermoesen, Jordan",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            } ]
+        }, {
+            "Ranking" : 5,
+            "Name" : "Carion, Sebastien",
+            "Ni" : 13,
+            "Rank" : 7,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-20",
+            "BirthDate" : "2007",
+            "Sex" : "Male",
+            "Country" : "BEL",
+            "NationalId" : 19700,
+            "FideId" : 271365,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 1972,
+            "FideElo" : 1970,
+            "UsedElo" : 1972,
+            "Titel" : "",
+            "ClubNumber" : 525,
+            "ClubName" : "Bourlette - Anderlues",
+            "NbOfParts" : 9,
+            "Points" : "5.5",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "45.00"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "49.00"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : "24.25"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "27.5"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "-"
+            } ],
+            "Performance" : 2059,
+            "Paye" : 1,
+            "Absent" : "Present",
+            "AbsentAtRounds" : "",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "7",
+                "OpponentNi" : 20,
+                "OpponentName" : "Andre, Robin",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "2",
+                "OpponentNi" : 7,
+                "OpponentName" : "Dreelinck, Jacob",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "4",
+                "OpponentNi" : 4,
+                "OpponentName" : "Noens, Yoran",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "3",
+                "OpponentNi" : 21,
+                "OpponentName" : "Vanduyfhuys, Igor",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "6",
+                "OpponentNi" : 6,
+                "OpponentName" : "Debunne, Lasse",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "4",
+                "OpponentNi" : 17,
+                "OpponentName" : "Demeulder, Eliott",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "2",
+                "OpponentNi" : 3,
+                "OpponentName" : "Zouaghi, Amir",
+                "Result" : "½",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "3",
+                "OpponentNi" : 1,
+                "OpponentName" : "Vermoesen, Jordan",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "4",
+                "OpponentNi" : 11,
+                "OpponentName" : "Roose, Hoara",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            } ]
+        }, {
+            "Ranking" : 6,
+            "Name" : "Musabayeva, Diana",
+            "Ni" : 9,
+            "Rank" : 5,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-20",
+            "BirthDate" : "2007",
+            "Sex" : "Femelle",
+            "Country" : "BEL",
+            "NationalId" : 16881,
+            "FideId" : 254720,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 1976,
+            "FideElo" : 2021,
+            "UsedElo" : 2021,
+            "Titel" : "",
+            "ClubNumber" : 436,
+            "ClubName" : "LSV-Chesspirant",
+            "NbOfParts" : 9,
+            "Points" : "5.0",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "44.00"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "48.00"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : "21.25"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "28.0"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "-"
+            } ],
+            "Performance" : 2029,
+            "Paye" : 1,
+            "Absent" : "Present",
+            "AbsentAtRounds" : "",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "5",
+                "OpponentNi" : 6,
+                "OpponentName" : "Debunne, Lasse",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "5",
+                "OpponentNi" : 23,
+                "OpponentName" : "Roggen, William",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "3",
+                "OpponentNi" : 17,
+                "OpponentName" : "Demeulder, Eliott",
+                "Result" : "½",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "2",
+                "OpponentNi" : 1,
+                "OpponentName" : "Vermoesen, Jordan",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "3",
+                "OpponentNi" : 3,
+                "OpponentName" : "Zouaghi, Amir",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "6",
+                "OpponentNi" : 11,
+                "OpponentName" : "Roose, Hoara",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "5",
+                "OpponentNi" : 20,
+                "OpponentName" : "Andre, Robin",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "1",
+                "OpponentNi" : 7,
+                "OpponentName" : "Dreelinck, Jacob",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "5",
+                "OpponentNi" : 14,
+                "OpponentName" : "Dewever, Niel",
+                "Result" : "½",
+                "Color" : "Black",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            } ]
+        }, {
+            "Ranking" : 7,
+            "Name" : "Naumov, Artur",
+            "Ni" : 12,
+            "Rank" : 9,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-20",
+            "BirthDate" : "2007",
+            "Sex" : "Male",
+            "Country" : "UKR",
+            "NationalId" : 24709,
+            "FideId" : 34145958,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 1910,
+            "FideElo" : 1910,
+            "UsedElo" : 1910,
+            "Titel" : "",
+            "ClubNumber" : 207,
+            "ClubName" : "2 Fous Diogène",
+            "NbOfParts" : 9,
+            "Points" : "5.0",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "35.50"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "39.00"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : "19.25"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "21.5"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "-"
+            } ],
+            "Performance" : 1858,
+            "Paye" : 1,
+            "Absent" : "Present",
+            "AbsentAtRounds" : "",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "9",
+                "OpponentNi" : 4,
+                "OpponentName" : "Noens, Yoran",
+                "Result" : "½",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "6",
+                "OpponentNi" : 17,
+                "OpponentName" : "Demeulder, Eliott",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "8",
+                "OpponentNi" : 20,
+                "OpponentName" : "Andre, Robin",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "6",
+                "OpponentNi" : 15,
+                "OpponentName" : "Vanhove, Robbie",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "9",
+                "OpponentNi" : 16,
+                "OpponentName" : "Eloy, Timothee",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "5",
+                "OpponentNi" : 2,
+                "OpponentName" : "Van Hoey, Luca",
+                "Result" : "½",
+                "Color" : "White",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "6",
+                "OpponentNi" : 21,
+                "OpponentName" : "Vanduyfhuys, Igor",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "8",
+                "OpponentNi" : 8,
+                "OpponentName" : "Roymans, Liese",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "6",
+                "OpponentNi" : 10,
+                "OpponentName" : "Drakidis, Basile",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            } ]
+        }, {
+            "Ranking" : 10,
+            "Name" : "Vanhove, Robbie",
+            "Ni" : 15,
+            "Rank" : 10,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-20",
+            "BirthDate" : "2007",
+            "Sex" : "Male",
+            "Country" : "BEL",
+            "NationalId" : 25079,
+            "FideId" : 279439,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 1908,
+            "FideElo" : 1883,
+            "UsedElo" : 1908,
+            "Titel" : "",
+            "ClubNumber" : 174,
+            "ClubName" : "Brasschaat",
+            "NbOfParts" : 8,
+            "Points" : "4.5",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "41.00"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "44.50"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : "19.25"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "25.5"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "-"
+            } ],
+            "Performance" : 1958,
+            "Paye" : 1,
+            "Absent" : "Present",
+            "AbsentAtRounds" : "",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "10",
+                "OpponentNi" : 10,
+                "OpponentName" : "Drakidis, Basile",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "3",
+                "OpponentNi" : 1,
+                "OpponentName" : "Vermoesen, Jordan",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "6",
+                "OpponentNi" : 11,
+                "OpponentName" : "Roose, Hoara",
+                "Result" : "½",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "6",
+                "OpponentNi" : 12,
+                "OpponentName" : "Naumov, Artur",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "5",
+                "OpponentNi" : 14,
+                "OpponentName" : "Dewever, Niel",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "7",
+                "OpponentNi" : 8,
+                "OpponentName" : "Roymans, Liese",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "4",
+                "OpponentNi" : 18,
+                "OpponentName" : "Festraerts, Len",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "2",
+                "OpponentNi" : 3,
+                "OpponentName" : "Zouaghi, Amir",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "1",
+                "OpponentNi" : 7,
+                "OpponentName" : "Dreelinck, Jacob",
+                "Result" : "0ff",
+                "Color" : "Black",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            } ]
+        }, {
+            "Ranking" : 8,
+            "Name" : "Dewever, Niel",
+            "Ni" : 14,
+            "Rank" : 8,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-20",
+            "BirthDate" : "2006",
+            "Sex" : "Male",
+            "Country" : "BEL",
+            "NationalId" : 19023,
+            "FideId" : 259543,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 1936,
+            "FideElo" : 1969,
+            "UsedElo" : 1969,
+            "Titel" : "",
+            "ClubNumber" : 313,
+            "ClubName" : "Waregem",
+            "NbOfParts" : 9,
+            "Points" : "4.5",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "45.00"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "48.50"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : "21.00"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "25.5"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "-"
+            } ],
+            "Performance" : 1982,
+            "Paye" : 1,
+            "Absent" : "Present",
+            "AbsentAtRounds" : "",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "8",
+                "OpponentNi" : 11,
+                "OpponentName" : "Roose, Hoara",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "1",
+                "OpponentNi" : 3,
+                "OpponentName" : "Zouaghi, Amir",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "5",
+                "OpponentNi" : 16,
+                "OpponentName" : "Eloy, Timothee",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "4",
+                "OpponentNi" : 17,
+                "OpponentName" : "Demeulder, Eliott",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "5",
+                "OpponentNi" : 15,
+                "OpponentName" : "Vanhove, Robbie",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "3",
+                "OpponentNi" : 21,
+                "OpponentName" : "Vanduyfhuys, Igor",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "1",
+                "OpponentNi" : 7,
+                "OpponentName" : "Dreelinck, Jacob",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "5",
+                "OpponentNi" : 18,
+                "OpponentName" : "Festraerts, Len",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "5",
+                "OpponentNi" : 9,
+                "OpponentName" : "Musabayeva, Diana",
+                "Result" : "½",
+                "Color" : "White",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            } ]
+        }, {
+            "Ranking" : 9,
+            "Name" : "Festraerts, Len",
+            "Ni" : 18,
+            "Rank" : 14,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-20",
+            "BirthDate" : "2006",
+            "Sex" : "Male",
+            "Country" : "BEL",
+            "NationalId" : 24105,
+            "FideId" : 274739,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 1792,
+            "FideElo" : 1710,
+            "UsedElo" : 1792,
+            "Titel" : "",
+            "ClubNumber" : 195,
+            "ClubName" : "SKilled Chezzmates",
+            "NbOfParts" : 9,
+            "Points" : "4.5",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "45.00"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "46.50"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : "16.25"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "25.0"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "-"
+            } ],
+            "Performance" : 1893,
+            "Paye" : 1,
+            "Absent" : "Present",
+            "AbsentAtRounds" : "",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "3",
+                "OpponentNi" : 1,
+                "OpponentName" : "Vermoesen, Jordan",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "10",
+                "OpponentNi" : 10,
+                "OpponentName" : "Drakidis, Basile",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "7",
+                "OpponentNi" : 22,
+                "OpponentName" : "Ulrichs, Nils",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "5",
+                "OpponentNi" : 2,
+                "OpponentName" : "Van Hoey, Luca",
+                "Result" : "½",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "4",
+                "OpponentNi" : 11,
+                "OpponentName" : "Roose, Hoara",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "2",
+                "OpponentNi" : 7,
+                "OpponentName" : "Dreelinck, Jacob",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "4",
+                "OpponentNi" : 15,
+                "OpponentName" : "Vanhove, Robbie",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "5",
+                "OpponentNi" : 14,
+                "OpponentName" : "Dewever, Niel",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "3",
+                "OpponentNi" : 3,
+                "OpponentName" : "Zouaghi, Amir",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            } ]
+        }, {
+            "Ranking" : 11,
+            "Name" : "Van Hoey, Luca",
+            "Ni" : 2,
+            "Rank" : 13,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-20",
+            "BirthDate" : "2006",
+            "Sex" : "Male",
+            "Country" : "BEL",
+            "NationalId" : 21559,
+            "FideId" : 270814,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 1824,
+            "FideElo" : 1786,
+            "UsedElo" : 1824,
+            "Titel" : "",
+            "ClubNumber" : 961,
+            "ClubName" : "Braine Echecs",
+            "NbOfParts" : 8,
+            "Points" : "4.5",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "39.00"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "43.50"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : "17.25"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "23.0"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "-"
+            } ],
+            "Performance" : 1931,
+            "Paye" : 1,
+            "Absent" : "Absent",
+            "AbsentAtRounds" : "9",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "2",
+                "OpponentNi" : 7,
+                "OpponentName" : "Dreelinck, Jacob",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "9",
+                "OpponentNi" : 6,
+                "OpponentName" : "Debunne, Lasse",
+                "Result" : "½",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "10",
+                "OpponentNi" : 19,
+                "OpponentName" : "Verelst, Thijs",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "5",
+                "OpponentNi" : 18,
+                "OpponentName" : "Festraerts, Len",
+                "Result" : "½",
+                "Color" : "Black",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "7",
+                "OpponentNi" : 20,
+                "OpponentName" : "Andre, Robin",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "5",
+                "OpponentNi" : 12,
+                "OpponentName" : "Naumov, Artur",
+                "Result" : "½",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "3",
+                "OpponentNi" : 1,
+                "OpponentName" : "Vermoesen, Jordan",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "6",
+                "OpponentNi" : 4,
+                "OpponentName" : "Noens, Yoran",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "Absent",
+                "OpponentNi" : -1,
+                "OpponentName" : "NO",
+                "Result" : "-",
+                "Color" : "No Color",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            } ]
+        }, {
+            "Ranking" : 12,
+            "Name" : "Roose, Hoara",
+            "Ni" : 11,
+            "Rank" : 19,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-20",
+            "BirthDate" : "2007",
+            "Sex" : "Femelle",
+            "Country" : "BEL",
+            "NationalId" : 14727,
+            "FideId" : 248240,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 1696,
+            "FideElo" : 1715,
+            "UsedElo" : 1715,
+            "Titel" : "",
+            "ClubNumber" : 303,
+            "ClubName" : "KBSK Brugge",
+            "NbOfParts" : 9,
+            "Points" : "4.5",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "36.00"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "38.50"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : "16.25"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "22.5"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "-"
+            } ],
+            "Performance" : 1837,
+            "Paye" : 1,
+            "Absent" : "Present",
+            "AbsentAtRounds" : "",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "8",
+                "OpponentNi" : 14,
+                "OpponentName" : "Dewever, Niel",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "8",
+                "OpponentNi" : 19,
+                "OpponentName" : "Verelst, Thijs",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "6",
+                "OpponentNi" : 15,
+                "OpponentName" : "Vanhove, Robbie",
+                "Result" : "½",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "7",
+                "OpponentNi" : 4,
+                "OpponentName" : "Noens, Yoran",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "4",
+                "OpponentNi" : 18,
+                "OpponentName" : "Festraerts, Len",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "6",
+                "OpponentNi" : 9,
+                "OpponentName" : "Musabayeva, Diana",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "8",
+                "OpponentNi" : 10,
+                "OpponentName" : "Drakidis, Basile",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "7",
+                "OpponentNi" : 20,
+                "OpponentName" : "Andre, Robin",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "4",
+                "OpponentNi" : 13,
+                "OpponentName" : "Carion, Sebastien",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            } ]
+        }, {
+            "Ranking" : 13,
+            "Name" : "Demeulder, Eliott",
+            "Ni" : 17,
+            "Rank" : 6,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-20",
+            "BirthDate" : "2007",
+            "Sex" : "Male",
+            "Country" : "BEL",
+            "NationalId" : 28350,
+            "FideId" : 290939,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 2012,
+            "FideElo" : 2007,
+            "UsedElo" : 2012,
+            "Titel" : "",
+            "ClubNumber" : 520,
+            "ClubName" : "Pont-A-Celles",
+            "NbOfParts" : 9,
+            "Points" : "4.0",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "40.00"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "42.50"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : "17.00"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "24.0"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "-"
+            } ],
+            "Performance" : 1880,
+            "Paye" : 1,
+            "Absent" : "Present",
+            "AbsentAtRounds" : "",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "6",
+                "OpponentNi" : 5,
+                "OpponentName" : "Danneels, Jarno",
+                "Result" : "½",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "6",
+                "OpponentNi" : 12,
+                "OpponentName" : "Naumov, Artur",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "3",
+                "OpponentNi" : 9,
+                "OpponentName" : "Musabayeva, Diana",
+                "Result" : "½",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "4",
+                "OpponentNi" : 14,
+                "OpponentName" : "Dewever, Niel",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "2",
+                "OpponentNi" : 1,
+                "OpponentName" : "Vermoesen, Jordan",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "4",
+                "OpponentNi" : 13,
+                "OpponentName" : "Carion, Sebastien",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "7",
+                "OpponentNi" : 4,
+                "OpponentName" : "Noens, Yoran",
+                "Result" : "½",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "4",
+                "OpponentNi" : 21,
+                "OpponentName" : "Vanduyfhuys, Igor",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "8",
+                "OpponentNi" : 16,
+                "OpponentName" : "Eloy, Timothee",
+                "Result" : "½",
+                "Color" : "Black",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            } ]
+        }, {
+            "Ranking" : 14,
+            "Name" : "Andre, Robin",
+            "Ni" : 20,
+            "Rank" : 18,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-20",
+            "BirthDate" : "2006",
+            "Sex" : "Male",
+            "Country" : "BEL",
+            "NationalId" : 16989,
+            "FideId" : 256900,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 1719,
+            "FideElo" : 1729,
+            "UsedElo" : 1729,
+            "Titel" : "",
+            "ClubNumber" : 901,
+            "ClubName" : "Namur-Echecs",
+            "NbOfParts" : 9,
+            "Points" : "4.0",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "35.50"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "37.00"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : "12.00"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "19.0"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "-"
+            } ],
+            "Performance" : 1753,
+            "Paye" : 1,
+            "Absent" : "Present",
+            "AbsentAtRounds" : "",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "7",
+                "OpponentNi" : 13,
+                "OpponentName" : "Carion, Sebastien",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "11",
+                "OpponentNi" : 8,
+                "OpponentName" : "Roymans, Liese",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "8",
+                "OpponentNi" : 12,
+                "OpponentName" : "Naumov, Artur",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "10",
+                "OpponentNi" : 5,
+                "OpponentName" : "Danneels, Jarno",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "7",
+                "OpponentNi" : 2,
+                "OpponentName" : "Van Hoey, Luca",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "8",
+                "OpponentNi" : 6,
+                "OpponentName" : "Debunne, Lasse",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "5",
+                "OpponentNi" : 9,
+                "OpponentName" : "Musabayeva, Diana",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "7",
+                "OpponentNi" : 11,
+                "OpponentName" : "Roose, Hoara",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "10",
+                "OpponentNi" : 22,
+                "OpponentName" : "Ulrichs, Nils",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            } ]
+        }, {
+            "Ranking" : 15,
+            "Name" : "Roymans, Liese",
+            "Ni" : 8,
+            "Rank" : 15,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-20",
+            "BirthDate" : "2006",
+            "Sex" : "Femelle",
+            "Country" : "BEL",
+            "NationalId" : 16158,
+            "FideId" : 253464,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 1764,
+            "FideElo" : 1781,
+            "UsedElo" : 1781,
+            "Titel" : "",
+            "ClubNumber" : 135,
+            "ClubName" : "Geel",
+            "NbOfParts" : 9,
+            "Points" : "4.0",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "35.00"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "37.50"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : "13.50"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "18.0"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "-"
+            } ],
+            "Performance" : 1767,
+            "Paye" : 1,
+            "Absent" : "Present",
+            "AbsentAtRounds" : "",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "4",
+                "OpponentNi" : 21,
+                "OpponentName" : "Vanduyfhuys, Igor",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "11",
+                "OpponentNi" : 20,
+                "OpponentName" : "Andre, Robin",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "11",
+                "OpponentNi" : 10,
+                "OpponentName" : "Drakidis, Basile",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "8",
+                "OpponentNi" : 16,
+                "OpponentName" : "Eloy, Timothee",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "8",
+                "OpponentNi" : 4,
+                "OpponentName" : "Noens, Yoran",
+                "Result" : "½",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "7",
+                "OpponentNi" : 15,
+                "OpponentName" : "Vanhove, Robbie",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "9",
+                "OpponentNi" : 6,
+                "OpponentName" : "Debunne, Lasse",
+                "Result" : "½",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "8",
+                "OpponentNi" : 12,
+                "OpponentName" : "Naumov, Artur",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "9",
+                "OpponentNi" : 19,
+                "OpponentName" : "Verelst, Thijs",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            } ]
+        }, {
+            "Ranking" : 16,
+            "Name" : "Noens, Yoran",
+            "Ni" : 4,
+            "Rank" : 20,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-20",
+            "BirthDate" : "2006",
+            "Sex" : "Male",
+            "Country" : "BEL",
+            "NationalId" : 19757,
+            "FideId" : 264830,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 1656,
+            "FideElo" : 1625,
+            "UsedElo" : 1656,
+            "Titel" : "",
+            "ClubNumber" : 436,
+            "ClubName" : "LSV-Chesspirant",
+            "NbOfParts" : 9,
+            "Points" : "4.0",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "34.50"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "37.00"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : "13.50"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "21.0"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "-"
+            } ],
+            "Performance" : 1807,
+            "Paye" : 1,
+            "Absent" : "Present",
+            "AbsentAtRounds" : "",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "9",
+                "OpponentNi" : 12,
+                "OpponentName" : "Naumov, Artur",
+                "Result" : "½",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "7",
+                "OpponentNi" : 5,
+                "OpponentName" : "Danneels, Jarno",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "4",
+                "OpponentNi" : 13,
+                "OpponentName" : "Carion, Sebastien",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "7",
+                "OpponentNi" : 11,
+                "OpponentName" : "Roose, Hoara",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "8",
+                "OpponentNi" : 8,
+                "OpponentName" : "Roymans, Liese",
+                "Result" : "½",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "9",
+                "OpponentNi" : 19,
+                "OpponentName" : "Verelst, Thijs",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "7",
+                "OpponentNi" : 17,
+                "OpponentName" : "Demeulder, Eliott",
+                "Result" : "½",
+                "Color" : "White",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "6",
+                "OpponentNi" : 2,
+                "OpponentName" : "Van Hoey, Luca",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "7",
+                "OpponentNi" : 6,
+                "OpponentName" : "Debunne, Lasse",
+                "Result" : "½",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            } ]
+        }, {
+            "Ranking" : 17,
+            "Name" : "Debunne, Lasse",
+            "Ni" : 6,
+            "Rank" : 16,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-20",
+            "BirthDate" : "2006",
+            "Sex" : "Male",
+            "Country" : "BEL",
+            "NationalId" : 14392,
+            "FideId" : 247529,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 1779,
+            "FideElo" : 1775,
+            "UsedElo" : 1779,
+            "Titel" : "",
+            "ClubNumber" : 475,
+            "ClubName" : "Aalter",
+            "NbOfParts" : 9,
+            "Points" : "4.0",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "32.50"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "34.00"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : "11.50"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "17.5"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "-"
+            } ],
+            "Performance" : 1737,
+            "Paye" : 1,
+            "Absent" : "Present",
+            "AbsentAtRounds" : "",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "5",
+                "OpponentNi" : 9,
+                "OpponentName" : "Musabayeva, Diana",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "9",
+                "OpponentNi" : 2,
+                "OpponentName" : "Van Hoey, Luca",
+                "Result" : "½",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "9",
+                "OpponentNi" : 5,
+                "OpponentName" : "Danneels, Jarno",
+                "Result" : "½",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "9",
+                "OpponentNi" : 22,
+                "OpponentName" : "Ulrichs, Nils",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "6",
+                "OpponentNi" : 13,
+                "OpponentName" : "Carion, Sebastien",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "8",
+                "OpponentNi" : 20,
+                "OpponentName" : "Andre, Robin",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "9",
+                "OpponentNi" : 8,
+                "OpponentName" : "Roymans, Liese",
+                "Result" : "½",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "9",
+                "OpponentNi" : 19,
+                "OpponentName" : "Verelst, Thijs",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "7",
+                "OpponentNi" : 4,
+                "OpponentName" : "Noens, Yoran",
+                "Result" : "½",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            } ]
+        }, {
+            "Ranking" : 18,
+            "Name" : "Eloy, Timothee",
+            "Ni" : 16,
+            "Rank" : 22,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-20",
+            "BirthDate" : "2006",
+            "Sex" : "Male",
+            "Country" : "BEL",
+            "NationalId" : 22087,
+            "FideId" : 267830,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 1615,
+            "FideElo" : 1656,
+            "UsedElo" : 1656,
+            "Titel" : "",
+            "ClubNumber" : 551,
+            "ClubName" : "HCC Jurbise",
+            "NbOfParts" : 8,
+            "Points" : "3.5",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "31.50"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "33.00"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : " 9.50"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "13.5"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "0.0"
+            } ],
+            "Performance" : 1636,
+            "Paye" : 1,
+            "Absent" : "Present",
+            "AbsentAtRounds" : "",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "11",
+                "OpponentNi" : 23,
+                "OpponentName" : "Roggen, William",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "BYE",
+                "OpponentNi" : -1,
+                "OpponentName" : "NO",
+                "Result" : "1B",
+                "Color" : "No Color",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "5",
+                "OpponentNi" : 14,
+                "OpponentName" : "Dewever, Niel",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "8",
+                "OpponentNi" : 8,
+                "OpponentName" : "Roymans, Liese",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "9",
+                "OpponentNi" : 12,
+                "OpponentName" : "Naumov, Artur",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "10",
+                "OpponentNi" : 10,
+                "OpponentName" : "Drakidis, Basile",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "11",
+                "OpponentNi" : 5,
+                "OpponentName" : "Danneels, Jarno",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "11",
+                "OpponentNi" : 22,
+                "OpponentName" : "Ulrichs, Nils",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "8",
+                "OpponentNi" : 17,
+                "OpponentName" : "Demeulder, Eliott",
+                "Result" : "½",
+                "Color" : "White",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            } ]
+        }, {
+            "Ranking" : 19,
+            "Name" : "Drakidis, Basile",
+            "Ni" : 10,
+            "Rank" : 21,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-20",
+            "BirthDate" : "2007",
+            "Sex" : "Male",
+            "Country" : "BEL",
+            "NationalId" : 28086,
+            "FideId" : 288969,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 1580,
+            "FideElo" : 1656,
+            "UsedElo" : 1656,
+            "Titel" : "",
+            "ClubNumber" : 239,
+            "ClubName" : "Boitsfort",
+            "NbOfParts" : 9,
+            "Points" : "3.5",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "31.50"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "33.00"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : " 8.75"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "14.0"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "1.0"
+            } ],
+            "Performance" : 1655,
+            "Paye" : 1,
+            "Absent" : "Present",
+            "AbsentAtRounds" : "",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "10",
+                "OpponentNi" : 15,
+                "OpponentName" : "Vanhove, Robbie",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "10",
+                "OpponentNi" : 18,
+                "OpponentName" : "Festraerts, Len",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "11",
+                "OpponentNi" : 8,
+                "OpponentName" : "Roymans, Liese",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "11",
+                "OpponentNi" : 19,
+                "OpponentName" : "Verelst, Thijs",
+                "Result" : "½",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "11",
+                "OpponentNi" : 22,
+                "OpponentName" : "Ulrichs, Nils",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "10",
+                "OpponentNi" : 16,
+                "OpponentName" : "Eloy, Timothee",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "8",
+                "OpponentNi" : 11,
+                "OpponentName" : "Roose, Hoara",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "10",
+                "OpponentNi" : 5,
+                "OpponentName" : "Danneels, Jarno",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "6",
+                "OpponentNi" : 12,
+                "OpponentName" : "Naumov, Artur",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            } ]
+        }, {
+            "Ranking" : 20,
+            "Name" : "Verelst, Thijs",
+            "Ni" : 19,
+            "Rank" : 12,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-20",
+            "BirthDate" : "2007",
+            "Sex" : "Male",
+            "Country" : "BEL",
+            "NationalId" : 29508,
+            "FideId" : 548000043,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 1819,
+            "FideElo" : 1826,
+            "UsedElo" : 1826,
+            "Titel" : "",
+            "ClubNumber" : 231,
+            "ClubName" : "Dolle Toren Leuven",
+            "NbOfParts" : 9,
+            "Points" : "2.5",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "35.00"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "36.50"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : " 5.75"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "11.0"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "1.0"
+            } ],
+            "Performance" : 1593,
+            "Paye" : 1,
+            "Absent" : "Present",
+            "AbsentAtRounds" : "",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "1",
+                "OpponentNi" : 3,
+                "OpponentName" : "Zouaghi, Amir",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "8",
+                "OpponentNi" : 11,
+                "OpponentName" : "Roose, Hoara",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "10",
+                "OpponentNi" : 2,
+                "OpponentName" : "Van Hoey, Luca",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "11",
+                "OpponentNi" : 10,
+                "OpponentName" : "Drakidis, Basile",
+                "Result" : "½",
+                "Color" : "Black",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "10",
+                "OpponentNi" : 5,
+                "OpponentName" : "Danneels, Jarno",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "9",
+                "OpponentNi" : 4,
+                "OpponentName" : "Noens, Yoran",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "10",
+                "OpponentNi" : 22,
+                "OpponentName" : "Ulrichs, Nils",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "9",
+                "OpponentNi" : 6,
+                "OpponentName" : "Debunne, Lasse",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "9",
+                "OpponentNi" : 8,
+                "OpponentName" : "Roymans, Liese",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            } ]
+        }, {
+            "Ranking" : 21,
+            "Name" : "Danneels, Jarno",
+            "Ni" : 5,
+            "Rank" : 17,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-20",
+            "BirthDate" : "2007",
+            "Sex" : "Male",
+            "Country" : "BEL",
+            "NationalId" : 29261,
+            "FideId" : 297330,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 1738,
+            "FideElo" : 1767,
+            "UsedElo" : 1767,
+            "Titel" : "",
+            "ClubNumber" : 313,
+            "ClubName" : "Waregem",
+            "NbOfParts" : 8,
+            "Points" : "2.5",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "28.00"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "29.50"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : " 7.25"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "11.0"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "0.0"
+            } ],
+            "Performance" : 1459,
+            "Paye" : 1,
+            "Absent" : "Present",
+            "AbsentAtRounds" : "",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "6",
+                "OpponentNi" : 17,
+                "OpponentName" : "Demeulder, Eliott",
+                "Result" : "½",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "7",
+                "OpponentNi" : 4,
+                "OpponentName" : "Noens, Yoran",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "9",
+                "OpponentNi" : 6,
+                "OpponentName" : "Debunne, Lasse",
+                "Result" : "½",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "10",
+                "OpponentNi" : 20,
+                "OpponentName" : "Andre, Robin",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "10",
+                "OpponentNi" : 19,
+                "OpponentName" : "Verelst, Thijs",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "11",
+                "OpponentNi" : 22,
+                "OpponentName" : "Ulrichs, Nils",
+                "Result" : "½",
+                "Color" : "White",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "11",
+                "OpponentNi" : 16,
+                "OpponentName" : "Eloy, Timothee",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "10",
+                "OpponentNi" : 10,
+                "OpponentName" : "Drakidis, Basile",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "BYE",
+                "OpponentNi" : -1,
+                "OpponentName" : "NO",
+                "Result" : "1B",
+                "Color" : "No Color",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            } ]
+        }, {
+            "Ranking" : 22,
+            "Name" : "Ulrichs, Nils",
+            "Ni" : 22,
+            "Rank" : 23,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-20",
+            "BirthDate" : "2007",
+            "Sex" : "Male",
+            "Country" : "BEL",
+            "NationalId" : 32791,
+            "FideId" : 0,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 0,
+            "FideElo" : 0,
+            "UsedElo" : 0,
+            "Titel" : "",
+            "ClubNumber" : 204,
+            "ClubName" : "Excelsior",
+            "NbOfParts" : 8,
+            "Points" : "1.5",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "29.50"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "32.00"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : " 2.75"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "11.0"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "-"
+            } ],
+            "Performance" : 1345,
+            "Paye" : 1,
+            "Absent" : "Present",
+            "AbsentAtRounds" : "",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "BYE",
+                "OpponentNi" : -1,
+                "OpponentName" : "NO",
+                "Result" : "1B",
+                "Color" : "No Color",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "4",
+                "OpponentNi" : 21,
+                "OpponentName" : "Vanduyfhuys, Igor",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "7",
+                "OpponentNi" : 18,
+                "OpponentName" : "Festraerts, Len",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "9",
+                "OpponentNi" : 6,
+                "OpponentName" : "Debunne, Lasse",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "11",
+                "OpponentNi" : 10,
+                "OpponentName" : "Drakidis, Basile",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "11",
+                "OpponentNi" : 5,
+                "OpponentName" : "Danneels, Jarno",
+                "Result" : "½",
+                "Color" : "Black",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "10",
+                "OpponentNi" : 19,
+                "OpponentName" : "Verelst, Thijs",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "11",
+                "OpponentNi" : 16,
+                "OpponentName" : "Eloy, Timothee",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "10",
+                "OpponentNi" : 20,
+                "OpponentName" : "Andre, Robin",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            } ]
+        }, {
+            "Ranking" : 23,
+            "Name" : "Roggen, William",
+            "Ni" : 23,
+            "Rank" : 11,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-20",
+            "BirthDate" : "2007",
+            "Sex" : "Male",
+            "Country" : "BEL",
+            "NationalId" : 22955,
+            "FideId" : 269409,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 1811,
+            "FideElo" : 1862,
+            "UsedElo" : 1862,
+            "Titel" : "",
+            "ClubNumber" : 230,
+            "ClubName" : "Leuven Centraal",
+            "NbOfParts" : 2,
+            "Points" : "1.0",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "14.50"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "15.50"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : " 3.50"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "9.0"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "-"
+            } ],
+            "Performance" : 1853,
+            "Paye" : 1,
+            "Absent" : "Absent",
+            "AbsentAtRounds" : "3,4,5,6,7,8,9",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "11",
+                "OpponentNi" : 16,
+                "OpponentName" : "Eloy, Timothee",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "5",
+                "OpponentNi" : 9,
+                "OpponentName" : "Musabayeva, Diana",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "Absent",
+                "OpponentNi" : -1,
+                "OpponentName" : "NO",
+                "Result" : "-",
+                "Color" : "No Color",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "Absent",
+                "OpponentNi" : -1,
+                "OpponentName" : "NO",
+                "Result" : "-",
+                "Color" : "No Color",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "Absent",
+                "OpponentNi" : -1,
+                "OpponentName" : "NO",
+                "Result" : "-",
+                "Color" : "No Color",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "Absent",
+                "OpponentNi" : -1,
+                "OpponentName" : "NO",
+                "Result" : "-",
+                "Color" : "No Color",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "Absent",
+                "OpponentNi" : -1,
+                "OpponentName" : "NO",
+                "Result" : "-",
+                "Color" : "No Color",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "Absent",
+                "OpponentNi" : -1,
+                "OpponentName" : "NO",
+                "Result" : "-",
+                "Color" : "No Color",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "Absent",
+                "OpponentNi" : -1,
+                "OpponentName" : "NO",
+                "Result" : "-",
+                "Color" : "No Color",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            } ]
+        } ]
+    }
+}

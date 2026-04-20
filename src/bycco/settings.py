@@ -81,20 +81,12 @@ LOG_CONFIG = {
 
 SECRETS = {
     "mongodb": {
-        "name": "bycco-mongodb",
-        "manager": "googlejson",
+        "name": "bycco-mongodb-prod",
+        "manager": "filejson",
     },
     "gmail": {
-        "name": "bycco-gmail",
-        "manager": "googlejson",
-    },
-    "statamic": {
-        "name": "statamic-server",
-        "manager": "googlejson",
-    },
-    "known-hosts": {
-        "name": "known-hosts",
-        "manager": "googlejson",
+        "name": "bycco-gmail-prod",
+        "manager": "filejson",
     },
 }
 

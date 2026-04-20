@@ -4,7 +4,6 @@ import attendee from "@/api/attendee"
 import filestore from "@/api/filestore"
 import stay from "@/api/stay"
 import registration from "@/api/registration"
-import page from "@/api/page"
 import participant from "@/api/participant"
 import payment from "@/api/payment"
 import tournament from "@/api/tournament"
@@ -68,7 +67,6 @@ const factories = {
   attendee,
   filestore,
   stay,
-  page,
   participant,
   payment,
   registration,

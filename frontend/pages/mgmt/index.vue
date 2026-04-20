@@ -42,7 +42,6 @@ definePageMeta({
       <p>Waiting for authorization</p>
     </div>
     <ul v-if="authenticated">
-      <li>Managing the <NuxtLink to="/mgmt/pages">Pages</NuxtLink></li>
       <li>Managing the <NuxtLink to="/mgmt/reservations">Stay Reservations</NuxtLink></li>
       <li>
         Managing the <NuxtLink to="/mgmt/paymentrequests">Payment Requests</NuxtLink>

@@ -1,0 +1,3387 @@
+{
+    "Swar" : {
+        "TournamentDesc" : {
+            "Version" : "v6.75",
+            "Tournament" : "BJK CBJ 2026 U08",
+            "Organizer" : "BYCCO",
+            "ClubOrLogo" : "BYCCO",
+            "Place" : "Blankenberge",
+            "Arbiter_1" : "Geert BAILLEUL",
+            "Arbiter_2" : "Geert BAILLEUL",
+            "StartDate" : "16/02/2026",
+            "EndDate" : "22/02/2026",
+            "RateOfPlay" : "90 min with incr. 30\"",
+            "NbOfRounds" : 9,
+            "SepareteCategories" : 0,
+            "FideHomologation " : 1,
+            "Homologation Round(s)" : [ {
+                "Round from" : 1,
+                "Round to" : 9,
+                "Fide-Id" : 464929
+            } ],
+            "FideArbiterId_1" : "225185",
+            "FideArbiterName_1" : "Bailleul, Geert",
+            "FideArbiterId_2" : "207780 205494 ",
+            "FideArbiterName_2" : "Vints  Heidi, Cornet  Luc",
+            "TournamentType" : "Swiss",
+            "AmericainPresence" : 0,
+            "MultiplePairing" : 0,
+            "FirstTableNumber" : 1,
+            "SW321_Win" : "0.0",
+            "SW321_Null" : "0.0",
+            "SW321_Loss" : "0.0",
+            "SW321_Bye" : "0.0",
+            "SW321_Presence" : "0.0",
+            "EloUsed" : "Higher of National and Fide",
+            "TournamentStd" : "Standard",
+            "ByeValue" : "1",
+            "AbsValue" : "1",
+            "NumberOfTimes" : "0",
+            "ToRound" : "0",
+            "Federation" : "FIDE",
+            "NbDates" : 9,
+            "NbPlayers" : 26,
+            "DatesArray" : [ {
+                "DateValue" : "16/02/2026"
+            }, {
+                "DateValue" : "17/02/2026"
+            }, {
+                "DateValue" : "17/02/2026"
+            }, {
+                "DateValue" : "18/02/2026"
+            }, {
+                "DateValue" : "19/02/2026"
+            }, {
+                "DateValue" : "19/02/2026"
+            }, {
+                "DateValue" : "20/02/2026"
+            }, {
+                "DateValue" : "21/02/2026"
+            }, {
+                "DateValue" : "22/02/2026"
+            } ],
+            "TieBreaks" : [ {
+                "Type" : "Bucholtz Cut 1"
+            }, {
+                "Type" : "Bucholtz"
+            }, {
+                "Type" : "Sonneborn-Berger"
+            }, {
+                "Type" : "Progressif"
+            }, {
+                "Type" : "Direct Encounter"
+            } ],
+            "Category" : "AGE",
+            "Category_1" : [ {
+                "Type" : "AGE",
+                "100" : "+08"
+            }, {
+                "Type" : "AGE",
+                "200" : "-08"
+            } ]
+        },
+        "Player" : [ {
+            "Ranking" : 1,
+            "Name" : "Ivanov, Theo",
+            "Ni" : 12,
+            "Rank" : 1,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-08",
+            "BirthDate" : "2018",
+            "Sex" : "Male",
+            "Country" : "BEL",
+            "NationalId" : 28047,
+            "FideId" : 292796,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 1679,
+            "FideElo" : 1624,
+            "UsedElo" : 1679,
+            "Titel" : "",
+            "ClubNumber" : 114,
+            "ClubName" : "Mechelen",
+            "NbOfParts" : 9,
+            "Points" : "9.0",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "41.50"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "43.50"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : "43.50"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "45.0"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "-"
+            } ],
+            "Performance" : 2155,
+            "Paye" : 1,
+            "Absent" : "Present",
+            "AbsentAtRounds" : "",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "1",
+                "OpponentNi" : 7,
+                "OpponentName" : "Polfliet, Ella",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "1",
+                "OpponentNi" : 1,
+                "OpponentName" : "Ok, Roni Berken",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "1",
+                "OpponentNi" : 13,
+                "OpponentName" : "Van Heinsbergen, Benjamin",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "1",
+                "OpponentNi" : 15,
+                "OpponentName" : "Polfliet, Victor",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "1",
+                "OpponentNi" : 20,
+                "OpponentName" : "Haimiti, Eldar",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "1",
+                "OpponentNi" : 8,
+                "OpponentName" : "Akyuerek, Mete",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "1",
+                "OpponentNi" : 4,
+                "OpponentName" : "Balaji, Arya Vishal",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "1",
+                "OpponentNi" : 6,
+                "OpponentName" : "Sodbayar, Nomingoo",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "1",
+                "OpponentNi" : 16,
+                "OpponentName" : "Van Rie, Andreas",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            } ]
+        }, {
+            "Ranking" : 2,
+            "Name" : "Akyuerek, Mete",
+            "Ni" : 8,
+            "Rank" : 15,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-08",
+            "BirthDate" : "2018",
+            "Sex" : "Male",
+            "Country" : "BEL",
+            "NationalId" : 32122,
+            "FideId" : 548004898,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 0,
+            "FideElo" : 0,
+            "UsedElo" : 0,
+            "Titel" : "",
+            "ClubNumber" : 114,
+            "ClubName" : "Mechelen",
+            "NbOfParts" : 9,
+            "Points" : "7.5",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "46.50"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "50.50"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : "38.50"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "36.5"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "-"
+            } ],
+            "Performance" : 1401,
+            "Paye" : 1,
+            "Absent" : "Present",
+            "AbsentAtRounds" : "",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "2",
+                "OpponentNi" : 6,
+                "OpponentName" : "Sodbayar, Nomingoo",
+                "Result" : "½",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "8",
+                "OpponentNi" : 19,
+                "OpponentName" : "Beneduce, Umberto",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "4",
+                "OpponentNi" : 4,
+                "OpponentName" : "Balaji, Arya Vishal",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "3",
+                "OpponentNi" : 13,
+                "OpponentName" : "Van Heinsbergen, Benjamin",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "2",
+                "OpponentNi" : 14,
+                "OpponentName" : "Hayden, Levi",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "1",
+                "OpponentNi" : 12,
+                "OpponentName" : "Ivanov, Theo",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "2",
+                "OpponentNi" : 15,
+                "OpponentName" : "Polfliet, Victor",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "2",
+                "OpponentNi" : 20,
+                "OpponentName" : "Haimiti, Eldar",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "2",
+                "OpponentNi" : 18,
+                "OpponentName" : "Huynh, Steven Minh Triet",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            } ]
+        }, {
+            "Ranking" : 3,
+            "Name" : "Polfliet, Victor",
+            "Ni" : 15,
+            "Rank" : 7,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-08",
+            "BirthDate" : "2018",
+            "Sex" : "Male",
+            "Country" : "BEL",
+            "NationalId" : 30030,
+            "FideId" : 298948,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 1400,
+            "FideElo" : 0,
+            "UsedElo" : 1400,
+            "Titel" : "",
+            "ClubNumber" : 436,
+            "ClubName" : "LSV-Chesspirant",
+            "NbOfParts" : 9,
+            "Points" : "6.5",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "46.50"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "50.50"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : "31.00"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "35.0"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "-"
+            } ],
+            "Performance" : 1428,
+            "Paye" : 1,
+            "Absent" : "Present",
+            "AbsentAtRounds" : "",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "7",
+                "OpponentNi" : 17,
+                "OpponentName" : "Pelemans, Aron",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "5",
+                "OpponentNi" : 3,
+                "OpponentName" : "Dreessen, Sem",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "3",
+                "OpponentNi" : 6,
+                "OpponentName" : "Sodbayar, Nomingoo",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "1",
+                "OpponentNi" : 12,
+                "OpponentName" : "Ivanov, Theo",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "3",
+                "OpponentNi" : 21,
+                "OpponentName" : "Akhayan, Lilit",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "2",
+                "OpponentNi" : 20,
+                "OpponentName" : "Haimiti, Eldar",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "2",
+                "OpponentNi" : 8,
+                "OpponentName" : "Akyuerek, Mete",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "3",
+                "OpponentNi" : 5,
+                "OpponentName" : "Van Der Lugt, Floris",
+                "Result" : "½",
+                "Color" : "White",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "3",
+                "OpponentNi" : 19,
+                "OpponentName" : "Beneduce, Umberto",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            } ]
+        }, {
+            "Ranking" : 4,
+            "Name" : "Sodbayar, Nomingoo",
+            "Ni" : 6,
+            "Rank" : 2,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-08",
+            "BirthDate" : "2018",
+            "Sex" : "Femelle",
+            "Country" : "BEL",
+            "NationalId" : 28033,
+            "FideId" : 298964,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 1400,
+            "FideElo" : 1468,
+            "UsedElo" : 1468,
+            "Titel" : "",
+            "ClubNumber" : 194,
+            "ClubName" : "ChessLooks Lier",
+            "NbOfParts" : 9,
+            "Points" : "6.0",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "47.00"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "49.50"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : "27.75"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "29.5"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "1.0"
+            } ],
+            "Performance" : 1446,
+            "Paye" : 1,
+            "Absent" : "Present",
+            "AbsentAtRounds" : "",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "2",
+                "OpponentNi" : 8,
+                "OpponentName" : "Akyuerek, Mete",
+                "Result" : "½",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "7",
+                "OpponentNi" : 9,
+                "OpponentName" : "Kinaupenne, Teo",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "3",
+                "OpponentNi" : 15,
+                "OpponentName" : "Polfliet, Victor",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "7",
+                "OpponentNi" : 23,
+                "OpponentName" : "Drugmand, Bruno",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "4",
+                "OpponentNi" : 5,
+                "OpponentName" : "Van Der Lugt, Floris",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "3",
+                "OpponentNi" : 4,
+                "OpponentName" : "Balaji, Arya Vishal",
+                "Result" : "½",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "3",
+                "OpponentNi" : 13,
+                "OpponentName" : "Van Heinsbergen, Benjamin",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "1",
+                "OpponentNi" : 12,
+                "OpponentName" : "Ivanov, Theo",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "4",
+                "OpponentNi" : 20,
+                "OpponentName" : "Haimiti, Eldar",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            } ]
+        }, {
+            "Ranking" : 5,
+            "Name" : "Van Der Lugt, Floris",
+            "Ni" : 5,
+            "Rank" : 13,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-08",
+            "BirthDate" : "2018",
+            "Sex" : "Male",
+            "Country" : "BEL",
+            "NationalId" : 26455,
+            "FideId" : 0,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 0,
+            "FideElo" : 0,
+            "UsedElo" : 0,
+            "Titel" : "",
+            "ClubNumber" : 174,
+            "ClubName" : "Brasschaat",
+            "NbOfParts" : 9,
+            "Points" : "6.0",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "40.50"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "43.00"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : "26.25"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "29.0"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "0.0"
+            } ],
+            "Performance" : 911,
+            "Paye" : 1,
+            "Absent" : "Present",
+            "AbsentAtRounds" : "",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "13",
+                "OpponentNi" : 26,
+                "OpponentName" : "Zorig, Hasuha",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "3",
+                "OpponentNi" : 4,
+                "OpponentName" : "Balaji, Arya Vishal",
+                "Result" : "½",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "5",
+                "OpponentNi" : 1,
+                "OpponentName" : "Ok, Roni Berken",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "2",
+                "OpponentNi" : 20,
+                "OpponentName" : "Haimiti, Eldar",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "4",
+                "OpponentNi" : 6,
+                "OpponentName" : "Sodbayar, Nomingoo",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "7",
+                "OpponentNi" : 3,
+                "OpponentName" : "Dreessen, Sem",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "5",
+                "OpponentNi" : 18,
+                "OpponentName" : "Huynh, Steven Minh Triet",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "3",
+                "OpponentNi" : 15,
+                "OpponentName" : "Polfliet, Victor",
+                "Result" : "½",
+                "Color" : "Black",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "5",
+                "OpponentNi" : 13,
+                "OpponentName" : "Van Heinsbergen, Benjamin",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            } ]
+        }, {
+            "Ranking" : 6,
+            "Name" : "Haimiti, Eldar",
+            "Ni" : 20,
+            "Rank" : 3,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-08",
+            "BirthDate" : "2018",
+            "Sex" : "Male",
+            "Country" : "BEL",
+            "NationalId" : 27687,
+            "FideId" : 290629,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 1408,
+            "FideElo" : 0,
+            "UsedElo" : 1408,
+            "Titel" : "",
+            "ClubNumber" : 194,
+            "ClubName" : "ChessLooks Lier",
+            "NbOfParts" : 9,
+            "Points" : "5.0",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "48.00"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "49.50"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : "20.50"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "33.0"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "-"
+            } ],
+            "Performance" : 1264,
+            "Paye" : 1,
+            "Absent" : "Present",
+            "AbsentAtRounds" : "",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "3",
+                "OpponentNi" : 10,
+                "OpponentName" : "Parizad, Bryan",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "2",
+                "OpponentNi" : 2,
+                "OpponentName" : "Kapoor, Amyra",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "2",
+                "OpponentNi" : 14,
+                "OpponentName" : "Hayden, Levi",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "2",
+                "OpponentNi" : 5,
+                "OpponentName" : "Van Der Lugt, Floris",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "1",
+                "OpponentNi" : 12,
+                "OpponentName" : "Ivanov, Theo",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "2",
+                "OpponentNi" : 15,
+                "OpponentName" : "Polfliet, Victor",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "4",
+                "OpponentNi" : 21,
+                "OpponentName" : "Akhayan, Lilit",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "2",
+                "OpponentNi" : 8,
+                "OpponentName" : "Akyuerek, Mete",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "4",
+                "OpponentNi" : 6,
+                "OpponentName" : "Sodbayar, Nomingoo",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            } ]
+        }, {
+            "Ranking" : 7,
+            "Name" : "Balaji, Arya Vishal",
+            "Ni" : 4,
+            "Rank" : 4,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-08",
+            "BirthDate" : "2018",
+            "Sex" : "Male",
+            "Country" : "BEL",
+            "NationalId" : 29072,
+            "FideId" : 293555,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 1400,
+            "FideElo" : 0,
+            "UsedElo" : 1400,
+            "Titel" : "",
+            "ClubNumber" : 132,
+            "ClubName" : "Oude God Mortsel",
+            "NbOfParts" : 9,
+            "Points" : "5.0",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "46.50"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "50.50"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : "23.00"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "27.0"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "-"
+            } ],
+            "Performance" : 1215,
+            "Paye" : 1,
+            "Absent" : "Present",
+            "AbsentAtRounds" : "",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "4",
+                "OpponentNi" : 11,
+                "OpponentName" : "Paeleman, Lenne",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "3",
+                "OpponentNi" : 5,
+                "OpponentName" : "Van Der Lugt, Floris",
+                "Result" : "½",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "4",
+                "OpponentNi" : 8,
+                "OpponentName" : "Akyuerek, Mete",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "6",
+                "OpponentNi" : 18,
+                "OpponentName" : "Huynh, Steven Minh Triet",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "5",
+                "OpponentNi" : 9,
+                "OpponentName" : "Kinaupenne, Teo",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "3",
+                "OpponentNi" : 6,
+                "OpponentName" : "Sodbayar, Nomingoo",
+                "Result" : "½",
+                "Color" : "Black",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "1",
+                "OpponentNi" : 12,
+                "OpponentName" : "Ivanov, Theo",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "4",
+                "OpponentNi" : 16,
+                "OpponentName" : "Van Rie, Andreas",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "6",
+                "OpponentNi" : 25,
+                "OpponentName" : "Zorig, Jamuha",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            } ]
+        }, {
+            "Ranking" : 8,
+            "Name" : "Huynh, Steven Minh Triet",
+            "Ni" : 18,
+            "Rank" : 21,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-08",
+            "BirthDate" : "2019",
+            "Sex" : "Male",
+            "Country" : "BEL",
+            "NationalId" : 29816,
+            "FideId" : 299871,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 0,
+            "FideElo" : 0,
+            "UsedElo" : 0,
+            "Titel" : "",
+            "ClubNumber" : 231,
+            "ClubName" : "Dolle Toren Leuven",
+            "NbOfParts" : 9,
+            "Points" : "5.0",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "41.50"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "44.00"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : "21.50"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "27.0"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "-"
+            } ],
+            "Performance" : 665,
+            "Paye" : 1,
+            "Absent" : "Present",
+            "AbsentAtRounds" : "",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "8",
+                "OpponentNi" : 19,
+                "OpponentName" : "Beneduce, Umberto",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "4",
+                "OpponentNi" : 13,
+                "OpponentName" : "Van Heinsbergen, Benjamin",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "9",
+                "OpponentNi" : 26,
+                "OpponentName" : "Zorig, Hasuha",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "6",
+                "OpponentNi" : 4,
+                "OpponentName" : "Balaji, Arya Vishal",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "7",
+                "OpponentNi" : 1,
+                "OpponentName" : "Ok, Roni Berken",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "6",
+                "OpponentNi" : 14,
+                "OpponentName" : "Hayden, Levi",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "5",
+                "OpponentNi" : 5,
+                "OpponentName" : "Van Der Lugt, Floris",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "6",
+                "OpponentNi" : 21,
+                "OpponentName" : "Akhayan, Lilit",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "2",
+                "OpponentNi" : 8,
+                "OpponentName" : "Akyuerek, Mete",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            } ]
+        }, {
+            "Ranking" : 9,
+            "Name" : "Van Rie, Andreas",
+            "Ni" : 16,
+            "Rank" : 19,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-08",
+            "BirthDate" : "2018",
+            "Sex" : "Male",
+            "Country" : "BEL",
+            "NationalId" : 31547,
+            "FideId" : 0,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 0,
+            "FideElo" : 0,
+            "UsedElo" : 0,
+            "Titel" : "",
+            "ClubNumber" : 230,
+            "ClubName" : "Leuven Centraal",
+            "NbOfParts" : 9,
+            "Points" : "5.0",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "40.00"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "42.50"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : "20.50"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "23.0"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "-"
+            } ],
+            "Performance" : 1007,
+            "Paye" : 1,
+            "Absent" : "Present",
+            "AbsentAtRounds" : "",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "6",
+                "OpponentNi" : 13,
+                "OpponentName" : "Van Heinsbergen, Benjamin",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "12",
+                "OpponentNi" : 26,
+                "OpponentName" : "Zorig, Hasuha",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "13",
+                "OpponentNi" : 19,
+                "OpponentName" : "Beneduce, Umberto",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "11",
+                "OpponentNi" : 24,
+                "OpponentName" : "Arthur, Decoster",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "9",
+                "OpponentNi" : 23,
+                "OpponentName" : "Drugmand, Bruno",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "5",
+                "OpponentNi" : 21,
+                "OpponentName" : "Akhayan, Lilit",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "6",
+                "OpponentNi" : 9,
+                "OpponentName" : "Kinaupenne, Teo",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "4",
+                "OpponentNi" : 4,
+                "OpponentName" : "Balaji, Arya Vishal",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "1",
+                "OpponentNi" : 12,
+                "OpponentName" : "Ivanov, Theo",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            } ]
+        }, {
+            "Ranking" : 10,
+            "Name" : "Beneduce, Umberto",
+            "Ni" : 19,
+            "Rank" : 8,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-08",
+            "BirthDate" : "2019",
+            "Sex" : "Male",
+            "Country" : "BEL",
+            "NationalId" : 29605,
+            "FideId" : 294870,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 1400,
+            "FideElo" : 0,
+            "UsedElo" : 1400,
+            "Titel" : "",
+            "ClubNumber" : 551,
+            "ClubName" : "HCC Jurbise",
+            "NbOfParts" : 9,
+            "Points" : "5.0",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "40.00"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "42.00"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : "18.00"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "20.0"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "-"
+            } ],
+            "Performance" : 1132,
+            "Paye" : 1,
+            "Absent" : "Present",
+            "AbsentAtRounds" : "",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "8",
+                "OpponentNi" : 18,
+                "OpponentName" : "Huynh, Steven Minh Triet",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "8",
+                "OpponentNi" : 8,
+                "OpponentName" : "Akyuerek, Mete",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "13",
+                "OpponentNi" : 16,
+                "OpponentName" : "Van Rie, Andreas",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "13",
+                "OpponentNi" : 7,
+                "OpponentName" : "Polfliet, Ella",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "10",
+                "OpponentNi" : 24,
+                "OpponentName" : "Arthur, Decoster",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "9",
+                "OpponentNi" : 25,
+                "OpponentName" : "Zorig, Jamuha",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "7",
+                "OpponentNi" : 2,
+                "OpponentName" : "Kapoor, Amyra",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "5",
+                "OpponentNi" : 13,
+                "OpponentName" : "Van Heinsbergen, Benjamin",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "3",
+                "OpponentNi" : 15,
+                "OpponentName" : "Polfliet, Victor",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            } ]
+        }, {
+            "Ranking" : 11,
+            "Name" : "Hayden, Levi",
+            "Ni" : 14,
+            "Rank" : 18,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-08",
+            "BirthDate" : "2018",
+            "Sex" : "Male",
+            "Country" : "BEL",
+            "NationalId" : 31448,
+            "FideId" : 0,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 0,
+            "FideElo" : 0,
+            "UsedElo" : 0,
+            "Titel" : "",
+            "ClubNumber" : 436,
+            "ClubName" : "LSV-Chesspirant",
+            "NbOfParts" : 9,
+            "Points" : "5.0",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "37.50"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "41.50"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : "20.00"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "27.0"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "-"
+            } ],
+            "Performance" : 511,
+            "Paye" : 1,
+            "Absent" : "Present",
+            "AbsentAtRounds" : "",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "5",
+                "OpponentNi" : 9,
+                "OpponentName" : "Kinaupenne, Teo",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "6",
+                "OpponentNi" : 21,
+                "OpponentName" : "Akhayan, Lilit",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "2",
+                "OpponentNi" : 20,
+                "OpponentName" : "Haimiti, Eldar",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "5",
+                "OpponentNi" : 2,
+                "OpponentName" : "Kapoor, Amyra",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "2",
+                "OpponentNi" : 8,
+                "OpponentName" : "Akyuerek, Mete",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "6",
+                "OpponentNi" : 18,
+                "OpponentName" : "Huynh, Steven Minh Triet",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "8",
+                "OpponentNi" : 17,
+                "OpponentName" : "Pelemans, Aron",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "7",
+                "OpponentNi" : 25,
+                "OpponentName" : "Zorig, Jamuha",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "8",
+                "OpponentNi" : 11,
+                "OpponentName" : "Paeleman, Lenne",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            } ]
+        }, {
+            "Ranking" : 12,
+            "Name" : "Zorig, Hasuha",
+            "Ni" : 26,
+            "Rank" : 26,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-08",
+            "BirthDate" : "2020",
+            "Sex" : "Male",
+            "Country" : "BEL",
+            "NationalId" : 30088,
+            "FideId" : 0,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 0,
+            "FideElo" : 0,
+            "UsedElo" : 0,
+            "Titel" : "",
+            "ClubNumber" : 318,
+            "ClubName" : "Blankenberge",
+            "NbOfParts" : 9,
+            "Points" : "5.0",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "36.00"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "38.50"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : "19.50"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "18.0"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "-"
+            } ],
+            "Performance" : 199,
+            "Paye" : 1,
+            "Absent" : "Present",
+            "AbsentAtRounds" : "",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "13",
+                "OpponentNi" : 5,
+                "OpponentName" : "Van Der Lugt, Floris",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "12",
+                "OpponentNi" : 16,
+                "OpponentName" : "Van Rie, Andreas",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "9",
+                "OpponentNi" : 18,
+                "OpponentName" : "Huynh, Steven Minh Triet",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "10",
+                "OpponentNi" : 11,
+                "OpponentName" : "Paeleman, Lenne",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "11",
+                "OpponentNi" : 17,
+                "OpponentName" : "Pelemans, Aron",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "12",
+                "OpponentNi" : 24,
+                "OpponentName" : "Arthur, Decoster",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "12",
+                "OpponentNi" : 23,
+                "OpponentName" : "Drugmand, Bruno",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "8",
+                "OpponentNi" : 9,
+                "OpponentName" : "Kinaupenne, Teo",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "7",
+                "OpponentNi" : 2,
+                "OpponentName" : "Kapoor, Amyra",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            } ]
+        }, {
+            "Ranking" : 13,
+            "Name" : "Van Heinsbergen, Benjamin",
+            "Ni" : 13,
+            "Rank" : 6,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-08",
+            "BirthDate" : "2018",
+            "Sex" : "Male",
+            "Country" : "BEL",
+            "NationalId" : 26868,
+            "FideId" : 284793,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 1400,
+            "FideElo" : 0,
+            "UsedElo" : 1400,
+            "Titel" : "",
+            "ClubNumber" : 121,
+            "ClubName" : "Turnhout",
+            "NbOfParts" : 8,
+            "Points" : "4.0",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "47.50"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "51.50"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : "18.00"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "26.0"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "-"
+            } ],
+            "Performance" : 1106,
+            "Paye" : 1,
+            "Absent" : "Present",
+            "AbsentAtRounds" : "",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "6",
+                "OpponentNi" : 16,
+                "OpponentName" : "Van Rie, Andreas",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "4",
+                "OpponentNi" : 18,
+                "OpponentName" : "Huynh, Steven Minh Triet",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "1",
+                "OpponentNi" : 12,
+                "OpponentName" : "Ivanov, Theo",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "3",
+                "OpponentNi" : 8,
+                "OpponentName" : "Akyuerek, Mete",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "6",
+                "OpponentNi" : 11,
+                "OpponentName" : "Paeleman, Lenne",
+                "Result" : "1FF",
+                "Color" : "White",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "4",
+                "OpponentNi" : 2,
+                "OpponentName" : "Kapoor, Amyra",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "3",
+                "OpponentNi" : 6,
+                "OpponentName" : "Sodbayar, Nomingoo",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "5",
+                "OpponentNi" : 19,
+                "OpponentName" : "Beneduce, Umberto",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "5",
+                "OpponentNi" : 5,
+                "OpponentName" : "Van Der Lugt, Floris",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            } ]
+        }, {
+            "Ranking" : 14,
+            "Name" : "Akhayan, Lilit",
+            "Ni" : 21,
+            "Rank" : 9,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-08",
+            "BirthDate" : "2018",
+            "Sex" : "Femelle",
+            "Country" : "BEL",
+            "NationalId" : 29008,
+            "FideId" : 293156,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 1400,
+            "FideElo" : 0,
+            "UsedElo" : 1400,
+            "Titel" : "",
+            "ClubNumber" : 401,
+            "ClubName" : "KGSRL Gent",
+            "NbOfParts" : 9,
+            "Points" : "4.0",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "38.50"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "41.00"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : "15.50"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "26.0"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "-"
+            } ],
+            "Performance" : 1054,
+            "Paye" : 1,
+            "Absent" : "Present",
+            "AbsentAtRounds" : "",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "9",
+                "OpponentNi" : 22,
+                "OpponentName" : "Meysman, Mioko",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "6",
+                "OpponentNi" : 14,
+                "OpponentName" : "Hayden, Levi",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "6",
+                "OpponentNi" : 24,
+                "OpponentName" : "Arthur, Decoster",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "4",
+                "OpponentNi" : 3,
+                "OpponentName" : "Dreessen, Sem",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "3",
+                "OpponentNi" : 15,
+                "OpponentName" : "Polfliet, Victor",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "5",
+                "OpponentNi" : 16,
+                "OpponentName" : "Van Rie, Andreas",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "4",
+                "OpponentNi" : 20,
+                "OpponentName" : "Haimiti, Eldar",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "6",
+                "OpponentNi" : 18,
+                "OpponentName" : "Huynh, Steven Minh Triet",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "9",
+                "OpponentNi" : 17,
+                "OpponentName" : "Pelemans, Aron",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            } ]
+        }, {
+            "Ranking" : 19,
+            "Name" : "Paeleman, Lenne",
+            "Ni" : 11,
+            "Rank" : 17,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-08",
+            "BirthDate" : "2019",
+            "Sex" : "Femelle",
+            "Country" : "BEL",
+            "NationalId" : 29585,
+            "FideId" : 0,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 0,
+            "FideElo" : 0,
+            "UsedElo" : 0,
+            "Titel" : "",
+            "ClubNumber" : 121,
+            "ClubName" : "Turnhout",
+            "NbOfParts" : 7,
+            "Points" : "4.0",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "32.50"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "36.50"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : "14.50"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "18.0"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "-"
+            } ],
+            "Performance" : 250,
+            "Paye" : 1,
+            "Absent" : "Present",
+            "AbsentAtRounds" : "",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "4",
+                "OpponentNi" : 4,
+                "OpponentName" : "Balaji, Arya Vishal",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "11",
+                "OpponentNi" : 24,
+                "OpponentName" : "Arthur, Decoster",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "10",
+                "OpponentNi" : 10,
+                "OpponentName" : "Parizad, Bryan",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "10",
+                "OpponentNi" : 26,
+                "OpponentName" : "Zorig, Hasuha",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "6",
+                "OpponentNi" : 13,
+                "OpponentName" : "Van Heinsbergen, Benjamin",
+                "Result" : "0ff",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "Absent",
+                "OpponentNi" : -1,
+                "OpponentName" : "NO",
+                "Result" : "-",
+                "Color" : "No Color",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "10",
+                "OpponentNi" : 3,
+                "OpponentName" : "Dreessen, Sem",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "9",
+                "OpponentNi" : 17,
+                "OpponentName" : "Pelemans, Aron",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "8",
+                "OpponentNi" : 14,
+                "OpponentName" : "Hayden, Levi",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            } ]
+        }, {
+            "Ranking" : 16,
+            "Name" : "Pelemans, Aron",
+            "Ni" : 17,
+            "Rank" : 20,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-08",
+            "BirthDate" : "2018",
+            "Sex" : "Male",
+            "Country" : "BEL",
+            "NationalId" : 29314,
+            "FideId" : 0,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 0,
+            "FideElo" : 0,
+            "UsedElo" : 0,
+            "Titel" : "",
+            "ClubNumber" : 231,
+            "ClubName" : "Dolle Toren Leuven",
+            "NbOfParts" : 9,
+            "Points" : "4.0",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "35.00"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "36.50"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : "13.00"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "16.0"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "-"
+            } ],
+            "Performance" : 431,
+            "Paye" : 1,
+            "Absent" : "Present",
+            "AbsentAtRounds" : "",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "7",
+                "OpponentNi" : 15,
+                "OpponentName" : "Polfliet, Victor",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "13",
+                "OpponentNi" : 25,
+                "OpponentName" : "Zorig, Jamuha",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "12",
+                "OpponentNi" : 9,
+                "OpponentName" : "Kinaupenne, Teo",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "12",
+                "OpponentNi" : 10,
+                "OpponentName" : "Parizad, Bryan",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "11",
+                "OpponentNi" : 26,
+                "OpponentName" : "Zorig, Hasuha",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "10",
+                "OpponentNi" : 23,
+                "OpponentName" : "Drugmand, Bruno",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "8",
+                "OpponentNi" : 14,
+                "OpponentName" : "Hayden, Levi",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "9",
+                "OpponentNi" : 11,
+                "OpponentName" : "Paeleman, Lenne",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "9",
+                "OpponentNi" : 21,
+                "OpponentName" : "Akhayan, Lilit",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            } ]
+        }, {
+            "Ranking" : 17,
+            "Name" : "Kinaupenne, Teo",
+            "Ni" : 9,
+            "Rank" : 5,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-08",
+            "BirthDate" : "2018",
+            "Sex" : "Male",
+            "Country" : "BEL",
+            "NationalId" : 29567,
+            "FideId" : 298921,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 1400,
+            "FideElo" : 0,
+            "UsedElo" : 1400,
+            "Titel" : "",
+            "ClubNumber" : 436,
+            "ClubName" : "LSV-Chesspirant",
+            "NbOfParts" : 9,
+            "Points" : "4.0",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "35.00"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "36.50"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : "10.50"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "18.0"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "-"
+            } ],
+            "Performance" : 1060,
+            "Paye" : 1,
+            "Absent" : "Present",
+            "AbsentAtRounds" : "",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "5",
+                "OpponentNi" : 14,
+                "OpponentName" : "Hayden, Levi",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "7",
+                "OpponentNi" : 6,
+                "OpponentName" : "Sodbayar, Nomingoo",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "12",
+                "OpponentNi" : 17,
+                "OpponentName" : "Pelemans, Aron",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "8",
+                "OpponentNi" : 22,
+                "OpponentName" : "Meysman, Mioko",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "5",
+                "OpponentNi" : 4,
+                "OpponentName" : "Balaji, Arya Vishal",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "8",
+                "OpponentNi" : 1,
+                "OpponentName" : "Ok, Roni Berken",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "6",
+                "OpponentNi" : 16,
+                "OpponentName" : "Van Rie, Andreas",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "8",
+                "OpponentNi" : 26,
+                "OpponentName" : "Zorig, Hasuha",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "12",
+                "OpponentNi" : 10,
+                "OpponentName" : "Parizad, Bryan",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            } ]
+        }, {
+            "Ranking" : 18,
+            "Name" : "Dreessen, Sem",
+            "Ni" : 3,
+            "Rank" : 12,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-08",
+            "BirthDate" : "2019",
+            "Sex" : "Male",
+            "Country" : "BEL",
+            "NationalId" : 31353,
+            "FideId" : 0,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 0,
+            "FideElo" : 0,
+            "UsedElo" : 0,
+            "Titel" : "",
+            "ClubNumber" : 143,
+            "ClubName" : "Temse",
+            "NbOfParts" : 9,
+            "Points" : "4.0",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "33.50"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "35.50"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : "11.00"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "19.0"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "-"
+            } ],
+            "Performance" : 275,
+            "Paye" : 1,
+            "Absent" : "Present",
+            "AbsentAtRounds" : "",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "12",
+                "OpponentNi" : 25,
+                "OpponentName" : "Zorig, Jamuha",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "5",
+                "OpponentNi" : 15,
+                "OpponentName" : "Polfliet, Victor",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "8",
+                "OpponentNi" : 22,
+                "OpponentName" : "Meysman, Mioko",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "4",
+                "OpponentNi" : 21,
+                "OpponentName" : "Akhayan, Lilit",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "8",
+                "OpponentNi" : 2,
+                "OpponentName" : "Kapoor, Amyra",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "7",
+                "OpponentNi" : 5,
+                "OpponentName" : "Van Der Lugt, Floris",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "10",
+                "OpponentNi" : 11,
+                "OpponentName" : "Paeleman, Lenne",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "13",
+                "OpponentNi" : 7,
+                "OpponentName" : "Polfliet, Ella",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "10",
+                "OpponentNi" : 23,
+                "OpponentName" : "Drugmand, Bruno",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            } ]
+        }, {
+            "Ranking" : 15,
+            "Name" : "Kapoor, Amyra",
+            "Ni" : 2,
+            "Rank" : 11,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-08",
+            "BirthDate" : "2019",
+            "Sex" : "Femelle",
+            "Country" : "BEL",
+            "NationalId" : 29303,
+            "FideId" : 548007382,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 0,
+            "FideElo" : 0,
+            "UsedElo" : 0,
+            "Titel" : "",
+            "ClubNumber" : 231,
+            "ClubName" : "Dolle Toren Leuven",
+            "NbOfParts" : 9,
+            "Points" : "4.0",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "36.00"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "38.50"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : "14.50"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "23.0"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "-"
+            } ],
+            "Performance" : 432,
+            "Paye" : 1,
+            "Absent" : "Present",
+            "AbsentAtRounds" : "",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "11",
+                "OpponentNi" : 24,
+                "OpponentName" : "Arthur, Decoster",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "2",
+                "OpponentNi" : 20,
+                "OpponentName" : "Haimiti, Eldar",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "7",
+                "OpponentNi" : 25,
+                "OpponentName" : "Zorig, Jamuha",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "5",
+                "OpponentNi" : 14,
+                "OpponentName" : "Hayden, Levi",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "8",
+                "OpponentNi" : 3,
+                "OpponentName" : "Dreessen, Sem",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "4",
+                "OpponentNi" : 13,
+                "OpponentName" : "Van Heinsbergen, Benjamin",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "7",
+                "OpponentNi" : 19,
+                "OpponentName" : "Beneduce, Umberto",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "10",
+                "OpponentNi" : 1,
+                "OpponentName" : "Ok, Roni Berken",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "7",
+                "OpponentNi" : 26,
+                "OpponentName" : "Zorig, Hasuha",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            } ]
+        }, {
+            "Ranking" : 20,
+            "Name" : "Zorig, Jamuha",
+            "Ni" : 25,
+            "Rank" : 25,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-08",
+            "BirthDate" : "2018",
+            "Sex" : "Male",
+            "Country" : "BEL",
+            "NationalId" : 30090,
+            "FideId" : 0,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 0,
+            "FideElo" : 0,
+            "UsedElo" : 0,
+            "Titel" : "",
+            "ClubNumber" : 318,
+            "ClubName" : "Blankenberge",
+            "NbOfParts" : 9,
+            "Points" : "4.0",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "32.00"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "33.50"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : "13.00"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "18.0"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "-"
+            } ],
+            "Performance" : 275,
+            "Paye" : 1,
+            "Absent" : "Present",
+            "AbsentAtRounds" : "",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "12",
+                "OpponentNi" : 3,
+                "OpponentName" : "Dreessen, Sem",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "13",
+                "OpponentNi" : 17,
+                "OpponentName" : "Pelemans, Aron",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "7",
+                "OpponentNi" : 2,
+                "OpponentName" : "Kapoor, Amyra",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "9",
+                "OpponentNi" : 1,
+                "OpponentName" : "Ok, Roni Berken",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "12",
+                "OpponentNi" : 22,
+                "OpponentName" : "Meysman, Mioko",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "9",
+                "OpponentNi" : 19,
+                "OpponentName" : "Beneduce, Umberto",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "11",
+                "OpponentNi" : 10,
+                "OpponentName" : "Parizad, Bryan",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "7",
+                "OpponentNi" : 14,
+                "OpponentName" : "Hayden, Levi",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "6",
+                "OpponentNi" : 4,
+                "OpponentName" : "Balaji, Arya Vishal",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            } ]
+        }, {
+            "Ranking" : 21,
+            "Name" : "Arthur, Decoster",
+            "Ni" : 24,
+            "Rank" : 24,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-08",
+            "BirthDate" : "2018",
+            "Sex" : "Male",
+            "Country" : "BEL",
+            "NationalId" : 32887,
+            "FideId" : 0,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 0,
+            "FideElo" : 0,
+            "UsedElo" : 0,
+            "Titel" : "",
+            "ClubNumber" : 261,
+            "ClubName" : "Opwijk",
+            "NbOfParts" : 9,
+            "Points" : "4.0",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "31.50"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "33.00"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : "10.00"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "14.0"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "-"
+            } ],
+            "Performance" : 275,
+            "Paye" : 1,
+            "Absent" : "Present",
+            "AbsentAtRounds" : "",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "11",
+                "OpponentNi" : 2,
+                "OpponentName" : "Kapoor, Amyra",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "11",
+                "OpponentNi" : 11,
+                "OpponentName" : "Paeleman, Lenne",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "6",
+                "OpponentNi" : 21,
+                "OpponentName" : "Akhayan, Lilit",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "11",
+                "OpponentNi" : 16,
+                "OpponentName" : "Van Rie, Andreas",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "10",
+                "OpponentNi" : 19,
+                "OpponentName" : "Beneduce, Umberto",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "12",
+                "OpponentNi" : 26,
+                "OpponentName" : "Zorig, Hasuha",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "13",
+                "OpponentNi" : 7,
+                "OpponentName" : "Polfliet, Ella",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "12",
+                "OpponentNi" : 10,
+                "OpponentName" : "Parizad, Bryan",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "11",
+                "OpponentNi" : 22,
+                "OpponentName" : "Meysman, Mioko",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            } ]
+        }, {
+            "Ranking" : 22,
+            "Name" : "Ok, Roni Berken",
+            "Ni" : 1,
+            "Rank" : 10,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-08",
+            "BirthDate" : "2019",
+            "Sex" : "Male",
+            "Country" : "BEL",
+            "NationalId" : 30083,
+            "FideId" : 548009148,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 0,
+            "FideElo" : 0,
+            "UsedElo" : 0,
+            "Titel" : "",
+            "ClubNumber" : 231,
+            "ClubName" : "Dolle Toren Leuven",
+            "NbOfParts" : 9,
+            "Points" : "2.5",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "37.00"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "39.00"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : " 7.75"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "16.5"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "1.5"
+            } ],
+            "Performance" : 176,
+            "Paye" : 1,
+            "Absent" : "Present",
+            "AbsentAtRounds" : "",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "10",
+                "OpponentNi" : 23,
+                "OpponentName" : "Drugmand, Bruno",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "1",
+                "OpponentNi" : 12,
+                "OpponentName" : "Ivanov, Theo",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "5",
+                "OpponentNi" : 5,
+                "OpponentName" : "Van Der Lugt, Floris",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "9",
+                "OpponentNi" : 25,
+                "OpponentName" : "Zorig, Jamuha",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "7",
+                "OpponentNi" : 18,
+                "OpponentName" : "Huynh, Steven Minh Triet",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "8",
+                "OpponentNi" : 9,
+                "OpponentName" : "Kinaupenne, Teo",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "9",
+                "OpponentNi" : 22,
+                "OpponentName" : "Meysman, Mioko",
+                "Result" : "½",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "10",
+                "OpponentNi" : 2,
+                "OpponentName" : "Kapoor, Amyra",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "13",
+                "OpponentNi" : 7,
+                "OpponentName" : "Polfliet, Ella",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            } ]
+        }, {
+            "Ranking" : 23,
+            "Name" : "Drugmand, Bruno",
+            "Ni" : 23,
+            "Rank" : 23,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-08",
+            "BirthDate" : "2018",
+            "Sex" : "Male",
+            "Country" : "BEL",
+            "NationalId" : 30442,
+            "FideId" : 548008087,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 0,
+            "FideElo" : 0,
+            "UsedElo" : 0,
+            "Titel" : "",
+            "ClubNumber" : 952,
+            "ClubName" : "Wavre",
+            "NbOfParts" : 9,
+            "Points" : "2.5",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "31.00"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "32.50"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : " 5.25"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "13.0"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "1.0"
+            } ],
+            "Performance" : -3,
+            "Paye" : 1,
+            "Absent" : "Present",
+            "AbsentAtRounds" : "",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "10",
+                "OpponentNi" : 1,
+                "OpponentName" : "Ok, Roni Berken",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "10",
+                "OpponentNi" : 10,
+                "OpponentName" : "Parizad, Bryan",
+                "Result" : "½",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "11",
+                "OpponentNi" : 7,
+                "OpponentName" : "Polfliet, Ella",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "7",
+                "OpponentNi" : 6,
+                "OpponentName" : "Sodbayar, Nomingoo",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "9",
+                "OpponentNi" : 16,
+                "OpponentName" : "Van Rie, Andreas",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "10",
+                "OpponentNi" : 17,
+                "OpponentName" : "Pelemans, Aron",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "12",
+                "OpponentNi" : 26,
+                "OpponentName" : "Zorig, Hasuha",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "11",
+                "OpponentNi" : 22,
+                "OpponentName" : "Meysman, Mioko",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "10",
+                "OpponentNi" : 3,
+                "OpponentName" : "Dreessen, Sem",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            } ]
+        }, {
+            "Ranking" : 24,
+            "Name" : "Meysman, Mioko",
+            "Ni" : 22,
+            "Rank" : 22,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-08",
+            "BirthDate" : "2018",
+            "Sex" : "Femelle",
+            "Country" : "BEL",
+            "NationalId" : 32181,
+            "FideId" : 0,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 0,
+            "FideElo" : 0,
+            "UsedElo" : 0,
+            "Titel" : "",
+            "ClubNumber" : 303,
+            "ClubName" : "KBSK Brugge",
+            "NbOfParts" : 9,
+            "Points" : "2.5",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "27.00"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "28.50"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : " 4.75"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "13.5"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "0.5"
+            } ],
+            "Performance" : 145,
+            "Paye" : 1,
+            "Absent" : "Present",
+            "AbsentAtRounds" : "",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "9",
+                "OpponentNi" : 21,
+                "OpponentName" : "Akhayan, Lilit",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "9",
+                "OpponentNi" : 7,
+                "OpponentName" : "Polfliet, Ella",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "8",
+                "OpponentNi" : 3,
+                "OpponentName" : "Dreessen, Sem",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "8",
+                "OpponentNi" : 9,
+                "OpponentName" : "Kinaupenne, Teo",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "12",
+                "OpponentNi" : 25,
+                "OpponentName" : "Zorig, Jamuha",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "11",
+                "OpponentNi" : 10,
+                "OpponentName" : "Parizad, Bryan",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "9",
+                "OpponentNi" : 1,
+                "OpponentName" : "Ok, Roni Berken",
+                "Result" : "½",
+                "Color" : "Black",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "11",
+                "OpponentNi" : 23,
+                "OpponentName" : "Drugmand, Bruno",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "11",
+                "OpponentNi" : 24,
+                "OpponentName" : "Arthur, Decoster",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            } ]
+        }, {
+            "Ranking" : 25,
+            "Name" : "Polfliet, Ella",
+            "Ni" : 7,
+            "Rank" : 14,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-08",
+            "BirthDate" : "2019",
+            "Sex" : "Femelle",
+            "Country" : "BEL",
+            "NationalId" : 32591,
+            "FideId" : 0,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 0,
+            "FideElo" : 0,
+            "UsedElo" : 0,
+            "Titel" : "",
+            "ClubNumber" : 240,
+            "ClubName" : "SCRR (Brussel)",
+            "NbOfParts" : 8,
+            "Points" : "2.0",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "31.50"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "33.00"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : " 4.50"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "5.0"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "-"
+            } ],
+            "Performance" : 63,
+            "Paye" : 1,
+            "Absent" : "Present",
+            "AbsentAtRounds" : "",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "1",
+                "OpponentNi" : 12,
+                "OpponentName" : "Ivanov, Theo",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "9",
+                "OpponentNi" : 22,
+                "OpponentName" : "Meysman, Mioko",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "11",
+                "OpponentNi" : 23,
+                "OpponentName" : "Drugmand, Bruno",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "13",
+                "OpponentNi" : 19,
+                "OpponentName" : "Beneduce, Umberto",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "13",
+                "OpponentNi" : 10,
+                "OpponentName" : "Parizad, Bryan",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "BYE",
+                "OpponentNi" : -1,
+                "OpponentName" : "NO",
+                "Result" : "1B",
+                "Color" : "No Color",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "13",
+                "OpponentNi" : 24,
+                "OpponentName" : "Arthur, Decoster",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "13",
+                "OpponentNi" : 3,
+                "OpponentName" : "Dreessen, Sem",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "13",
+                "OpponentNi" : 1,
+                "OpponentName" : "Ok, Roni Berken",
+                "Result" : "1",
+                "Color" : "Black",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            } ]
+        }, {
+            "Ranking" : 26,
+            "Name" : "Parizad, Bryan",
+            "Ni" : 10,
+            "Rank" : 16,
+            "CatIndex" : 200,
+            "CategoryValue_1" : "-08",
+            "BirthDate" : "2019",
+            "Sex" : "Male",
+            "Country" : "BEL",
+            "NationalId" : 32619,
+            "FideId" : 0,
+            "Payed" : 1,
+            "Affiliated" : 1,
+            "NationalElo" : 0,
+            "FideElo" : 0,
+            "UsedElo" : 0,
+            "Titel" : "",
+            "ClubNumber" : 114,
+            "ClubName" : "Mechelen",
+            "NbOfParts" : 9,
+            "Points" : "1.5",
+            "TieBreak" : [ {
+                "Type" : "Bucholtz Cut 1",
+                "Points" : "30.00"
+            }, {
+                "Type" : "Bucholtz",
+                "Points" : "32.00"
+            }, {
+                "Type" : "Sonneborn-Berger",
+                "Points" : " 3.25"
+            }, {
+                "Type" : "Progressif",
+                "Points" : "9.0"
+            }, {
+                "Type" : "Direct Encounter",
+                "Points" : "-"
+            } ],
+            "Performance" : 39,
+            "Paye" : 1,
+            "Absent" : "Present",
+            "AbsentAtRounds" : "",
+            "ExtraPts" : "0.0",
+            "SpecialPts" : "0.0",
+            "NbRounds" : 9,
+            "RoundArray" : [ {
+                "RoundNr" : 1,
+                "Tabel" : "3",
+                "OpponentNi" : 20,
+                "OpponentName" : "Haimiti, Eldar",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 2,
+                "Tabel" : "10",
+                "OpponentNi" : 23,
+                "OpponentName" : "Drugmand, Bruno",
+                "Result" : "½",
+                "Color" : "Black",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 3,
+                "Tabel" : "10",
+                "OpponentNi" : 11,
+                "OpponentName" : "Paeleman, Lenne",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "=",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 4,
+                "Tabel" : "12",
+                "OpponentNi" : 17,
+                "OpponentName" : "Pelemans, Aron",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 5,
+                "Tabel" : "13",
+                "OpponentNi" : 7,
+                "OpponentName" : "Polfliet, Ella",
+                "Result" : "1",
+                "Color" : "White",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 6,
+                "Tabel" : "11",
+                "OpponentNi" : 22,
+                "OpponentName" : "Meysman, Mioko",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 7,
+                "Tabel" : "11",
+                "OpponentNi" : 25,
+                "OpponentName" : "Zorig, Jamuha",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "Down",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 8,
+                "Tabel" : "12",
+                "OpponentNi" : 24,
+                "OpponentName" : "Arthur, Decoster",
+                "Result" : "0",
+                "Color" : "White",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            }, {
+                "RoundNr" : 9,
+                "Tabel" : "12",
+                "OpponentNi" : 9,
+                "OpponentName" : "Kinaupenne, Teo",
+                "Result" : "0",
+                "Color" : "Black",
+                "Float" : "Up",
+                "XtraPts" : "0.0"
+            } ]
+        } ]
+    }
+}

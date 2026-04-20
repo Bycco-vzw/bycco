@@ -19,7 +19,6 @@ useHead({
     <VNavigationDrawer v-model="drawer" color="deep-purple darken-1" dark>
       <VToolbar title="BYCCO Mgmt" color="deep-purple darken-3" dark />
       <v-list>
-        <v-list-item @click="goto('pages')" title="Pages" />
         <v-list-item @click="goto('reservations')" title="Reservations" />
         <v-list-item @click="goto('paymentrequests')" title="Payment Requests" />
         <v-list-item @click="goto('registrations')" title="Registrations" />

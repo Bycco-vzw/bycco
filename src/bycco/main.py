@@ -67,9 +67,6 @@ from bycco.stay import api_stay  # noqa E402
 logger.info("loading api_room")
 from bycco.room import api_room  # noqa E402
 
-logger.info("loading api_page")
-from bycco.page import api_page  # noqa E402
-
 logger.info("loading api_participant")
 from bycco.participant import api_participant  # noqa E402
 
@@ -78,9 +75,6 @@ from bycco.paymentrequest import api_paymentrequest  # noqa E402
 
 logger.info("loading api_registration")
 from bycco.registration import api_registration  # noqa E402
-
-logger.info("loading api_statamic")
-from bycco.statamic import api_statamic  # noqa E402
 
 logger.info("loading api_tournament")
 from bycco.tournament import api_tournament  # noqa E402
@@ -93,8 +87,6 @@ app.include_router(api_registration.router)
 app.include_router(api_room.router)
 app.include_router(api_participant.router)
 app.include_router(api_paymentrequest.router)
-app.include_router(api_statamic.router)
-app.include_router(api_page.router)
 app.include_router(api_tournament.router)
 logger.info("Api's loaded")
 
