@@ -1,6 +1,7 @@
 # dev tools + os
 .idea
 .vscode
+.devcontainer
 .directory
 .code-workspace
 .eslintcache
