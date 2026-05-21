@@ -115,6 +115,10 @@ onMounted(async () => {
   await setUnRound()
 })
 
+definePageMeta({
+  layout: "no_menu",
+})
+
 </script>
 
 <template>

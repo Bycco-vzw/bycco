@@ -114,6 +114,11 @@ onMounted(async () => {
   setInterval(getTournament, 60000)
   await setUnRound()
 })
+
+definePageMeta({
+  layout: "no_menu",
+})
+
 </script>
 
 <template>

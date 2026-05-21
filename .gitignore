@@ -13,6 +13,7 @@
 # python
 *.pyc
 .mypy_cache
+app.bycco.be.tgz
 
 # javascript
 .output

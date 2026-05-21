@@ -21,8 +21,9 @@ EMAIL = {
 }
 
 FILESTORE = {
-    "manager": "google",
-    "bucket": os.environ.get("FILESTORE_BUCKET", "byccowebsiteprod.appspot.com"),
+    "manager": "file",
+    "path": Path("/opt/app.bycco.be/share"),
+    # "bucket": os.environ.get("FILESTORE_BUCKET", "byccowebsiteprod.appspot.com"),
 }
 
 GOOGLE_CLIENT_ID = (
@@ -90,7 +91,7 @@ SECRETS = {
     },
 }
 
-SECRETS_PATH = Path(os.environ.get("SECRETS_PATH", ""))
+SECRETS_PATH = Path(os.environ.get("SECRETS_PATH", "/opt/app.bycco.be/share/secrets"))
 
 SHARED_PATH = Path(os.environ.get("SHARED_PATH", "./share"))
 
