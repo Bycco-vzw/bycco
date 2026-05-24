@@ -122,22 +122,21 @@ definePageMeta({
 </script>
 
 <template>
-  <v-container class="mt-1">
+  <v-container class="ma-0 pa-0">
     <h1>{{ t("BYC 2026") }} {{ tournament.category }}</h1>
     <v-tabs v-model="tab" show>
       <v-tab>{{ t("Standings") }}</v-tab>
       <v-tab>{{ t("Pairings") }}</v-tab>
-      <v-tab>Live</v-tab>
-      <v-tab>{{ t("Unofficial results") }}</v-tab>
     </v-tabs>
     <v-window v-model="tab"  :touch="false">
       <v-window-item>
         <v-data-table
           :items="swartrn.standings"
           :headers="st_headers"
-          :items-per-page="50"
+          :items-per-page="-1"
           mobile-breakpoint="0"
           density="compact"
+          hide-default-footer
         />
       </v-window-item>
       <v-window-item>
@@ -146,32 +145,12 @@ definePageMeta({
           <v-data-table
             :items="p.games"
             :headers="swartrn.pr_headers"
-            :items-per-page="50"
+            :items-per-page="-1"
             mobile-breakpoint="0"
             density="compact"
+            hide-default-footer
           />
         </div>
-      </v-window-item>
-      <v-window-item>
-          <a
-          href="https://www.chess.com/events/u16-bjk-cjb-bklm-2026"
-          target="live"
-          >Live Games</a
-        >
-      </v-window-item>
-      <v-window-item>
-        <h2>{{ t("Unofficial results") }}</h2>
-        <div style="font-size: 0.7rem;" class="mb-2">
-          {{ t("uo_explanation") }}
-        </div>
-        <div>{{ t("Round") }}: {{ round }}</div>
-        <v-data-table
-          :items="games"
-          :headers="uo_headers"
-          :items-per-page="50"
-          mobile-breakpoint="0"
-          density="compact">
-        </v-data-table>
       </v-window-item>
     </v-window>
   </v-container>
