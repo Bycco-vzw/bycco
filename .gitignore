@@ -30,3 +30,6 @@ share/secrets
 __pycache__
 local_settings.py
 .env
+
+# data
+data/koskers.txt

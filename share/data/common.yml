@@ -3,25 +3,25 @@
 categories:
   - value: 20
     title: "-20"
-    year: 2006
+    year: 2007
   - value: 18
     title: "-18"
-    year: 2008
+    year: 2009
   - value: 16
     title: "-16"
-    year: 2010
+    year: 2011
   - value: 14
     title: "-14"
-    year: 2012
+    year: 2013
   - value: 12
     title: "-12"
-    year: 2014
+    year: 2015
   - value: 10
     title: "-10"
-    year: 2016
+    year: 2017
   - value: 8
     title: "-8"
-    year: 2018
+    year: 2019
 
 canbechampion:
   - Fide Belg.
@@ -41,192 +41,192 @@ yesno:
     text: "No"
 
 trndates:
-  startdate: 2026-02-16
-  enddate: 2026-02-22
-  stayopen: 2025-10-04
-  stayclose: 2025-12-10
-  regopen: 2025-11-27
-  regclose: 2026-02-01
-  regadmin: 2026-01-16
+  startdate: 2027-05-05
+  enddate: 2027-05-09
+  # stayopen: 2025-10-04
+  # stayclose: 2025-12-10
+  regopen: 2026-12-01
+  regclose: 2027-04-21
+  regadmin: 2026-05-01
 
-rooms:
-  - name: SH
-    minpers: 1
-    maxpers: 1
-    day: 75
-    clean: 0
-    nl: Hotelkamer 1 persoon
-    fr: Chambre d'Hôtel 1 personne
-    de: Hotelzimmer 1 Person
-    en: Hotel room 1 person
-    available: 1
-    breakfast: 1
-  - name: DH
-    minpers: 2
-    maxpers: 2
-    day: 110
-    clean: 0
-    nl: Hotelkamer 2 personen
-    fr: Chambre d'Hôtel 2 personnes
-    de: Hotelzimmer 2 Personen
-    en: Hotel room 2 persons
-    available: 1
-    breakfast: 1
-  - name: TH
-    minpers: 2
-    maxpers: 3
-    day: 165
-    clean: 0
-    nl: Hotelkamer 3 personen
-    fr: Chambre d'Hôtel 3 personnes
-    de: Hotelzimmer 3 Personen
-    en: Hotel room 3 persons
-    available: 1
-    breakfast: 1
-  - name: SD
-    minpers: 1
-    maxpers: 3
-    day: 100
-    clean: 39
-    nl: Studio 3 personen
-    fr: Studio 3 personnes
-    de: Studio 3 Personen
-    en: Studio 3 persons
-    available: 1
-    breakfast: 0
-  - name: AP4
-    minpers: 2
-    maxpers: 4
-    day: 100
-    clean: 49
-    nl: Appartement 4 personen
-    fr: Appartement 4 personnes
-    de: Appartement 4 Personen
-    en: Apartment 4 persons
-    available: 1
-    breakfast: 0
-  - name: AP5
-    minpers: 4
-    maxpers: 5
-    day: 100
-    clean: 49
-    nl: Appartement 5 personen
-    fr: Appartement 5 personnes
-    de: Appartement 5 Personen
-    en: Apartment 5 persons
-    available: 1
-    breakfast: 0
-  - name: AP6
-    minpers: 5
-    maxpers: 6
-    day: 120
-    clean: 60
-    nl: Appartement 6 personen
-    fr: Appartement 6 personnes
-    de: Appartement 6 Personen
-    en: Apartment 6 persons
-    available: 1
-    breakfast: 0
-  - name: AP7
-    minpers: 6
-    maxpers: 7
-    day: 145
-    clean: 60
-    nl: Appartement 7 personen
-    fr: Appartement 7 personnes
-    de: Appartement 7 Personen
-    en: Apartment 7 persons
-    available: 0
-    breakfast: 0
-    closed: yes
+# rooms:
+#   - name: SH
+#     minpers: 1
+#     maxpers: 1
+#     day: 75
+#     clean: 0
+#     nl: Hotelkamer 1 persoon
+#     fr: Chambre d'Hôtel 1 personne
+#     de: Hotelzimmer 1 Person
+#     en: Hotel room 1 person
+#     available: 1
+#     breakfast: 1
+#   - name: DH
+#     minpers: 2
+#     maxpers: 2
+#     day: 110
+#     clean: 0
+#     nl: Hotelkamer 2 personen
+#     fr: Chambre d'Hôtel 2 personnes
+#     de: Hotelzimmer 2 Personen
+#     en: Hotel room 2 persons
+#     available: 1
+#     breakfast: 1
+#   - name: TH
+#     minpers: 2
+#     maxpers: 3
+#     day: 165
+#     clean: 0
+#     nl: Hotelkamer 3 personen
+#     fr: Chambre d'Hôtel 3 personnes
+#     de: Hotelzimmer 3 Personen
+#     en: Hotel room 3 persons
+#     available: 1
+#     breakfast: 1
+#   - name: SD
+#     minpers: 1
+#     maxpers: 3
+#     day: 100
+#     clean: 39
+#     nl: Studio 3 personen
+#     fr: Studio 3 personnes
+#     de: Studio 3 Personen
+#     en: Studio 3 persons
+#     available: 1
+#     breakfast: 0
+#   - name: AP4
+#     minpers: 2
+#     maxpers: 4
+#     day: 100
+#     clean: 49
+#     nl: Appartement 4 personen
+#     fr: Appartement 4 personnes
+#     de: Appartement 4 Personen
+#     en: Apartment 4 persons
+#     available: 1
+#     breakfast: 0
+#   - name: AP5
+#     minpers: 4
+#     maxpers: 5
+#     day: 100
+#     clean: 49
+#     nl: Appartement 5 personen
+#     fr: Appartement 5 personnes
+#     de: Appartement 5 Personen
+#     en: Apartment 5 persons
+#     available: 1
+#     breakfast: 0
+#   - name: AP6
+#     minpers: 5
+#     maxpers: 6
+#     day: 120
+#     clean: 60
+#     nl: Appartement 6 personen
+#     fr: Appartement 6 personnes
+#     de: Appartement 6 Personen
+#     en: Apartment 6 persons
+#     available: 1
+#     breakfast: 0
+#   - name: AP7
+#     minpers: 6
+#     maxpers: 7
+#     day: 145
+#     clean: 60
+#     nl: Appartement 7 personen
+#     fr: Appartement 7 personnes
+#     de: Appartement 7 Personen
+#     en: Apartment 7 persons
+#     available: 0
+#     breakfast: 0
+#     closed: yes
 
-catering:
-  - "no"
-  - breakfast
-  - half
+# catering:
+#   - "no"
+#   - breakfast
+#   - half
 
-i18n:
-  ROOM_18:
-    nl: Korting -18 jaar
-    fr: Reduction -18 ans
-    de: Rabatt -18 Jahr
-    en: Reduction -18 years
-  full:
-    nl: Volpension
-    fr: Pension complète
-    de: Vollpension
-    en: Full boarding
-  half:
-    nl: Halfpension
-    fr: Demi-pension
-    de: Halbpension
-    en: Half boarding
-  "no":
-    nl: Geen maaltijden
-    fr: Pas de repas
-    de: Keine Mahlzeiten
-    en: No meals
-  breakfast:
-    nl: ontbijt
-    fr: petit déjeuner
-    de: Frühstück
-    en: breakfast
-  tax:
-    nl: Verblijftaks Blankenberge
-    fr: Taxe de séjour Blankenberge
-    de: Aufenthaltssteuer Blankenberge
-    en: Resident tax Blankenberge
-  cleaning:
-    nl: Eindschoonmaak
-    fr: Nettoyage final
-    de: Endreinigung
-    en: Final cleaning
-  reduction:
-    nl: Korting
-    fr: Réduction
-    de: Rabatt
-    en: Discount
-  total:
-    nl: Totaal
-    fr: Total
-    de: Gesamt
-    en: Total
-  costnor:
-    nl: Kost zonder Korting
-    fr: Coût sans réduction
-    de: Kosten ohne Rabatt
-    en: Cost without discount
-  enrollment:
-    nl: Inschrijving
-    fr: Enregistrement
-    de: Anmeldung
-    en: Enrollment
-  admcost:
-    nl: Extra adminstratiekost
-    fr: Frais administratifs supplémentaires
-    de: Zusätzliche Verwaltungskosten
-    en: Extra administration cost
+# i18n:
+#   ROOM_18:
+#     nl: Korting -18 jaar
+#     fr: Reduction -18 ans
+#     de: Rabatt -18 Jahr
+#     en: Reduction -18 years
+#   full:
+#     nl: Volpension
+#     fr: Pension complète
+#     de: Vollpension
+#     en: Full boarding
+#   half:
+#     nl: Halfpension
+#     fr: Demi-pension
+#     de: Halbpension
+#     en: Half boarding
+#   "no":
+#     nl: Geen maaltijden
+#     fr: Pas de repas
+#     de: Keine Mahlzeiten
+#     en: No meals
+#   breakfast:
+#     nl: ontbijt
+#     fr: petit déjeuner
+#     de: Frühstück
+#     en: breakfast
+#   tax:
+#     nl: Verblijftaks Blankenberge
+#     fr: Taxe de séjour Blankenberge
+#     de: Aufenthaltssteuer Blankenberge
+#     en: Resident tax Blankenberge
+#   cleaning:
+#     nl: Eindschoonmaak
+#     fr: Nettoyage final
+#     de: Endreinigung
+#     en: Final cleaning
+#   reduction:
+#     nl: Korting
+#     fr: Réduction
+#     de: Rabatt
+#     en: Discount
+#   total:
+#     nl: Totaal
+#     fr: Total
+#     de: Gesamt
+#     en: Total
+#   costnor:
+#     nl: Kost zonder Korting
+#     fr: Coût sans réduction
+#     de: Kosten ohne Rabatt
+#     en: Cost without discount
+#   enrollment:
+#     nl: Inschrijving
+#     fr: Enregistrement
+#     de: Anmeldung
+#     en: Enrollment
+#   admcost:
+#     nl: Extra adminstratiekost
+#     fr: Frais administratifs supplémentaires
+#     de: Zusätzliche Verwaltungskosten
+#     en: Extra administration cost
 
-prices:
-  "+18":
-    half: 46
-    breakfast: 17
-    dinner: 29
-  "-18":
-    half: 30
-    breakfast: 13
-    dinner: 17
-  "-12":
-    half: 26
-    breakfast: 11
-    dinner: 15
-  "-3":
-    half: 0
-    breakfast: 0
-    dinner: 0
+# prices:
+#   "+18":
+#     half: 46
+#     breakfast: 17
+#     dinner: 29
+#   "-18":
+#     half: 30
+#     breakfast: 13
+#     dinner: 17
+#   "-12":
+#     half: 26
+#     breakfast: 11
+#     dinner: 15
+#   "-3":
+#     half: 0
+#     breakfast: 0
+#     dinner: 0
 
-discount_hotel_min18: 25
-tourist_tax: 2
+# discount_hotel_min18: 25
+# tourist_tax: 2
 
 rounds: 
 # used by unoffical results all round info is 30 minutes before actual start
